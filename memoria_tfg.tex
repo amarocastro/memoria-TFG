@@ -4,6 +4,7 @@
 
 \documentclass[11pt,a4paper,titlepage,twoside,openright,openbib]{report}
 \usepackage{biblatex}
+\usepackage{csquotes}
 %%% RELACIÓN DE VARIABLES A PERSONALIZAR %%%
 %\def\lingua{gal}
 \def\lingua{esp} % descomenta esta liña se redactarás a memoria en español
@@ -79,7 +80,9 @@
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
  \include{contido/introducion}
- \include{contido/demo}
+ \include{contido/estadoInfraestructuraSistema}
+ \include{contido/planificacionProyecto}
+ %\include{contido/demo}
 %\include{contido/...}
  \include{contido/conclusions}
 
@@ -95,8 +98,8 @@
  \include{bibliografia/acronimos}
  \include{bibliografia/glosario}
 
- \bibliographystyle{IEEEtran}
- \bibliography{\bibconfig,bibliografia/bibliografia}
+ %\bibliographystyle{IEEEtran}
+ %\bibliography{\bibconfig,bibliografia/bibliografia}
  \cleardoublepage
  
 \end{document}

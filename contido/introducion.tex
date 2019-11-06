@@ -1,6 +1,6 @@
 \chapter{Introdución}
 \label{chap:introducion}
-Según \textit{National Institute of Standards and Technology} (NIST), el Cloud Computing es un "modelo de recursos configurables y compartidos, accesibles através de la red bajo demanda y desde cualquier lugar en cualquier momento"\cite{DefCloudComputing}. Las principales características de este modelo son:
+\lettrine{S}{egún} \textit{National Institute of Standards and Technology} (NIST), el Cloud Computing es un \textquote{modelo de recursos configurables y compartidos, accesibles através de la red bajo demanda y desde cualquier lugar en cualquier momento}\cite{DefCloudComputing}. Las principales características de este modelo son:
 \begin{itemize}
     \item Autoservicio bajo demanda: El usuario puede aprovisionar recursos según sus necesidades y de forma automática sin requerir ninguna interacción humana con el proveedor del servicio.
     \item Acceso a través de red: El servicio es accesible a través de mecanismos estándar.
@@ -9,9 +9,9 @@ Según \textit{National Institute of Standards and Technology} (NIST), el Cloud 
     \item Servicio medido: El sistema Cloud es capaz de aportar información sobre los recursos que el cliente tiene aprovisionados (por ejemplo, almacenamiento, ancho de banda, procesamiento, y usuarios activos).
 \end{itemize}
  
- El Centro de Investigación en Tecnoloxías da Información e as Comunicacións (CITIC) de la Universidade da Coruña ofrece un servicio de Cloud Computing para el personal que trabaja en sus instalaciones, que les permite aprovisionar recursos, en forma de máquinas virtuales con unas especificaciones, de un servidor para realizar tareas que precisan gran capacidad de cómputo, de almacenamiento, o de red. Aunque el servicio ya está en uso, tiene grandes inconvenientes en la gestión y el acceso que no permiten ofrecerlo de forma abierta a todos los usuarios del centro.\\
+ El Centro de Investigación en Tecnoloxías da Información e as Comunicacións (CITIC) de la Universidade da Coruña ofrece un servicio de Cloud Computing para el personal que trabaja en sus instalaciones, que les permite aprovisionar recursos de un servidor en forma de máquinas virtuales con unas especificaciones determinas para realizar tareas que precisan gran capacidad de cómputo, de almacenamiento, o de red. Aunque el servicio ya está en uso, tiene grandes inconvenientes en la gestión y en el acceso que no permiten ofrecerlo de forma abierta a todos los usuarios del centro.\\
  
-Actualmente el sistema cuenta con una plataforma donde los usuarios no pueden acceder y obtener los recursos bajo demanda de forma dinámica y sencilla, esto tiene que ser realizado por una persona encargada de recibir sus peticiones y de activar máquinas virtuales para ellos, un proceso no automático. Este problema surge por la falta de un sistema con una interfaz intuitiva, ya que el portal de acceso actual es una vista de administrador del sistema con demasiadas opciones de configuración que el usuario final no debería tener disponibles. A través de dicha vista, los usuarios tampoco disponen de un directorio personal al que solo ellos tienen acceso para administrar sus recursos, con el portal actual tendrían acceso a todas las máquinas virtuales del sistema pudiendo eliminar o modificar cualquier recurso de otro usuario. Además la plataforma tampoco incorpora un sistema de medición de consumo de los recursos obtenidos por un usuario, así como tampoco hay un sistema que permita limitar la cantidad de recursos que un usuario puede aprovisionar.\\
+Actualmente el sistema cuenta con una plataforma donde los usuarios no pueden acceder y obtener los recursos bajo demanda de forma dinámica y sencilla, esto tiene que ser realizado por una persona encargada de recibir sus peticiones y de activar máquinas virtuales solicitadas, un proceso no automático. Este problema surge por la falta de un sistema con una interfaz intuitiva, ya que el portal de acceso actual solo cuenta con una vista de administrador del sistema con demasiadas opciones de configuración que el usuario final no debería tener disponibles. A través de dicha vista, los usuarios tampoco disponen de un directorio personal al que solo ellos tienen acceso para administrar sus recursos, con el portal actual tendrían acceso a todas las máquinas virtuales del sistema pudiendo eliminar o modificar cualquier recurso de otro usuario. Además, la plataforma tampoco incorpora un sistema de medición de consumo de los recursos obtenidos por un usuario, así como tampoco hay un sistema que permita limitar la cantidad de recursos que un usuario puede aprovisionar.\\
 
 Este servicio Cloud no cumple con las características esenciales de un sistema de Cloud Computing, como el autoservicio bajo demanda, el acceso a través de red, la gestión dinámica y elástica, y la monitorización y medición de los recursos, por lo que se hace necesario desplegar una herramienta, o herramientas, para separar el entorno de administración del entorno de usuario y crear un servicio Cloud lo más aproximado posible al modelo NIST, con la intención de obtener el máximo potencial de la infraestructura mejorando su eficiencia para que sea un servicio útil.
 
@@ -22,7 +22,16 @@ Este servicio Cloud no cumple con las características esenciales de un sistema 
 
 
 \section{Motivación}
+La motivación para realizar este proyecto se basa en mejorar el servicio Cloud del CITIC para que aquellos usuarios que necesiten equipos de grandes prestaciones para sus tareas puedan conseguirlos de una forma sencilla y ágil al mismo tiempo que se mejora la gestión interna del servicio, y así reducir sus costes e incidencias a largo plazo. En definitiva, hacer que esta herramienta sea eficiente, útil y capaz de dar servicio a todos sus usuarios.
 
 
 \section{Objetivos}
+El objetivo principal de este proyecto es mejorar el servicio Cloud que ofrece el CITIC desplegando una herramienta, usando como base las que ya están funcionando actualmente, para mejorar su eficiencia y obtener el máximo potencial de la infraestructura física. Con esto se pretende que el servicio sea útil y accesible para todos los usuarios.\\\\
+Los objetivos concretos se pueden resumir en los siguientes:
+\begin{itemize}
+    \item Centralizar y mejorar la gestión de usuarios integrando el sistema de cuentas de la UDC.
+    \item Desplegar una herramienta que facilite el acceso a la plataforma, que permita a los usuarios gestionar sus recursos y que simplifique el aprovisionamiento de recursos.
+    \item Implementar un sistema de facturación que permita limitar y controlar la cantidad de recursos que un usuario pueda obtener, y así evitar tener demasiados recursos ociosos.
+    \item Documentar las soluciones desplegadas en el sistema para facilitar la transmisión de conocimiento a largo plazo.
+\end{itemize}
 
