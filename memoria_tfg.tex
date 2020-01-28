@@ -3,15 +3,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[11pt,a4paper,titlepage,twoside,openright,openbib]{report}
-\usepackage{biblatex}
 \usepackage{csquotes}
+\usepackage{hyperref}
 %%% RELACIÓN DE VARIABLES A PERSONALIZAR %%%
 %\def\lingua{gal}
 \def\lingua{esp} % descomenta esta liña se redactarás a memoria en español
 %\def\lingua{eng} % descomenta esta liña se redactarás a memoria en inglés
 \def\nome{Amaro Castro Faci}                             % substitúe aquí o teu nome
 \def\nomedirectorA{Outro Nome Completo}             % substitúe aquí o nome de quen dirixe
-\def\titulo{Título completo do traballo fin de grao} % substitúe aquí o título do teu TFG  % descomenta a mención correspondente
+\def\titulo{PESCI: Plataforma de Entrega de Servicios Cloud para Investigación} % substitúe aquí o título do teu TFG  % descomenta a mención correspondente
 %\def\mencion{COMPUTACIÓN}
 %\def\mencion{ENXEÑARÍA DO SOFTWARE}
 %\def\mencion{ENXEÑARÍA DE COMPUTADORES}
@@ -52,14 +52,16 @@
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
  \include{portada/portada}
+ \iffalse
  \paxinaenbranco
  \dedicatoria{Dedicatoria} % escribe neste comando o teu texto de dedicatoria
  \paxinaenbranco
  \paxinaenbranco
  \begin{agradecementos}
- \blindtext                % substitúe este comando polo teu texto de agradecementos
+ \blindtext % substitúe este comando polo teu texto de agradecementos
  \end{agradecementos}
  \paxinaenbranco
+ \fi
  \include{portada/resumo}
  \paxinaenbranco
 
@@ -82,9 +84,9 @@
  \include{contido/introducion}
  \include{contido/estadoInfraestructuraSistema}
  \include{contido/planificacionProyecto}
- %\include{contido/demo}
+ \include{contido/metodoloxia}
 %\include{contido/...}
- \include{contido/conclusions}
+ %\include{contido/conclusions} ------Desmarcar
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  % Apéndices, glosarios e bibliografía  %
@@ -92,12 +94,13 @@
 
  \appendix
  \appendixpage
- \include{anexos/adicional}
+ %\include{anexos/adicional} 
 %\include{anexos/...}
 
- \include{bibliografia/acronimos}
- \include{bibliografia/glosario}
-
+ %\include{bibliografia/acronimos}
+ %\include{bibliografia/glosario}
+\bibliographystyle{IEEEtran}
+\bibliography{\bibconfig,bibliografia/bibliografia}
  %\bibliographystyle{IEEEtran}
  %\bibliography{\bibconfig,bibliografia/bibliografia}
  \cleardoublepage
