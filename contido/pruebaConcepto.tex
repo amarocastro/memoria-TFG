@@ -1,0 +1,19 @@
+
+\section{Prueba de Concepto}
+Para la realización de este proyecto se ha decidido crear un entorno virtual dentro de la infraestructura real donde está localizado el servicio, para poder desplegar el software Cloud Foundation y probarlo sin afectar a la configuración ni al funcionamiento general del servicio. La parte física de este entorno está formada por cuatro máquinas virtuales que equivalen a cuatro nodos físicos con el hipervisor ESXi instalado en cada uno. También cuenta con una máquina virtual con vCenter Server para permitir el acceso al entorno, y otra máquina virtual con Windows Server 2016 donde se habilitan servicios de red como DNS o NTP.
+*****ESTRUCTURA DEL ENTORNO.
+\subsection{Especificaciones del entorno}
+Estas son las características de hardware y software del nuevo entorno de pruebas.
+\begin{itemize}
+    \item Cuatro nodos con la siguiente configuración:
+    \begin{itemize}
+        \item Hipervisor: VMware ESXi, 6.7.0
+        \item Procesador: Intel(R) Xeon(R) CPU E5-2650 v4 @ 2.20GHz
+        \item Memoria: 24GB
+        \item Discos de almacenamiento: un disco duro de 100GB y tres discos duros de 200GB
+    \end{itemize}
+    \item Almacenamiento: \\
+        Este entorno, a diferencia del real, está basado en vSAN lo cual unifica los discos duros de cada host en un único almacén de datos dividido en cuatro grupos de discos donde el disco de 100GB representa el disco de memoria caché y los tres discos de 200GB representan la memoria de almacenamiento. La capacidad total útil del clúster es de 2,34TB.
+    \item Software:
+    **que hay instalado
+\end{itemize}

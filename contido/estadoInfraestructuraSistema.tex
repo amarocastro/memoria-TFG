@@ -25,6 +25,7 @@ Especificaciones principales de los nodos:
 El almacenamiento es independiente y está colocado en una ubicación distinta a la de los nodos. Esta conformado por 13 discos duros SSD de 3.84 TB de capacidad, obteniendo así una capacidad total de casi 50 TB, pero que utilizan el sistema de almaciento RAID 5 lo cual permite replicar los datos para conseguir mayor  integridad, tolerancia a fallos y ancho de banda, reduciendo la cantidad de almacenamiento utilizable a 34 TB. Estos discos forman un \textit{pool} de almacenamiento que se divide en cinco LUNs de 2 TB cada una, representadas en el sistema de virtualización como cinco \textit{datastores} diferentes que utilizan el sistema de archivos VMFS, que optimiza el almacenamiento de máquinas virtuales.\\
 Estos discos están colocados en varias cabinas que son accesibles por los nodos a través de dos switches para aportar redundancia. Para ello, las cabinas incorporan dos controladores SFP+ que se conectan a cada switch mediante dos puertos que aportan conectividad 10 Gb y, además, incorporan otros dos puertos con conectividad 1 Gb para la gestión de los discos. Estas conexiones utilizan los protocolos de red Ethernet y iSCSI , formando así, junto con el resto de componentes descritos, la estructura de una SAN.\\
 
+*****METER AQUI COMO SE GESTIONA LA RED Y EL ALMACENAMIENTO PARA HACER CONTRASTE CON CF. ESTO YA ESTÁ ESCRITO EN LA PARTE DE CF***
 **IMAGEN DE LOS COMPONENTES FISICOS Y COMO SE INTERCONECTAN LOS HOSTS**********
 
 \iffalse
@@ -33,9 +34,11 @@ Las conexiones entre dispositivos son Ethernet 10 Gigabit combinado con el proto
 \fi
 
 \section{Software}
-Actualmente el servicio está basado en el software de la empresa VMware, uno de los principales proveedores de software de virtualización, siendo \emph{VMware vSphere} y \emph{VMware vCenter Server} el software desplegado sobre la infraestructura. El primero se encarga de virtualizar parte de la infraestructura física y de proporcionar las herramientas necesarias para gestionarla, y el segundo permite acceder y gestionar múltiples nodos junto con sus respectivos servicios y máquinas virtuales desde un mismo lugar. Sus principales componentes son los siguientes:
+\label{subsec:softwareinstalado}
+Actualmente el servicio está basado en el software de la empresa VMware, uno de los principales proveedores de software de virtualización, siendo \emph{VMware vSphere} el software desplegado sobre la infraestructura. El primero se encarga de virtualizar parte de la infraestructura física y de proporcionar las herramientas necesarias para gestionarla. Sus principales componentes son los siguientes:
 \begin{itemize}
-    \item EsXi: Hipervisor propio de VMware, de tipo 1 o \textit{bare metal}. No requiere de sistema operativo para funcionar ya que funciona directamente sobre el hardware físico\cite{Esxi}. Este hipervisor está instalado en cada uno de los cinco nodos que forman la infraestructura.
+    \item ESXi: Hipervisor propio de VMware, de tipo 1 o \textit{bare metal}[\ref{itm:baremetal}]. No requiere de sistema operativo para funcionar ya que funciona directamente sobre el hardware físico\cite{Esxi}. Este hipervisor está instalado en cada uno de los cinco nodos que forman la infraestructura.
+    \item VMware vCenter Server: permite acceder y gestionar las redes, máquinas virtuales, almacenamiento y servicios de cada nodo desde un mismo lugar.
     \item Web Client: interfaz web que permite acceder a vCenter Server de forma remota.
     \item vMotion: permite la migración de máquinas virtuales de un servidor físico a otro de forma transparente.
     \item Storage vMotion: permite migrar los ficheros de una máquina virtual de un un datastore a otro, pudiendo repartirlos en diferentes datastores.
@@ -61,7 +64,7 @@ En los últimos tiempos los servicios de IaaS (\textit{Infrastructure as a Servi
 A la hora de alcanzar los objetivos descritos en este proyecto se nos plantea la duda de que solución software desplegar ya que actualmente existen tres principales alternativas en el mercado, VmWare Cloud Foundation, OpenStack y Apache CloudStack. Cada una de ellas ofrece diferentes características con diferentes requisitos que se pueden adaptar mejor o peor al entorno de despliegue, pero después de comprobar esos aspectos tenemos claro que la solución elegida es \emph{VmWare Cloud Foundation}.
 
 \subsubsection{VmWare Cloud Foundation}
-Esta solución virtualiza todas las capas de la infraestructura (red, computación y almacenamiento) combinando cuatro componentes principales, vSphere para gestionar el cómputo, vSAN para la gestión del almacenamiento, NSX para la gestión de la red, y vRealize para gestionar todas las operaciones que tienen lugar en el servicio, integrando todos los componentes para que la gestión de la infraestructura sea lo más simple posible. Las principales características de Cloud Foundation son:\\
+Esta solución virtualiza todas las capas de la infraestructura[\ref{fig:infraCloudFound}] (red, computación y almacenamiento) combinando cuatro componentes principales, vSphere para gestionar el cómputo, vSAN para la gestión del almacenamiento, NSX para la gestión de la red, y vRealize para gestionar todas las operaciones que tienen lugar en el servicio, integrando todos los componentes para que la gestión de la infraestructura sea lo más simple posible. Las principales características de Cloud Foundation son:
 \begin{itemize}
     \item \emph{Integración nativa}: todos sus componentes se integran de forma nativa entre ellos, así como con otros componentes de la empresa VmWare, minimizando las tareas de configuración y administración.
     \item \emph{Experiencia de usuario simple}: gracias a la gran cantidad de procesos automatizados.
@@ -69,7 +72,14 @@ Esta solución virtualiza todas las capas de la infraestructura (red, computaci�
     \item \emph{Cloud híbrida}: permite la posibilidad de conectar una Cloud pública con una Cloud privada y así tratar ambas como una única Cloud.
 \end{itemize}
 
-Cloud Foundation permite reducir el tiempo de mantenimiento ya que todo está controlado por el software debido a que todos los sus componentes se integran entre si, automatizando gran parte de las operaciones y el ciclo de vida de todos los elementos desde su creación, como pueden ser las actualizaciones de cada componente, los perfiles de usuario, y las máquinas virtuales creadas, además de proporcionar una plataforma de acceso para que cada usuario pueda gestionar sus recursos.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\textwidth]{imaxes/cap2recursos/overviewCF.png}
+  \caption{Cloud Foundation virtualiza toda la infraestructura.}
+  \label{fig:infraCloudFound}
+\end{figure}
+
+Cloud Foundation permite reducir el tiempo de mantenimiento ya que todo está controlado por el software debido a que todos los componentes se integran entre si, automatizando gran parte de las operaciones y el ciclo de vida de todos los elementos desde su creación, como pueden ser las actualizaciones de cada componente, los perfiles de usuario, y las máquinas virtuales creadas, además de proporcionar una plataforma de acceso para que cada usuario pueda gestionar sus recursos.
 También permite separar las cargas de trabajo mediante Dominios según el tipo de trabajo que se va a realizar en cada uno o cualquier otro criterio, pudiendo acceder a cada uno de ellos de forma separada. 
 
 
@@ -78,6 +88,15 @@ También permite separar las cargas de trabajo mediante Dominios según el tipo 
 Para poder usar este software es necesaria la adquisición de licencias, estas se organizan por componente y por número de hosts sobre los que se va a instalar el producto, haciendo que el coste sea elevado, pero, a pesar de eso, se ha elegido este paquete principalmente por su integración nativa con los componentes ya instalados y porque su mantenimiento es más sencillo. \\
 Si bien VMWare ofrece plugins para conectar sus componentes con otras soluciones, como es el caso de OpenStack \cite{opestackintegrated}, estos no ofrecen el rendimiento que da la integración nativa, además, en caso de actualizaciones habría que actualizar cada componente de forma individual aumentando el riesgo de incompatibilidades con el resto de elementos mientras que Cloud Foundation gestiona todo el ciclo de vida de cada actualización para cada componente, permitiendo comprobar si existe alguna incompatibilidad con el resto de versiones antes de aplicar una actualización. En definitiva, VmWare Cloud Foundation simplifica el proceso de instalación, configuración, gestión, y mantenimiento, tanto para los usuarios como para el administrador del sistema.
 
+\subsubsection{Componentes de VmWare Cloud Foundation \cite{componentesCloudFound}}
+
+\begin{itemize}
+    \item SDDC Manager: gestiona el ciclo de vida de todos los componentes del sistema, incluyendo el proceso inicial de despliegue de Cloud Foundation, su configuración y aprovisionamiento, y las actualizaciones. Monitoriza los recursos físicos y lógicos de la infraestructura, facilita su configuración y permite añadir nuevos recursos cuando sea necesario. Todo esto lo realiza mediante flujos de trabajo que facilitan la detección de orígenes de errores.
+    \item vSphere: ya está incluído en el servicio actual [\ref{subsec:softwareinstalado}].
+    \item vSAN: componente clave que virtualiza el almacenamiento. Como ya se ha explicado, el almacenamiento del servicio actual está configurado con LUNs que se deben gestionar individualmente desde fuera del entorno Cloud, provocando que su configuración sea más compleja y costosa. Esto es lo que gestiona vSAN, trata toda la capacidad de almacenamiento como un único elemento, eliminando así las LUNs independientes, consiguiendo abstraer la configuración de almacenamiento de la capa física en la capa de software. Así el uso de almacenamiento es más flexible y su configuración está integrada dentro del servicio
+    \item NSX: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes físicos de nuestro entorno en software, dando más libertad a la hora de establecer la topología y componentes físicos de la red. Incluye servicios como firewall, DNS, DHCP, VPN, NAT, enrutamiento, balanceo de carga, o switching, que permiten reducir la cantidad de dispositivos físicos de red.
+    \item vRealize Log Insight: realiza la gestión de logs del servicio, dando visibilidad a todas las operaciones del servicio, generando análisis del sistema. Esto permite tener mayor conocimiento de los riesgos, eficiencia y uso de recursos, a parte de facilitar la búsqueda de orígenes de errores.
+\end{itemize}
 
 **Decir como se puede implementar un sistema de facturación.
 **Como se puede conectar los usuarios de la UDC.
