@@ -8,31 +8,40 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{description}
- \item [Tenencia múltiple] asdfasdfaasd
+ \item [Tenencia múltiple]: principio de la arquitectura de software donde una aplicación se sirve a varios clientes desde una misma instancia.
  \label{itm:tenenciamultiple}
- \item [SDDC]
- \label{itm:sddc}
- \item [Hipervisor baremetal]
+ \item [SDDC]: \textit{Software Defined DataCenter} es un modelo de infraestructura donde se virtualiza la abstracción, gestión y automatización de todos los recursos y servicios de un centro de datos.
+ \item [Hipervisor baremetal]: software instalado sobre el hardware de un servidor que permite instalar aplicaciones que funcionan sobre entornos virtuales directamente sobre el hardware.
   \label{itm:baremetal}
- \item [Máquina virtual]
+ \item [Máquina virtual]: software que emula un conjunto de recursos físicos para ejecutar otro software de forma aislada.
   \label{itm:vm}
- \item [Datastore]
+ \item [Datastore]: contenedores que VMware vSphere utiliza para el almacenamiento archivos en un único lugar o a través de una red. Suelen utilizarse para almacenar ficheros de máquinas virtuales y puedent tener el formato VMFS, NFS o NAS.
  \label{itm:datastore}
- \item [Modelo multi-tenant]
+ \item [Modelo multi-tenant]: es un modelo de desarrollo donde una misma aplicación se entrega a distintos usuarios sin hacer un desarrollo específico para cada uno de ellos.
  \label{itm:multitenant}
- \item [RAID 5]
+ \item [RAID 5]: Es un conjunto de discos duros que funciona como una única unidad de almacenamiento para aumentar el rendimiento y la eficiencia. RAID 5 necesita como mínimo tres discos duros, y distribuye la información de paridad en todos los discos (esta información permite recuperar los datos en caso de errores).
  \label{itm:raid5}
  \item [Almacén de datos]
  \label{itm:almacendatos}
- \item [LUN]
+ \item [LUN]: \textit{Logical Unit Number} es un identificador que agrupa un agrupa un conjunto o subconjunto de almacenamiento físico o virtual. Puede asignarse a un disco completo o solo a una parte.
  \label{itm:lun}
- \item [Controlador SFP+]
+ \item [Controlador SFP+]: módulo transceptor óptico que se utiliza en las telecomunicaciones y aplicaciones de transmisión de datos. Soportan Sonet, canal de Fibra y Gigabit Ethernet.
  \label{itm:sfp}
- \item [SAN]
+ \item [SAN]: \textit{Storage Area Network} es una red dedicada al almacenamiento, de alta velocidad con canal de Fibra o iSCSI, con equipos de conexión dedicados (p.e. switches) y con dispositivos de almacenamiento (discos duros). 
  \label{itm:san}
- \item [VMFS]
+ \item [VMFS]: sistema de archivos de alto rendimiento nativo de VMware vSphere. Se utiliza para implementar los almacenes de datos y está optimizado para el almacenamiento de máquinas virtuales.
  \label{itm:vmfs}
  \item [Platform Services Controller (PSC)]
  \label{itm:psc}
- \item []
+ \item [Cluster]: Conjunto de dos o más Hosts para aprovisionar recursos.
+ \label{itm:cluster}
+ \item [Servicio LBT]: servicio que se encarga de balancear el tráfico que entra en cada interfaz de un switch.
+ \item [vCPU]
+ \label{itm:vcpu}
+ \item [Jumbo Frame]: son los paquetes que se transmiten por una red y cuyo MTU es mayor a 1500.
+ \label{itm:jumboframe}
+ \item [VTEP]: \textit{VXLAN Tunnel End Point} es un componente del protocolo VXLAN cuya función es encapsular y desencapsular las tramas correspondientes a una VXLAN. Este componente se encuentra al principio y al final del camino que sigue una trama.
+ \label{itm:vtep}
+ \item [NIC]: \textit{Network Interface Controller} es un componente físico que conecta el host con una red.
+ \label{itm:nic}
 \end{description}

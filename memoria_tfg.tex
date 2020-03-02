@@ -5,6 +5,13 @@
 \documentclass[11pt,a4paper,titlepage,twoside,openright,openbib]{report}
 \usepackage{csquotes}
 \usepackage{hyperref}
+\usepackage[section]{placeins}
+\makeatletter
+\newcommand{\setword}[2]{%
+  \phantomsection
+  #1\def\@currentlabel{\unexpanded{#1}}\label{#2}%
+}
+\makeatother
 %%% RELACIÓN DE VARIABLES A PERSONALIZAR %%%
 %\def\lingua{gal}
 \def\lingua{esp} % descomenta esta liña se redactarás a memoria en español
