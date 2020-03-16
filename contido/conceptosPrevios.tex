@@ -11,18 +11,17 @@ En este apartado se explican aquellos conceptos de VMware Cloud Foundation neces
 %% Workload Ddomains %&%&%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Workload Domain}
-Un \textit{workload domain} consiste en una abstracción lógica de una parte de la capacidad de la infraestructura para consumirla. Se extiende sobre varios hosts creando un cluster aparentemente aislado. Cada \textit{workload domain} tiene su propia instancia de vCenter Server, vSAN y NSX. Existen \underline{tres tipos} de \textit{workload domains} que permiten aislar las tareas de gestión de las tareas de los usuarios. 
+Un \textit{workload domain} consiste en una instancia lógica de un SDDC que abarca todos o parte de los recursos de uno o más clusters, cuya función es aislar el flujo de trabajo de un usuario, aplicación o un determinado tipo de tareas. Cada \textit{workload domain} se extiende sobre varios hosts y contiene su propia instancia de vCenter Server, vSAN y NSX, lo cual permite establecer políticas de control únicas para todos los \textit{workload domains} y específicas para cada uno de ellos a la vez que se simplifica la complejidad de la infraestructura. Existen \underline{tres tipos} de \textit{workload domains} que permiten aislar las tareas de gestión de la infraestructura del resto de flujos de trabajo. 
 
 %% MANAGEMENT DOMAIN
 \subsubsection{Management Domain}
 \label{subsubsec:domainManagement}
-Este \textit{workload domain} se crea y configura automáticamente durante el proceso de despliegue de Cloud Foundation. Se dedicada a tareas de gestión de los componentes del entorno. Los componentes dedicados a este \textit{workload domain} son SDDC Manager, vCenter Server, dos Platform Services Controllers que son redundantes, vRealize Log Insight y un vSwitch Distributed.\\
-Este dominio precisa estos \underline{requisitos mínimos de hardware}:
+Este \textit{workload domain} se crea y configura automáticamente durante el proceso de despliegue de una instancia de VMware Cloud Foundation. Su función es gestión de todos los componentes de VMware Cloud Foundation, de toda la infraestructura y del resto de \textit{workload domains} existentes en el entorno a tráves de políticas establecidas desde un único punto. Los componentes dedicados a este \textit{workload domain} son SDDC Manager, vCenter Server, dos Platform Services Controllers que son redundantes, vRealize Log Insight y un vSwitch Distributed [Fig. \ref{fig:esquemaCFComponentes}]. Este dominio precisa los siguientes \underline{requisitos mínimos de hardware}:
 \begin{itemize}
     \item \textbf{Hosts}: 4
     \item \textbf{CPU} por host: Dual-socket con 8 cores por socket, en sistemas All-Flash.
-    \item \textbf{Memoria} por host: 192 GB
-    \item \textbf{Almacenamiento} por host: 16 GB para el dispositivo de arranque, un NVMe o SSD para la capa de caché, dos SSD o HDD para la capa de capacidad.
+    \item \textbf{Memoria} total: 192 GB
+    \item \textbf{Almacenamiento} por host: 16 GB para el dispositivo de arranque, un NVMe o SSD para la capa de caché, dos SSD o HDD para la capa de capacidad\footnote{En total se requieren 800 GB para este \textit{workload domain}.}.
     \item \textbf{NICs} por host: Dos NICs de al menos 10 GbE y, opcionalmente un NIC 1GbE BMC.
 \end{itemize}
 
@@ -40,17 +39,15 @@ Cuando se \underline{despliega Management Domain se crean y configuran} de forma
 %% VIRTUAL INF. DOMAIN
 \subsubsection{Virtual Infrastructure Domain (VI) y Virtual Desktop Infrastructure Domain (VDI)}
 \label{subsubsec:domainVI}
-Este \textit{workload domain} es creado manualmente por el administrador y en un mismo entorno pueden existir múltiples Virtual Infrastructure Domains. Las capacidades de este dominio se especifican durante su proceso de creación, pudiendo indicar el número de nodos sobre los que se despliega, cantidad de almacenamiento, tipo de rendimiento y tipo de disponibilidad para satisfacer las necesidades del usuario, el cual realizará sus tareas dentro de este \textit{workload domain}. El usuario accede a este dominio a través de vSphere Client donde puede editar la configuración de los hosts, aplicaciones y máquinas virtuales.
-Cada Virtual Infrastructure Domain tiene un vCenter Server dedicado que se ejecuta desde Management Domain y su propio sistema vSAN y NSX.\\
-La única diferencia de Virtual Desktop Infrastructure Domain es que este incorpora el producto VMware Horizon View que, resumiendo, permite desplegar escritorios virtuales.\\
-El dominio VI precisa estos \underline{requisitos mínimos de hardware}:
+Este tipo de \textit{workload domain} se crea manualmente y bajo demanda desde el \textit{management domain} para dar servicio a las necesidades de cada usuario o para crear diferentes entornos con finalidades distintas. Su configuración de hardware y lógica se especifican durante su proceso de creación, permitiendo indicar la cantidad de hosts, cantidad de almacenamiento, políticas de rendimiento y disponibilidad, o configuración de la red disponibilidad, todo para satisfacer las necesidades de los usuarios que realizarán sus trabajos en él. El acceso a un \textit{VI domain} se realiza a través de vSphere Client donde su administrador puede gestionar todos los recursos asociados con ese \textit{workload domain}. Cada Virtual Infrastructure Domain cuenta con sus propios vCenter Server y un NSX Manager dedicados, que se ejecutan desde el \textit{management domain} de la infraestructura, y \textit{datastore} vSAN dedicado [Fig. \ref{fig:esquemaCFComponentes}]. La diferencia entre un \textit{virtual infrastructure domain} y \textit{virtual desktop infrastructure domain} es que el segundo incorpora el producto VMware Horizon View que, resumiendo, permite desplegar escritorios virtuales.\\
+Un \textit{virtual infrastructure domain} precisa los siguientes \underline{requisitos mínimos de hardware}:
 \begin{itemize}
     \item \textbf{Hosts}: 3
-    \item \textbf{CPU}, \textbf{Memoria} y \textbf{Almacenamiento}: depende de la configuración que se establezca.
-    \item \textbf{NICs} por servidor: Dos NICs de al menos 10 GbE y, opcionalmente un NIC 1GbE BMC.
+    \item \textbf{CPU}, \textbf{Memoria} y \textbf{Almacenamiento}: depende de los requisitos de las tareas que se vayan a desarrollar en este \textit{workload domain}.
+    \item \textbf{NICs} por servidor: Dos NICs de al menos 10 GbE y, opcionalmente un NIC 1 GbE BMC.
 \end{itemize}
 
-Cuando se \underline{despliega un VI Domain se crean y configuran} de forma automatizada por SDDC Manager las siguientes máquinas virtuales (VM) de cada componente de Cloud Foundation:
+Cuando se \underline{despliega un \textit{virtual infrastructure domain} se crean y configuran} de forma automatizada por el componente SDDC Manager las siguientes máquinas virtuales (VM) de cada componente de VMware Cloud Foundation:
 \begin{itemize}
     \item Una VM de \textbf{vCenter Server} en Management Domain: 8 vCPU, 24 GB de memoria, 500 GB de almacenamiento.
     \item Una VM de \textbf{NSX Manager} en Management Domain: 4 vCPU, 16 GB de memoria, 60 GB de almacenamiento.
@@ -62,20 +59,25 @@ En total, si la infraestructura cuenta con un Management Domain y al menos un Vi
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{imaxes/conceptosPrevios/WDomainStructure.JPG}
-  \caption{Estructura de los componentes de Cloud Foundation y Workload Domains.}
+  \caption{Como se estructuran y conectan los componentes de VMware Cloud Foundation.}
   \label{fig:esquemaCFDominios}
 \end{figure}
-
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{imaxes/conceptosPrevios/workloadDomains.png}
+  \caption{Componentes dedicados de cada \textit{workload domain}.}
+  \label{fig:esquemaCFComponentes}
+\end{figure}
 \FloatBarrier
 
 %&%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ARQUITECTURA
 \subsection{Arquitectura}
-La arquitectura de VMware Cloud Foundation tiene dos posibles modelos de despliegue.
+La arquitectura de VMware Cloud Foundation tiene dos posibles modelos de despliegue dependiendo del número de hosts sobre los que se despliega VMware Cloud Foundation.
 
 %% ESTANDAR
 \subsubsection{Modelo estándar}
-Este modelo se utiliza cuando Cloud Foundation se despliega en un entorno con siete o más nodos. Este consiste en que el \underline{Management Domain} se despliega en uno de los nodos y contiene todos los componentes de gestión de toda la infraestructura, mientras que el resto de la capacidad está disponible para la creación de \underline{Virtual Infrastructure Domain} del usuario[Fig. \ref{fig:modelostandard}].
+Este modelo se utiliza cuando VMware Cloud Foundation se despliega en un entorno con siete o más hosts. Está formado por un \underline{management domain} que se despliega en uno de los hosts y que contiene todos los componentes de gestión de toda la infraestructura [Sec. \ref{subsubsec:domainManagement}], y por \underline{virtual infrastructure domains} que se crean bajo demanda sobre el resto hosts disponibles [Sec. \ref{subsubsec:domainVI}] y una vez creado se pueden ampliar o reducir sus capacidades según sea necesario. El máximo número de \underline{virtual infrastructure domains} que se pueden desplegar en una instacia de VMware Cloud Foundation es 15.
 
 \begin{figure}[h!]
   \centering
@@ -83,11 +85,18 @@ Este modelo se utiliza cuando Cloud Foundation se despliega en un entorno con si
   \caption{Esquema del modelo de arquitectura estándar.}
   \label{fig:modelostandard}
 \end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.85\textwidth]{imaxes/conceptosPrevios/standardArch.png}
+  \caption{Estructura de los componentes en una arquitectura estándar.}
+  \label{fig:standardarch}
+\end{figure}
 \FloatBarrier
 %%%%%%%%%%%%%%%%%%%%%
 %%  CONOLIDADO
 \subsubsection{Modelo consolidado}
-Este modelo se despliega cuando el entorno esta formado por menos de siete nodos. En este modelo, \underline{Virtual Infrastructure Domain} y \underline{Management Domain} están situados en el mismo clúster vSphere, y en caso de que se añadan más nodos al clúster, este modelo se puede convertir en un modelo estándar. Ambos dominios se mantienen aislados gracias a sus respectivos almacenes de recursos[Fig. \ref{fig:modeloconsolidated}].
+Este modelo se despliega cuando el entorno esta formado por menos de siete nodos. En este modelo el flujo de trabajo que corresponde al \underline{virtual infrastructure domain} y al \textit{management domain} en el despliegue estándar, está colocado dentro del mismo \underline{workload domain}, es decir, solo existe un único \textit{workload domain} denominado \textit{management domain}. Este modelo se puede convertir en un modelo estándar creando un \textit{virtual infrastructure domain}. Los flujos de trabajo se mantienen aislados gracias a sus respectivos almacenes de recursos[Fig. \ref{fig:modeloconsolidated}].
 
 \begin{figure}[h!]
   \centering
@@ -95,13 +104,20 @@ Este modelo se despliega cuando el entorno esta formado por menos de siete nodos
   \caption{Esquema del modelo de arquitectura consolidado.}
   \label{fig:modeloconsolidated}
 \end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.85\textwidth]{imaxes/conceptosPrevios/consolidatedArch.png}
+  \caption{Estructura de los componentes de una arquitectura consolidado.}
+  \label{fig:consolidatedArch}
+\end{figure}
 \FloatBarrier
 
 %%% CLOUD BUILDER
 \subsection{Cloud Foundation Builder VM Support}
 \label{subsec:cloudBuilder}
-El despliegue de la plataforma Cloud Foundation se realiza través de una máquina virtual llamada Cloud Foundation Builder. Esta máquina recoge la configuración que se indica en la hoja de parámetros, los valida, , despliega y configura el \underline{Management Domain}. Al final del proceso, transfiere el inventario y el control del sistema al componente SDDC Manager y esta máquina virtual puede ser eliminada.\\
-\underline{Requisitos mínimos} de Cloud Foundation Builder VM:
+El despliegue de la plataforma VMware Cloud Foundation se realiza través de una máquina virtual llamada Cloud Foundation Builder. Esta máquina recoge la configuración que se indica en la hoja de parámetros, los valida, , despliega y configura el \underline{Management Domain}. Al final del proceso, transfiere el inventario y el control del sistema al componente SDDC Manager y esta máquina virtual puede ser eliminada.\\
+\underline{Requisitos mínimos} de VMware Cloud Foundation Builder VM:
 \begin{itemize}
     \item \textbf{CPU}: 4vCPUs
     \item \textbf{Memoria}: 4 GB
@@ -114,7 +130,7 @@ El despliegue de la plataforma Cloud Foundation se realiza través de una máqui
 \subsubsection{Servicios internos}
 \label{subsubsec:servInterno}
 Durante el despliegue Cloud Foundation, hay servicios y puertos deben estar habilitados en cada nodo ESXi para Cloud Foundation Builder (Fig. \ref{fig:puertosCB}) y SDDC Manager (Fig. \ref{fig:puertosSDDC}) puedan acceder a todos los componentes.
-
+\iffalse
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.7\textwidth]{imaxes/conceptosPrevios/puertosentradaCB.png}
@@ -127,6 +143,20 @@ Durante el despliegue Cloud Foundation, hay servicios y puertos deben estar habi
   \centering
   \includegraphics[width=0.7\textwidth]{imaxes/conceptosPrevios/puertosentradaSDDC.png}
   \includegraphics[width=0.7\textwidth]{imaxes/conceptosPrevios/puertossalidaSDDC.png}
+  \caption{Servicios y puertos de entrada y salida habilitados para SDDC Manager.}
+  \label{fig:puertosSDDC}
+\end{figure}
+\fi
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{imaxes/conceptosPrevios/firewall_CloudBuilder.png}
+  \caption{Servicios y puertos de entrada y salida habilitados para Cloud Foundation Builder.}
+  \label{fig:puertosCB}
+\end{figure}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{imaxes/conceptosPrevios/firewall_SDDC.png}
   \caption{Servicios y puertos de entrada y salida habilitados para SDDC Manager.}
   \label{fig:puertosSDDC}
 \end{figure}
@@ -189,9 +219,9 @@ Durante el despliegue Cloud Foundation, hay servicios y puertos deben estar habi
 \label{subsubsec:servExterno}
 En este apartado se describen aquellos servicios necesarios para el despliegue de VMware Cloud Foundation
 \begin{itemize}
-    \item Dynamic Host Configuration Protocol (DHCP): Permite configurar automáticamente cada puerto VMkernel de un nodo con IPv4. 
-    \item Domain Name Server (DNS): Un servidor DNS debe estar disponible para todos los componentes desde el momento de despliegue. También se debe especificar el nombre del dominio. Con esto los componentes pueden obtener tanto el nombre como la dirección IP de un elemento en la red. NTP, Platform Services Controller, instancias de vCenter Server, instancias de NSX Manager, vRealize Log Insight.
-    \item Network Time Protocol (NTP): Permite la sincronizar el tiempo en todos los nodos de la infraestructura. Durante el despliegue se debe especificar la dirección IP de al menos un servidor NTP.
+    \item \textbf{Dynamic Host Configuration Protocol (DHCP)}: Permite configurar automáticamente cada puerto VMkernel de un nodo con IPv4. 
+    \item \textbf{Domain Name Server (DNS)}: Un servidor DNS debe estar disponible para todos los componentes desde el momento de despliegue. También se debe especificar el nombre del dominio. Con esto los componentes pueden obtener tanto el nombre como la dirección IP de un elemento en la red. NTP, Platform Services Controller, instancias de vCenter Server, instancias de NSX Manager, vRealize Log Insight.
+    \item \textbf{Network Time Protocol (NTP)}: Permite la sincronizar el tiempo en todos los nodos de la infraestructura. Durante el despliegue se debe especificar la dirección IP de al menos un servidor NTP.
 \end{itemize}
 Se puede encontrar más información sobre otros servicios opcionales en el siguiente \href{https://docs.vmware.com/en/VMware-Cloud-Foundation/3.9/com.vmware.vcf.planprep.doc_39/GUID-F022BD3C-F11C-4EE6-83EA-ABE016E7A9B9.htm}{enlace}.
 \FloatBarrier
@@ -201,8 +231,8 @@ Se puede encontrar más información sobre otros servicios opcionales en el sigu
 \label{subsubsec:redFisica}
 La red física debe admitir las siguientes características:
 \begin{itemize}
-    \item VLAN: etiquetado de redes VLAN (802.1Q)
-    \item Jumbo Frames: MTU mínimo igual a 1600, aunque se recomienda que sea igual a 9000.
+    \item \textbf{VLAN}: etiquetado de redes VLAN (802.1Q)
+    \item \textbf{Jumbo Frames}: MTU mínimo igual a 1600, aunque se recomienda que sea igual a 9000.
 \end{itemize}
 
 \subsubsection{Red lógica}
