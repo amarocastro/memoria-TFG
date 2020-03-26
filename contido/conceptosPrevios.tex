@@ -1,5 +1,5 @@
 \section{Conceptos previos}
-En este apartado se describe la arquitectura de VMware Cloud Foundation, como estructura sus componentes internamente y cuales son los requisitos mínimos para realizar el despliegue de la plataforma\footnote{Se describen solo aquellos componentes que se utilizarán en el despliegue de Cloud Foundation.}.
+En este apartado se describe la arquitectura de VMware Cloud Foundation y como estructura sus componentes\footnote{Se describen solo aquellos componentes que se utilizarán en el despliegue de Cloud Foundation.} internamente.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \iffalse
@@ -16,15 +16,7 @@ Un \textit{workload domain} consiste en una instancia lógica de un SDDC que aba
 %% MANAGEMENT DOMAIN
 \subsubsection{Management Domain}
 \label{subsubsec:domainManagement}
-Este \textit{workload domain} se crea y configura automáticamente durante el proceso de despliegue de una instancia de VMware Cloud Foundation. Su función es gestión de todos los componentes de VMware Cloud Foundation, de toda la infraestructura y del resto de \textit{workload domains} existentes en el entorno a tráves de políticas establecidas desde un único punto. Los componentes dedicados a este \textit{workload domain} son SDDC Manager, vCenter Server, dos Platform Services Controllers que son redundantes, vRealize Log Insight y un vSwitch Distributed [Fig. \ref{fig:esquemaCFComponentes}]. Este dominio precisa los siguientes \underline{requisitos mínimos de hardware}:
-\begin{itemize}
-    \item \textbf{Hosts}: 4
-    \item \textbf{CPU} por host: Dual-socket con 8 cores por socket, en sistemas All-Flash.
-    \item \textbf{Memoria} total: 192 GB
-    \item \textbf{Almacenamiento} por host: 16 GB para el dispositivo de arranque, un NVMe o SSD para la capa de caché, dos SSD o HDD para la capa de capacidad\footnote{En total se requieren 800 GB para este \textit{workload domain}.}.
-    \item \textbf{NICs} por host: Dos NICs de al menos 10 GbE y, opcionalmente un NIC 1GbE BMC.
-\end{itemize}
-
+Este \textit{workload domain} se crea y configura automáticamente durante el proceso de despliegue de una instancia de VMware Cloud Foundation. Su función es gestión de todos los componentes de VMware Cloud Foundation, de toda la infraestructura y del resto de \textit{workload domains} existentes en el entorno a tráves de políticas establecidas desde un único punto. Los componentes dedicados a este \textit{workload domain} son SDDC Manager, vCenter Server, dos Platform Services Controllers que son redundantes, vRealize Log Insight y un vSwitch Distributed [Fig. \ref{fig:esquemaCFComponentes}].\\
 Cuando se \underline{despliega Management Domain se crean y configuran} de forma automatizada por SDDC Manager las siguientes máquinas virtuales (VM) de cada componente de Cloud Foundation:
 \begin{itemize}
     \item Una VM de \textbf{SDDC Manager}: 4 vCPU, 16 GB de memoria, 800 GB de almacenamiento.
@@ -37,16 +29,9 @@ Cuando se \underline{despliega Management Domain se crean y configuran} de forma
 
 
 %% VIRTUAL INF. DOMAIN
-\subsubsection{Virtual Infrastructure Domain (VI) y Virtual Desktop Infrastructure Domain (VDI)}
+\begin{subsubsection}{Virtual Infrastructure Domain (VI) y Virtual Desktop Infrastructure Domain (VDI)}
 \label{subsubsec:domainVI}
 Este tipo de \textit{workload domain} se crea manualmente y bajo demanda desde el \textit{management domain} para dar servicio a las necesidades de cada usuario o para crear diferentes entornos con finalidades distintas. Su configuración de hardware y lógica se especifican durante su proceso de creación, permitiendo indicar la cantidad de hosts, cantidad de almacenamiento, políticas de rendimiento y disponibilidad, o configuración de la red disponibilidad, todo para satisfacer las necesidades de los usuarios que realizarán sus trabajos en él. El acceso a un \textit{VI domain} se realiza a través de vSphere Client donde su administrador puede gestionar todos los recursos asociados con ese \textit{workload domain}. Cada Virtual Infrastructure Domain cuenta con sus propios vCenter Server y un NSX Manager dedicados, que se ejecutan desde el \textit{management domain} de la infraestructura, y \textit{datastore} vSAN dedicado [Fig. \ref{fig:esquemaCFComponentes}]. La diferencia entre un \textit{virtual infrastructure domain} y \textit{virtual desktop infrastructure domain} es que el segundo incorpora el producto VMware Horizon View que, resumiendo, permite desplegar escritorios virtuales.\\
-Un \textit{virtual infrastructure domain} precisa los siguientes \underline{requisitos mínimos de hardware}:
-\begin{itemize}
-    \item \textbf{Hosts}: 3
-    \item \textbf{CPU}, \textbf{Memoria} y \textbf{Almacenamiento}: depende de los requisitos de las tareas que se vayan a desarrollar en este \textit{workload domain}.
-    \item \textbf{NICs} por servidor: Dos NICs de al menos 10 GbE y, opcionalmente un NIC 1 GbE BMC.
-\end{itemize}
-
 Cuando se \underline{despliega un \textit{virtual infrastructure domain} se crean y configuran} de forma automatizada por el componente SDDC Manager las siguientes máquinas virtuales (VM) de cada componente de VMware Cloud Foundation:
 \begin{itemize}
     \item Una VM de \textbf{vCenter Server} en Management Domain: 8 vCPU, 24 GB de memoria, 500 GB de almacenamiento.
@@ -54,8 +39,7 @@ Cuando se \underline{despliega un \textit{virtual infrastructure domain} se crea
     \item Tres VM de \textbf{NSX Controller} en el VI Domain creado (cada una):  4 vCPU, 4 GB de memoria, 28 GB de almacenamiento.
 \end{itemize}
 
-En total, si la infraestructura cuenta con un Management Domain y al menos un Virtual Infraestructure Domain, entonces se necesita una \setword{capacidad}{Word:capacidad} inicial y como mínimo igual a 76 vCPU, 168 GB de Memoria y 3306 GB de almacenamiento.
-
+\end{subsubsection}
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{imaxes/conceptosPrevios/WDomainStructure.JPG}
@@ -68,6 +52,8 @@ En total, si la infraestructura cuenta con un Management Domain y al menos un Vi
   \caption{Componentes dedicados de cada \textit{workload domain}.}
   \label{fig:esquemaCFComponentes}
 \end{figure}
+
+
 \FloatBarrier
 
 %&%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,7 +80,7 @@ Este modelo se utiliza cuando VMware Cloud Foundation se despliega en un entorno
 \end{figure}
 \FloatBarrier
 %%%%%%%%%%%%%%%%%%%%%
-%%  CONOLIDADO
+%%  CONSOLIDADO
 \subsubsection{Modelo consolidado}
 Este modelo se despliega cuando el entorno esta formado por menos de siete nodos. En este modelo el flujo de trabajo que corresponde al \underline{virtual infrastructure domain} y al \textit{management domain} en el despliegue estándar, está colocado dentro del mismo \underline{workload domain}, es decir, solo existe un único \textit{workload domain} denominado \textit{management domain}. Este modelo se puede convertir en un modelo estándar creando un \textit{virtual infrastructure domain}. Los flujos de trabajo se mantienen aislados gracias a sus respectivos almacenes de recursos[Fig. \ref{fig:modeloconsolidated}].
 
@@ -113,23 +99,93 @@ Este modelo se despliega cuando el entorno esta formado por menos de siete nodos
 \end{figure}
 \FloatBarrier
 
+
+%%%% DISEÑO ARQUI. FÍSICA %%%%%
+\begin{subsection}{Diseño arquitectura física}
+
+\subsection{Tipos de clusters, zonas de disponibilidad y regiones}
+Un SDDC puede estar formado por múltiples clusters que pueden ser de diferentes tipos de clusters con diferentes propósitos. Un cluster puede ocupar uno o más \textit{racks} dependiendo del nivel de escalabilidad que se requiera. Según su función, cada \textit{workload domain} se puede colocar en un cluster diferente para gestionar la alta disponibilidad y el ciclo de vida según sus necesidades. Un cluster puede ser:
+\begin{itemize}
+    \item \textbf{Management Cluster}: Es aquel que contiene el \textit{management domain}.
+    \item \textbf{Shared Edge y Compute Cluster}: contiene el \textit{virtual infrastructure domain} con las máquinas virtuales de los usuarios y, además, incorpora los servicios de NSX necesarios para comunicarse con redes externas y con otros \textit{workload domains}.
+    \item \textbf{Compute Cluster}: solo contiene el \textit{virtual infrastructure domain} con las máquinas virtuales de los usuarios.
+    \item \textbf{External Storage}: se centra en proveer almacenamiento de tipo NFS, iSCSI o Fiber Channel.
+\end{itemize}
+
+Un SDDC puede estar distribuído en una o más \underline{zonas de disponibilidad}. Estas son zonas aisladas que evitan la propagación de fallos de hosts individuales a través de toda la infraestructura para establecer mayor disponibilidad. A su vez, varias \underline{zonas de disponibilidad} están agrupadas en \underline{regiones}, entornos separados por grandes distancias para tener recuperación ante desastres.\\
+*******************IMAGEN AV****************\\
+
+\subsubsection{Propiedades de la red}
+El \underline{transporte de la red} de un SDDC con VMware Cloud Foundation se puede implementar en la capa dos, configurando los dispositivos físicos para funcionar directamente con los componentes de VMware, o en la capa tres del modelo OSI para usar dispositivos de transporte lógico. Cada tipo de configuración tiene sus ventajas y desventajas, pero la configuración más común en este tipo de entornos es usar el transporte de red sobre la capa 3 da más libertad a la hora de gestionar los recursos físicos de red.\\
+
+
+Como VMware Cloud Foundation abstrae la red física en una red virtual, la red física debe cumplir ciertos requisitos para que la red virtualizada sea robusta. Esta se debe mantener simple con configuraciones comunes en todos los switches, uso de VLANs y uso de enrutamiento dinámico, también debe ser escalable en cuanto a cantidad de hosts, ancho de banda, o posibles rutas para alcanzar un destino. Además, se debe tener en cuenta que cada tipo de tráfico tiene características diferentes, como por ejemplo el tráfico dedicado al almacenamiento a través de IP que suele usar mayor ancho de banda, por ello es necesario distinguir cada tipo de tráfico en la capa 2 con el protocolo CoS o en la capa 3 con el protocolo DSCP. Los elementos que se deben configurar son los siguientes:
+\begin{itemize}
+    \item \textbf{Top of Rack Physical Switches} (TOR): se trata de un switch que está colocado dentro de un rack y a él se conectan todos los hosts que se encuentran dentro de ese rack que a su vez los conecta con el resto de la infraestructura. Estos switches se deben configurar de forma redundante para ofrecer alta disponibilidad, los puertos que se conectan a los hosts deben estar configurados como puertos troncales de forma manual, proveer servicio DHCP a cada VLAN usada por los puertos \textit{vmkernel} de \textit{management} y VXLAN, y configurar los puertos para que acepten \textit{jumbo frames}. Además, se deben configurar todas las VLANs necesarias.
+    \item \textbf{Conectividad entre Regiones}: 
+    \item \textbf{Conectividad entre Zonas de dispobilidad}:
+\end{itemize}
+
+\subsubsection{Características de un host ESXi}
+Los hosts ESXi que se desplieguen en un cluster deben tener características físicas idénticas para hacer la infraestructura más manejable,incluyendo la configuración de almacenamiento y red.
+Dos de sus interfaces de red (NIC) conla misma velocidad deben estar conectadas a la VLAN \textit{trunk}. Esto junto con el componente VMware vSphere Distributed Switch permite que el tráfico se redirija de forma óptima y que las conexiones sean redundantes. Todas las conexiones deben terner una velocidad mínima de 10 Gbit.
+
+\end{subsection}
+
+%%%%%DISEÑO ARQ. VIRTUAL
+\begin{subsection}{Diseño arquitectura virtual}
+La infraestructura virtual de un SDDC está formada por dos regiones, cada una con su propio \textit{management domain} que incluye el \textit{management cluster}, y un \textit{virtual infrastructure domain} que contiene el \textit{shared cluster} y un \textit{compute cluster}.
+
+\subsubsection{Características de la red virtual}
+La red de esta infraestructura está virtualizada por VMware NSX for vSphere que utiliza los componentes vCenter Server, NSX Manager, NSX Controllers y NSX logical switch para establecer comunicaciones y aislar el tráfico de cada flujo de trabajo. El tráfico se divide en datos de flujos de trabajo donde se segrega el tráfico que pertenece a diferentes flujos, datos de control donde se agrupa el tráfico para la configuración de dispositivos virtualizados de routing, switching y firewalls, y datos de gestión donde se incluye el tráfico dedicado a la gestión de los recuros como la gestión de máquinas virtuales.\\
+
+Estos componentes incluyen diversos servicios que suponen una abstracción lógica de dispositivos físicos de red y que VMware Cloud Foundation utiliza para formar su infraestructura virtual. Estos servicios son los siguientes:
+\begin{itemize}
+    \item \textbf{Logical Switches}: permite crear segmentos abstractos que representan dominios de broadcasting donde se colocan determinadas máquinas virtuales. Su tráfico tiene asignado una única VLAN y están mapeados en todos los hosts lo cual simplifica la movilidad de las máquinas virtuales entre los hosts.
+    \item \textbf{Universal Distributed Logical Router}: realiza las funciones de enrutamiento entre máquinas virtuales. Son controlados por una máquina virtual y utilizan protocolos de enrutamiento dinámico como BGP y OSPF.
+    \item \textbf{Designated Instance}: host ESXi encargado de resolver las solicitudes del protocolo ARP. Es elegido por NSX Controller y se elige un host por cada VLAN existente.
+    \item \textit{Edge Services Gateway}: es el encargado de proveer conectividad a través de la infraestructura física para que los componentes se puedan conectar a redes externas.
+    \item \textbf{Logical Firewall}: provee mecanismos de seguridad que se asemejan a las funciones de los firewalls físicos pero con la ventaja de la virtualización, lo cual hace que su configuración sea más flexible.
+    \item \textbf{Logical Load Balancer}: distribuye el tráfico entre los servidores para que el uso de recursos sea el óptimo.
+\end{itemize}
+
+\end{subsection}
+\begin{subsection}{Gestión de las operaciones de la arquitectura}
+En este apartado se define como se gestionan en VMware Cloud Foundation las tareas de administración de todas las partes de la infraestructura. Estas tareas se agrupan en la gestión del ciclo de vida y la recopilación de información sobre el estado de cada componente existente.
+
+\subsubsection{Gestión del ciclo de vida}
+Elementos que se encargan de administrar el ciclo de vida de los componentes:
+\begin{itemize}
+    \item \textbf{vSphere Update Manager}: pensado para la adminstración del entorno vSphere. Permite administrar las actualizaciones que reciben los hosts ESXi, instalar software de terceros en los hosts ESXi y actualizar el hardware virtual de las máquinas virtuales. Existe una instancia de este producto por cada vCenter Server. En su arquitectura existe otro elemento llamado \textbf{Update Manager Download Service} (UMDS) y representa un entorno con acceso a la red pública donde se descargan los archivos requeridos por vSphere Update Manager, ya que este se encuentra en un entorno aislado. Esto incrementa la seguridad y permite compartir estos archivos entre distintas instancias de vSphere Update Manager.
+    
+    \item \textbf{vRealize Suite Licfecycle Manager}: elemento encargado de administrar el ciclo de vida de todos los productos de vRealize de forma automatizada, esto incluye el despliegue y actualización de vRealize Operations Manager, vRealize Log Insgiht y vRealize Automation. Este se conecta a un servicio externo para descargar los archivos que se necesiten. La instancia de eeste producto reside en la la Zona de Disponibilidad 1 dentro de la Region A.
+    
+\end{itemize}
+
+\subsubsection{Monitorización}
+En VMware Cloud Foundation la monitorización de la infraestructura es realizada por vRealize Log Insight que provee gestión y análisis de los logs de la infraestructura. Este componente conecta con todos los prodcutos de VMware y recoge información sobre las alarmas, tareas y eventos que tienen lugar usando el protocolo syslog.\\
+
+Su modelo de despliegue está formado por un nodo \textit{Master} y dos nodos \textit{Worker}, además, se puede habilitar alta disponibilidad su balanceador de carga \textit{Integrated Load Balancer} (ILB), este último es quien recibe las peticiones de logs de los clientes y luego las retransmite a los nodos \textit{worker} y \textit{master} para obtener la información. El producto vRealize Log Insight se despliega en la Zona de Disponibilidad 1 dentro de la Region A.
+
+
+
+
+
+\end{subsection}
+
+
 %%% CLOUD BUILDER
 \subsection{Cloud Foundation Builder VM Support}
 \label{subsec:cloudBuilder}
 El despliegue de la plataforma VMware Cloud Foundation se realiza través de una máquina virtual llamada Cloud Foundation Builder. Esta máquina recoge la configuración que se indica en la hoja de parámetros, los valida, , despliega y configura el \underline{Management Domain}. Al final del proceso, transfiere el inventario y el control del sistema al componente SDDC Manager y esta máquina virtual puede ser eliminada.\\
-\underline{Requisitos mínimos} de VMware Cloud Foundation Builder VM:
-\begin{itemize}
-    \item \textbf{CPU}: 4vCPUs
-    \item \textbf{Memoria}: 4 GB
-    \item \textbf{Almacenamiento}: 350 GB
-    \item \textbf{Conectividad}: acceso a la red de gestión para acceder a cada nodo, al servidor DNS y al servidor NTP.
-\end{itemize}
 
 \subsection{Red, almacenamiento y servicios necesarios para el despliegue}
 
 \subsubsection{Servicios internos}
 \label{subsubsec:servInterno}
 Durante el despliegue Cloud Foundation, hay servicios y puertos deben estar habilitados en cada nodo ESXi para Cloud Foundation Builder (Fig. \ref{fig:puertosCB}) y SDDC Manager (Fig. \ref{fig:puertosSDDC}) puedan acceder a todos los componentes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \iffalse
 \begin{figure}[h!]
   \centering
@@ -147,6 +203,7 @@ Durante el despliegue Cloud Foundation, hay servicios y puertos deben estar habi
   \label{fig:puertosSDDC}
 \end{figure}
 \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[h!]
   \centering
@@ -161,68 +218,24 @@ Durante el despliegue Cloud Foundation, hay servicios y puertos deben estar habi
   \label{fig:puertosSDDC}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\iffalse
-\begin{itemize}
-\item Cloud Builder:
-    \begin{itemize}
-        \item Entrada:
-            \begin{itemize}
-                \item SSH: 22, TCP
-                \item VIA - Servidor DHCP en Cloud Foundation Builder: 67, TCP/UDP
-                \item VIA - Interfaz de Usuario: 8445, TCP
-                \item APIs para controlar los componentes: 9080, TCP
-            \end{itemize}
-        \item Salida:
-            \begin{itemize}
-                \item SSH: 22, TCP
-                \item DNS: 53, TCP/UDP
-                \item Hosts ESXi: 68, TCP/UDP
-                \item NTP: 123, TCP/UDP
-                \item API para iniciar vSphere: 443, TCP
-                \item Despliegue de archivos OVF: 902, TCP
-            \end{itemize}
-    \end{itemize}
-\item SDDC Manager:
-        \begin{itemize}
-        \item Entrada:
-            \begin{itemize}
-                \item SSH: 22, TCP
-                \item RPC para servidor NFS: 111, TCP/UDP
-                \item NTP: 123, TCP/UDP
-                \item DCE RPC: 135, TCP
-                \item Interfaz de Usuario: 443, TCP
-                \item Servicio de Autenticación: 2020, TCP
-                \item Demonio NFS (nfsd): 2049, TCP/UDP
-                \item NFS Lock Manager (lockd): 4045, TCP/UDP
-                \item NFS RPC (statd): 32766, TCP/UDP
-                \item NFS (mountd): 32767 , TCP/UDP
-            \end{itemize}
-        \item Salida:
-            \begin{itemize}
-                \item SSH: 22, TCP
-                \item DNS: 53, TCP/UDP
-                \item HTTPS: 443, TCP
-                \item NTP: 123, TCP/UDP
-                \item Syslog hacia vRealize Log Insight: 514, UDP
-                \item Acceso Single-Sign On: 7444, TCP
-                \item Agente vRealize Log Insight: 9000, TCP
-            \end{itemize}
-    \end{itemize}
-\end{itemize}
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \FloatBarrier
 
 \subsubsection{Servicios externos}
 \label{subsubsec:servExterno}
-En este apartado se describen aquellos servicios necesarios para el despliegue de VMware Cloud Foundation
+En este apartado se describen aquellos servicios necesarios para el despliegue de VMware Cloud Foundation. Estos servicios deben estar configurados antes del despliegue de VMware Cloud Foundation para que todos los componentes se puedan comunicar antes, durante y después del despliegue. Se pueden configurar en servidores instalados en máquinas virtuales dentro del entorno y estas deben tener acceso a la red \textit{VM Network}.\\
 \begin{itemize}
+    
     \item \textbf{Dynamic Host Configuration Protocol (DHCP)}: Permite configurar automáticamente cada puerto VMkernel de un nodo con IPv4. 
-    \item \textbf{Domain Name Server (DNS)}: Un servidor DNS debe estar disponible para todos los componentes desde el momento de despliegue. También se debe especificar el nombre del dominio. Con esto los componentes pueden obtener tanto el nombre como la dirección IP de un elemento en la red. NTP, Platform Services Controller, instancias de vCenter Server, instancias de NSX Manager, vRealize Log Insight.
+    
+    \item \textbf{Domain Name Server (DNS)}: Un servidor DNS debe estar disponible para todos los componentes desde el momento de despliegue. También se debe especificar el nombre del dominio. Con esto los componentes pueden obtener tanto el nombre como la dirección IP de un elemento en la red. Los componentes y servicios de la plataforma que usan este servicio son NTP, Platform Services Controller, instancias de vCenter Server, instancias de NSX Manager y vRealize Log Insight.
+    
     \item \textbf{Network Time Protocol (NTP)}: Permite la sincronizar el tiempo en todos los nodos de la infraestructura. Durante el despliegue se debe especificar la dirección IP de al menos un servidor NTP.
+    
+    \item \textbf{Router}: Se requiere un router con el protocolo de enrutamiento \textit{\textbf{Border Gateway Protocol}} (BGP) habilitado y configurado para compartir todas las rutas por toda la red del entorno.
+    Este router debe tener configuradas cuatro interfaces para las distintas redes que se generan en la arquitectura de VMware Cloud Foundation.
+    
 \end{itemize}
+
 Se puede encontrar más información sobre otros servicios opcionales en el siguiente \href{https://docs.vmware.com/en/VMware-Cloud-Foundation/3.9/com.vmware.vcf.planprep.doc_39/GUID-F022BD3C-F11C-4EE6-83EA-ABE016E7A9B9.htm}{enlace}.
 \FloatBarrier
 
@@ -237,8 +250,20 @@ La red física debe admitir las siguientes características:
 
 \subsubsection{Red lógica}
 \label{subsubsec:redLogicaCF}
+\iffalse
 Antes del despliegue es necesario especificar varias redes que más tarde Cloud Foundation usará para automatizar la configuración de puertos \ref{Word:vmkernel} cuando se añade un nuevo host al entorno o se crea un VI Domain. Estas redes son  una dedicada al servicio \underline{vSAN}, otra dedicada a \underline{vMotion}, ota de dedicada a la gestión de los componentes y otra dedicada al tráfico de las máquinas virtuales. Los datos a especificar son la etiqueta VLAN, MTU, IP de la red, máscara, gateway y el rango de direcciones IP. Una vez creadas solo se puede modificar el rango de direcciones IP.\\
 Es importante utilizar VLANs e IPs ya que es en lo que se basa Cloud Foundation para aislar cada tipo de tráfico de la infraestructura. La cantidad de subredes necesarias depende del número de Workload Domains que se creen, número de clusters y otros componentes opcionales.
+\fi
+
+Antes de iniciar el despliegue de VMware Cloud Foundation, el entorno sobre el que se instalará la plataforma debe tener configurado un vSphere Distributed Switch, una llamada \textit{Management Network} que se dedicará a la transmisión del tráfico generado entre los distintos componentes del entorno, y otra llamada \textit{VM Network} que se dedicará al tráfico generado por las máquinas virtuales que se desplieguen sobre la plataforma. La red \textit{Management Network} se puede configurar con etiquetado VLAN, en ese caso la red \textit{VM Network} debe tener la misma etiqueta VLAN. Los vSwitches creados deben tener un MTU igual a 1600 como mínimo. Además, es necesario conocer de antemano las direcciones IP que se asginarán a cada componente de la infraestructura durante el despliegue de la plataforma.
+
+
+%%% ARQUITECTURA DE LA RED CLOUD FOUNDATION
+\subsubsection{Arquitectura de la red}
+En este apartado se describe la red que forma VMware Cloud Foundation cuando despliega las máquinas virtuales de su principales componentes y como estructura sus conexiones con los elementos ya existentes.\\
+Como ya hemos visto, los diferentes servicios de esta plataforma se implementan en forma de máquinas virtuales que se conectan entre si a través de una red creada en base a los elementos de red virtualizados de VMware como \textit{Distributed Switches}, \textit{vSwitches}, \textit{vmkernels} y \textit{vmportgroups}. Esta red se denomina \textit{Management Network} y a través de esta todos 
+
+
 
 \subsubsection{Almacenamiento}
 Según la documentación de vSAN, cada host ESXi del entorno debe tener como mínimo un grupo de discos. Un nodo puede tener hasta cinco grupos de discos, dentro de los cuales debe haber al menos un disco de caché y un disco de capacidad. Cada grupo de discos puede contener hasta siete discos de capacidad.
@@ -246,17 +271,3 @@ En cuanto al tipo de disco que se debe utilizar, los discos de caché deben ser 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\iffalse
-\subsection{Nombres y direcciones IP}
-Cloud Foundation requiere especificar el nombre que se le da a cada componente y su r
-Durante el despliegue hay que especificar el nombre de cada componente y su dirección IP. Estos componentes son los servicios externos, los componentes internos de Cloud Foundation como SDDC Manager, Platform Services Controller, vCenter Server, cada nodo ESXi, cada instancia de NSX y de vRealze Log Insight.
-\fi
-
-
-\iffalse
-a
-\subsection{Instancias de los componentes}
-Para cada workload domain que se crea, SDDC Manager genera una serie de instancias de cada componente tanto en Management Domain como en cada Virtual Infraestructure Domain. Estas instancias son:
-\subsubsection{Management Domain}
-Una instancia de vCenter Server. Para la gestión de la red de este dominio, despliega una instancia de NSX Manager(centraliza la gestión de la red, aporta APIs para crear configurar y monitorizar cada componente de NSX como los switches lógicos o los servicios que operan en el gateway de salida de la red) y tres instancias de NSX Controller (gestiona el vSwitch distribuído y el enrutamiento del tráfico, controlando todos los vswitches de la red y manteniendo información sobre todas las VM, nodos, vSwitches y VXLANs. Para la gestiión de logs, se instala 
-\fi

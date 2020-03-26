@@ -1,0 +1,33 @@
+\section{Requisitos previos}
+En esta sección se muestran los requisitos que debe cumplir la infraestructura para que el despliegue y funcionamiento de VMware Cloud Foundation sea correcto.
+
+\subsection{Workload Domain}
+Por cada \textit{workload domain} que se quiera desplegar sobre la infraestructura esta debe cumplir una serie de requisitos. Varían dependiendo del tipo.
+\subsubsection{Management Domain}
+Como este es el primer dominio que se despliega en la instalación de VMware Cloud Foundation, el entorno debe cumplir con los siguientes \underline{requisitos mínimos de hardware}:
+\begin{itemize}
+    \item \textbf{Hosts}: 4
+    \item \textbf{CPU} por host: Dual-socket con 8 cores por socket, en sistemas All-Flash.
+    \item \textbf{Memoria} total: 192 GB
+    \item \textbf{Almacenamiento} por host: 16 GB para el dispositivo de arranque, un NVMe o SSD para la capa de caché, dos SSD o HDD para la capa de capacidad\footnote{En total se requieren 800 GB para este \textit{workload domain}.}.
+    \item \textbf{NICs} por host: Dos NICs de al menos 10 GbE y, opcionalmente un NIC 1GbE BMC.
+\end{itemize}
+
+\subsubsection{Virtual Infrastructure Domain (VI)}
+Un \textit{virtual infrastructure domain} precisa los siguientes \underline{requisitos mínimos de hardware}:
+\begin{itemize}
+    \item \textbf{Hosts}: 3
+    \item \textbf{CPU}, \textbf{Memoria} y \textbf{Almacenamiento}: depende de los requisitos de las tareas que se vayan a desarrollar en este \textit{workload domain}.
+    \item \textbf{NICs} por servidor: Dos NICs de al menos 10 GbE y, opcionalmente un NIC 1 GbE BMC.
+\end{itemize}
+
+En total, si la infraestructura cuenta con un Management Domain y al menos un Virtual Infraestructure Domain, entonces se necesita una \setword{capacidad}{Word:capacidad} inicial y como mínimo igual a 76 vCPU, 168 GB de Memoria y 3306 GB de almacenamiento.
+
+\subsection{VMware Cloud Foundation Builder VM Support}
+\underline{Requisitos mínimos de hardware} de VMware Cloud Foundation Builder VM:
+\begin{itemize}
+    \item \textbf{CPU}: 4vCPUs
+    \item \textbf{Memoria}: 4 GB
+    \item \textbf{Almacenamiento}: 350 GB
+    \item \textbf{Conectividad}: acceso a la red \textit{Management Network} para acceder a cada host, al servidor DNS y al servidor NTP.
+\end{itemize}

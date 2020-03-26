@@ -175,11 +175,19 @@ Si bien VMware ofrece plugins para conectar sus componentes con otras soluciones
         \item \textbf{NSX Edge}: proporciona servicios múltiples servicios como firewall perimetral de capa 2 y 3, SSL, NAT, DHCP, VPN, balanceo de carga y alta disponibilidad.
     \end{itemize}
     \item \textbf{VMware vRealize Log Insight}: realiza la gestión de logs del servicio, dando visibilidad a todas las operaciones del servicio, generando análisis del sistema. Esto permite tener mayor conocimiento de los riesgos, eficiencia y uso de recursos, a parte de facilitar la búsqueda de orígenes de errores.\\
-    Para su correcto funcionamiento \underline{requiere desplegar los siguientes componentes}:
+    Forma un cluster que integra los siguientes \underline{componentes}:
     \begin{itemize}
-        \item \textbf{Nodo Master}: cuando se despliega con el modo \textit{standalone} este el responsable de todas las actividades, incluyendo las consultas y gestión de logs. También participa en la gestión del ciclo de vida del cluster actualizando, eliminando y añadiendo nodos \textit{Worker}. 
-        \item \textbf{Nodo Worker}: se generan para proporcionar alta disponibilidad facilitando la escalabilidad del entorno. En estos nodos se delegan las tareas de consulta y gestión de logs.
-        \item \textbf{Load Balancer}: se encarga de centralizar y asegurar la entrada de logs en Log Insight simplificando la configuración para habilitar la alta disponibilidad. También balancea el tráfico de logs entrante entre los nodos existentes.
+        \item \textbf{Nodo Master}: cuando se despliega con el modo \textit{standalone} este el responsable de todas las actividades, incluyendo las consultas de los clientes para obtener los logs y las tareas de obtención de los logs. Este nodo se encarga de las operaciones del cluster que forman los nodos de VMware Realize Log Insight como actualizaciones, creación y eliminación de nodos, tanto en modo \textit{standalone} como en entornos de alta disponibilidad. 
+        
+        \item \textbf{Nodo Worker}: es un nodo opcional que se crea para proporcionar alta disponibilidad y escalar el entorno, facilitando la escalabilidad del entorno. En estos nodos se delegan la gestión de las consultas de los clientes y de la obtención de logs que el nodo \textit{master} realiza en el modo \textit{standalone}.
+        \item \textbf{Load Balancer}: se encarga de centralizar y asegurar la entrada de logs en VMware vRealize Log Insight simplificando la creación de nodos a medida que se van creando. Además, se encarga del balancear el tráfico entrante entre todos los nodos y de escoger el nodo \textit{master}. Se ejecuta en uno de los nodos del cluster.
+    \end{itemize}
+    
+    \item \textbf{VMware vRealize Automation}: se trata de un componente opcional que permite automatizar el despliegue de máquinas virtuales, procesos y aplicaciones reduciendo la complejidad y eliminando tareas manuales. Esto acelera la entrega del servicio gracias a que las tareas de aprovisionamiento y entrega de recursos y aplicaciones son más rápidas permitiendo establecer políticas de seguridad y control. Internamente, este servicio \underline{cuenta con los siguientes componentes \cite{vRealizeAutomation}} para cumplir con sus funciones:
+    \begin{itemize}
+        \item \textbf{vRealize Automation Appliance}: contiene un portal donde los usuarios pueden acceder y gestionar y aprovisionar servicios cloud bajo demanda, un servicio de autenticación y una interfaz para gestionar este componente. 
+        \item \textbf{IaaS Web Server}: realiza las tareas de administración de la infraestructura que se requieren desde el portal de vRealize Automation Appliance.
+        \item \textbf{Microsoft SQL Server}: se utiliza para almacenar información sobre los elementos de IaaS y sobre las máquinas virtuales controladas por vRealize Automation Appliance.
     \end{itemize}
 \end{itemize}
 
