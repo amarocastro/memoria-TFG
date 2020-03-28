@@ -123,13 +123,14 @@ Esta solución virtualiza todas las capas de la infraestructura[Fig. \ref{fig:in
   \caption{Partes virtualizadas en un SDDC.}
   \label{fig:sddcoverview}
 \end{figure}
-\\
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{imaxes/cap2recursos/overviewCF.png}
   \caption{Cloud Foundation virtualiza toda la infraestructura.}
   \label{fig:infraCloudFound}
 \end{figure}
+\FloatBarrier
 
 VMware Cloud Foundation permite reducir el tiempo de mantenimiento ya que todo está controlado por el software que integra todos los componentes, automatizando gran parte de las operaciones y el ciclo de vida de todos los elementos desde su creación, como puede ser el control de versiones de cada elemento, los perfiles de usuario y las máquinas virtuales creadas, además de proporcionar una plataforma de acceso para que cada usuario pueda gestionar sus recursos.
 
@@ -146,7 +147,7 @@ Si bien VMware ofrece plugins para conectar sus componentes con otras soluciones
     \item \textbf{SDDC Manager}: gestiona el ciclo de vida de todos los componentes del sistema, incluyendo el proceso inicial de despliegue de Cloud Foundation, su configuración y aprovisionamiento, y las actualizaciones. Monitoriza los recursos físicos y lógicos de la infraestructura, facilita su configuración y permite añadir nuevos recursos cuando sea necesario. \iffalse Todo esto lo realiza mediante flujos de trabajo que facilitan la detección de orígenes de errores.\fi
     \item \textbf{vSphere}: ya está incluído en el servicio actual [\ref{subsec:softwareinstalado}].
     \item \textbf{VMware vSAN}: componente clave que virtualiza el almacenamiento. Como ya se ha explicado, el almacenamiento del servicio actual está configurado con LUNs que se deben gestionar individualmente en una capa distinta a los componentes software, provocando que su configuración sea más compleja y costosa. El objetivo de VMware vSAN es gestionar de forma automatizada y desde un único lugar el sistema de almacenamiento de la infraestructura, tratando toda la capacidad y recursos de almacenamiento como un único elemento, eliminando así la necesidad de tener que crear LUNs aisladas, consiguiendo abstraer la configuración de almacenamiento de la capa física en la capa de software y permitiendo establecer políticas de almacenamiento desde cada máquina virtual para adecuarlo a las necesidades de cada una sin tener que editar la configuración real del entorno físico. Así el rendimiento de los recursos de almacenamiento es más eficiente, flexible y su configuración se integra dentro del mismo servicio junto con la gestión del resto de componentes. \\
-    En vSAN, en lugar de tratar el almacenamiento de forma independiente este pasa a estar ligado a cada host, es decir, cada uno de los nodos tiene asignados hasta cinco grupos de discos. Estos grupos de discos pueden ser híbridos, donde se combinan discos duros SSD y HDD, o All-Flash, donde todos los discos utilizan tecnología \textit{Solid-State Drive} (SSD). Dentro de cada grupo hay \underline{dos tipos de discos} con distintas funciones, el disco de caché y el disco de capacidad\cite{operacionesVSAN}:
+    En vSAN, en lugar de tratar el almacenamiento de forma independiente este pasa a estar ligado a cada host, es decir, cada uno de los nodos tiene asignados hasta cinco grupos de discos. Estos grupos de discos pueden ser \emp{Hybrid}, donde se combinan discos duros SSD y HDD, o \emp{All-Flash}, donde todos los discos utilizan tecnología \textit{Solid-State Drive} (SSD). Dentro de cada grupo hay \underline{dos tipos de discos} con distintas funciones, el disco de caché y el disco de capacidad\cite{operacionesVSAN}:
         \begin{itemize}
             \item \textbf{Caché}: Hay uno en cada grupo. Realiza la función de memoria caché y se encarga de escribir los datos persistentes en los discos de capacidad.
             \item \textbf{Capacidad}: Puede haber hasta siete discos en cada grupo. Almacena los datos persistentes del entorno.
@@ -165,12 +166,12 @@ Si bien VMware ofrece plugins para conectar sus componentes con otras soluciones
         \FloatBarrier
     Los hosts acceden al \textit{datastore} de vSAN mediante protocolo IP en una red accesible por todos los nodos. \\ 
     Este componente permite reducir las tareas de gestión del almacenamiento físico ya que ya no es necesario hacer ajustes en la capa física para cumplir unos requisitos en la capa software.
-    \item \textbf{VMware NSX}: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes físicos de nuestro entorno en software, dando más libertad a la hora de establecer la topología y componentes físicos de la red. Incluye servicios como firewall, DNS, DHCP, VPN, NAT, enrutamiento, balanceo de carga, o switching, que permiten reducir la cantidad de dispositivos físicos de red.\\
+    \item \textbf{VMware NSX}: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes físicos de nuestro entorno en software, dando más libertad a la hora de establecer la topología y componentes físicos de la red. Incluye servicios como firewall, elimina el tráfico  DNS, DHCP, VPN, NAT, enrutamiento, balanceo de carga, o switching, que permiten reducir la cantidad de dispositivos físicos de red.\\
     Principales \underline{componentes internos}\cite{componentesNSX}:
     \begin{itemize}
-        \item \textbf{NSX Manager}: permite crear, configurar y administrar el resto de recursos de NSX. Su interfaz está integrada en vSphere.
-        \item \textbf{NSX Controller}: contiene las tablas de ARP, MAC, VTEP y de enrutamiento.
-        \item \textbf{NSX Virtual Switch}: gestiona los vSphere vSwitch Distibuted desplegados, proporcionando switching a los nodos ESXi.
+        \item \textbf{NSX Manager}: es el punto de entrada de la comunicaión con la instancia de vSphere, se encarga de desplegar NSX Controllers y el resto de servicios de NSX, instala VXLAN en los hosts ESXi, \textit{distributed routers} y firewalls, se comunica con los NSX Controllers y genera certificados para que las comunicaciones con los hosts ESXi sean seguras.
+        \item \textbf{NSX Controller}: establece el punto de control desde donde se distribuye la información sobre el enrutamiento lógico y de VXLAN hacia los hosts ESXi, existen varios nodos de este tipo para facilitar el escalado y alta disponibilidad de la infraestructura, comparte la información de red entre el resto de NSX Controllers, abstrae el uso de VXLAN sobre la red física y elimina el uso del protocolo ARP en redes VXLAN. 
+        \item \textbf{NSX Virtual Switch}: gestiona los vSphere vSwitch Distibuted desplegados, proporcionando switching entre los hosts ESXi.
         \item \textbf{NSX Logical Router Control}: se despliega cuando se crea un Distributed Logical Router. Se encarga de buscar adyacencias para generar tablas de enrutamiento que envía a NSX Manager y a los NSX Cotrollers para que informen a cada Distributed Logical Router en cada nodo ESXi.
         \item \textbf{NSX Edge}: proporciona servicios múltiples servicios como firewall perimetral de capa 2 y 3, SSL, NAT, DHCP, VPN, balanceo de carga y alta disponibilidad.
     \end{itemize}
