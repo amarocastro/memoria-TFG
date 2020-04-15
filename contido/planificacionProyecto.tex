@@ -28,7 +28,7 @@ Comprobación de requisitos, preparación del entorno, establecimiento de parám
 \underline{Tarea 15}. Diseño de un sistema de facturación/valoración de los recursos del servicio en base a las políticas de uso establecidas. Basándose en las políticas establecidas en la tarea 14, se debe pensar como se pueden aplicar sobre el servicio. Esto puede ser a través de una herramienta externa, en ese caso sería necesario realizar un desarrollo, o integrando la configuración en los parámetros de configuración de la plataforma.\\
 La intención de este sistema es limitar la cantidad de recursos que un usuario puede aprovisionar permitiendo aumentar la eficiencia de los recursos físicos reduciendo la cantidad de recursos ociosos.\\
 
-\underline{Tarea 16}. Implementación y despliegue del sistema de facturación/valoración diseñado. Para implementar este sistema puede que sea necesario realizar el desarrollo de una herramienta si se determina que no es posible establecerlo a través de los parámetros de configuración de la plataforma. \\
+\underline{Tarea 16}. Implementación y despliegue del sistema de facturación/valoración. Para implementar este sistema puede que sea necesario realizar el desarrollo de una herramienta si se determina que no es posible establecerlo a través de los parámetros de configuración de la plataforma. \\
 
 \underline{Tarea 17, 18 y 19}. Recopilación de la información necesaria para la realización de cada tarea. La información de apoyo se debe obtener de documentaciones, artículos, vídeos o libros de  fuentes fiables como empresas desarrolladoras de los productos utilizados o expertos especializados. El objetivo la recopilación de información es obtener conocimiento sobre las herramientas con las que se está trabajando para luego tener una base que facilite la realización de las tareas descritas. Esto se realiza desde el comienzo del proyecto hasta su finalización para tener claros los conceptos que se desarrollan y para conocer los detalles del trabajo que hay que realizar en cada tarea.\\
 
@@ -57,22 +57,22 @@ La duración total del proyecto se estima en 101 días. teniendo en cuenta que e
 Los principales costes del proyecto son aquellos relacionados con los trabajadores que lo llevan a cabo y las licencias necesarias para cada componente de VMware Cloud Foundation en la infraestructura\footnote{Los componentes que se especifican son aquellos que son obligatorios para desplegar VMware Cloud Foundation.}.\\
 Cada componente de VMware Cloud Foundation requiere su propia licencia\cite{licenses}. Estos componentes son SDDC Manager, VMware vSphere, VMware vCenter, VMware vSAN, VMware NSX for vSphere y VMware vRealize Log Insight. El precio de cada licencia dependerá del número de CPUs físicas sobre las que se va usar esta plataforma por lo que, como en la infraestructura hay un total de ocho hosts con dos CPUs cada uno, \underline{el precio por cada componente} es el siguiente:
 \begin{itemize}
-    \item \textbf{SDDC Manager}: 1800€\footnote{Para la edición \textit{Advanced} de VMware Cloud Foundation.} por CPU y 6500€ anuales por soporte. El precio total de la licencia es de 28800€ por 16 CPUs.
-    \item \textbf{VMware vSphere}: 4000€\footnote{Para la edición \textit{Standard} de VMware vSphere.} por CPU. El precio total de la licencia es de 64000€ por 16 CPUs y el precio anual por las tareas de soporte es de 16000€.
-    \item \textbf{VMware vCenter}: 6000€ por CPU. El precio total de la licencia es de 96000€ por 16 CPUs y el precio anual por las tareas de soporte es de 24000€.
-    \item \textbf{VMware vSAN}: 4000€\footnote{Para la edición \textit{Advanced} de VMware vSAN.} por CPU. El precio total de la licencia es de 64000€ por 16 CPUs y el precio anual por las tareas de soporte es de 16000€.
-    \item \textbf{VMware NSX for vSphere}: 5300€\footnote{Para la edición \textit{Advanced} de NSX.} por CPU. El precio total de la licencia es de 84400€ por 16 CPUs y el precio anual por las tareas de soporte es de 21100€.
-    \item \textbf{VMware vRealize Log Insight}: 1500€ por CPU. El precio total de la licencia es de 24000€ por 16 CPUs y el precio anual por las tareas de soporte es de 6000€.
+    \item \textbf{SDDC Manager}: 18.000€\footnote{Para la edición \textit{Advanced} de VMware Cloud Foundation.} por CPU y 6.500€ anuales de soporte por cada CPU. El precio total de la licencia es de 288.000€ y 104.000€ anuales de soporte por 16 CPUs.
+    \item \textbf{VMware vSphere}: 4.000€\footnote{Para la edición \textit{Standard} de VMware vSphere.} por CPU. El precio total de la licencia es de 64.000€ por 16 CPUs y el precio anual por las tareas de soporte es de 16.000€.
+    \item \textbf{VMware vCenter}: 6.000€\footnote{Para la edición \textit{Standard} de VMware vCenter} por una licencia que permite usar VMware vCenter sobre todos los hosts del entorno. El precio anual por las tareas de soporte es de 1.500€.
+    \item \textbf{VMware vSAN}: 4.000€\footnote{Para la edición \textit{Advanced} de VMware vSAN.} por CPU. El precio total de la licencia es de 64.000€ por 16 CPUs y el precio anual por las tareas de soporte es de 16.000€.
+    \item \textbf{VMware NSX for vSphere}: 5.300€\footnote{Para la edición \textit{Advanced} de NSX.} por CPU. El precio total de la licencia es de 84.400€ por 16 CPUs y el precio anual por las tareas de soporte es de 21.100€.
+    \item \textbf{VMware vRealize Log Insight}: 1.500€ por CPU. El precio total de la licencia es de 24.000€ por 16 CPUs y el precio anual por las tareas de soporte es de 6.000€.
 \end{itemize}
 
-El precio total de todas las licencias necesarias para el entorno, teniendo en cuenta que hay 16 CPUs, sería igual a 361200€, y el precio total por las tareas de soporte sería igual a 83100€ anuales.\\
+El precio total de todas las licencias necesarias para el entorno, teniendo en cuenta que hay 16 CPUs, sería igual a 530.400€, y el precio total por las tareas de soporte sería igual a 164.600€ anuales.\\
 
-En caso de que ya estén instalados algunos de los componentes entonces solo se requieren licencias para aquellos componentes que aún no están en el entorno. En el caso del entorno inicial, los componentes que ya están instalados son VMware vSphere, VMware vCenter Server. Esto hace que el \underline{coste real para implementar VMware Cloud Foundation} en el entorno sea igual a 201200€, ya que solo son necesarias licencias para los componentes SDDC Manager, VMware vSAN, VMware NSX for vSphere y VMware vRealize Log Insight. El coste total de la instalación y mantenimiento de la plataforma VMware Cloud Foundation sobre la infraestrructura del CITIC es el siguiente:
+En caso de que ya estén instalados algunos de los componentes entonces solo se requieren licencias para aquellos componentes que aún no están en el entorno. En el caso del entorno inicial, los componentes que ya están instalados son VMware vSphere, VMware vCenter Server. Esto hace que el \underline{coste real para implementar VMware Cloud Foundation} en el entorno sea igual a 460.400€, ya que solo son necesarias licencias para los componentes SDDC Manager, VMware vSAN, VMware NSX for vSphere y VMware vRealize Log Insight. El coste total de la instalación y mantenimiento de la plataforma VMware Cloud Foundation sobre la infraestrructura del CITIC es el siguiente:
 
     \begin{itemize}
-        \item \textbf{Licencias}: 201200€ en total.
-        \item \textbf{Soporte}: 83100€ anuales.
-        \item \textbf{Sueldo empleado}: 5031,25€ en total.
+        \item \textbf{Licencias}: 460.400€ en total.
+        \item \textbf{Soporte}: 164.600€ anuales.
+        \item \textbf{Sueldo empleado}: 5.031,25€ en total.
     \end{itemize}
 
 

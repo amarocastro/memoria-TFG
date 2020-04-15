@@ -1,0 +1,30 @@
+\begin{section}{Despliegue de VMware Cloud Foundation}
+En esta sección se describe el entorno y los procedimientos llevados a cabo para desplegar VMware Cloud Foundation sobre la infraestructura.
+\begin{subsection}{Prueba de concepto}
+Para poder realizar la instalación sin afectar al funcionamiento actual del CPD del CITIC, se habilita un entorno aislado. Con esto se evita la aparición de fallos que pueden ser críticos para la infraestructura y a la vez permite explorar esta nueva plataforma sin tener en cuenta los riesgos de hacerlo sobre la infraestructura real.\\
+ ************DESCRIPCION DEL ENTORNO (INFRAESTRUCTURA)*********\\
+\end{subsection}
+\begin{subsection}{Preparación del entorno}
+En esta sección se describe la arquitectura y configuración de todos los componentes de la infraestructura del entorno donde se va a realizar el despliegue. Las opciones de configuración se establecen de acuerdo con lo descrito en los apartados anteriores sobre el diseño de la infraestructura y arquitectura de VMware Cloud Foundation.
+\\
+
+
+*********SERVICIOS QUE SE CREAN (CONFIG DNS,DHCP, ROUTER...)***********\\
+
+\subsubsection{VMware Cloud Foundation Builder}
+El despliegue de la plataforma VMware Cloud Foundation se realiza través de una \textit{appliance} llamada VMware Cloud Foundation Builder. Esto es una máquina virtual que se instala en el entorno desde una archivo con formato \textit{.ova}, proporcionado por VMware, y que contiene el instalador de VMware Cloud Foundation. Este instalador se encarga de recibir los parámetros de configuración de la infraestructura donde se va a hacer el despliegue, los valida y a continuación despliega el \textit{management domain} del SDDC con todos sus componentes. Cuando termina el proceso, transfiere el inventario y el control del sistema al componente SDDC Manager y VMware Cloud Foundation Builder puede ser eliminado.\\
+Esta máquina virtual tiene los siguientes requisitos:
+\begin{itemize}
+    \item \textbf{CPU}: 4 vCPU.
+    \item \textbf{Memoria RAM}: 4 GB.
+    \item \textbf{Almacenamiento}: 350 GB.
+    \item Acceso al servidor DNS y NTP para validar la configuración de VMware Cloud Foundation.
+    \item Acceso a la red \textit{management} para comunicarse con todos los hosts ESXi.
+\end{itemize}
+
+
+*********CLOUD BUILDER*************\\
+
+*********HOJA DE PARÁMETROS********\\
+\end{subsection}
+\end{section}
