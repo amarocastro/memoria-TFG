@@ -61,7 +61,7 @@ Actualmente el servicio está basado en el software de la empresa VMware, uno de
     \fi
     \item \textbf{vSphere Auto Deploy}: herramienta que permite desplegar gran cantidad de nodos físicos de forma automátizada.
     
-    \item \textbf{vSphere Update Manager Extension}: centraliza y gestiona las actualizaciones de todos los objetos de vSphere. Con Update Manager se pueden aplicar actualizaciones a los hosts ESXi, instalar y actualizar software de terceros en los hosts, y actualizar el hardware de una máquina virtual.
+    \item \textbf{vSphere Update Manager}: permite gestionar de forma centralizada y automatizada las actualizaciones para hosts ESXi, para el hardware de las máquinas virtuales y para actualizar e instalar software de terceros en los hosts ESXi. Este componente se ejecuta desde VMware vCenter Server como un servicio y requiere conexión a la red externa para obtener las actualizaciones.
    
     \item \textbf{vSphere Web Client}: interfaz web que permite acceder a vCenter Server de forma remota.
     
@@ -74,9 +74,11 @@ Actualmente el servicio está basado en el software de la empresa VMware, uno de
     \item \textbf{vSphere Distributed Resource Scheduler (DRS)} y \textbf{vSphere Distributed Power Management (DPM)}: DRS genera recomendaciones sobre donde se debería desplegar una máquina virtual cuando se está creando, utiliza vMotion para mover las máquinas virtuales a través de los hosts de un cluster para maximizar el rendimiento o durante tareas de mantenimiento en un host. DPM se encarga de gestionar el consumo de energía de cada host según el rendimiento necesario.
     \item \textbf{Storage DRS}: balancea la carga de almacenamiento y las operaciones I/O entre los diferentes datastores disponibles.
     
-    \item \textbf{vSphere Fault Tolerance}: crea una copia de todos los archivos y discos de cada máquina virtual sincronizados con los originales. Esto junto con vSphere HA y vSphere DRS, proporciona recuperación ante fallos y  disponibilidad continua de las máquinas virtuales, realizado de forma automática en caso de fallos, sin perdida de datos y sin pérdida de conexiones de la máquina virtual. Este servicio está orientado a proteger aquellas tareas que requieren un alto rendimiento o que son críticas. habilitadas creando una copia de cada una  para usarla en caso de que la primera falle.
-    
-    \item \textbf{Distributed Switch (vDS)}: habilita swithces virtuales que se encargan de gestionar el tráfico de los hosts ESXi.
+    \item \textbf{vSphere Fault Tolerance}: crea una copia de todos los archivos y discos de cada máquina virtual sincronizados con los originales. Esto junto con vSphere HA y vSphere DRS, proporciona recuperación ante fallos y  disponibilidad continua de las máquinas virtuales de forma automática en caso de que la máquina virtual esté inactiva, sin perdida de datos y sin pérdida de conexiones de que había activas. Este servicio está orientado a proteger aquellas tareas que requieren un alto rendimiento o que son críticas.
+    \iffalse
+    habilitadas creando una copia de cada una  para usarla en caso de que la primera falle.
+    \fi
+    \item \textbf{vSphere Distributed Switch (vDS)}: habilita switches virtuales que se encargan de gestionar el tráfico de los hosts ESXi. Se utiliza para administrar la configuración de los puertos de cada host ESXi de forma centralizada, permitiendo crear redes y establecer políticas sobre el tráfico desde un único lugar. Desde aquí se establecen las conexiones de cada tipo de tráfico con las tarjetas de red físicas de cada host ESXi.
     
     \item \textbf{Virtual Machine File System (VMFS)}: sistema de archivos de alto rendimiento nativo de VMware vSphere. Se utiliza para implementar los almacenes de datos de la infraestructura y está optimizado para el almacenamiento de máquinas virtuales.
     
@@ -171,16 +173,16 @@ En VMware Cloud Foundation existen diversos productos y servicios, algunos son r
 \begin{itemize}
     \item \textbf{SDDC Manager}: gestiona el ciclo de vida de todos los componentes del sistema, incluyendo el proceso inicial de despliegue de Cloud Foundation, su configuración y aprovisionamiento, y las actualizaciones. Monitoriza los recursos físicos y lógicos de la infraestructura, facilita su configuración y permite añadir nuevos recursos cuando sea necesario. \iffalse Todo esto lo realiza mediante flujos de trabajo que facilitan la detección de orígenes de errores.\fi
     \item \textbf{vSphere}: ya está incluído en el servicio actual [\ref{subsec:softwareinstalado}].
-    \item \textbf{VMware vSAN}: componente clave que virtualiza el almacenamiento. Como ya se ha explicado, el almacenamiento del servicio actual está configurado con LUNs que se deben gestionar individualmente en una capa distinta a los componentes software, provocando que su configuración sea más compleja y costosa. El objetivo de VMware vSAN es gestionar de forma automatizada y desde un único lugar el sistema de almacenamiento de la infraestructura, tratando toda la capacidad y recursos de almacenamiento como un único elemento, eliminando así la necesidad de tener que crear LUNs aisladas, consiguiendo abstraer la configuración de almacenamiento de la capa física en la capa de software y permitiendo establecer políticas de almacenamiento desde cada máquina virtual para adecuarlo a las necesidades de cada una sin tener que editar la configuración real del entorno físico. Así el rendimiento de los recursos de almacenamiento es más eficiente, flexible y su configuración se integra dentro del mismo servicio junto con la gestión del resto de componentes. \\
-    En vSAN, en lugar de tratar el almacenamiento de forma independiente este pasa a estar ligado a cada host, es decir, cada uno de los nodos tiene asignados hasta cinco grupos de discos. Estos grupos de discos pueden ser \emp{Hybrid}, donde se combinan discos duros SSD y HDD, o \emp{All-Flash}, donde todos los discos utilizan tecnología \textit{Solid-State Drive} (SSD). Dentro de cada grupo hay \underline{dos tipos de discos} con distintas funciones, el disco de caché y el disco de capacidad\cite{operacionesVSAN}:
+    \item \textbf{VMware vSAN}: componente clave que virtualiza el almacenamiento. Como ya se ha explicado, el almacenamiento del servicio actual está configurado con LUNs que se deben gestionar individualmente en una capa distinta a los componentes software, provocando que su configuración sea más compleja y costosa. El objetivo de VMware vSAN es gestionar de forma automatizada y desde un único lugar el sistema de almacenamiento de la infraestructura, tratando toda la capacidad y recursos de almacenamiento como un único elemento, eliminando así la necesidad de tener que crear LUNs aisladas, consiguiendo abstraer la configuración de almacenamiento de la capa física en la capa de software y permitiendo establecer políticas de almacenamiento desde cada máquina virtual para adecuarlo a las necesidades de cada una, sin tener que editar la configuración real del entorno físico. Así el rendimiento de los recursos de almacenamiento es más eficiente, flexible y su configuración se integra dentro del mismo servicio junto con la gestión del resto de componentes. \\
+    En VMware vSAN, en lugar de tratar el almacenamiento de forma independiente este pasa a estar ligado a cada host, es decir, cada uno de los nodos tiene asignados hasta cinco grupos de discos. Estos grupos de discos pueden ser de tipo \textit{Hybrid}, donde se combinan discos duros SSD y HDD, o \textit{All-Flash}, donde todos los discos son de tipo SSD. Dentro de cada grupo, los discos se dividen en dos tipos con distintas funciones, el disco de caché y el disco de capacidad\cite{operacionesVSAN}:
         \begin{itemize}
             \item \textbf{Caché}: Hay uno en cada grupo. Realiza la función de memoria caché y se encarga de escribir los datos persistentes en los discos de capacidad.
             \item \textbf{Capacidad}: Puede haber hasta siete discos en cada grupo. Almacena los datos persistentes del entorno.
         \end{itemize}
     En cada grupo de discos la gestión de la \underline{lectura y escritura} de datos se hace de la siguiente forma:
         \begin{itemize}
-            \item \textbf{Lectura}: En el caso de la solución híbrida, si el dato que se busca no está en el disco de caché entonces se busca en los discos de capacidad y después se incorpora al disco de caché. Con la solución all-flash, los datos se leen siempre directamente de los discos de capacidad sin que estos sean escritos en el disco de caché dejando a este completamente libre para las operaciones de escritura. Gracias a esto, la estructura all-flash ofrece mayor rendimiento respecto a la híbrida.
-            \item \textbf{Escritura}: Tanto en la solución híbrida con en la all-flash, el host ESXi primero escribe en el disco de caché, este le responde con una confirmación de escritura y más tarde vSAN se encarga de escribir ese dato en los discos de capacidad cuando el disco de caché está casi completo o cuando el dato lleva un tiempo sin ser utilizado.
+            \item \textbf{Lectura}: En el caso de la solución \textit{Hybrid}, si el dato que se busca no está en el disco de caché entonces se busca en los discos de capacidad y después se incorpora al disco de caché. Con la solución \textit{All-flash}, los datos se leen siempre directamente de los discos de capacidad sin que estos sean escritos en el disco de caché dejando a este completamente libre para las operaciones de escritura. Gracias a esto, la estructura \textit{All-flash} ofrece mayor rendimiento respecto a la \textit{Hybrid}.
+            \item \textbf{Escritura}: Tanto en la solución \textit{Hybrid} con en la \textit{All-flash}, el host ESXi primero escribe en el disco de caché, este le responde con una confirmación de escritura y más tarde vSAN se encarga de escribir ese dato en los discos de capacidad cuando el disco de caché está casi completo o cuando el dato lleva un tiempo sin ser utilizado.
         \end{itemize}
         \begin{figure}[h!]
             \centering
@@ -191,22 +193,56 @@ En VMware Cloud Foundation existen diversos productos y servicios, algunos son r
         \FloatBarrier
     Los hosts acceden al \textit{datastore} de vSAN mediante protocolo IP en una red accesible por todos los nodos. \\ 
     Este componente permite reducir las tareas de gestión del almacenamiento físico ya que ya no es necesario hacer ajustes en la capa física para cumplir unos requisitos en la capa software.
-    \item \textbf{VMware NSX}: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes físicos de nuestro entorno en software, dando más libertad a la hora de establecer la topología y componentes físicos de la red. Incluye servicios como firewall, elimina el tráfico  DNS, DHCP, VPN, NAT, enrutamiento, balanceo de carga, o switching, que permiten reducir la cantidad de dispositivos físicos de red.\\
-    Principales \underline{componentes internos}\cite{componentesNSX}:
+    \item \textbf{VMware NSX}: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes de la red para desacoplar la configuración de la red física y la red virtual del SDDC simplificando así las operaciones en la infraestructura física. Con esto, los administradores pueden configurar la red del SDDC sin tener en cuenta el equipamiento físico ya que trabajan con una red virtual independiente de la red física sobre la que funciona.
+    \iffalse
+    Incluye servicios de red como firewall, elimina el tráfico  DNS, DHCP, VPN, NAT, enrutamiento, balanceo de carga, o switching, que permiten reducir la cantidad de dispositivos físicos de red.\\
+    \fi
+    Los componentes de VMware NSX se agrupan en tres capas/planos\cite{componentesNSX}:
     \begin{itemize}
+        \item \textbf{Management Plane}: 
+            \begin{itemize}
+                \item \textbf{NSX Manager}: es el punto desde donde se administran todos los componentes de NSX. Existe una instancia de NSX Manager por cada instancia de vCenter Server. Contiene los archivos necesarios para desplegar el resto de componentes de NSX (NSX Edge Services Gateway y NSX Controller), y, cuando es creado, se encarga de habilitar las funcionalidades VXLAN sobre capa 2, Distributed Router y \textit{User World Agent} (UWA) en todos los hosts ESXi. Genera certificados para cada instancia de NSX Controller y host ESXi que utiliza para asegurar las comunicaciones en el \textit{Control Plane}.
+            \end{itemize}
+        \item \textbf{Control Plane}:
+            \begin{itemize}
+                \item \textbf{NSX Controller}: se encarga de almacenar y transmitir información sobre la red a cada hosts ESXi. Provee la información sobre los segmentos VXLAN existentes, la información sobre el enrutamiento en la red virtual, almacena las tablas ARP, MAC y VTEP. Esto permite que se pueda eliminar el tráfico Broadcast de las redes VXLAN, ya que este tipo de tráfico es generado por las máquinas virtuales y capturado por el host ESXi que lo reenvía a la instancia de NSX Controller para obtener la información requerida. También elimina la necesidad de configurar los protocolos Multicast Routing y \textit{Protocol Independent Multicast} (PIM) para implementar redes VXLAN. Se despliegan tres instancias de NSX Controller para proveer alta disponibilidad.
+                \iffalse
+                \item \textit{User World Agent} (UWA): proceso que usa una instancia de NSX Controller para comunicarse con cada host ESXi a través de su dirección IP en la red
+                \fi
+                \item \textbf{Logical Router Control}: se trata de una máquina virtual que se genera cada vez que se crea el componente Distributed Logical Router. Busca routers adyacentes, tanto físcos como virtuales, para formar tablas de enrutamiento que se envían a NSX Manager que las comunica al resto de dispostivos.
+            \end{itemize}
+        \item \textbf{Data Plane}: está controlado por NSX Virtual Switch el cual extiende las funcionalidades de vSphere Distributed Router, clave para la virtualización de la red. Estas características son:
+            \begin{itemize}
+                \item \textbf{Distributed Firewall}: filtra el tráfico con un servicio de Firewall, permitiendo segmentar las máquinas virtuales estableciendo políticas según sus características. Está distribuído en todos los hosts ESXi.
+                \item \textbf{VXLAN}: protocolo que habilita la creación de redes virtuales sobre una red IP ya existente. Es gestionado a través de \textit{VXLAN Tunnel EndPoints} (VTEP) repartidos por cada host ESXi para encapsular el tráfico saliente de las máquinas virtuales con la cabecera de la red VXLAN.
+                \item \textbf{Distributed Logical Router} (DLR): elemento que reside en el hipervisor de cada host ESXi y que se encarga de enrutar el tráfico entre las máquinas virtuales a través de la red virtual del SDDC sobre VXLAN. Soporta los protocolos de enrutamiento dinámico BGP y OSPF. DLR pasa a llamarse Universal Distributed Logical Router (UDLR) cuando se configura el mismo UDLR a través de varias \textit{regions} de un SDDC.
+                \item \textbf{Logical Switch}: se definen dentro del componente vSphere Distributed Switch sobre un \textit{portgroup}. Crea segmentos de red ya que tiene una VXLAN asignada, es decir, un segmento/red VXLAN está delimitada por un Logical Switch. Está distribuido en cada host ESXi\footnote{El Logical Switch se extiende en toda la \textit{transport zone} de la VXLAN a la que pertenece, esta define el alcance de un segmento VXLAN que puede extenderse en varios clusters pertenecientes a una instancia de vCenter Server.}.
+                \item \textbf{Edge Services Gateway} (ESG): es una máquina virtual que se encarga de enrutar el tráfico hacia redes externas al SDDC, por lo tanto está conectado con el DLR y con el dispositivo físico de enrutamiento de capa 3. Provee servicios perimetrales como SSL, NAT, DHCP, VPN y Load Balancing.
+            \end{itemize}
+    \end{itemize}
+    
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=0.55\textwidth]{imaxes/conceptosPrevios/planosNSX.png}
+            \caption{Componentes de VMware NSX}
+            \label{fig:planosNSX}
+        \end{figure}
+        \FloatBarrier
+        
+    \iffalse
         \item \textbf{NSX Manager}: es el punto de entrada de la comunicaión con la instancia de vSphere, se encarga de desplegar NSX Controllers y el resto de servicios de NSX, instala VXLAN en los hosts ESXi, \textit{distributed routers} y firewalls, se comunica con los NSX Controllers y genera certificados para que las comunicaciones con los hosts ESXi sean seguras.
         \item \textbf{NSX Controller}: establece el punto de control desde donde se distribuye la información sobre el enrutamiento lógico y de VXLAN hacia los hosts ESXi, existen varios nodos de este tipo para facilitar el escalado y alta disponibilidad de la infraestructura, comparte la información de red entre el resto de NSX Controllers, abstrae el uso de VXLAN sobre la red física y elimina el uso del protocolo ARP en redes VXLAN. 
         \item \textbf{NSX Virtual Switch}: gestiona los vSphere vSwitch Distibuted desplegados, proporcionando switching entre los hosts ESXi.
         \item \textbf{NSX Logical Router Control}: se despliega cuando se crea un Distributed Logical Router. Se encarga de buscar adyacencias para generar tablas de enrutamiento que envía a NSX Manager y a los NSX Cotrollers para que informen a cada Distributed Logical Router en cada nodo ESXi.
         \item \textbf{NSX Edge}: proporciona servicios múltiples servicios como firewall perimetral de capa 2 y 3, SSL, NAT, DHCP, VPN, balanceo de carga y alta disponibilidad.
-    \end{itemize}
-    \item \textbf{VMware vRealize Log Insight}: realiza la gestión de logs del servicio, dando visibilidad a todas las operaciones del servicio, generando análisis del sistema. Esto permite tener mayor conocimiento de los riesgos, eficiencia y uso de recursos, a parte de facilitar la búsqueda de orígenes de errores.\\
-    Forma un cluster que integra los siguientes \underline{componentes}:
+    \fi
+    \item \textbf{VMware vRealize Log Insight}: realiza la gestión de logs del servicio, dando visibilidad a todas las operaciones del servicio, generando análisis del sistema. Esto permite tener mayor conocimiento de los riesgos, eficiencia y uso de recursos, a parte de facilitar la búsqueda de orígenes de errores. Está formado por los siguientes componentes:
     \begin{itemize}
-        \item \textbf{Nodo Master}: cuando se despliega con el modo \textit{standalone} este el responsable de todas las actividades, incluyendo las consultas de los clientes para obtener los logs y las tareas de obtención de los logs. Este nodo se encarga de las operaciones del cluster que forman los nodos de VMware Realize Log Insight como actualizaciones, creación y eliminación de nodos, tanto en modo \textit{standalone} como en entornos de alta disponibilidad. 
+        \item \textbf{Nodo Master}: es el único nodo que se despliega en el modo \textit{standalone}, en ese caso se encarga de la obtención de logs de los servicios de VMware Cloud Foundation y de entregar la información almacenada al cliente. Cuando se despliegan más nodos, se encarga de gestionar la creación, elimación y actualización de los nodos worker.
         
-        \item \textbf{Nodo Worker}: es un nodo opcional que se crea para proporcionar alta disponibilidad y escalar el entorno, facilitando la escalabilidad del entorno. En estos nodos se delegan la gestión de las consultas de los clientes y de la obtención de logs que el nodo \textit{master} realiza en el modo \textit{standalone}.
-        \item \textbf{Load Balancer}: se encarga de centralizar y asegurar la entrada de logs en VMware vRealize Log Insight simplificando la creación de nodos a medida que se van creando. Además, se encarga del balancear el tráfico entrante entre todos los nodos y de escoger el nodo \textit{master}. Se ejecuta en uno de los nodos del cluster.
+        \item \textbf{Nodo Worker}: es un nodo opcional que se crea para proporcionar alta disponibilidad y escalar el entorno. En este tipo de nodo se delegan la entrega de la información almacena al cliente y la obtención de logs de cada host ESXi.
+        
+        \item \textbf{Load Balancer}: simplifica la configuración de la alta disponibilidad cuando hay nodos worker desplegados. Se encarga de recibir las peticiones de los clientes, de entregarlas a los nodos worker y de enviar la respueste. También gestiona el balanceo del tráfico entrante entre todos los nodos y de escoger el nodo \textit{master}. Se ejecuta en uno de los nodos de VMware vRealize Log Insight.
     \end{itemize}
     
     \item \textbf{VMware vRealize Automation}: se trata de un componente opcional que permite automatizar el despliegue de máquinas virtuales, procesos y aplicaciones reduciendo la complejidad y eliminando tareas manuales. Esto acelera la entrega del servicio gracias a que las tareas de aprovisionamiento y entrega de recursos y aplicaciones son más rápidas permitiendo establecer políticas de seguridad y control. Internamente, este servicio \underline{cuenta con los siguientes componentes \cite{vRealizeAutomation}} para cumplir con sus funciones:
