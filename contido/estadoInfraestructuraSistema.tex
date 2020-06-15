@@ -193,32 +193,43 @@ En VMware Cloud Foundation existen diversos productos y servicios, algunos son r
         \FloatBarrier
     Los hosts acceden al \textit{datastore} de vSAN mediante protocolo IP en una red accesible por todos los nodos. \\ 
     Este componente permite reducir las tareas de gestión del almacenamiento físico ya que ya no es necesario hacer ajustes en la capa física para cumplir unos requisitos en la capa software.
-    \item \textbf{VMware NSX}: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes de la red para desacoplar la configuración de la red física y la red virtual del SDDC simplificando así las operaciones en la infraestructura física. Con esto, los administradores pueden configurar la red del SDDC sin tener en cuenta el equipamiento físico ya que trabajan con una red virtual independiente de la red física sobre la que funciona.
+   
+    \item \textbf{VMware NSX-T}: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes de la red para desacoplar la configuración de la red física y la red virtual del SDDC simplificando así las operaciones en la infraestructura física. Con esto, los administradores pueden configurar la red del SDDC sin tener en cuenta el equipamiento físico ya que trabajan con una red virtual independiente de la red física sobre la que funciona.
     \iffalse
     Incluye servicios de red como firewall, elimina el tráfico  DNS, DHCP, VPN, NAT, enrutamiento, balanceo de carga, o switching, que permiten reducir la cantidad de dispositivos físicos de red.\\
     \fi
-    Los componentes de VMware NSX se agrupan en tres capas/planos\cite{componentesNSX}:
+    Los componentes de VMware NSX-T se agrupan en tres capas/planos\cite{componentesNSX}:
     \begin{itemize}
-        \item \textbf{Management Plane}: 
+        \item \textbf{Management Plane}: desde este punto se gestiona la conectividad, seguridad y operaciones de los componentes del sistema a través de un inventario de objetos, proporciona una interfaz y una API para acceder acceder a los componentes de VMware NSX-T, almacena y transmite la configuración del sistema al \textit{Control Plane} y obtiene información del sistema como estadísticas de uso. Estas funciones son implementadas por el componente \textbf{NSX-T Manager}.
+            
+            % \begin{itemize}
+            %     \item \textbf{NSX-T Manager}: es el punto desde donde se administran todos los componentes de NSX. Existe una instancia de NSX Manager por cada instancia de vCenter Server. Contiene los archivos necesarios para desplegar el resto de componentes de NSX (NSX Edge Services Gateway y NSX Controller), y, cuando es creado, se encarga de habilitar las funcionalidades VXLAN sobre capa 2, Distributed Router y \textit{User World Agent} (UWA) en todos los hosts ESXi. Genera certificados para cada instancia de NSX Controller y host ESXi que utiliza para asegurar las comunicaciones en el \textit{Control Plane}.
+            % \end{itemize}
+        \item \textbf{Control Plane}: este plano comunica al cada componente la configuración establecida desde \textit{Management Plane}. Además, se encarga de obtener información sobre la topología de la red desde el \textit{Data Plane}. Este plano se divide en dos partes:
             \begin{itemize}
-                \item \textbf{NSX Manager}: es el punto desde donde se administran todos los componentes de NSX. Existe una instancia de NSX Manager por cada instancia de vCenter Server. Contiene los archivos necesarios para desplegar el resto de componentes de NSX (NSX Edge Services Gateway y NSX Controller), y, cuando es creado, se encarga de habilitar las funcionalidades VXLAN sobre capa 2, Distributed Router y \textit{User World Agent} (UWA) en todos los hosts ESXi. Genera certificados para cada instancia de NSX Controller y host ESXi que utiliza para asegurar las comunicaciones en el \textit{Control Plane}.
+                \item \textit{Central Control Plane} (CCP): implementado por un cluster de varias VM donde cada una contiene el componente \textbf{NSX-T Controller}, el cual es el encargado de controlar las redes virtuales existentes y de proveer de configuración a otros componentes como \textit{logical switches}, \textit{logical routers} y \textit{edge nodes}.
+                \item \textit{Local Control Plane} (LCP): este plano lo implementan los \textbf{transport nodes} y es responsable de monitorizar los enlaces locales y de reenviar entradas de configuración a los componentes del \textit{Data Plane}.
             \end{itemize}
-        \item \textbf{Control Plane}:
-            \begin{itemize}
-                \item \textbf{NSX Controller}: se encarga de almacenar y transmitir información sobre la red a cada hosts ESXi. Provee la información sobre los segmentos VXLAN existentes, la información sobre el enrutamiento en la red virtual, almacena las tablas ARP, MAC y VTEP. Esto permite que se pueda eliminar el tráfico Broadcast de las redes VXLAN, ya que este tipo de tráfico es generado por las máquinas virtuales y capturado por el host ESXi que lo reenvía a la instancia de NSX Controller para obtener la información requerida. También elimina la necesidad de configurar los protocolos Multicast Routing y \textit{Protocol Independent Multicast} (PIM) para implementar redes VXLAN. Se despliegan tres instancias de NSX Controller para proveer alta disponibilidad.
-                \iffalse
-                \item \textit{User World Agent} (UWA): proceso que usa una instancia de NSX Controller para comunicarse con cada host ESXi a través de su dirección IP en la red
-                \fi
-                \item \textbf{Logical Router Control}: se trata de una máquina virtual que se genera cada vez que se crea el componente Distributed Logical Router. Busca routers adyacentes, tanto físcos como virtuales, para formar tablas de enrutamiento que se envían a NSX Manager que las comunica al resto de dispostivos.
-            \end{itemize}
-        \item \textbf{Data Plane}: está controlado por NSX Virtual Switch el cual extiende las funcionalidades de vSphere Distributed Router, clave para la virtualización de la red. Estas características son:
-            \begin{itemize}
-                \item \textbf{Distributed Firewall}: filtra el tráfico con un servicio de Firewall, permitiendo segmentar las máquinas virtuales estableciendo políticas según sus características. Está distribuído en todos los hosts ESXi.
-                \item \textbf{VXLAN}: protocolo que habilita la creación de redes virtuales sobre una red IP ya existente. Es gestionado a través de \textit{VXLAN Tunnel EndPoints} (VTEP) repartidos por cada host ESXi para encapsular el tráfico saliente de las máquinas virtuales con la cabecera de la red VXLAN.
-                \item \textbf{Distributed Logical Router} (DLR): elemento que reside en el hipervisor de cada host ESXi y que se encarga de enrutar el tráfico entre las máquinas virtuales a través de la red virtual del SDDC sobre VXLAN. Soporta los protocolos de enrutamiento dinámico BGP y OSPF. DLR pasa a llamarse Universal Distributed Logical Router (UDLR) cuando se configura el mismo UDLR a través de varias \textit{regions} de un SDDC.
-                \item \textbf{Logical Switch}: se definen dentro del componente vSphere Distributed Switch sobre un \textit{portgroup}. Crea segmentos de red ya que tiene una VXLAN asignada, es decir, un segmento/red VXLAN está delimitada por un Logical Switch. Está distribuido en cada host ESXi\footnote{El Logical Switch se extiende en toda la \textit{transport zone} de la VXLAN a la que pertenece, esta define el alcance de un segmento VXLAN que puede extenderse en varios clusters pertenecientes a una instancia de vCenter Server.}.
-                \item \textbf{Edge Services Gateway} (ESG): es una máquina virtual que se encarga de enrutar el tráfico hacia redes externas al SDDC, por lo tanto está conectado con el DLR y con el dispositivo físico de enrutamiento de capa 3. Provee servicios perimetrales como SSL, NAT, DHCP, VPN y Load Balancing.
-            \end{itemize}
+            % \begin{itemize}
+            %     \item \textbf{NSX Controller}: se encarga de almacenar y transmitir información sobre la red a cada hosts ESXi. Provee la información sobre los segmentos VXLAN existentes, la información sobre el enrutamiento en la red virtual, almacena las tablas ARP, MAC y VTEP. Esto permite que se pueda eliminar el tráfico Broadcast de las redes VXLAN, ya que este tipo de tráfico es generado por las máquinas virtuales y capturado por el host ESXi que lo reenvía a la instancia de NSX Controller para obtener la información requerida. También elimina la necesidad de configurar los protocolos Multicast Routing y \textit{Protocol Independent Multicast} (PIM) para implementar redes VXLAN. Se despliegan tres instancias de NSX Controller para proveer alta disponibilidad.
+            %     \iffalse
+            %     \item \textit{User World Agent} (UWA): proceso que usa una instancia de NSX Controller para comunicarse con cada host ESXi a través de su dirección IP en la red
+            %     \fi
+            %     \item \textbf{Logical Router Control}: se trata de una máquina virtual que se genera cada vez que se crea el componente Distributed Logical Router. Busca routers adyacentes, tanto físcos como virtuales, para formar tablas de enrutamiento que se envían a NSX Manager que las comunica al resto de dispostivos.
+            % \end{itemize}
+        \item \textbf{Data Plane}: este plano es responsable de retransmitir el tráfico por la red basándose en lass tablas  y reglas generadas por el \textit{Control Plane}. También informa al \textit{Control Plane} sobre la topología de la red, recopila estadísticas a nivel de paquete y controla el estado de los enlaces para resolver posibles fallos. En definitiva, el \textit{Data Plane} se centra en como gestionar los paquetes que circulan por la red. Está implementado por dos tipos de \textbf{transport nodes} (TN):
+        \begin{itemize}
+            \item \textit{Hypervisor Transpor Node}: son los hosts con el hipervisor ESXi y que utilizan NSX-T para proveer servicios de red a las VM que funcionan sobre sobre el host.
+            \item \textit{VMware NSX-T Edge Node}: también llamado \textit{Edge Node}, se trata de una \textit{appliance} instalado sobre un servidor físico o en forma de VM, que provee al entorno de una serie de servicios de red centralizados.
+        \end{itemize}
+        % \item \textbf{Data Plane}: está controlado por NSX Virtual Switch el cual extiende las funcionalidades de vSphere Distributed Router, clave para la virtualización de la red. Estas características son:
+        %     \begin{itemize}
+        %         \item \textbf{Distributed Firewall}: filtra el tráfico con un servicio de Firewall, permitiendo segmentar las máquinas virtuales estableciendo políticas según sus características. Está distribuído en todos los hosts ESXi.
+        %         \item \textbf{VXLAN}: protocolo que habilita la creación de redes virtuales sobre una red IP ya existente. Es gestionado a través de \textit{VXLAN Tunnel EndPoints} (VTEP) repartidos por cada host ESXi para encapsular el tráfico saliente de las máquinas virtuales con la cabecera de la red VXLAN.
+        %         \item \textbf{Distributed Logical Router} (DLR): elemento que reside en el hipervisor de cada host ESXi y que se encarga de enrutar el tráfico entre las máquinas virtuales a través de la red virtual del SDDC sobre VXLAN. Soporta los protocolos de enrutamiento dinámico BGP y OSPF. DLR pasa a llamarse Universal Distributed Logical Router (UDLR) cuando se configura el mismo UDLR a través de varias \textit{regions} de un SDDC.
+        %         \item \textbf{Logical Switch}: se definen dentro del componente vSphere Distributed Switch sobre un \textit{portgroup}. Crea segmentos de red ya que tiene una VXLAN asignada, es decir, un segmento/red VXLAN está delimitada por un Logical Switch. Está distribuido en cada host ESXi\footnote{El Logical Switch se extiende en toda la \textit{transport zone} de la VXLAN a la que pertenece, esta define el alcance de un segmento VXLAN que puede extenderse en varios clusters pertenecientes a una instancia de vCenter Server.}.
+        %         \item \textbf{Edge Services Gateway} (ESG): es una máquina virtual que se encarga de enrutar el tráfico hacia redes externas al SDDC, por lo tanto está conectado con el DLR y con el dispositivo físico de enrutamiento de capa 3. Provee servicios perimetrales como SSL, NAT, DHCP, VPN y Load Balancing.
+        %     \end{itemize}
     \end{itemize}
     
         \begin{figure}[h!]
@@ -229,21 +240,21 @@ En VMware Cloud Foundation existen diversos productos y servicios, algunos son r
         \end{figure}
         \FloatBarrier
         
-    \iffalse
-        \item \textbf{NSX Manager}: es el punto de entrada de la comunicaión con la instancia de vSphere, se encarga de desplegar NSX Controllers y el resto de servicios de NSX, instala VXLAN en los hosts ESXi, \textit{distributed routers} y firewalls, se comunica con los NSX Controllers y genera certificados para que las comunicaciones con los hosts ESXi sean seguras.
-        \item \textbf{NSX Controller}: establece el punto de control desde donde se distribuye la información sobre el enrutamiento lógico y de VXLAN hacia los hosts ESXi, existen varios nodos de este tipo para facilitar el escalado y alta disponibilidad de la infraestructura, comparte la información de red entre el resto de NSX Controllers, abstrae el uso de VXLAN sobre la red física y elimina el uso del protocolo ARP en redes VXLAN. 
-        \item \textbf{NSX Virtual Switch}: gestiona los vSphere vSwitch Distibuted desplegados, proporcionando switching entre los hosts ESXi.
-        \item \textbf{NSX Logical Router Control}: se despliega cuando se crea un Distributed Logical Router. Se encarga de buscar adyacencias para generar tablas de enrutamiento que envía a NSX Manager y a los NSX Cotrollers para que informen a cada Distributed Logical Router en cada nodo ESXi.
-        \item \textbf{NSX Edge}: proporciona servicios múltiples servicios como firewall perimetral de capa 2 y 3, SSL, NAT, DHCP, VPN, balanceo de carga y alta disponibilidad.
-    \fi
-    \item \textbf{VMware vRealize Log Insight}: realiza la gestión de logs del servicio, dando visibilidad a todas las operaciones del servicio, generando análisis del sistema. Esto permite tener mayor conocimiento de los riesgos, eficiencia y uso de recursos, a parte de facilitar la búsqueda de orígenes de errores. Está formado por los siguientes componentes:
-    \begin{itemize}
-        \item \textbf{Nodo Master}: es el único nodo que se despliega en el modo \textit{standalone}, en ese caso se encarga de la obtención de logs de los servicios de VMware Cloud Foundation y de entregar la información almacenada al cliente. Cuando se despliegan más nodos, se encarga de gestionar la creación, elimación y actualización de los nodos worker.
+    % \iffalse
+    %     \item \textbf{NSX Manager}: es el punto de entrada de la comunicaión con la instancia de vSphere, se encarga de desplegar NSX Controllers y el resto de servicios de NSX, instala VXLAN en los hosts ESXi, \textit{distributed routers} y firewalls, se comunica con los NSX Controllers y genera certificados para que las comunicaciones con los hosts ESXi sean seguras.
+    %     \item \textbf{NSX Controller}: establece el punto de control desde donde se distribuye la información sobre el enrutamiento lógico y de VXLAN hacia los hosts ESXi, existen varios nodos de este tipo para facilitar el escalado y alta disponibilidad de la infraestructura, comparte la información de red entre el resto de NSX Controllers, abstrae el uso de VXLAN sobre la red física y elimina el uso del protocolo ARP en redes VXLAN. 
+    %     \item \textbf{NSX Virtual Switch}: gestiona los vSphere vSwitch Distibuted desplegados, proporcionando switching entre los hosts ESXi.
+    %     \item \textbf{NSX Logical Router Control}: se despliega cuando se crea un Distributed Logical Router. Se encarga de buscar adyacencias para generar tablas de enrutamiento que envía a NSX Manager y a los NSX Cotrollers para que informen a cada Distributed Logical Router en cada nodo ESXi.
+    %     \item \textbf{NSX Edge}: proporciona servicios múltiples servicios como firewall perimetral de capa 2 y 3, SSL, NAT, DHCP, VPN, balanceo de carga y alta disponibilidad.
+    % \fi
+    % \item \textbf{VMware vRealize Log Insight}: realiza la gestión de logs del servicio, dando visibilidad a todas las operaciones del servicio, generando análisis del sistema. Esto permite tener mayor conocimiento de los riesgos, eficiencia y uso de recursos, a parte de facilitar la búsqueda de orígenes de errores. Está formado por los siguientes componentes:
+    % \begin{itemize}
+    %     \item \textbf{Nodo Master}: es el único nodo que se despliega en el modo \textit{standalone}, en ese caso se encarga de la obtención de logs de los servicios de VMware Cloud Foundation y de entregar la información almacenada al cliente. Cuando se despliegan más nodos, se encarga de gestionar la creación, elimación y actualización de los nodos worker.
         
-        \item \textbf{Nodo Worker}: es un nodo opcional que se crea para proporcionar alta disponibilidad y escalar el entorno. En este tipo de nodo se delegan la entrega de la información almacena al cliente y la obtención de logs de cada host ESXi.
+    %     \item \textbf{Nodo Worker}: es un nodo opcional que se crea para proporcionar alta disponibilidad y escalar el entorno. En este tipo de nodo se delegan la entrega de la información almacena al cliente y la obtención de logs de cada host ESXi.
         
-        \item \textbf{Load Balancer}: simplifica la configuración de la alta disponibilidad cuando hay nodos worker desplegados. Se encarga de recibir las peticiones de los clientes, de entregarlas a los nodos worker y de enviar la respueste. También gestiona el balanceo del tráfico entrante entre todos los nodos y de escoger el nodo \textit{master}. Se ejecuta en uno de los nodos de VMware vRealize Log Insight.
-    \end{itemize}
+    %     \item \textbf{Load Balancer}: simplifica la configuración de la alta disponibilidad cuando hay nodos worker desplegados. Se encarga de recibir las peticiones de los clientes, de entregarlas a los nodos worker y de enviar la respueste. También gestiona el balanceo del tráfico entrante entre todos los nodos y de escoger el nodo \textit{master}. Se ejecuta en uno de los nodos de VMware vRealize Log Insight.
+    % \end{itemize}
     
     \item \textbf{VMware vRealize Automation}: se trata de un componente opcional que permite automatizar el despliegue de máquinas virtuales, procesos y aplicaciones reduciendo la complejidad y eliminando tareas manuales. Esto acelera la entrega del servicio gracias a que las tareas de aprovisionamiento y entrega de recursos y aplicaciones son más rápidas permitiendo establecer políticas de seguridad y control. Internamente, este servicio \underline{cuenta con los siguientes componentes \cite{vRealizeAutomation}} para cumplir con sus funciones:
     \begin{itemize}
