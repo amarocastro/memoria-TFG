@@ -1,0 +1,45 @@
+\bgroup 
+\selectlanguage *{galician}
+\egroup 
+\selectlanguage *{spanish}
+\selectlanguage *{spanish}
+\contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivación}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Objetivos}{3}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Estado de los recursos}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Infraestructura}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Software}{6}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Estado de la tecnología}{10}{subsection.2.2.1}%
+\contentsline {subsubsection}{VMware Cloud Foundation}{10}{subsection.2.2.1}%
+\contentsline {subsubsection}{Componentes de VMware Cloud Foundation \cite {componentesCloudFound}}{13}{figure.caption.7}%
+\contentsline {chapter}{\numberline {3}Planificación}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Tareas}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Costes}{23}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Metodología}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Conceptos previos}{25}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Workload Domain}{25}{subsection.4.1.1}%
+\contentsline {subsubsection}{Management Domain}{25}{subsection.4.1.1}%
+\contentsline {subsubsection}{Virtual Infrastructure Domain (VI) y Virtual Desktop Infrastructure Domain (VDI)}{26}{figure.caption.12}%
+\contentsline {subsection}{\numberline {4.1.2}Arquitectura}{27}{subsection.4.1.2}%
+\contentsline {subsubsection}{Modelo estándar}{28}{subsection.4.1.2}%
+\contentsline {subsubsection}{Modelo consolidado}{29}{figure.caption.15}%
+\contentsline {section}{\numberline {4.2}Requisitos y diseño de la infraestructura y arquitectura}{31}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Arquitectura e Infraestructura Físicas \cite {CFfisInfraestuctura}}{31}{subsection.4.2.1}%
+\contentsline {subsubsection}{Clusters, zonas de disponibilidad y regiones}{31}{subsection.4.2.1}%
+\contentsline {subsubsection}{Red física}{32}{subsection.4.2.1}%
+\contentsline {subsubsection}{Host ESXi\cite {WDminRequierements}}{35}{figure.caption.19}%
+\contentsline {subsubsection}{Almacenamiento físico}{35}{figure.caption.19}%
+\contentsline {subsection}{\numberline {4.2.2}Arquitectura e Infraestructura Virtuales\cite {CFVirtInfraes}}{36}{subsection.4.2.2}%
+\contentsline {subsubsection}{Diseño de VMware vCenter Server}{36}{subsection.4.2.2}%
+\contentsline {subsubsection}{Diseño cluster VMware vSphere}{36}{subsection.4.2.2}%
+\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{37}{subsection.4.2.2}%
+\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{40}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Operaciones de la Arquitectura\cite {CFopermanagement}}{48}{subsection.4.2.3}%
+\contentsline {subsubsection}{Gestión del Ciclo de Vida}{48}{subsection.4.2.3}%
+\contentsline {subsubsection}{Gestión de Logs}{49}{figure.caption.28}%
+\contentsline {section}{\numberline {4.3}Despliegue de VMware Cloud Foundation}{50}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Prueba de concepto}{50}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Preparación del entorno}{50}{subsection.4.3.2}%
+\contentsline {subsubsection}{VMware Cloud Foundation Builder}{50}{subsection.4.3.2}%
+\contentsline {chapter}{Glosario}{55}{appendix*.30}%
+\contentsline {chapter}{Bibliografía}{59}{appendix*.31}%

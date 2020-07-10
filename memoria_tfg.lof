@@ -1,0 +1,35 @@
+\bgroup 
+\selectlanguage *{galician}
+\egroup 
+\selectlanguage *{spanish}
+\selectlanguage *{spanish}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Elementos de la plataforma VMWare vSphere\cite {fotovSphere}\relax }}{9}{figure.caption.4}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Esquema de los recuros software y hardware del entorno\relax }}{9}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Partes virtualizadas en un SDDC.\relax }}{11}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Cloud Foundation virtualiza toda la infraestructura.\relax }}{12}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Partes virtualizadas en un SDDC.\relax }}{13}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Almacenamiento All-Flash vs. Híbrido en vSAN\relax }}{15}{figure.caption.9}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagrama de Grantt sobre la planificación del proyecto.\relax }}{22}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Estadísticas sobre la planificación del proyecto.\relax }}{23}{figure.caption.11}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Componentes de \textit {management domain}\relax }}{26}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Componentes de \textit {virtual infrastructure domain}.\relax }}{27}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Esquema del modelo de arquitectura estándar.\relax }}{28}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Estructura de los componentes en una arquitectura estándar.\relax }}{29}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Esquema del modelo de arquitectura consolidado.\relax }}{30}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Estructura de los componentes de una arquitectura consolidado.\relax }}{30}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Límite de las capas 2 y 3 cuando la topología se implementa con dispositivos de capa 2.\relax }}{32}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Límite de las capas 2 y 3 cuando la topología se implementa con dispositivos de capa 3.\relax }}{33}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces VXLAN extendida sobre varios vDS, comunica varios cluster.\relax }}{41}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Cabeceras de un frame cuando se usa VXLAN.\relax }}{43}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Replicación del tráfico BUM en el modo Multicast\relax }}{44}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Replicación del tráfico BUM en el modo Unicast\relax }}{45}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Replicación del tráfico BUM en el modo Híbrido\relax }}{45}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Componentes de la red virtual que intervienen en el enrutamiento del tráfico.\relax }}{46}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Red lógica formada en un SDDC con dos clusters.\relax }}{46}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces AVN en el modelo consolidado\relax }}{48}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Diseño de vSphere Update Manager en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{49}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Localización de vRealize Log Insight en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{50}{figure.caption.29}%

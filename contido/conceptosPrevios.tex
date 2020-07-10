@@ -11,23 +11,27 @@ En este apartado se explican aquellos conceptos de VMware Cloud Foundation neces
 %% Workload Ddomains %&%&%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Workload Domain}
-Un \textit{workload domain} consiste en una instancia lógica de un SDDC que abarca todos o parte de los recursos de uno o más clusters, cuya función es aislar el flujo de trabajo de un usuario, aplicación o un determinado tipo de tareas. Cada \textit{workload domain} se extiende sobre varios hosts y contiene su propia instancia de vCenter Server, vSAN y NSX, lo cual permite establecer políticas de control únicas para todos los \textit{workload domains} y específicas para cada uno de ellos a la vez que se simplifica la complejidad de la infraestructura. Existen \underline{tres tipos} de \textit{workload domains} que permiten aislar las tareas de gestión de la infraestructura del resto de flujos de trabajo. 
+Un \textit{workload domain} (WD) representa un bloque de recursos dentro del SDDC, que son componentes de la infraestructura física, de la infraestructura virtual, y de seguridad. Los componentes virtuales controlan el acceso y la reserva de los recursos físicos, mientras que la capa de seguridad permite establecer organizar la entrada al WD. Cada WD contiene sus propias instancias de VMware ESXi, VMware vCenter Server, VMware NSX-T y VMware vSAN, pudiendo así gestionar los recursos de cada WD de forma independiente.
+% Un \textit{workload domain} consiste en una instancia lógica de un SDDC que abarca todos o parte de los recursos de uno o más clusters, cuya función es aislar el flujo de trabajo de un usuario, aplicación o un determinado tipo de tareas. Cada \textit{workload domain} se extiende sobre varios hosts con el hipervisor ESXi, y contiene sus propias instancias de VMware vCenter Server, VMware vSAN y VMware NSX-T. Así, esta arquitectura permite establecer políticas de control específicas para un \textit{workload domain} y otras comunes para todos o varios \textit{workload domains} y específicas para cada uno de ellos a la vez que se simplifica la complejidad de la infraestructura. Existen \underline{tres tipos} de \textit{workload domains} que permiten aislar las tareas de gestión de la infraestructura del resto de flujos de trabajo. 
 
 %% MANAGEMENT DOMAIN
 \subsubsection{Management Domain}
 \label{subsubsec:domainManagement}
-Este \textit{workload domain} se crea y configura automáticamente durante el proceso de despliegue de una instancia de VMware Cloud Foundation. Su función es gestión de todos los componentes de VMware Cloud Foundation, de toda la infraestructura y del resto de \textit{workload domains} existentes en el entorno a tráves de políticas establecidas desde un único punto. Los componentes dedicados a este \textit{workload domain} son SDDC Manager, vCenter Server, una instancia de NSX Manager, tres instancias de NSX Controller, dos instancias de Platform Services Controller y tres instancias de vRealize Log Insight \cite{sddcComponents} [Fig. \ref{fig:componentsMNGDomain}].\\
-Cuando se \underline{despliega \textit{management domain} se crean y configuran} de forma automatizada por SDDC Manager las siguientes máquinas virtuales (VM) de cada componente de Cloud Foundation\footnote{Las características de cada máquina virtual se refieren a los requisitos mínimos}:
-\begin{itemize}
-    \item Una VM de \textbf{SDDC Manager}: 4 vCPU, 16 GB de memoria, 800 GB de almacenamiento.
-    \item Una VM de \textbf{vCenter Server}: 4 vCPU, 16 GB de memoria, 290 GB de almacenamiento.
-    \item Dos instancias de \textbf{Platform Services Controller} (cada una): 2 vCPU, 4 GB de memoria, 60 GB de almacenamiento.
-    \item Una VM de \textbf{NSX Manager}: 4 vCPU, 16 GB de memoria, 60 GB de almacenamiento.
-    \item Tres VM de \textbf{NSX Controller} (cada una): 4 vCPU, 4 GB de memoria, 28 GB de almacenamiento.
-    \item Tres VM de \textbf{vRealize Log Insight}: 4 vCPU, 8 GB de memoria, 250 GB de almacenamiento.
-\end{itemize}
+% Este \textit{workload domain} se crea y configura automáticamente durante el proceso de despliegue de una instancia de VMware Cloud Foundation.
+El \textit{management domain} es el primer WD que se crea dentro del SDDC, y su función es la gestión de todos los componentes de VMware Cloud Foundation, tanto del propio \textit{management domain} como del resto de \textit{workload domains} existentes. Aparte de las instancias descritas, este WD incluye una instancia de SDDC Manager.
 
-Para desplegar un \textit{management domain} se requieren las siguientes \underline{capacidades mínimas} en la infraestructura \cite{WDminRequierements}:
+% Incluye las siguientes instancias: SDDC Manager, vCenter Server, una instancia de NSX Manager, tres instancias de NSX Controller, dos instancias de Platform Services Controller y tres instancias de vRealize Log Insight \cite{sddcComponents} [Fig. \ref{fig:componentsMNGDomain}].\\
+% Cuando se \underline{despliega \textit{management domain} se crean y configuran} de forma automatizada por SDDC Manager las siguientes máquinas virtuales (VM) de cada componente de Cloud Foundation\footnote{Las características de cada máquina virtual se refieren a los requisitos mínimos}:
+% \begin{itemize}
+%     \item Una VM de \textbf{SDDC Manager}: 4 vCPU, 16 GB de memoria, 800 GB de almacenamiento.
+%     \item Una VM de \textbf{vCenter Server}: 4 vCPU, 16 GB de memoria, 290 GB de almacenamiento.
+%     \item Dos instancias de \textbf{Platform Services Controller} (cada una): 2 vCPU, 4 GB de memoria, 60 GB de almacenamiento.
+%     \item Una VM de \textbf{NSX Manager}: 4 vCPU, 16 GB de memoria, 60 GB de almacenamiento.
+%     \item Tres VM de \textbf{NSX Controller} (cada una): 4 vCPU, 4 GB de memoria, 28 GB de almacenamiento.
+%     \item Tres VM de \textbf{vRealize Log Insight}: 4 vCPU, 8 GB de memoria, 250 GB de almacenamiento.
+% \end{itemize}
+
+Para desplegar el \textit{management domain} se requieren las siguientes \underline{capacidades mínimas} en la infraestructura \cite{WDminRequierements}:
 \begin{itemize}
     \item \textbf{Hosts}: 4
     \item \textbf{CPU} por host: Dual-socket con 8 cores por socket, en sistemas All-Flash.
@@ -194,7 +198,7 @@ Como VMware Cloud Foundation abstrae la red física en una red virtual, la red f
     
     Los puertos del switch TOR que se conectan a los hosts deben estar configurados como puertos troncales de VLAN para que acepte todas las VLANs usadas por el host, se debe proveer servicio DHCP a cada VLAN usada y configurar los puertos para que acepten \textit{jumbo frames}. El marcado QoS del tráfico que realiza cada host ESXi debe ser aceptado y no puede ser modificado una vez abandona el host. \iffalse Además, se deben configurar todas las VLANs y subredes que se utilizarán en la infraestructura de VMware Cloud Foundation.\fi  
     
-    \underline{Otros protocolos que se deben configura}r en los puertos que se conectan con los hosts son:
+    \underline{Otros protocolos que se deben configurar} en los puertos que se conectan con los hosts son:
     \begin{itemize}
         \item \emph{Spanning Tree Protocol} (STP): protocolo que se encarga de gestionar las rutas de la red que son redundantes.
         \item \emph{Trunking}: configurar cada enlace troncal con las VLANs que van a transmitir tráfico a través de él. Se debe establecer como VLAN nativa, aquella utilizada para transmitir el tráfico que no tiene etiqueta, VLAN de la red \textit{management}.
@@ -260,8 +264,9 @@ Esta capa virtual provee infraestructura de almacenamiento, red y cómputo defin
 
 
 \subsubsection{Diseño de VMware vCenter Server}
-El componente VMware vCenter Server es el punto de acceso y de control de todas las máquinas virtuales y servicios localizados en los hosts ESXi que forman parte de su dominio. En VMware Cloud Foundation se utiliza una instancia de VMware vCenter Server para controlar un \textit{workload domain}, por lo tanto en este modelo existen al menos dos instancias. Esto permite aislar el flujo de trabajo del \textit{management domain} de cada \textit{virtual infrastructure domain}, simplificar la escalabilidad del SDDC y el uso de un NSX Manager por cada \textit{workload domain} para aislar su red. Además, VMware vCenter Server requiere los servicios localizados en el componente PSC que se puede desplegar de dos formas, embebido en la misma instancia de vCenter Server o en una máquina virtual externa a vCenter Server. La segunda opción permite compartir la misma instancia de PSC entre varias instancias de vCenter Server. En el modelo consolidado solo se despliega una instancia de VMware vCenter Sever.\\
-Para ambos modelos de despliegue se recomienda situar las instancias de PSC que se creen, en un entorno externo a VMware vCenter Server con el fin de facilitar la creación de nuevos \textit{workload domains}.
+El componente VMware vCenter Server es el punto de acceso y de control de todas las máquinas virtuales y servicios localizados en los hosts ESXi que forman parte de su dominio. En VMware Cloud Foundation se utiliza una instancia de VMware vCenter Server para controlar un \textit{workload domain} para aislar el flujo de trabajo y gestión de cada uno, simplifica la escalabilidad del SDDC, la gestión de actualizaciones para los componentes es más sencilla, permite determinar roles específicos y responsabilidades y permite aislar las redes de otras instancias de vCenter Server. Además, para gestionar vSpehere SSO Domain, VMware vCenter Server contiene embebido el componente PSC con todos los servicios necesarios.En caso de que existan varios \textit{Workload Domain} se puede habilitar el modo \textit{Enhanced Linked Mode} para poder gestionar todas las instancias de vCenter Server de forma centralizada desde un único vSphere Client.
+Por lo anterior, en el \textit{management domain} se despliega una instancia de VMware vCenter Server que incluye un cluster de VMware vSphere.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -271,13 +276,80 @@ Para ambos modelos de despliegue se recomienda situar las instancias de PSC que 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{Diseño de cada cluster VMware vSphere}
-En un SDDC se pueden crear varios clusters vSphere con distintas finalidades, según la cantidad de hosts ESXi, la capacidad de cada uno y del uso que se va a realizar de cada cluster. Además, dentro de la configuración de un cluster hay que considerar como se va a configurar el componente vSphere High Availability para establecer una política de reserva de recursos para restaurar recursos en caso de que un host esté inactivo por algún fallo.\\
+\subsubsection{Diseño cluster VMware vSphere}
+Dentro de un \textit{workload domain} se pueden crear varios clusters vSphere con diferentes características. Para crear cluster y establecer sus características hay que tener en cuenta que se pueden usar menos hosts ESXi de mayor capacidad o más hosts EXi con menores prestaciones, el coste de cada host ESXi, el uso que se le va a dar al cluster y las características máximas y mínimas de un cluster vSphere. Para el \textit{management domain} se utiliza un único cluster vSphere con un mínimo de 4 hosts de los cuales se reserva un host para proveer redundancia. En caso de que el \textit{management domain} esté extendido en dos AZ entoces se requieren 4 hosts en cada AZ para proporcionar redundancia y disponibilidad en caso de caída de una de las AZ.
+Dentro del cluster hay que configurar los servicios vSphere HA y vSphere DRS para proteger los componentes del SDDC. La configuración que se establece en el \textit{management domain} es la siguiente:
+\begin{itemize}
+    \item \textbf{vSphere High Availability}: en este servicio la propiedad \textit{Admission Control Policy} permite establecer la cantidad recursos reservados en caso de fallo y como se establece el cálculo de esos recursos. En el \textit{management domain} se configura para el fallo de al menos un host y reserva de recursos según un porcentaje, reservando así el 25\% de la CPU y el 30\% de la memoria RAM ya que funciona mejor cuando las VM usan mucha CPU y memoria. La otra propiedad que se debe habilitar para el correcto funcionamiento del servicio es \textit{VM and Application Monitoring}, que se encarga de reiniciar las VM en caso de caída.
+    % que puede ser según el número hosts que pueden fallar en el cluster, según un porcentaje de reserva de rescursos o especificando el host donde se recolocan las VM del host caído.  RAM.  
+    \item \textbf{vSphere DRS}: se activa usando la opción por defecto, \textit{Fully Automated} ya que aporta el mejor balance entre consumo de recursos y migraciones de VM innecesarias. Adicionalmente se pueden establecer reglas para determinar reglas de orden de encendido sobre grupos de VM. En caso de que exista más de una AZ, se deben crear grupos de VM y de hosts de cada AZ para luego implementar reglas de afinidad para que las VM de una AZ no sean migradas a otra AZ ya que esto puede afectar al rendimiento de la VM. 
+\end{itemize}
+% En el modelo consolidado se debe crear un único cluster con un mínimo de cuatro hosts ESXi ya que uno de los hosts se utiliza para asegurar la disponibilidad del almacenamiento vSAN cuando hay algún host inactivo. Este modelo proporciona capacidad de un único fallo por cluster.
+\subsubsection{Diseño de red para el cluster vSphere}
+Si bien en VMware Cloud Foundation existe VMware NSX-T, un componente dedicado únicamente a la administración de la red del SDDC, es desde VMware vSphere dónde se crean los elementos para formar las redes básicas que conectan los principales componentes del SDDC y para entregar y configurar sus servicios. Estas redes se configuran en base a los siguientes aspectos: 
+\begin{itemize}
+    \item Separar el tráfico de cada servicio para mejorar la eficiencia de la red y la seguridad. Así se puede ajustar las características de cada red, como el ancho de banda o la latencia, a las necesidades de cada servicio.
+    \item Utilizar un único vSphere Distributed Switch por cluster donde se añade un \textit{port groups} por cada servicio.
+    % \item Mejorar el rendimiento usando NICs de tipo VMXNET3 en las máquinas virtuales.
+    \item Las NICs físicas de cada host ESXi conectados a un mismo vSphere Distributed Switch están conectadas también a la misma red física.
+    % \item Aquellas redes que se dedican a servicios de la infraestructura deben estar configuradas con puertos tipo \textit{vmkernel}.
+\end{itemize}
+Para el \textit{management domain} del SDDC se crea un único vSphere Distributed Switch llamado \textit{sddc-vds01} con la siguiente configuración:
+\begin{itemize}
+    
+    \item Se establece un MTU igual 9000 Bytes para permitir el tráfico de \textit{jumbo frames} ya que son requeridos por algunos de los servicios.
+    
+    \item Se habilita el servicio \textit{Network I/O} que permite establecer un nivel de prioridad a cada tipo de tráfico. Esto se realiza estableciendo limites de ancho de banda, políticas de balanceo de carga y reserva de recursos para un tipo de tráfico asociado a un servicio. Por cada tipo de tráfico hay cuatro aspectos que se pueden configurar que son \textit{Shares} (indica el \% de ancho de banda que se le da a un tipo de tráfico, el tipo de tráfico que tenga un mayor valor en \textit{Shares} tendrá más prioridad a la hora de usar los recursos), \textit{Reservation} (indica el valor de ancho de banda que se reserva para el tipo de tráfico) y \textit{Limit} (establece un valor máximo para el ancho de banda de un tipo de tráfico). En el \textit{management domain} los tipos de tráfico más relevantes que se deben configurar son los siguientes:
+    \begin{itemize}
+      \item \textit{Management Traffic}: el valor \textit{Shares} se establece al 50\% (\textit{Normal}) lo cual le da mayor prioridad que el resto de tipos. El resto de valores no se modifican.
+      \item \textit{vSphere vMotion Traffic}: el valor \textit{Shares} se establece al 25\% (\textit{Low}) ya que durante el estado normal del entorno este tipo de tráfico no es muy importante. El resto de valores no se modifican.
+      \item \textit{vSAN Traffic}: el valor \textit{Shares} se establece al 100\% (\textit{High}) para garantizar que este servicio recibe la cantidad de ancho de banda que necesita. El resto de valores no se modifican.
+      \item \textit{Virtual Machine Traffic}: el valor \textit{Shares} se establece al 100\% (\textit{High}) para garantizar que las VMs siempre tienen acceso a la red ya que son una parte importante del SDDC. El resto de valores no se modifican.
+    \end{itemize}
+    
+    \item Para detectar errores de compatibilidad entre la configuración del vSphere Distributed Switch y la red física se habilita el servicio \textit{Health Check}. Este se encarga de comprobar si la configuración de cada VLAN y MTU se adapta a la configuración de la capa física.
+    
+    \item Como puertos de salida \textit{Uplink} se configuran las dos interfaces físicas \textit{vmnic0} y \textit{vmnic1} de cada host.
+    
+\end{itemize}
+En este vSpehere Distributed Switch para el \textit{management domain} se configuran los siguientes \textit{port groups}, que son del tipo \textit{Distributed port group} y del tipo \textit{Uplink port group}:
+\begin{itemize}
+       
+        \item \textbf{Management port group}: es un \textit{Distributed port group} que comunica a todos los hosts ESXi entre si y transmite el tráfico entre los diferentes componentes de VMware Cloud Foundation, es decir, por este \textit{port group} circulan los comandos de configuración y gestión que los componentes del SDDC se envían entre ellos. Con el nombre \textit{sddc-vds01-mgmt}, en él están configurados los cuatro hosts ESXi y las VMs \textit{vcenter-mgmt}, \textit{sddc-manager}, \textit{nsx-mgmt-1},\textit{edge01-mgmt} y \textit{edge02-mgmt} bajo la subred con IP 10.0.0.0, con máscara de red 255.255.255.0, con VLAN 10 y con MTU igual a 1500 Bytes. 
+        
+        \item \textbf{vMotion port group}: es un \textit{Distributed port group} que está dedicado al tráfico del componente vSphere vMotion para realizar las migraciones de máquinas virtuales de un host a otro. Con el nombre \textit{sddc-vds01-vmotion}, en él están configurados los 4 hosts bajo la subred con IP 10.0.4.0, con máscara de red 255.255.255.0, con VLAN 10 y con MTU igual a 8940 Bytes.
+        
+        \item \textbf{vSAN port group}: es un \textit{Distributed port group} que está dedicado al servicio de almacenamiento VMware vSAN y por él los hosts acceden al almacenamiento del SDDC. Con el nombre \textit{sddc-vds01-vsan}, en él están configurados los 4 hosts bajo la subred con IP 10.0.8.0, con máscara de red 255.255.255.0, con VLAN 10 y con MTU igual a 8940 Bytes.
+        
+        \item \textbf{Uplink port group}: se trata de un \textit{Uplink port group} al que se le asignan las NICs físicas de cada host para establecer políticas sobre el tráfico que se dirige desde los hosts y VMs hacia fuera del vSphere Distributed Switch. Con el nombre \textit{sddc-vds01-DVUplinks-10}, en él están configuradas las dos NICs físicas de cada host, cada una en una interfaz \textit{uplink}. 
+        
+\end{itemize}
+La configuración que se aplica a cada \textit{Distributed port group} descrito anteriormente es la siguiente:
+\begin{itemize}
+  \item \textit{Port binding}: permite indidcar como se gestionan los puertos de un \textit{port group} cuando se añade o elimina una VM. Tiene dos opciones de configuración, la primera se denomina \textit{Static Port Binding} y su función consiste en asignar un puerto dentro del \textit{port group} a la VM que se conecta y solo se elimina cuando la VM es borrada. La segunda opción se denomina \textit{Ephemeral Port Binding} y consiste en que el puerto se asigna a la VM cuando esta se enciende y se elimina cuando se apaga o elimina. Para los \textit{port groups} \textit{sddc-vds01-vsan} y \textit{sddc-vds01-vmotion} se configura la opción \textit{Static Port Binding} ya que así se asegura que las VMs se conectan siempre al mismo puerto lo cual permite mantener datos históricos y hacer monitoreo a nivel de puerto. Para el \textit{port group} \textit{sddc-vds01-mgmt} se configura la opción \textit{Ephemeral Port Binding} ya que como el tráfico que circula por él es el que gestiona todos los componentes etonces se elimina la dependencia del estado de vCenter Server permitiendo que la comunicación continúe aunque vCenter Server no se encuentre operativo.
 
-En el modelo consolidado se debe crear un único cluster con un mínimo de cuatro hosts ESXi ya que uno de los hosts se utiliza para asegurar la disponibilidad del almacenamiento vSAN cuando hay algún host inactivo. Este modelo proporciona capacidad de un único fallo por cluster.
+  \item \textit{Load Balancing}: indica como se distribuye el tráfico de salida de cada VM/host que se encuentran en el \textit{port group} entre las NICs físicas. Se selecciona \textit{Route based on physical NIC load}, es decir, el tráfico de una VM se transmite por una única NIC por lo que si esa NIC física está saturada, se asignará otra NIC física a la VM.
+  
+  \item \textit{Network failure detection}: esta opción permite establecer como debe determinar el \textit{port group} que alguna de las NICs físicas está fuera de servicio. Se selecciona \textit{Link status only} para que esto se determine según el estado que le transmite la NIC física, así se pueden detectar los fallos que ocurren en la red física.
+  
+  \item \textit{Notify switches}: si está habilitada, permite a los host enviar \textit{frames} a los switches físicos para que estos conozcan la localización de las VM que están funcionando en cada host. Se activa al seleccionar \textit{Yes}.
+  
+  \item \textit{Failback}: permite determinar como se reactiva una NIC cuando esta se recupera de un fallo. Al seleccionar \textit{Yes} se establece que la NIC se marcará como activa inmediatamente después de que se haya recuperado. Esta opción se debería desactivar en caso de que el estado de la NIC sea inestable.
+  
+  \item \textit{Failover Order}: permite determinar que uplinks se deben utilizar en cada estado de la conexión que puede ser \textit{active} (cuando los uplinks seleccionados están activos), \textit{stand by} (cuando alguno de los uplinks \textit{active} está incativo). Se seleccionan las dos interfaces \textit{uplink} disponibles en el estado \textit{active}.
+\end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Red Virtual}
+\subsubsection{Diseño de la red del SDDC con VMware NSX-T}
+En un SDDC debe existir una red virtual, es decir, definida por software o también conocida como \textit{Software-Defined Network}. Esta red al estar construída con componentes de software, se desacopla de la red física sobre la que funciona lo que hace posible que se pueda modificar sin necesidad de cambiar la configuración en la capa física, reduciendo así la complejidad de la red física y el tiempo dedicado a la gestión de la misma. Además, este tipo de arquitectura habilita la posibilidad de implementar múltiples configuraciones de red en tiempo reducido proporcionando elasticidad y flexibilidad a la hora de administrar los recursos, tanto para el administrador como para el usuario final.
+El componente encargado de crear, configurar y administrar la red virtualizada del SDDC es VMware NSX-T que a su vez contiene otros componentes entre los que se dividen distintas responsabilidades y funciones, ya descritos anteriormente.
+
+%%%%% 1 - EXPLICACION DE LOS COMPONENTES DE NSX Y LOS QUE HAY EN EL ENTORNO
+%%%%% 2 - COMO SE DEBE CONFIGURAR LA CAPA FÍSICA Y COMO ESTÁ IMPLEMENTADA EN EL ENTORNO ( parte de esto ya está definido en la parte de red física, REVISAR)
+%%%%% 3 - REDES QUE HAY Y COMO SE EXTIENDEN ENTRE AZs
+%%%%% 4 - COMO FUNCIONAN LAS COMUNICACIONES (GENEVE, ROUTING ...)
+
 En esta sección se describe como VMware Cloud Foundation abstrae la red física en un conjunto de recursos virtuales de red, utilizando los servicios de VMware NSX para crear una capa virtual independiente de la infraestructura física.
 Los componentes de VMware NSX se distribuyen de forma diferente dependiendo de si se utiliza el modelo consolidado o el estándar. En el modelo consolidado, la instancia de NSX Manager, las instancias de NSX Controller y cada NSX ESG y NSX DLR están situados en el mismo cluster. En el modelo estándar, cada AZ contiene en el \textit{management cluster} las instancias de NSX Manager para cada \textit{workload domain}, las instancias de NSX Controller para el \textit{management domain} y las máquinas virtuales de NSX ESG y DLR Control para el \textit{management domain}, el cluster \textit{shared edge and compute} contiene las instancias de NSX Controller de cada \textit{virtual infrastructure domain} y las máquinas virtuales de NSX ESG y DLR Control de cada \textit{virtual infraestructure domain}. En ambos modelos las instancias de NSX Manager proveen alta disponibilidad gracias al servicio vSphere HA, los componentes del \textit{data plane} permanencen activos aunque el \textit{control} y \textit{management} \textit{planes} estén fuera de servicio. Las instancias de NSX Controller se distribuyen entre todos los hosts ESXi por el servicio vSphere DRS.
  Esto se hace posible principalmente gracias a NSX Logical Switch y a VXLAN.\\
@@ -287,21 +359,10 @@ A continuación se exponen varios aspectos generales que se deben tener en cuent
     \item Utilizar un único vSphere Distributed Switch por cluster con las distintas redes dedicadas a cada servicio y con diferentes VLANs. La configuración de VLANs debe coincidir con la establecida en la capa física.
     \item Mejorar el rendimiento usando NICs de tipo VMXNET3 en las máquinas virtuales.
     \item Las NICs físicas de cada host ESXi conectadas a un mismo vSphere Distributed Switch deben estar conectadas también a la misma red física.
-    \item Aquellas redes que se dedican a servicios de la infraestructura deben estar configuradas con puertos tipo \textit{vmkernel}.
+    % \item Aquellas redes que se dedican a servicios de la infraestructura deben estar configuradas con puertos tipo \textit{vmkernel}.
 \end{itemize}
 
-Para segmentar la red se configura en un vSphere Distributed Switch una VLAN por cada tipo de tráfico que genera VMware vSphere\footnote{Las VLANs descritas se corresponden con el \textit{management} cluster de la arquitectura estándar y con el cluster de la arquitectura consolidada. El resto de clusters del modelo estándar tienen solo las VLANs de los servicios que hay en ellos.}:
-    \begin{itemize}
-        \item \textbf{Management}: esta VLAN comunica todos los hosts ESXi y por ella se transmite el tráfico enviado entre servicios de VMware Cloud Foundation. Por defecto está configurada en un \textit{vmkernel} con MTU igual a 1500
-        \item \textbf{vMotion}: por esta VLAN circula el tráfico del componente vSphere vMotion para realizar las migraciones de máquinas virtuales de un host a otro. Se configura en un \textit{vmkernel} con MTU igual a 9000.
-        \item \textbf{vSAN}: a través de esta VLAN los hosts acceden al servicio de almacenamiento mediante dirección IP. Se configura en un \textit{vmkernel} con MTU igual a 9000.
-        \item \textbf{VM Network}: por esta VLAN circula el tráfico de las aplicaciones y máquinas virtuales de los usuarios. Se asigna a un \textit{vmportgroup}.
-    \end{itemize}
-Desde el vSphere Distributed Switch se configuran de forma centralizada todas las VLANs existentes en un cluster. Permite establecer las siguientes características:
-\begin{itemize}
-    \item \textit{Network I/O Control}: permite establecer un nivel de prioridad a cada VLAN según el servicio que la utiliza sea más o menos crítico. Esto se realiza estableciendo limites de ancho de banda, políticas de balanceo de carga y reserva de recursos para una funcionalidad específica de vSphere.
-    \item \textit{NIC Teaming}: permite aumentar el ancho de banda de la red, balancear la carga del tráfico y reducir el riesgo de fallos. Para poder aplicar esta configuración el host ESXi debe tener conectadas dos NICs al Distributed Switch que físicamente se conectan a dos switches diferentes.
-\end{itemize}
+
 
 Las redes VLAN creadas funcionan sobre el protocolo IP de la red física gracias a \textit{Virtual Extensible LAN} (VXLAN). Este protocolo permite enviar un tráfico de capa de datos (capa 2) encapsulado en \textit{frames} de capa de red (capa 3) existente en la infraestructura de red física creando lo que se llama una \textit{transport zone}, la cual delimita el alcance de una VXLAN. Cada VXLAN está identificada por su \textit{VXLAN Network Identifier} (VNI), un número de 24 bits. La encapsulación y transmisión del tráfico a la red es realizada por un \textit{VXLAN Tunnel End Point} (VTEP) situado en cada host ESXi en un puerto \textit{vmkernel}
 dentro de vSphere Distributed Switch, cada uno tiene una IP asignada. Cada \textit{transport zone} se puede extender por varios vDS, el acceso a ella lo proporciona un Logical Switch configurado epecificamente para una  \textit{transport zone} [Fig. \ref{fig:trasnportZoneSpan}]. En un mismo vDS se puede tener acceso a varias \textit{transport zone}. 
@@ -444,10 +505,10 @@ VMware vSAN forma único \textit{datastore} con todos los dispositivos de almace
     \item Si se implementa en un SDDC con dos localizaciones, es necesario establecer un host \textit{witness}.
 \end{itemize}
 Al establecer el tamaño y capacidad de este cluster hay que tener en cuenta que cuantos más hosts ESXi se incluyan, mayor tolerancia a fallos se tendrá y mejor se podrán repartir los grupos de discos entre todos los hosts. Debe haber un balance entre el hardware y la capacidad requerida.
-\end{subsection}
+
 
 \fi
-
+\end{subsection}
 
 
 \begin{subsection}{Operaciones de la Arquitectura\cite{CFopermanagement}}

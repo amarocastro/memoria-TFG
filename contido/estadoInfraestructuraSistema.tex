@@ -207,7 +207,7 @@ En VMware Cloud Foundation existen diversos productos y servicios, algunos son r
             % \end{itemize}
         \item \textbf{Control Plane}: este plano comunica al cada componente la configuración establecida desde \textit{Management Plane}. Además, se encarga de obtener información sobre la topología de la red desde el \textit{Data Plane}. Este plano se divide en dos partes:
             \begin{itemize}
-                \item \textit{Central Control Plane} (CCP): implementado por un cluster de varias VM donde cada una contiene el componente \textbf{NSX-T Controller}, el cual es el encargado de controlar las redes virtuales existentes y de proveer de configuración a otros componentes como \textit{logical switches}, \textit{logical routers} y \textit{edge nodes}.
+                \item \textit{Central Control Plane} (CCP): implementado por un cluster de varias VM donde cada una contiene el componente \textbf{NSX-T Controller}, el cual es el encargado de controlar las redes virtuales existentes y de proveer de configuración a otros componentes como \textit{logical switches}, \textit{logical routers} y \textit{edge nodes}. El componente \textbf{NSX-T Controller} está integrado, junto con el componente \textbf{NSX-T Manager}, en una única \textit{appliance} denominada \textbf{NSX-T Manager Appliance}
                 \item \textit{Local Control Plane} (LCP): este plano lo implementan los \textbf{transport nodes} y es responsable de monitorizar los enlaces locales y de reenviar entradas de configuración a los componentes del \textit{Data Plane}.
             \end{itemize}
             % \begin{itemize}
@@ -219,9 +219,18 @@ En VMware Cloud Foundation existen diversos productos y servicios, algunos son r
             % \end{itemize}
         \item \textbf{Data Plane}: este plano es responsable de retransmitir el tráfico por la red basándose en lass tablas  y reglas generadas por el \textit{Control Plane}. También informa al \textit{Control Plane} sobre la topología de la red, recopila estadísticas a nivel de paquete y controla el estado de los enlaces para resolver posibles fallos. En definitiva, el \textit{Data Plane} se centra en como gestionar los paquetes que circulan por la red. Está implementado por dos tipos de \textbf{transport nodes} (TN):
         \begin{itemize}
-            \item \textit{Hypervisor Transpor Node}: son los hosts con el hipervisor ESXi y que utilizan NSX-T para proveer servicios de red a las VM que funcionan sobre sobre el host.
+            \item \textit{Hypervisor Transpor Node}: son los hosts con el hipervisor ESXi y que utilizan VMware NSX-T para proveer servicios de red a las VM que funcionan sobre sobre el host.
             \item \textit{VMware NSX-T Edge Node}: también llamado \textit{Edge Node}, se trata de una \textit{appliance} instalado sobre un servidor físico o en forma de VM, que provee al entorno de una serie de servicios de red centralizados.
         \end{itemize}
+VMware NSX-T inlcuye otros componentes:
+    \begin{itemize}
+        \item \textbf{NSX-T Virtual Distributed Switch} (N-VDS): funciona sobre el hipervisor ESXi de cada host y es el encargado de retransmitir el tráfico entre las VM que se encuentran dentro de un mismo \textit{transport node} y desde una VM a la red física de la infraestructura.
+        \item \textbf{Logical Router}: Integra dos componentes, \textbf{Distributed Router} (DR) proporciona conectividad entre las redes virtuales que se crean dentro del SDDC funciona de forma distribuída en los \textit{transport nodes}), y \textbf{Service Router} (SR) da conectividad hacia redes redes externas al SSDC y ofrece una serie de servicios centralizados, NAT y DHCP entre otros.
+        \item \textbf{Logical Firewall}: NSX-T permite establecer reglas para gestionar el tráfico de entrada y de salida del SDDC. Estas reglas se pueden establecer a nivel de \textit{Layer 2} o \textit{Layer 3} de la red.
+        \item \textbf{Logical Load Balancer}: se encarga de distribuir el tráfico que recibe a los componentes correspondientes, permitiendo desacoplar el acceso a un servicio de su implementación. Esto permite que un servicio se pueda escalar y ofrecer alta disponibilidad.
+    \end{itemize}
+        
+\FloatBarrier
         % \item \textbf{Data Plane}: está controlado por NSX Virtual Switch el cual extiende las funcionalidades de vSphere Distributed Router, clave para la virtualización de la red. Estas características son:
         %     \begin{itemize}
         %         \item \textbf{Distributed Firewall}: filtra el tráfico con un servicio de Firewall, permitiendo segmentar las máquinas virtuales estableciendo políticas según sus características. Está distribuído en todos los hosts ESXi.
@@ -232,13 +241,13 @@ En VMware Cloud Foundation existen diversos productos y servicios, algunos son r
         %     \end{itemize}
     \end{itemize}
     
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=0.55\textwidth]{imaxes/conceptosPrevios/planosNSX.png}
-            \caption{Componentes de VMware NSX}
-            \label{fig:planosNSX}
-        \end{figure}
-        \FloatBarrier
+        % \begin{figure}[h!]
+        %     \centering
+        %     \includegraphics[width=0.55\textwidth]{imaxes/conceptosPrevios/planosNSX.png}
+        %     \caption{Componentes de VMware NSX}
+        %     \label{fig:planosNSX}
+        % \end{figure}
+
         
     % \iffalse
     %     \item \textbf{NSX Manager}: es el punto de entrada de la comunicaión con la instancia de vSphere, se encarga de desplegar NSX Controllers y el resto de servicios de NSX, instala VXLAN en los hosts ESXi, \textit{distributed routers} y firewalls, se comunica con los NSX Controllers y genera certificados para que las comunicaciones con los hosts ESXi sean seguras.
