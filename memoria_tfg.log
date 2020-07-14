@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  10 JUL 2020 12:57
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  14 JUL 2020 21:10
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1893,21 +1893,26 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\new@ifnextchar' on input line 251.
 
 [35] [36] [37] [38] [39] [40]
-File: imaxes/conceptosPrevios/transportZoneSpan.png Graphic file (type bmp)
-<imaxes/conceptosPrevios/transportZoneSpan.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
+Underfull \hbox (badness 10000) in paragraph at lines 377--379
 
  []
 
 [41]
+File: imaxes/conceptosPrevios/transportZoneSpan.png Graphic file (type bmp)
+<imaxes/conceptosPrevios/transportZoneSpan.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 392--393
+
+ []
+
+[42]
 File: imaxes/conceptosPrevios/frameVXLANv2.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/frameVXLANv2.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[42] [43]
+[43] [44]
 File: imaxes/conceptosPrevios/MulticastSeqBUM.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/MulticastSeqBUM.png>
 File: imaxes/conceptosPrevios/UnicastMode.png Graphic file (type bmp)
@@ -1916,62 +1921,62 @@ File: imaxes/conceptosPrevios/UnicastMode.png Graphic file (type bmp)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[44]
+[45]
 File: imaxes/conceptosPrevios/hibrydMode.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/hibrydMode.png>
- [45]
+ [46]
 File: imaxes/conceptosPrevios/LogicalRoutingComponents.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/LogicalRoutingComponents.png>
 File: imaxes/conceptosPrevios/redlogCF.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/redlogCF.png>
 File: imaxes/conceptosPrevios/AVNConsolidated.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/AVNConsolidated.png>
- [46]
+ [47]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[47]
+[48]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\begingroup' on input line 514.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 514.
+(hyperref)                removing `\begingroup' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\NAT@ctype' on input line 514.
+(hyperref)                removing `\<let>-command' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 514.
+(hyperref)                removing `\NAT@ctype' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 514.
+(hyperref)                removing `\z@' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 514.
+(hyperref)                removing `\let' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\new@ifnextchar' on input line 514.
+(hyperref)                removing `\let' on input line 528.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\new@ifnextchar' on input line 528.
 
 File: imaxes/conceptosPrevios/UpdateManagerArch.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/UpdateManagerArch.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[48]
+[49]
 File: imaxes/conceptosPrevios/networkLogInsight.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/networkLogInsight.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[49]) (contido/despliegueCloudFoundation.tex
+[50]) (contido/despliegueCloudFoundation.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--7
 
  []
@@ -1986,7 +1991,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
  []
 
-[50]
+[51]
 Underfull \hbox (badness 10000) in paragraph at lines 26--27
 
  []
@@ -1996,15 +2001,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 28--102
 
  []
 
-[51] [52
-
-
-]
+[52]
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
 (Font)              scaled to size 24.88pt on input line 111.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 24.88pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_R.otf
- [53] [54]
+ [53
+
+
+] [54]
 \openout2 = `bibliografia/glosario.aux'.
 
  (bibliografia/glosario.tex [55
@@ -2166,6 +2171,6 @@ Here is how much of TeX's memory you used:
  47445 multiletter control sequences out of 15000+200000
  544805 words of font info for 120 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 73i,12n,111p,1586b,578s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 73i,12n,111p,1667b,578s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (69 pages, 1109076 bytes).
+Output written on memoria_tfg.xdv (69 pages, 1137592 bytes).
