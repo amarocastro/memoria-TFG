@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  14 JUL 2020 21:10
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  15 JUL 2020 13:52
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1539,11 +1539,11 @@ LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/it' will be
 (Font)              scaled to size 10.95pt on input line 18.
 Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
- [3])
+)
 \tf@lof=\write5
 \openout5 = `memoria_tfg.lof'.
 
- [4] (memoria_tfg.lot
+ [3] [4] (memoria_tfg.lot
 LaTeX Info: Redefining \rmfamily on input line 2.
 LaTeX Info: Redefining \sffamily on input line 2.
 LaTeX Info: Redefining \ttfamily on input line 2.
@@ -1892,50 +1892,39 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\new@ifnextchar' on input line 251.
 
-[35] [36] [37] [38] [39] [40]
-Underfull \hbox (badness 10000) in paragraph at lines 377--379
+[35] [36] [37] [38] [39] [40] [41] [42]
+Underfull \hbox (badness 10000) in paragraph at lines 398--400
 
  []
 
-[41]
-File: imaxes/conceptosPrevios/transportZoneSpan.png Graphic file (type bmp)
-<imaxes/conceptosPrevios/transportZoneSpan.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 392--393
-
- []
-
-[42]
-File: imaxes/conceptosPrevios/frameVXLANv2.png Graphic file (type bmp)
-<imaxes/conceptosPrevios/frameVXLANv2.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[43] [44]
+[43]
 File: imaxes/conceptosPrevios/MulticastSeqBUM.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/MulticastSeqBUM.png>
-File: imaxes/conceptosPrevios/UnicastMode.png Graphic file (type bmp)
-<imaxes/conceptosPrevios/UnicastMode.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[45]
+[44]
+File: imaxes/conceptosPrevios/UnicastMode.png Graphic file (type bmp)
+<imaxes/conceptosPrevios/UnicastMode.png>
 File: imaxes/conceptosPrevios/hibrydMode.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/hibrydMode.png>
- [46]
+ [45]
 File: imaxes/conceptosPrevios/LogicalRoutingComponents.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/LogicalRoutingComponents.png>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[46]
 File: imaxes/conceptosPrevios/redlogCF.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/redlogCF.png>
 File: imaxes/conceptosPrevios/AVNConsolidated.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/AVNConsolidated.png>
+
+Underfull \vbox (badness 2582) has occurred while \output is active []
+
  [47]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[48]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\begingroup' on input line 528.
@@ -1964,19 +1953,12 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\new@ifnextchar' on input line 528.
 
+[48]
 File: imaxes/conceptosPrevios/UpdateManagerArch.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/UpdateManagerArch.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[49]
 File: imaxes/conceptosPrevios/networkLogInsight.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/networkLogInsight.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[50]) (contido/despliegueCloudFoundation.tex
+ [49]) (contido/despliegueCloudFoundation.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--7
 
  []
@@ -1986,12 +1968,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--10
 
  []
 
-
+[50]
 Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
  []
 
-[51]
+
 Underfull \hbox (badness 10000) in paragraph at lines 26--27
 
  []
@@ -2001,15 +1983,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 28--102
 
  []
 
-[52]
+[51] [52
+
+
+]
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
 (Font)              scaled to size 24.88pt on input line 111.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 24.88pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_R.otf
- [53
-
-
-] [54]
+ [53] [54]
 \openout2 = `bibliografia/glosario.aux'.
 
  (bibliografia/glosario.tex [55
@@ -2158,19 +2140,19 @@ LaTeX Info: Redefining \ttfamily on input line 20.
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 123.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 123.
 Package rerunfilecheck Info: File `memoria_tfg.out' has not changed.
-(rerunfilecheck)             Checksum: 7E1FCB6191389A2D65508340BD766011;2628.
+(rerunfilecheck)             Checksum: DFB41D14B35CFB504CE252C7605F2F6F;2628.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 30285 strings out of 414071
- 585135 string characters out of 2894592
- 875761 words of memory out of 3000000
- 47445 multiletter control sequences out of 15000+200000
+ 30271 strings out of 414071
+ 584610 string characters out of 2894592
+ 875589 words of memory out of 3000000
+ 47433 multiletter control sequences out of 15000+200000
  544805 words of font info for 120 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  73i,12n,111p,1667b,578s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (69 pages, 1137592 bytes).
+Output written on memoria_tfg.xdv (69 pages, 1144288 bytes).

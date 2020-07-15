@@ -23,13 +23,11 @@
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Estructura de los componentes de una arquitectura consolidado.\relax }}{30}{figure.caption.17}%
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Límite de las capas 2 y 3 cuando la topología se implementa con dispositivos de capa 2.\relax }}{32}{figure.caption.18}%
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Límite de las capas 2 y 3 cuando la topología se implementa con dispositivos de capa 3.\relax }}{33}{figure.caption.19}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces VXLAN extendida sobre varios vDS, comunica varios cluster.\relax }}{42}{figure.caption.20}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Cabeceras de un frame cuando se usa VXLAN.\relax }}{44}{figure.caption.21}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Replicación del tráfico BUM en el modo Multicast\relax }}{45}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Replicación del tráfico BUM en el modo Unicast\relax }}{46}{figure.caption.23}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Replicación del tráfico BUM en el modo Híbrido\relax }}{46}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Componentes de la red virtual que intervienen en el enrutamiento del tráfico.\relax }}{47}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Red lógica formada en un SDDC con dos clusters.\relax }}{47}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.16}{\ignorespaces AVN en el modelo consolidado\relax }}{49}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Diseño de vSphere Update Manager en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{50}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Localización de vRealize Log Insight en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{51}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Replicación del tráfico BUM en el modo Multicast\relax }}{45}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Replicación del tráfico BUM en el modo Unicast\relax }}{45}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Replicación del tráfico BUM en el modo Híbrido\relax }}{46}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Componentes de la red virtual que intervienen en el enrutamiento del tráfico.\relax }}{47}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Red lógica formada en un SDDC con dos clusters.\relax }}{47}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces AVN en el modelo consolidado\relax }}{48}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Diseño de vSphere Update Manager en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{49}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Localización de vRealize Log Insight en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{50}{figure.caption.27}%
