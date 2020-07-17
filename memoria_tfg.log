@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  15 JUL 2020 13:52
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  17 JUL 2020 11:56
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1893,18 +1893,14 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\new@ifnextchar' on input line 251.
 
 [35] [36] [37] [38] [39] [40] [41] [42]
-Underfull \hbox (badness 10000) in paragraph at lines 398--400
+Underfull \hbox (badness 10000) in paragraph at lines 407--409
 
  []
 
 [43]
 File: imaxes/conceptosPrevios/MulticastSeqBUM.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/MulticastSeqBUM.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[44]
+ [44]
 File: imaxes/conceptosPrevios/UnicastMode.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/UnicastMode.png>
 File: imaxes/conceptosPrevios/hibrydMode.png Graphic file (type bmp)
@@ -1927,31 +1923,31 @@ Underfull \vbox (badness 2582) has occurred while \output is active []
  [47]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\begingroup' on input line 528.
+(hyperref)                removing `\begingroup' on input line 537.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 528.
+(hyperref)                removing `\<let>-command' on input line 537.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\NAT@ctype' on input line 528.
+(hyperref)                removing `\NAT@ctype' on input line 537.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 528.
+(hyperref)                removing `\z@' on input line 537.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 528.
+(hyperref)                removing `\let' on input line 537.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 528.
+(hyperref)                removing `\let' on input line 537.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\new@ifnextchar' on input line 528.
+(hyperref)                removing `\new@ifnextchar' on input line 537.
 
 [48]
 File: imaxes/conceptosPrevios/UpdateManagerArch.png Graphic file (type bmp)
@@ -2155,4 +2151,4 @@ Here is how much of TeX's memory you used:
  1348 hyphenation exceptions out of 8191
  73i,12n,111p,1667b,578s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (69 pages, 1144288 bytes).
+Output written on memoria_tfg.xdv (69 pages, 1150120 bytes).

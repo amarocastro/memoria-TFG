@@ -374,17 +374,26 @@ En cuanto al enrutamiento, VMware NSX-T define routers virtuales que se encuentr
       
       \item \textbf{Distributed Router} (DR): gestiona el enrutamiento y las interfaces lógicas en las cuales el router \textit{Tier-0} se conecta a \textit{segments} o a otro router \textit{Tier-1}. Cada una de las interfaces tiene asignada una dirección IP estática que representa el \textit{gateway} del \textit{segment} al que pertezca esa interfaz. Este componente se encarga de redirigir el tráfico que recibe entre las interfaces que tiene disponibles, es decir, enruta el tráfico entre los diferentes \textit{segments} a los que está conectado el router \textit{Tier-0}. Este componente está distribuído en todos los TN, tanto hosts ESXi como instancias de NSX-T Edge, por lo tanto su configuración (interfaces,tablas de enrutamiento, etc.) serán iguales en todos los TN donde se aloje, por lo tanto la misma información es accesbile.
       
-      \item \textbf{Service Router} (SR): proporciona servicios de red de forma centralizada (NAT, DHCP, Load Balancer, VPN, Gateway Firewall y Bridging L2) y conectividad con la red externa que comunica con el dispositivo físico de capa 3, esta última se realiza con enrutamiento dinámico con el protocolo BGP. Este componente no está distribuído entre los TN, solo se aloja en las instancias de NSX-T Edge. 
+      \item \textbf{Service Router} (SR): proporciona servicios de red de forma centralizada (NAT, DHCP, Load Balancer, VPN, Gateway Firewall y Bridging L2) y conectividad con la red externa que comunica con el dispositivo físico de capa 3, esta última se realiza con enrutamiento dinámico con el protocolo BGP. Este componente no está distribuído entre los TN, solo se aloja en las instancias de NSX-T Edge. Estos servicios solo se entregan a los recursos cuya red está gestionada por VMware NSX-T.
+      
     \end{itemize}
     Ambos componentes están conectados entre si a través de una interfaz reservada para esa función, y también los dos tienen acceso a todos los \textit{segments} conectados al router \textit{Tier-0}.
 
     \item \textbf{Tier-1}: router dedicado a gestionar el enrutamiento de las VMs del usuario. Solo contiene un único componente, un \textit{Distributed Router} como el descrito para \textit{Tier-0}, que se conecta a \textit{segments}. Para proporcionar acceso a redes externas, el router \textit{Tier-1} debe estar conectado al router \textit{Tier-0} de forma estática. 
   \end{itemize}
 
+Así como el componente DR de los routers \textit{Tier-0} y \textit{Tier-1} están distribuídos por todos los TN (incluídas las instancias de NSX-T Edge), el componente SR solo se encuentra en las VMs de NSX-T Edge por lo tanto son estas VMs las que proporcionan los servicios centralizados de SR y acceso a la red externa del entorno.
+Existen varias redes e interfaces que las VMs de NSX-T Edge deben contener para entregar los servicios indicados:
+\begin{itemize}
+  
+  \item \textit{Overlay Transport Zone}: los TN deben estar conectados al menos a una TZ de este tipo para que las VMs puedan acceder a los servicios que proporciona NSX-T Edge.
+  
+  \item \textit{VLAN Transport Zone}: cada VM de NSX-T Edge se debe conectar a una TZ de este tipo que contiene dos \textit{segments} conectan cada VM de NSX-T Edge con los puertos físicos del host ESXi y se utilizan para proporcionar acceso a la infraestructura física.
+\end{itemize}
 
+Estas conexiones están gestionadas por un N-VDS dentro de cada instancia. Este switch lógico utiliza tres interfaces que se conectan a las diferentes redes lógicas y aquellas que requieren salida al medio físico, ya sea para comunicarse con otros TN o para acceder a la red externa, conectan con el switch VDS de VMware vSphere que conecta finalmente con las interfaces físicas del host ESXi donde corre la instancia de NSX-T Edge.
 
-Las dos instancias de NSX-T Edge proporcionan servicios centralizados que no pueden ser distribuídos entre los hosts. Los servicios que se pueden habilitar son NAT, servidor DHCP, Gateway firewall, Load Balancer, L2 Bridging, Service Interface y VPN. También proporciona acceso a la la red física para que las redes virtuales del SDDC se puedan conectar a redes externas. Como cada nodo NSX-T Edge es un TN, para proveer los servicios a las VMs cuya red está gestionada por VMware NSX-T, cada uno de los nodos NSX-T Edge debe estar pertenecer a al menos a una Overlay TZ que comunica las VMs del SDDC con las dos VMs de NSX-T Edge y a dos VLAN TZ que conectan las VMs de NSX-T Edge a la red física. 
-Dentro de cada NSX-T Edge TN existe un N-VDS que conecta las interfaces de la VM con las interfaces físicas de los hosts. Estas interfaces son \textit{eth0} que se dedica a la red \textit{Management}, \textit{fp-eth0} y \textit{fp-eth1} que ambas se dedican a la conexión con cada uno de los \textit{segments} Uplink. 
+la utilizan tres interfaces para  Estas interfaces son \textit{eth0} que se dedica a la red \textit{Management}, \textit{fp-eth0} y \textit{fp-eth1} que ambas se dedican a la conexión con cada uno de los \textit{segments} Uplink. 
 
 
 
