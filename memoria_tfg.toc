@@ -34,12 +34,12 @@
 \contentsline {subsubsection}{Diseño cluster VMware vSphere}{36}{subsection.4.2.2}%
 \contentsline {subsubsection}{Diseño de red para el cluster vSphere}{37}{subsection.4.2.2}%
 \contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{40}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Operaciones de la Arquitectura\cite {CFopermanagement}}{51}{subsection.4.2.3}%
-\contentsline {subsubsection}{Gestión del Ciclo de Vida}{52}{subsection.4.2.3}%
-\contentsline {subsubsection}{Gestión de Logs}{52}{figure.caption.26}%
-\contentsline {section}{\numberline {4.3}Despliegue de VMware Cloud Foundation}{53}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Prueba de concepto}{53}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Preparación del entorno}{53}{subsection.4.3.2}%
-\contentsline {subsubsection}{VMware Cloud Foundation Builder}{54}{subsection.4.3.2}%
-\contentsline {chapter}{Glosario}{57}{appendix*.28}%
-\contentsline {chapter}{Bibliografía}{61}{appendix*.29}%
+\contentsline {subsection}{\numberline {4.2.3}Operaciones de la Arquitectura\cite {CFopermanagement}}{47}{subsection.4.2.3}%
+\contentsline {subsubsection}{Gestión del Ciclo de Vida}{47}{subsection.4.2.3}%
+\contentsline {subsubsection}{Gestión de Logs}{48}{figure.caption.20}%
+\contentsline {section}{\numberline {4.3}Despliegue de VMware Cloud Foundation}{49}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Prueba de concepto}{49}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Preparación del entorno}{49}{subsection.4.3.2}%
+\contentsline {subsubsection}{VMware Cloud Foundation Builder}{49}{subsection.4.3.2}%
+\contentsline {chapter}{Glosario}{53}{appendix*.22}%
+\contentsline {chapter}{Bibliografía}{57}{appendix*.23}%

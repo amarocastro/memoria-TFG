@@ -371,12 +371,6 @@ INPUT imaxes\conceptosPrevios\modelConsolidated.png
 INPUT imaxes\conceptosPrevios\consolidatedArch.png
 INPUT imaxes\conceptosPrevios\transportlayer2.png
 INPUT imaxes\conceptosPrevios\transportNetLayer3.png
-INPUT imaxes\conceptosPrevios\MulticastSeqBUM.png
-INPUT imaxes\conceptosPrevios\UnicastMode.png
-INPUT imaxes\conceptosPrevios\hibrydMode.png
-INPUT imaxes\conceptosPrevios\LogicalRoutingComponents.png
-INPUT imaxes\conceptosPrevios\redlogCF.png
-INPUT imaxes\conceptosPrevios\AVNConsolidated.png
 INPUT imaxes\conceptosPrevios\UpdateManagerArch.png
 INPUT imaxes\conceptosPrevios\networkLogInsight.png
 INPUT contido\despliegueCloudFoundation.tex
