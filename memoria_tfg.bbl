@@ -21,21 +21,21 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{CFfisInfraestuctura}
-\BIBentryALTinterwordspacing
-VMware, ``Physical infrastructure design.'' [Online]. Available:
-  \url{https://docs.vmware.com/en/VMware-Validated-Design/5.1/sddc-architecture-and-design/GUID-CBA6012B-0B91-4831-A5AD-521340AD72D4.html}
-\BIBentrySTDinterwordspacing
-
 \bibitem{CFVirtInfraes}
 \BIBentryALTinterwordspacing
-------, ``Virtual infrastructure design.'' [Online]. Available:
+VMware, ``Virtual infrastructure design.'' [Online]. Available:
   \url{https://docs.vmware.com/en/VMware-Validated-Design/5.1/sddc-architecture-and-design/GUID-CBA6012B-0B91-4831-A5AD-521340AD72D4.html}
 \BIBentrySTDinterwordspacing
 
 \bibitem{CFopermanagement}
 \BIBentryALTinterwordspacing
 ------, ``Operations management design.'' [Online]. Available:
+  \url{https://docs.vmware.com/en/VMware-Validated-Design/5.1/sddc-architecture-and-design/GUID-CBA6012B-0B91-4831-A5AD-521340AD72D4.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{CFfisInfraestuctura}
+\BIBentryALTinterwordspacing
+------, ``Physical infrastructure design.'' [Online]. Available:
   \url{https://docs.vmware.com/en/VMware-Validated-Design/5.1/sddc-architecture-and-design/GUID-CBA6012B-0B91-4831-A5AD-521340AD72D4.html}
 \BIBentrySTDinterwordspacing
 
@@ -101,21 +101,9 @@ V.~C. Foundation, ``Vmware software licenses.'' [En línea]. Disponible en:
   \url{https://docs.vmware.com/en/VMware-Cloud-Foundation/3.9/com.vmware.vcf.planprep.doc_39/GUID-202ECBCF-2CAA-4167-BA54-4EE1169D312C.html}
 \BIBentrySTDinterwordspacing
 
-\bibitem{WDminRequierements}
-\BIBentryALTinterwordspacing
-VMware, ``Minimum hardware requirements.'' [En línea]. Disponible en:
-  \url{https://docs.vmware.com/en/VMware-Cloud-Foundation/3.7/com.vmware.vcf.planprep.doc_37/GUID-AE45ED7B-5530-4AE6-BB51-51E3D41CEDFD.html}
-\BIBentrySTDinterwordspacing
-
-\bibitem{sddcComponents}
-\BIBentryALTinterwordspacing
-------, ``Virtual layer footprint.'' [En línea]. Disponible en:
-  \url{https://docs.vmware.com/en/VMware-Cloud-Foundation/3.9/com.vmware.vcf.planprep.doc_39/GUID-5F195C40-9CF8-470C-BE4E-21FC81184B74.html}
-\BIBentrySTDinterwordspacing
-
 \bibitem{resourcePool}
 \BIBentryALTinterwordspacing
-------, ``Managing resource pools.'' [En línea]. Disponible en:
+VMware, ``Managing resource pools.'' [En línea]. Disponible en:
   \url{https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.resmgmt.doc/GUID-60077B40-66FF-4625-934A-641703ED7601.html}
 \BIBentrySTDinterwordspacing
 
@@ -123,6 +111,12 @@ VMware, ``Minimum hardware requirements.'' [En línea]. Disponible en:
 \BIBentryALTinterwordspacing
 ------, ``External services overview.'' [En línea]. Disponible en:
   \url{https://docs.vmware.com/en/VMware-Cloud-Foundation/3.7/com.vmware.vcf.planprep.doc_37/GUID-F022BD3C-F11C-4EE6-83EA-ABE016E7A9B9.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{WDminRequierements}
+\BIBentryALTinterwordspacing
+------, ``Minimum hardware requirements.'' [En línea]. Disponible en:
+  \url{https://docs.vmware.com/en/VMware-Cloud-Foundation/3.7/com.vmware.vcf.planprep.doc_37/GUID-AE45ED7B-5530-4AE6-BB51-51E3D41CEDFD.html}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}

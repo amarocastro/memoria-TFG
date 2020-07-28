@@ -15,13 +15,11 @@
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Diagrama de Grantt sobre la planificación del proyecto.\relax }}{22}{figure.caption.10}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Estadísticas sobre la planificación del proyecto.\relax }}{23}{figure.caption.11}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Componentes de \textit {management domain}\relax }}{26}{figure.caption.12}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Componentes de \textit {virtual infrastructure domain}.\relax }}{27}{figure.caption.13}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Esquema del modelo de arquitectura estándar.\relax }}{28}{figure.caption.14}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Estructura de los componentes en una arquitectura estándar.\relax }}{29}{figure.caption.15}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Esquema del modelo de arquitectura consolidado.\relax }}{30}{figure.caption.16}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Estructura de los componentes de una arquitectura consolidado.\relax }}{30}{figure.caption.17}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Límite de las capas 2 y 3 cuando la topología se implementa con dispositivos de capa 2.\relax }}{32}{figure.caption.18}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Límite de las capas 2 y 3 cuando la topología se implementa con dispositivos de capa 3.\relax }}{33}{figure.caption.19}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Diseño de vSphere Update Manager en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{48}{figure.caption.20}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Localización de vRealize Log Insight en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{49}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Esquema del modelo de arquitectura estándar.\relax }}{27}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Estructura de los componentes en una arquitectura estándar.\relax }}{27}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Esquema del modelo de arquitectura consolidado.\relax }}{28}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Estructura de los componentes de una arquitectura consolidado.\relax }}{28}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Diseño de vSphere Update Manager en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{42}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Localización de vRealize Log Insight en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{43}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Límite de las capas 2 y 3 cuando la topología se implementa con dispositivos de capa 2.\relax }}{44}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Límite de las capas 2 y 3 cuando la topología se implementa con dispositivos de capa 3.\relax }}{45}{figure.caption.19}%
