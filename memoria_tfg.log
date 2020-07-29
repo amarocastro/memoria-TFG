@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  28 JUL 2020 20:26
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  29 JUL 2020 13:02
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1505,13 +1505,14 @@ Requested font "lasy10" at 10.95pt
 Requested font "msam10" at 10.95pt
 Requested font "msbm10" at 10.95pt
 Requested font "cmr10" at 10.95pt
- [1
-
-
-])
+)
 \tf@toc=\write4
 \openout4 = `memoria_tfg.toc'.
 
+ [1
+
+
+]
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
 (Font)              scaled to size 10.0pt on input line 87.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.0pt
@@ -1522,7 +1523,9 @@ LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/it' will be
 (Font)              scaled to size 10.0pt on input line 87.
 Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.0pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
- [2] (memoria_tfg.lof
+ [2
+
+] (memoria_tfg.lof
 LaTeX Info: Redefining \rmfamily on input line 2.
 LaTeX Info: Redefining \sffamily on input line 2.
 LaTeX Info: Redefining \ttfamily on input line 2.
@@ -1536,9 +1539,7 @@ LaTeX Info: Redefining \ttfamily on input line 5.
 \tf@lof=\write5
 \openout5 = `memoria_tfg.lof'.
 
- [3
-
-] [4
+ [3] [4
 
 ] (memoria_tfg.lot
 LaTeX Info: Redefining \rmfamily on input line 2.
@@ -1803,160 +1804,94 @@ File: imaxes/conceptosPrevios/consolidatedArch.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [28] [29]
+ [28] [29]) (contido/requisitos.tex
+Underfull \vbox (badness 1478) has occurred while \output is active []
+
+ [30]) (contido/pruebaconcepto.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\begingroup' on input line 212.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 212.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\NAT@ctype' on input line 212.
+(hyperref)                removing `\begingroup' on input line 4.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 212.
+(hyperref)                removing `\<let>-command' on input line 4.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 212.
+(hyperref)                removing `\NAT@ctype' on input line 4.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 212.
+(hyperref)                removing `\z@' on input line 4.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\new@ifnextchar' on input line 212.
+(hyperref)                removing `\let' on input line 4.
 
-[30] [31] [32] [33]
-Underfull \vbox (badness 1558) has occurred while \output is active []
 
- [34] [35] [36] [37] [38]
-Overfull \hbox (22.21938pt too wide) in paragraph at lines 397--398
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\let' on input line 4.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\new@ifnextchar' on input line 4.
+
+[31] [32] [33] [34] [35] [36] [37] [38] [39] [40]
+Overfull \hbox (22.21938pt too wide) in paragraph at lines 189--190
 \TU/LinLibertine(0)/m/it/10.95 segment-11 \TU/LinLibertine(0)/m/n/10.95 (172.27.11.2 y 172.27.11.3) y dos que se conectan al \TU/LinLibertine(0)/m/it/10.95 segment VCF-edge_mgmt-
  []
 
-[39]
-Overfull \hbox (3.52596pt too wide) in paragraph at lines 408--409
+
+Overfull \hbox (3.52596pt too wide) in paragraph at lines 200--201
 \TU/LinLibertine(0)/m/n/10.95 ción IP 10.50.0.1, y al \TU/LinLibertine(0)/m/it/10.95 segment mgmt-xRegion01-VXLAN \TU/LinLibertine(0)/m/n/10.95 con la dirección IP 10.60.0.1. 
  []
 
-[40]
-Overfull \hbox (11.31229pt too wide) in paragraph at lines 436--437
+[41] [42]
+Overfull \hbox (11.31229pt too wide) in paragraph at lines 228--229
 \TU/LinLibertine(0)/m/n/10.95 A los \TU/LinLibertine(0)/m/it/10.95 segments \TU/LinLibertine(0)/m/n/10.95 de esta TZ, \TU/LinLibertine(0)/m/it/10.95 VCF-edge-mgmt-cluster-segment-11 \TU/LinLibertine(0)/m/n/10.95 y \TU/LinLibertine(0)/m/it/10.95 VCF-edge-mgmt-cluster-segment-
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\begingroup' on input line 558.
+(hyperref)                removing `\begingroup' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 558.
+(hyperref)                removing `\<let>-command' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\NAT@ctype' on input line 558.
+(hyperref)                removing `\NAT@ctype' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 558.
+(hyperref)                removing `\z@' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 558.
+(hyperref)                removing `\let' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 558.
+(hyperref)                removing `\let' on input line 350.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\new@ifnextchar' on input line 558.
+(hyperref)                removing `\new@ifnextchar' on input line 350.
 
 
-LaTeX Warning: Reference `fig:avnConsolidated' on page 41 undefined on input line 564.
+LaTeX Warning: Reference `fig:avnConsolidated' on page 43 undefined on input line 356.
 
 File: imaxes/conceptosPrevios/UpdateManagerArch.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/UpdateManagerArch.png>
-[41]
+[43]
 File: imaxes/conceptosPrevios/networkLogInsight.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/networkLogInsight.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[42]) (contido/requisitos.tex
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\begingroup' on input line 23.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 23.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\NAT@ctype' on input line 23.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 23.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 23.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 23.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\new@ifnextchar' on input line 23.
-
-
-Underfull \vbox (badness 3635) has occurred while \output is active []
-
- [43]
-File: imaxes/conceptosPrevios/transportlayer2.png Graphic file (type bmp)
-<imaxes/conceptosPrevios/transportlayer2.png>
-File: imaxes/conceptosPrevios/transportNetLayer3.png Graphic file (type bmp)
-<imaxes/conceptosPrevios/transportNetLayer3.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[44] [45] [46]) (contido/despliegueCloudFoundation.tex [47]
-Underfull \hbox (badness 10000) in paragraph at lines 4--7
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--10
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--13
-
- []
-
-[48]
-Underfull \hbox (badness 10000) in paragraph at lines 26--27
-
- []
-
-))
-Underfull \hbox (badness 10000) in paragraph at lines 28--102
-
- []
-
-[49] [50
+[44])) [45] [46
 
 
 ]
@@ -1964,13 +1899,13 @@ LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
 (Font)              scaled to size 24.88pt on input line 111.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 24.88pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_R.otf
- [51] [52]
+ [47] [48]
 \openout2 = `bibliografia/glosario.aux'.
 
- (bibliografia/glosario.tex [53
+ (bibliografia/glosario.tex [49
 
 
-] [54]) [55] (memoria_tfg.bbl [56
+] [50]) [51] (memoria_tfg.bbl [52
 
 
 ]
@@ -1994,41 +1929,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--35
  []
 
 
-Underfull \hbox (badness 3407) in paragraph at lines 38--41
-[]\TU/LinLibertine(0)/m/n/10.95 ——, “Physical infrastructure design.” [Online]. Available: [][]$[][][][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 38--41
-[] [] [][][][] [] [][][][][][] [] [][][] [] [][] [] [][][][][][] [][] [][][][][][][][][] [][] [][][][][][] [] [] [] [] [] [][][][] [][] [][][][][][][][][][][][] [][] [][][] [][]
- []
-
-
-Underfull \hbox (badness 2753) in paragraph at lines 75--78
+Underfull \hbox (badness 2753) in paragraph at lines 69--72
 []\TU/LinLibertine(0)/m/n/10.95 VmWare, “Cloud foundation components.” [En línea]. Disponible
  []
 
-[57]
-Underfull \hbox (badness 2103) in paragraph at lines 94--97
+
+Underfull \hbox (badness 2103) in paragraph at lines 88--91
 []\TU/LinLibertine(0)/m/n/10.95 VMware, “vrealize automation architecture.” [En línea]. Disponible
  []
 
-
-Underfull \hbox (badness 6608) in paragraph at lines 106--109
+[53]
+Underfull \hbox (badness 6608) in paragraph at lines 100--103
 []\TU/LinLibertine(0)/m/n/10.95 VMware, “Managing resource pools.” [En línea]. Disponi-
  []
 
-
-Underfull \hbox (badness 7468) in paragraph at lines 112--115
-[]\TU/LinLibertine(0)/m/n/10.95 ——, “External services overview.” [En línea]. Disponible
- []
-
-
-Underfull \hbox (badness 3407) in paragraph at lines 118--121
-[]\TU/LinLibertine(0)/m/n/10.95 ——, “Minimum hardware requirements.” [En línea]. Disponible
- []
-
-) [58]
+) [54]
 The property list \polyglossia@langsetup contains the pairs (without outer
 braces):
 >  {latex/script}  =>  {latin}
@@ -2113,7 +2028,7 @@ LaTeX Info: Redefining \ttfamily on input line 20.
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 123.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 123.
 Package rerunfilecheck Info: File `memoria_tfg.out' has not changed.
-(rerunfilecheck)             Checksum: 1EA2CC3F4947AFD0EAC5573EF9B77FC2;2899.
+(rerunfilecheck)             Checksum: 569FCD61F98CF3628488A679A5064FE5;2172.
 
 
 LaTeX Warning: There were undefined references.
@@ -2123,12 +2038,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 30218 strings out of 414071
- 582499 string characters out of 2894592
- 875129 words of memory out of 3000000
- 47385 multiletter control sequences out of 15000+200000
+ 30194 strings out of 414071
+ 581653 string characters out of 2894592
+ 873069 words of memory out of 3000000
+ 47363 multiletter control sequences out of 15000+200000
  544805 words of font info for 120 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 73i,12n,111p,1708b,670s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 73i,11n,111p,1710b,734s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (67 pages, 1125032 bytes).
+Output written on memoria_tfg.xdv (63 pages, 1025240 bytes).

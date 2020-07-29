@@ -26,27 +26,21 @@
 \contentsline {subsection}{\numberline {4.1.3}Clusters, zonas y distribución de un SDDC}{29}{subsection.4.1.3}%
 \contentsline {subsubsection}{AZ y Region}{29}{subsection.4.1.3}%
 \contentsline {subsubsection}{Cluster y Resource Pool}{29}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Prueba de concepto}{30}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Arquitectura e Infraestructura Virtuales\cite {CFVirtInfraes}}{30}{subsection.4.2.1}%
-\contentsline {subsubsection}{Diseño de VMware vCenter Server}{30}{subsection.4.2.1}%
-\contentsline {subsubsection}{Diseño cluster VMware vSphere}{30}{subsection.4.2.1}%
-\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{31}{subsection.4.2.1}%
-\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{35}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Operaciones de la Arquitectura\cite {CFopermanagement}}{41}{subsection.4.2.2}%
-\contentsline {subsubsection}{Gestión del Ciclo de Vida}{41}{subsection.4.2.2}%
-\contentsline {subsubsection}{Gestión de Logs}{42}{figure.caption.16}%
-\contentsline {section}{\numberline {4.3}Requisitos}{43}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Cómputo}{43}{subsection.4.3.1}%
-\contentsline {subsubsection}{Hosts ESXi}{43}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Almacenamiento}{43}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Red}{44}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Arquitectura e Infraestructura Físicas \cite {CFfisInfraestuctura}}{44}{subsection.4.3.4}%
-\contentsline {subsubsection}{Red física}{44}{subsection.4.3.4}%
-\contentsline {subsubsection}{Host ESXi\cite {WDminRequierements}}{47}{figure.caption.19}%
-\contentsline {subsubsection}{Almacenamiento físico}{47}{figure.caption.19}%
-\contentsline {section}{\numberline {4.4}Despliegue de VMware Cloud Foundation}{48}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Prueba de concepto}{48}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Preparación del entorno}{48}{subsection.4.4.2}%
-\contentsline {subsubsection}{VMware Cloud Foundation Builder}{48}{subsection.4.4.2}%
-\contentsline {chapter}{Glosario}{53}{appendix*.20}%
-\contentsline {chapter}{Bibliografía}{57}{appendix*.21}%
+\contentsline {section}{\numberline {4.2}Requisitos}{30}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Cómputo}{30}{subsection.4.2.1}%
+\contentsline {subsubsection}{Hosts ESXi}{30}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Almacenamiento}{30}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Red}{31}{subsection.4.2.3}%
+\contentsline {subsubsection}{Switch Top Of Rack}{31}{subsection.4.2.3}%
+\contentsline {subsubsection}{Servicios}{31}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Prueba de concepto}{32}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Arquitectura e Infraestructura Virtuales\cite {CFVirtInfraes}}{32}{subsection.4.3.1}%
+\contentsline {subsubsection}{Diseño de VMware vCenter Server}{32}{subsection.4.3.1}%
+\contentsline {subsubsection}{Diseño cluster VMware vSphere}{32}{subsection.4.3.1}%
+\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{33}{subsection.4.3.1}%
+\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{36}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Operaciones de la Arquitectura\cite {CFopermanagement}}{43}{subsection.4.3.2}%
+\contentsline {subsubsection}{Gestión del Ciclo de Vida}{43}{subsection.4.3.2}%
+\contentsline {subsubsection}{Gestión de Logs}{44}{figure.caption.16}%
+\contentsline {chapter}{Glosario}{49}{appendix*.18}%
+\contentsline {chapter}{Bibliografía}{53}{appendix*.19}%
