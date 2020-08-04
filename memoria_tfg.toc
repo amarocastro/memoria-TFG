@@ -34,13 +34,16 @@
 \contentsline {subsubsection}{Switch Top Of Rack}{31}{subsection.4.2.3}%
 \contentsline {subsubsection}{Servicios}{31}{subsection.4.2.3}%
 \contentsline {section}{\numberline {4.3}Prueba de concepto}{32}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Arquitectura e Infraestructura Virtuales\cite {CFVirtInfraes}}{32}{subsection.4.3.1}%
-\contentsline {subsubsection}{Diseño de VMware vCenter Server}{32}{subsection.4.3.1}%
-\contentsline {subsubsection}{Diseño cluster VMware vSphere}{32}{subsection.4.3.1}%
-\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{33}{subsection.4.3.1}%
-\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{36}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Operaciones de la Arquitectura\cite {CFopermanagement}}{43}{subsection.4.3.2}%
-\contentsline {subsubsection}{Gestión del Ciclo de Vida}{43}{subsection.4.3.2}%
-\contentsline {subsubsection}{Gestión de Logs}{44}{figure.caption.16}%
-\contentsline {chapter}{Glosario}{49}{appendix*.18}%
-\contentsline {chapter}{Bibliografía}{53}{appendix*.19}%
+\contentsline {subsection}{\numberline {4.3.1}Preparación}{32}{subsection.4.3.1}%
+\contentsline {subsubsection}{Host ESXi}{32}{subsection.4.3.1}%
+\contentsline {subsubsection}{Servicios}{32}{subsection.4.3.1}%
+\contentsline {subsubsection}{VMware Lab Constructor}{33}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Diseño y configuración del Management Domain}{37}{subsection.4.3.2}%
+\contentsline {subsubsection}{Diseño de VMware vCenter Server}{37}{subsection.4.3.2}%
+\contentsline {subsubsection}{Diseño cluster VMware vSphere}{37}{subsection.4.3.2}%
+\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{38}{subsection.4.3.2}%
+\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{41}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Operaciones de la Arquitectura\cite {CFopermanagement}}{48}{subsection.4.3.3}%
+\contentsline {subsubsection}{Gestión del Ciclo de Vida}{48}{subsection.4.3.3}%
+\contentsline {chapter}{Glosario}{51}{appendix*.20}%
+\contentsline {chapter}{Bibliografía}{55}{appendix*.21}%

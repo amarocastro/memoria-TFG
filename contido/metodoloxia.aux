@@ -29,46 +29,52 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Cómputo}{30}{subsection.4.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Hosts ESXi}{30}{subsection.4.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Almacenamiento}{30}{subsection.4.2.2}\protected@file@percent }
-\citation{CFVirtInfraes}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Red}{31}{subsection.4.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Switch Top Of Rack}{31}{subsection.4.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Servicios}{31}{subsection.4.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Prueba de concepto}{32}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Arquitectura e Infraestructura Virtuales\cite  {CFVirtInfraes}}{32}{subsection.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Diseño de VMware vCenter Server}{32}{subsection.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Diseño cluster VMware vSphere}{32}{subsection.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{33}{subsection.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{36}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Preparación}{32}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Host ESXi}{32}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Servicios}{32}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{VMware Lab Constructor}{33}{subsection.4.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Muestra la estructura generada por el instalador VLC. Cuatro hosts ESXi embebidos con los componentes de VMware Cloud Foundation cuyo tráfico circula a través del \textit  {port group} VM Network.\relax }}{33}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:estructura-generada-por-VLC}{{4.5}{33}{Muestra la estructura generada por el instalador VLC. Cuatro hosts ESXi embebidos con los componentes de VMware Cloud Foundation cuyo tráfico circula a través del \textit {port group} VM Network.\relax }{figure.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Muestra las VMs que están funcionando sobre el host físico y que representan los componentes de la infraestructura física de un SDDC real, junto con el número de interfaces que se utilizan en cada una. El router VyOS, Jump Host y Windows Server 2016 se configuran antes del despliegue de VMware Cloud Foundation con VLC y se comunican con el entorno generado por VLC a través del \textit  {port group} VM Network. El \textit  {port group} Management Network se utiliza para acceder a la configuración del host físico a través de la dirección que se indica. Se utiliza la interfaz vmnic0 del host como salida del tráfico generado por el vSwitch0.\relax }}{34}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:VMs-alojadas-host-fisico}{{4.6}{34}{Muestra las VMs que están funcionando sobre el host físico y que representan los componentes de la infraestructura física de un SDDC real, junto con el número de interfaces que se utilizan en cada una. El router VyOS, Jump Host y Windows Server 2016 se configuran antes del despliegue de VMware Cloud Foundation con VLC y se comunican con el entorno generado por VLC a través del \textit {port group} VM Network. El \textit {port group} Management Network se utiliza para acceder a la configuración del host físico a través de la dirección que se indica. Se utiliza la interfaz vmnic0 del host como salida del tráfico generado por el vSwitch0.\relax }{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Muestra la configuración del router VyOS. Cada una de las interfaces se debe configurar antes del despliegue de VCF. Todas usan MTU de 8940 Bytes. En las interfaces Eth2 y Eth3 el router utiliza enrutamiento dinámico BGP donde el AS local es 65001 y el AS remoto es AS 65003, configurado para anunciar a sus vecinos la red 10.0.0.0/24 Management Network. Las direcciones configuradas como \textit  {neighbour} son: 172.27.11.2, 172.27.11.3, 172.27.12.2 y 172.27.12.3. En la dirección IP 172.27.254.199 de la interfaz eth0, el router proporciona un servidor DHCP que asigna direcciones IP en el rango 172.16.254.0 - 172.16.254.100.\relax }}{35}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:interfaces-router-fisico-L3}{{4.7}{35}{Muestra la configuración del router VyOS. Cada una de las interfaces se debe configurar antes del despliegue de VCF. Todas usan MTU de 8940 Bytes. En las interfaces Eth2 y Eth3 el router utiliza enrutamiento dinámico BGP donde el AS local es 65001 y el AS remoto es AS 65003, configurado para anunciar a sus vecinos la red 10.0.0.0/24 Management Network. Las direcciones configuradas como \textit {neighbour} son: 172.27.11.2, 172.27.11.3, 172.27.12.2 y 172.27.12.3. En la dirección IP 172.27.254.199 de la interfaz eth0, el router proporciona un servidor DHCP que asigna direcciones IP en el rango 172.16.254.0 - 172.16.254.100.\relax }{figure.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Muestra todos los componentes de VMware Cloud Foundation desplegados por VLC, como se conectan con los distintos servicios de red y a que redes se conectan. Las redes Mgmt-xRegion01-VXLAN y Mgmt-Region01A-VXLAN se corresponden a redes virtuales gestionadas por VMware NSX-T que no requieren ninguna configuración adicional en la capa 3 de la infraestructura física (esto se verá con detalle en el apartado de diseño de VMWare NSX-T).\relax }}{36}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:red-L3-infraestructura-fisica}{{4.8}{36}{Muestra todos los componentes de VMware Cloud Foundation desplegados por VLC, como se conectan con los distintos servicios de red y a que redes se conectan. Las redes Mgmt-xRegion01-VXLAN y Mgmt-Region01A-VXLAN se corresponden a redes virtuales gestionadas por VMware NSX-T que no requieren ninguna configuración adicional en la capa 3 de la infraestructura física (esto se verá con detalle en el apartado de diseño de VMWare NSX-T).\relax }{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Diseño y configuración del Management Domain}{37}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Diseño de VMware vCenter Server}{37}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Diseño cluster VMware vSphere}{37}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{38}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{41}{subsection.4.3.2}\protected@file@percent }
 \citation{CFopermanagement}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Operaciones de la Arquitectura\cite  {CFopermanagement}}{43}{subsection.4.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Gestión del Ciclo de Vida}{43}{subsection.4.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Diseño de vSphere Update Manager en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{44}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:UpdateManagerArc}{{4.5}{44}{Diseño de vSphere Update Manager en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }{figure.caption.16}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Gestión de Logs}{44}{figure.caption.16}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Localización de vRealize Log Insight en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }}{45}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:redLogIsight}{{4.6}{45}{Localización de vRealize Log Insight en el modelo consolidado (izquierda) y en el modelo estándar (derecha)\relax }{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Operaciones de la Arquitectura\cite  {CFopermanagement}}{48}{subsection.4.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Gestión del Ciclo de Vida}{48}{subsection.4.3.3}\protected@file@percent }
 \@setckpt{contido/metodoloxia}{
-\setcounter{page}{46}
+\setcounter{page}{49}
 \setcounter{equation}{0}
 \setcounter{enumi}{0}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
 \setcounter{enumiv}{0}
-\setcounter{footnote}{8}
+\setcounter{footnote}{10}
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{4}
 \setcounter{section}{3}
-\setcounter{subsection}{2}
+\setcounter{subsection}{3}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{6}
+\setcounter{figure}{8}
 \setcounter{table}{0}
 \setcounter{Item}{0}
-\setcounter{Hfootnote}{14}
+\setcounter{Hfootnote}{16}
 \setcounter{Hy@AnnotLevel}{0}
-\setcounter{bookmark@seq@number}{22}
+\setcounter{bookmark@seq@number}{23}
 \setcounter{DefaultLines}{2}
 \setcounter{DefaultDepth}{0}
 \setcounter{L@lines}{3}

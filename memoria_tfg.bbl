@@ -21,15 +21,9 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{CFVirtInfraes}
-\BIBentryALTinterwordspacing
-VMware, ``Virtual infrastructure design.'' [Online]. Available:
-  \url{https://docs.vmware.com/en/VMware-Validated-Design/5.1/sddc-architecture-and-design/GUID-CBA6012B-0B91-4831-A5AD-521340AD72D4.html}
-\BIBentrySTDinterwordspacing
-
 \bibitem{CFopermanagement}
 \BIBentryALTinterwordspacing
-------, ``Operations management design.'' [Online]. Available:
+VMware, ``Operations management design.'' [Online]. Available:
   \url{https://docs.vmware.com/en/VMware-Validated-Design/5.1/sddc-architecture-and-design/GUID-CBA6012B-0B91-4831-A5AD-521340AD72D4.html}
 \BIBentrySTDinterwordspacing
 

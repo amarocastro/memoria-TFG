@@ -371,8 +371,10 @@ INPUT contido\requisitos.tex
 INPUT contido\requisitos.tex
 INPUT contido\pruebaconcepto.tex
 INPUT contido\pruebaconcepto.tex
-INPUT imaxes\conceptosPrevios\UpdateManagerArch.png
-INPUT imaxes\conceptosPrevios\networkLogInsight.png
+INPUT imaxes\pruebaconcepto\hostFisico.png
+INPUT imaxes\pruebaconcepto\vSwitch0HostFisico.png
+INPUT imaxes\pruebaconcepto\RouterFisicoL3.png
+INPUT imaxes\pruebaconcepto\RedDesdeDentro.png
 OUTPUT bibliografia\glosario.aux
 INPUT bibliografia\glosario.tex
 INPUT bibliografia\glosario.tex
