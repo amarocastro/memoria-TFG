@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  4 AUG 2020 14:31
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  5 AUG 2020 18:04
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1228,22 +1228,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'polyglossia' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'spanish'.
- (memoria_tfg.aux (portada/portada.aux
-LaTeX Info: Redefining \rmfamily on input line 7.
-LaTeX Info: Redefining \sffamily on input line 7.
-LaTeX Info: Redefining \ttfamily on input line 7.
-LaTeX Info: Redefining \rmfamily on input line 15.
-LaTeX Info: Redefining \sffamily on input line 15.
-LaTeX Info: Redefining \ttfamily on input line 15.
-)
-LaTeX Info: Redefining \rmfamily on input line 20.
-LaTeX Info: Redefining \sffamily on input line 20.
-LaTeX Info: Redefining \ttfamily on input line 20.
- (portada/resumo.aux) (contido/introducion.aux) (contido/estadoInfraestructuraSistema.aux
-
-LaTeX Warning: Label `fig:sddcoverview' multiply defined.
-
-) (contido/planificacionProyecto.aux) (contido/metodoloxia.aux) (bibliografia/glosario.aux))
+ (memoria_tfg.aux)
 \openout1 = `memoria_tfg.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
@@ -1284,9 +1269,12 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 63.
 LaTeX Info: Redefining \pageref on input line 63.
 LaTeX Info: Redefining \nameref on input line 63.
- (memoria_tfg.out) (memoria_tfg.out)
 \@outlinefile=\write3
 \openout3 = `memoria_tfg.out'.
+
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
 
 Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid
@@ -1344,7 +1332,6 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/LinBiolinum(0)/b/n on input line 63.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/LinLibertine(5)/b/n on input line 63.
-
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
@@ -1488,30 +1475,13 @@ LaTeX Font Info:    Font shape `TU/LinLibertine(0)/b/n' will be
 (Font)              scaled to size 24.88pt on input line 86.
 Requested font "[LinLibertine_RB.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 24.88pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RB.otf
- (memoria_tfg.toc
-LaTeX Info: Redefining \rmfamily on input line 2.
-LaTeX Info: Redefining \sffamily on input line 2.
-LaTeX Info: Redefining \ttfamily on input line 2.
-LaTeX Info: Redefining \rmfamily on input line 4.
-LaTeX Info: Redefining \sffamily on input line 4.
-LaTeX Info: Redefining \ttfamily on input line 4.
-LaTeX Info: Redefining \rmfamily on input line 5.
-LaTeX Info: Redefining \sffamily on input line 5.
-LaTeX Info: Redefining \ttfamily on input line 5.
-Requested font "cmmi10" at 10.95pt
-Requested font "cmsy10" at 10.95pt
-Requested font "cmex10" at 10.95pt
-Requested font "lasy10" at 10.95pt
-Requested font "msam10" at 10.95pt
-Requested font "msbm10" at 10.95pt
-Requested font "cmr10" at 10.95pt
- [1
-
-
-])
 \tf@toc=\write4
 \openout4 = `memoria_tfg.toc'.
 
+ [1
+
+
+]
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
 (Font)              scaled to size 10.0pt on input line 87.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.0pt
@@ -1522,43 +1492,19 @@ LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/it' will be
 (Font)              scaled to size 10.0pt on input line 87.
 Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.0pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
- [2] (memoria_tfg.lof
-LaTeX Info: Redefining \rmfamily on input line 2.
-LaTeX Info: Redefining \sffamily on input line 2.
-LaTeX Info: Redefining \ttfamily on input line 2.
-LaTeX Info: Redefining \rmfamily on input line 4.
-LaTeX Info: Redefining \sffamily on input line 4.
-LaTeX Info: Redefining \ttfamily on input line 4.
-LaTeX Info: Redefining \rmfamily on input line 5.
-LaTeX Info: Redefining \sffamily on input line 5.
-LaTeX Info: Redefining \ttfamily on input line 5.
-LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 22.
-Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
- -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
- [3
+ [2
 
-])
+]
 \tf@lof=\write5
 \openout5 = `memoria_tfg.lof'.
 
- [4] (memoria_tfg.lot
-LaTeX Info: Redefining \rmfamily on input line 2.
-LaTeX Info: Redefining \sffamily on input line 2.
-LaTeX Info: Redefining \ttfamily on input line 2.
-LaTeX Info: Redefining \rmfamily on input line 4.
-LaTeX Info: Redefining \sffamily on input line 4.
-LaTeX Info: Redefining \ttfamily on input line 4.
-LaTeX Info: Redefining \rmfamily on input line 5.
-LaTeX Info: Redefining \sffamily on input line 5.
-LaTeX Info: Redefining \ttfamily on input line 5.
-)
+ [3] [4
+
+]
 \tf@lot=\write6
 \openout6 = `memoria_tfg.lot'.
 
- [5
-
-] [6
+ [5] [6
 
 ]
 \openout2 = `contido/introducion.aux'.
@@ -1585,6 +1531,16 @@ Package lettrine.sty Info: Targeted height = 21.55566pt
 (lettrine.sty)             (for loversize=0, accent excluded),
 (lettrine.sty)             Lettrine height = 21.72063pt (S);
 (lettrine.sty)             reported on input line 3.
+LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/it' will be
+(Font)              scaled to size 10.95pt on input line 3.
+Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.95pt
+ -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
+
+Package natbib Warning: Citation `DefCloudComputing' on page 1 undefined on input line 3.
+
+
+LaTeX Warning: Reference `itm:tenenciamultiple' on page 1 undefined on input line 7.
+
 
 Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
@@ -1594,6 +1550,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
 
 ]
+
+LaTeX Warning: Reference `nist' on page 2 undefined on input line 16.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 14--17
 
  []
@@ -1619,6 +1579,9 @@ Package lettrine.sty Info: Targeted height = 21.55566pt
 (lettrine.sty)             Lettrine height = 21.72063pt (C);
 (lettrine.sty)             reported on input line 3.
 
+Package natbib Warning: Citation `citicUDC' on page 5 undefined on input line 6.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 6--7
 
  []
@@ -1627,6 +1590,13 @@ LaTeX Font Info:    Font shape `TU/LinLibertine(5)/m/n' will be
 (Font)              scaled to size 10.95pt on input line 16.
 Requested font "[LinLibertine_M.otf]/OT:script=latn;language=dflt;" at 10.95pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_M.otf
+Requested font "cmmi10" at 10.95pt
+Requested font "cmsy10" at 10.95pt
+Requested font "cmex10" at 10.95pt
+Requested font "lasy10" at 10.95pt
+Requested font "msam10" at 10.95pt
+Requested font "msbm10" at 10.95pt
+Requested font "cmr10" at 10.95pt
 
 Overfull \hbox (31.5439pt too wide) in paragraph at lines 23--24
 \TU/LinLibertine(0)/m/n/10.95 Más información: [][]$[][][][][] [] [] [] [][][] [] [][][][] [] [][][] [] [][] [][] [][] [] [][][][] [] [][][][] [] [][][][][][][][][][] [][]
@@ -1638,16 +1608,50 @@ Overfull \hbox (17.76576pt too wide) in paragraph at lines 23--24
  []
 
 [5]
+
+LaTeX Warning: Reference `itm:raid5' on page 6 undefined on input line 25.
+
+
+LaTeX Warning: Reference `itm:lun' on page 6 undefined on input line 25.
+
+
+LaTeX Warning: Reference `itm:sfp' on page 6 undefined on input line 26.
+
+
+LaTeX Warning: Reference `fig:esquemaentornoreal' on page 6 undefined on input line 26.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 25--27
 
  []
 
-[6] [7]
+
+LaTeX Warning: Reference `itm:baremetal' on page 6 undefined on input line 41.
+
+
+Package natbib Warning: Citation `Esxi' on page 6 undefined on input line 41.
+
+[6]
+
+LaTeX Warning: Reference `itm:psc' on page 7 undefined on input line 43.
+
+[7]
 File: imaxes/cap2recursos/contentVSphere.png Graphic file (type bmp)
 <imaxes/cap2recursos/contentVSphere.png>
+
+
+Package natbib Warning: Citation `fotovSphere' on page 8 undefined on input line 90.
+
+
+Package natbib Warning: Citation `fotovSphere' on page 8 undefined on input line 90.
+
 File: imaxes/cap2recursos/recursosReal.png Graphic file (type bmp)
 <imaxes/cap2recursos/recursosReal.png>
- [8] [9] [10]
+[8] [9]
+
+LaTeX Warning: Reference `fig:infraCloudFound' on page 10 undefined on input line 108.
+
+[10]
 File: imaxes/cap2recursos/SDDCoverview.png Graphic file (type bmp)
 <imaxes/cap2recursos/SDDCoverview.png>
 File: imaxes/cap2recursos/overviewCF.png Graphic file (type bmp)
@@ -1657,15 +1661,40 @@ File: imaxes/cap2recursos/overviewCF.png Graphic file (type bmp)
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [11]
+
+Package natbib Warning: Citation `opestackintegrated' on page 12 undefined on input line 147.
+
+
 Underfull \vbox (badness 4242) has occurred while \output is active []
 
  [12]
+
+Package natbib Warning: Citation `componentesCloudFound' on page 13 undefined on input line 149.
+
 File: imaxes/cap2recursos/SDDCoverview.png Graphic file (type bmp)
 <imaxes/cap2recursos/SDDCoverview.png>
- [13] [14]
+
+LaTeX Warning: Reference `fig:sddcoverview' on page 13 undefined on input line 160.
+
+[13]
+
+LaTeX Warning: Reference `subsec:softwareinstalado' on page 14 undefined on input line 175.
+
+
+Package natbib Warning: Citation `operacionesVSAN' on page 14 undefined on input line 177.
+
+[14]
 File: imaxes/cap2recursos/rendimientoVSAN.png Graphic file (type bmp)
 <imaxes/cap2recursos/rendimientoVSAN.png>
- [15] [16]) [17] [18]
+
+
+Package natbib Warning: Citation `componentesNSX' on page 15 undefined on input line 201.
+
+[15] [16]
+
+Package natbib Warning: Citation `vRealizeAutomation' on page 17 undefined on input line 268.
+
+) [17] [18]
 \openout2 = `contido/planificacionProyecto.aux'.
 
  (contido/planificacionProyecto.tex
@@ -1731,6 +1760,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--36
 
  []
 
+
+LaTeX Warning: Reference `fig:estadisticasproyecto' on page 21 undefined on input line 38.
+
 [21]
 File: imaxes/extras/diagramaGranttt.png Graphic file (type bmp)
 <imaxes/extras/diagramaGranttt.png>
@@ -1763,11 +1795,15 @@ Requested font "msam5" at 5.0pt
 Requested font "msbm10" at 9.0pt
 Requested font "msbm5" at 5.0pt
 Requested font "cmr9" at 9.0pt
+
+
+Package natbib Warning: Citation `licenses' on page 23 undefined on input line 58.
+
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/it' will be
 (Font)              scaled to size 9.0pt on input line 60.
 Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
- [23
+[23
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 68--69
@@ -1795,7 +1831,11 @@ File: imaxes/conceptosPrevios/standardArch.png Graphic file (type bmp)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[26] [27]
+[26]
+
+LaTeX Warning: Reference `fig:modeloconsolidated' on page 27 undefined on input line 130.
+
+[27]
 File: imaxes/conceptosPrevios/modelConsolidated.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/modelConsolidated.png>
 File: imaxes/conceptosPrevios/consolidatedArch.png Graphic file (type bmp)
@@ -1803,10 +1843,11 @@ File: imaxes/conceptosPrevios/consolidatedArch.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [28] [29]) (contido/requisitos.tex
-Underfull \vbox (badness 1478) has occurred while \output is active []
+ [28]
 
- [30]) (contido/pruebaconcepto.tex [31] [32]
+Package natbib Warning: Citation `resourcePool' on page 29 undefined on input line 166.
+
+[29]) (contido/requisitos.tex [30]) (contido/pruebaconcepto.tex [31] [32]
 File: imaxes/pruebaconcepto/hostFisico.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/hostFisico.png>
 File: imaxes/pruebaconcepto/vSwitch0HostFisico.png Graphic file (type bmp)
@@ -1817,98 +1858,1043 @@ File: imaxes/pruebaconcepto/RedDesdeDentro.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/RedDesdeDentro.png>
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-[33] [34] [35] [36] [37
+[33] [34] [35] [36]
+File: imaxes/pruebaconcepto/clusterVCenterServer.png Graphic file (type bmp)
+<imaxes/pruebaconcepto/clusterVCenterServer.png>
+ [37
 
-] [38] [39] [40] [41] [42] [43] [44]
-Overfull \hbox (22.21938pt too wide) in paragraph at lines 231--232
+] [38] [39]
+File: imaxes/pruebaconcepto/distributedSwitchEntornoFinal.png Graphic file (type bmp)
+<imaxes/pruebaconcepto/distributedSwitchEntornoFinal.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[40] [41] [42]
+File: imaxes/pruebaconcepto/OverlayTZSegments.png Graphic file (type bmp)
+<imaxes/pruebaconcepto/OverlayTZSegments.png>
+File: imaxes/pruebaconcepto/VLANTZSegments.png Graphic file (type bmp)
+<imaxes/pruebaconcepto/VLANTZSegments.png>
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
+                                                  }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...e {\textdef@ \displaystyle \f@size {#1}}
+                                                  {\textdef@ \textstyle \f@s...
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
+                                                  }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...xtstyle \f@size {\firstchoice@false #1}}
+                                                  {\textdef@ \textstyle \sf@...
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 8.0pt
+ -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
+                                                  }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...tstyle \sf@size {\firstchoice@false #1}}
+                                                  {\textdef@ \textstyle \ssf...
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+ -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
+                                                  }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...style \ssf@size {\firstchoice@false #1}}
+                                                  \check@mathfonts }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...firstchoice@false #1}}\check@mathfonts }
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no á in font cmmi5!
+Missing character: There is no á in font cmmi5!
+Missing character: There is no á in font cmmi5!
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing { inserted.
+<to be read again> 
+                   \endgroup 
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing { inserted.
+<to be read again> 
+                   \endgroup 
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing { inserted.
+<to be read again> 
+                   \endgroup 
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+<recently read> \egroup 
+                        
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
+                                                  }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...e {\textdef@ \displaystyle \f@size {#1}}
+                                                  {\textdef@ \textstyle \f@s...
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
+                                                  }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...xtstyle \f@size {\firstchoice@false #1}}
+                                                  {\textdef@ \textstyle \sf@...
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
+                                                  }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...tstyle \sf@size {\firstchoice@false #1}}
+                                                  {\textdef@ \textstyle \ssf...
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
+                                                  }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...style \ssf@size {\firstchoice@false #1}}
+                                                  \check@mathfonts }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Extra }, or forgotten $.
+\text@ ...firstchoice@false #1}}\check@mathfonts }
+                                                  
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no á in font cmmi5!
+Missing character: There is no á in font cmmi5!
+Missing character: There is no á in font cmmi5!
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing { inserted.
+<to be read again> 
+                   \endgroup 
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing { inserted.
+<to be read again> 
+                   \endgroup 
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing { inserted.
+<to be read again> 
+                   \endgroup 
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+contido/pruebaconcepto.tex:174: Missing } inserted.
+<inserted text> 
+                }
+l.174 ...rna (esto se explicará con más detalle).}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[43] [44] [45
+
+] [46]
+Overfull \hbox (22.21938pt too wide) in paragraph at lines 263--264
 \TU/LinLibertine(0)/m/it/10.95 segment-11 \TU/LinLibertine(0)/m/n/10.95 (172.27.11.2 y 172.27.11.3) y dos que se conectan al \TU/LinLibertine(0)/m/it/10.95 segment VCF-edge_mgmt-
  []
 
-[45]
-Overfull \hbox (3.52596pt too wide) in paragraph at lines 242--243
+
+Overfull \hbox (3.52596pt too wide) in paragraph at lines 274--275
 \TU/LinLibertine(0)/m/n/10.95 ción IP 10.50.0.1, y al \TU/LinLibertine(0)/m/it/10.95 segment mgmt-xRegion01-VXLAN \TU/LinLibertine(0)/m/n/10.95 con la dirección IP 10.60.0.1. 
  []
 
-[46]
-Overfull \hbox (11.31229pt too wide) in paragraph at lines 270--271
+[47]
+Overfull \hbox (11.31229pt too wide) in paragraph at lines 302--303
 \TU/LinLibertine(0)/m/n/10.95 A los \TU/LinLibertine(0)/m/it/10.95 segments \TU/LinLibertine(0)/m/n/10.95 de esta TZ, \TU/LinLibertine(0)/m/it/10.95 VCF-edge-mgmt-cluster-segment-11 \TU/LinLibertine(0)/m/n/10.95 y \TU/LinLibertine(0)/m/it/10.95 VCF-edge-mgmt-cluster-segment-
  []
 
-[47]
+[48]
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\begingroup' on input line 392.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 392.
+Package natbib Warning: Citation `CFopermanagement' on page 49 undefined on input line 424.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\NAT@ctype' on input line 392.
+(hyperref)                removing `\begingroup' on input line 424.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 392.
+(hyperref)                removing `\<let>-command' on input line 424.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 392.
+(hyperref)                removing `\NAT@ctype' on input line 424.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 392.
+(hyperref)                removing `\z@' on input line 424.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\new@ifnextchar' on input line 392.
+(hyperref)                removing `\let' on input line 424.
 
-)) [48]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\let' on input line 424.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\new@ifnextchar' on input line 424.
+
+)) [49] [50
+
+
+]
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
 (Font)              scaled to size 24.88pt on input line 111.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 24.88pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_R.otf
- [49
-
-
-] [50]
+ [51] [52]
 \openout2 = `bibliografia/glosario.aux'.
 
- (bibliografia/glosario.tex [51
+ (bibliografia/glosario.tex [53
 
 
-] [52]) [53] (memoria_tfg.bbl [54
+] [54]) [55]
+No file memoria_tfg.bbl.
+[56
 
 
 ]
-Underfull \hbox (badness 7704) in paragraph at lines 26--29
-[]\TU/LinLibertine(0)/m/n/10.95 VMware, “Operations management design.” [Online]. Availa-
- []
-
-
-Underfull \hbox (badness 2753) in paragraph at lines 63--66
-[]\TU/LinLibertine(0)/m/n/10.95 VmWare, “Cloud foundation components.” [En línea]. Disponible
- []
-
-
-Underfull \hbox (badness 2103) in paragraph at lines 82--85
-[]\TU/LinLibertine(0)/m/n/10.95 VMware, “vrealize automation architecture.” [En línea]. Disponible
- []
-
-[55]
-Underfull \hbox (badness 6608) in paragraph at lines 94--97
-[]\TU/LinLibertine(0)/m/n/10.95 VMware, “Managing resource pools.” [En línea]. Disponi-
- []
-
-) [56]
 The property list \polyglossia@langsetup contains the pairs (without outer
 braces):
 >  {latex/script}  =>  {latin}
@@ -1976,9 +2962,13 @@ braces):
 >  {english/babelname}  =>  {american}
 >  {english/localnumeral}  =>  {polyglossia@C@localnumeral}
 >  {english/Localnumeral}  =>  {polyglossia@C@localnumeral}.
+
+
+Package natbib Warning: There were undefined citations.
+
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 123.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 123.
- (memoria_tfg.aux (portada/portada.aux
+(memoria_tfg.aux (portada/portada.aux
 LaTeX Info: Redefining \rmfamily on input line 7.
 LaTeX Info: Redefining \sffamily on input line 7.
 LaTeX Info: Redefining \ttfamily on input line 7.
@@ -1992,20 +2982,29 @@ LaTeX Info: Redefining \ttfamily on input line 20.
  (portada/resumo.aux) (contido/introducion.aux) (contido/estadoInfraestructuraSistema.aux) (contido/planificacionProyecto.aux) (contido/metodoloxia.aux) (bibliografia/glosario.aux))
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 123.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 123.
-Package rerunfilecheck Info: File `memoria_tfg.out' has not changed.
-(rerunfilecheck)             Checksum: 935A82DB12548A028F84F143BBAAB9B3;2479.
 
 
-LaTeX Warning: There were multiply-defined labels.
+Package rerunfilecheck Warning: File `memoria_tfg.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `memoria_tfg.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  AAAF64EDE24740EAAC5310C2A36F5D20;2369.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 30205 strings out of 414071
- 582086 string characters out of 2894592
- 877103 words of memory out of 3000000
- 47371 multiletter control sequences out of 15000+200000
- 544805 words of font info for 120 fonts, out of 3000000 for 9000
+ 30158 strings out of 414071
+ 581820 string characters out of 2894592
+ 859576 words of memory out of 3000000
+ 47344 multiletter control sequences out of 15000+200000
+ 544821 words of font info for 122 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 73i,11n,111p,1710b,732s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 73i,22n,111p,1665b,622s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (65 pages, 1069980 bytes).
+Output written on memoria_tfg.xdv (65 pages, 971588 bytes).

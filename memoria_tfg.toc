@@ -40,10 +40,9 @@
 \contentsline {subsubsection}{VMware Lab Constructor}{33}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}Diseño y configuración del Management Domain}{37}{subsection.4.3.2}%
 \contentsline {subsubsection}{Diseño de VMware vCenter Server}{37}{subsection.4.3.2}%
-\contentsline {subsubsection}{Diseño cluster VMware vSphere}{37}{subsection.4.3.2}%
-\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{38}{subsection.4.3.2}%
-\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{41}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Operaciones de la Arquitectura\cite {CFopermanagement}}{48}{subsection.4.3.3}%
-\contentsline {subsubsection}{Gestión del Ciclo de Vida}{48}{subsection.4.3.3}%
-\contentsline {chapter}{Glosario}{51}{appendix*.20}%
-\contentsline {chapter}{Bibliografía}{55}{appendix*.21}%
+\contentsline {subsubsection}{Diseño cluster VMware vSphere}{37}{figure.caption.20}%
+\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{38}{figure.caption.20}%
+\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{42}{figure.caption.21}%
+\contentsline {subsection}{\numberline {4.3.3}Operaciones de la Arquitectura\cite {CFopermanagement}}{49}{subsection.4.3.3}%
+\contentsline {subsubsection}{Gestión del Ciclo de Vida}{49}{subsection.4.3.3}%
+\contentsline {chapter}{Glosario}{53}{appendix*.24}%
