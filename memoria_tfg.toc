@@ -44,7 +44,8 @@
 \contentsline {subsubsection}{Diseño cluster VMware vSphere}{37}{figure.caption.20}%
 \contentsline {subsubsection}{Diseño de red para el cluster vSphere}{38}{figure.caption.20}%
 \contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{42}{figure.caption.21}%
-\contentsline {subsection}{\numberline {4.3.3}Operaciones de la Arquitectura\cite {CFopermanagement}}{52}{subsection.4.3.3}%
-\contentsline {subsubsection}{Gestión del Ciclo de Vida}{52}{subsection.4.3.3}%
-\contentsline {chapter}{Glosario}{55}{appendix*.30}%
-\contentsline {chapter}{Bibliografía}{59}{appendix*.31}%
+\contentsline {subsection}{\numberline {4.3.3}Operaciones de la Arquitectura}{52}{subsection.4.3.3}%
+\contentsline {subsubsection}{vRealize Suite Lifecycle Manager}{53}{subsection.4.3.3}%
+\contentsline {subsubsection}{Gestión del Ciclo de Vida}{53}{subsection.4.3.3}%
+\contentsline {chapter}{Glosario}{57}{appendix*.30}%
+\contentsline {chapter}{Bibliografía}{61}{appendix*.31}%

@@ -21,12 +21,6 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{CFopermanagement}
-\BIBentryALTinterwordspacing
-VMware, ``Operations management design.'' [Online]. Available:
-  \url{https://docs.vmware.com/en/VMware-Validated-Design/5.1/sddc-architecture-and-design/GUID-CBA6012B-0B91-4831-A5AD-521340AD72D4.html}
-\BIBentrySTDinterwordspacing
-
 \bibitem{fotovSphere}
 \BIBentryALTinterwordspacing
 ``Vmware vsphere entreprise edition datasheet.'' [Online]. Available:
