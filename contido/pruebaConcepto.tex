@@ -27,7 +27,7 @@ Para no afectar al funcionamiento del servicio proporcionado por el CITIC y para
     \end{figure}
     \begin{figure}[h]
       \centering
-      \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/RouterFisicoL3.png}
+      \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/RouterFisicoL3.png}
       \caption{Muestra la configuración del router VyOS. Cada una de las interfaces se debe configurar antes del despliegue de VCF. Todas usan MTU de 8940 Bytes. 
       En las interfaces Eth2 y Eth3 el router utiliza enrutamiento dinámico BGP donde el AS local es 65001 y el AS remoto es AS 65003, configurado para anunciar a sus vecinos la red 10.0.0.0/24 Management Network. Las direcciones configuradas como \textit{neighbour} son: 172.27.11.2, 172.27.11.3, 172.27.12.2 y 172.27.12.3. En la dirección IP 172.27.254.199 de la interfaz eth0, el router proporciona un servidor DHCP que asigna direcciones IP en el rango 172.16.254.0 - 172.16.254.100.}
       \label{fig:interfaces-router-fisico-L3}
@@ -62,6 +62,9 @@ Para no afectar al funcionamiento del servicio proporcionado por el CITIC y para
     %  En caso de que existan varios \textit{Workload Domain} se puede habilitar el modo \textit{Enhanced Linked Mode} para poder gestionar todas las instancias de vCenter Server de forma centralizada desde un único vSphere Client.
     % Por lo anterior, en el \textit{management domain} se despliega una instancia de VMware vCenter Server que incluye un cluster de VMware vSphere.
     
+    \begin{subsubsection}{Diseño almacenamiento VMware vSAN}
+      El almacenamiento del \textit{management domain} desplegado, está implementado con VMwware vSAN. Los cuatro hosts ESXi contienen cuatro grupos de discos cada uno con configuración All-Flash. Como hay cuatro hosts participantes, soporta el fallo de un host lo cual permite dejar hosts fuera de servicio para tareas de mantenimiento. Esto es posible gracias a que con FTT (\textit{Failures-To-Tolerate}) igual a 1 se mantiene la redundancia de los datos almacenados en el \textit{datasotore}, en uno de los hosts. Cada grupo de discos cuenta con cuatro discos uno de ellos para caché, 16 discos en total. Para hacer disponible este servicio de almacenamiento, todos los hosts deben estar conectados a la subred generada para VMware vSAN y utilizar una VLAN para separar su tráfico.
+    \end{subsubsection}
         
     \begin{subsubsection}{Diseño cluster VMware vSphere}
     Dentro de un \textit{workload domain} pueden existir varios clusters vSphere con diferentes características según su finalidad. Los hosts ESXi que lo forman pueden ser de diferentes tamaños teniendo en cuenta que se pueden usar menos hosts ESXi de mayor capacidad o más hosts con menores prestaciones, el coste de cada host ESXi, el uso que se le va a dar al cluster y las características máximas y mínimas del cluster vSphere. Para el \textit{management domain} se utiliza un único cluster vSphere con de 4 hosts de los cuales se reserva un host para proveer redundancia. Todos los hosts ESXi cuenta con 64GB de memoria RAM menos uno que tiene 32 GB, y 19.9GHz de CPU. Dentro del cluster hay que configurar los servicios vSphere HA y vSphere DRS para proteger los componentes del SDDC. La configuración que se establece en el \textit{management domain} es la siguiente:
@@ -160,8 +163,7 @@ Para no afectar al funcionamiento del servicio proporcionado por el CITIC y para
       \item \textbf{Segment}: también llamado \textit{Logical Switch}, representa un dominio de broadcast de capa 2 que forma parte de una \textit{Transport Zone}. El tipo de tráfico puede ser VLAN u Overlay dependiendo de como se haya configurado la \textit{Transport Zone} de la que forma parte. Las VMs de cada TN se pueden conectar a los \textit{Segments} situados en las \textit{Transport Zones} a las que el host está conectado. Estas VMs se pueden comunicar con el resto de VMs conectadas al mismo \textit{Segment}.
        
     \end{itemize}
-    
-    En el \textit{management domain} del entorno existen dos \textit{transport zones} diferentes.
+    Para gestionar las conexiones de cada TN, tanto para los nodos NSX-T Edge como para los hosts ESXi, VMware NSX-T introduce el componente llamado \textbf{NSX-T Virtual Distributed Switch} (N-VDS). Cada TN del \textit{management domain} posee un N-VDS, este elemento conecta sus interfaces a los \textit{segments} que se configuran en cada TN. Para el \textit{management domain} del entorno, VLC despliega dos \textit{transport zones} diferentes.
     \begin{figure}[h]
       \centering
       \includegraphics[width=1\textwidth]{imaxes/pruebaconcepto/OverlayTZSegments.png}
@@ -228,11 +230,11 @@ Para no afectar al funcionamiento del servicio proporcionado por el CITIC y para
     % \end{itemize}
     
     Las TZ, tanto las basadas en Overlay como las basadas en VLAN, sirven para comunicar TNs que se encuentran en distintas partes de la infraestructura física (por ejemplo, en distintos racks) como si estuvieran situadas en el mismo dominio broadcast de capa 2 físico. 
-    Aquellas que usan Overlay utilizan el protocolo Geneve para crear un túnel entre los puntos de origen y destino por el cual circula el tráfico generado por los \textit{segments} que pertenecen a esa TZ y que debe salir a la red física para alcanzar su destino. Con Geneve se añade una cabecera UDP a cada paquete Ethernet que generan los \textit{segments} cuando este sale del TN donde se generó. La nueva cabecera incorpora un identificador llamado VNI único para cada \textit{segment} (cada \textit{segment} tiene su propio identificador VNI). 
+    Aquellas que usan Overlay utilizan el protocolo Geneve para crear un túnel entre los puntos de origen y destino por el cual circula el tráfico generado por los \textit{segments} que pertenecen a esa TZ y que debe salir a la red física para alcanzar su destino. El protocolo Geneve añade una cabecera UDP a cada paquete Ethernet que generan los \textit{segments} cuando este sale del TN donde se generó hacia un TN situado en otra red física. La nueva cabecera incorpora un identificador llamado VNI y es único para cada \textit{segment} (cada \textit{segment} tiene su propio identificador VNI). 
     \begin{figure}[h]
       \centering
       \includegraphics[width=1\textwidth]{imaxes/pruebaconcepto/FrameGeneve.png}
-      \caption{Muestra las cabeceras que forman un paquete de red que pertenece a un \textit{segment} cuando este sale de un TN. Cuando el paquete que circula por la red virtual (contiene los datos que se transmiten y la información de las VMs origen y destino) tiene salir a la infraestructura física para alcanzar el destino, el \textit{transport node} añade la cabecera del protocolo Geneve con el identificador VNI correspondiente, una cabecera UDP con un puerto origen y destino establecidos por defecto, una cabecera IP con las direcciones IP origen y destino de los TN que se están comunicando, y una cabecera Ethernet donde se idican las direcciones MAC de los TN origen y destino. Así, dos VMs conectadas al mismo \textit{segment} pero se encuentran en TNs situados en dominios de broadcast distintos, pueden comunicarse de forma transparente como si estuvieran conectadas directamente una con la otra.}
+      \caption{Muestra las cabeceras que forman un paquete de red que pertenece a un \textit{segment} cuando este sale de un TN. Cuando el paquete que circula por la red virtual (contiene los datos que se transmiten y la información de las VMs origen y destino) tiene salir a la infraestructura física para alcanzar el destino, el \textit{transport node} añade la cabecera del protocolo Geneve con el identificador VNI correspondiente, una cabecera UDP con un puerto origen y destino establecidos por defecto, una cabecera IP con las direcciones IP origen y destino de los TN que se están comunicando, y una cabecera Ethernet donde se idican las direcciones MAC de los TN origen y destino. Así, dos VMs conectadas al mismo \textit{segment} pero alojadas en TNs de dominios broadcast diferentes, pueden comunicarse de forma transparente como si estuvieran conectadas directamente una con la otra en la misma subred.}
       \label{fig:Frame-Geneve-Segment-NSXT}
     \end{figure}
     \FloatBarrier
@@ -242,72 +244,109 @@ Para no afectar al funcionamiento del servicio proporcionado por el CITIC y para
     %   \caption{Cabeceras de un paquete capturado con el programa Wireshark que utiliza encapsulación Overlay. Contiene un VNI, las direcciones IP de los elementos que se comunican dentro del \textit{segment} y las direcciones IP de los TN que se comunican \textit{}}
     %   \label{fig:Frame-Geneve-Example-NSXT}
     % \end{figure}
-    Cuando el tráfico pertenece a un \textit{segment} de una TZ de tipo VLAN, cuando este sale al medio físico es encapsulado añadiendo un identificador de VLAN definido en una \textit{Uplink Policy} que se asigna a cada TZ como se explicará más adelante. Se aplica la misma VLAN para encapsular el tráfico de todos los \textit{segments} de una TZ de tipo VLAN. 
-    Esta encapsulación, tanto VLAN como Overlay, tiene lugar cuando los paquetes salen de la interfaz de una VM y entran en el N-VDS del TN. Para ello, cada TN tiene dispositivo llamado \textit{Tunnel End Point} (TEP) al que se le asigna una dirección IP utilizada para enviar y recibir el tráfico entre VMs que se encuentran en el mismo \textit{segment} pero se alojan en TNs situados en redes L2 diferentes\footnote{En el entorno desplegado todos los TN se encuentran dentro de la misma red física. Esto implica que no se genere tráfico con los TEPs ya que todas las TZs funcionan sobre un único dominio broadcast.}. Los TNs que son hosts ESXi obtienen su dirección TEP de un servidor DHCP\footnote{El servidor DHCP hace que se simplifique el proceso de configuración de un nuevo host ESXi ya que le asigna una dirección IP de forma automática.} mientras que los que son instancias de NSX-T Edge la dirección IP se asigna de forma manual. El TEP de cada TN tiene dos direcciones IP asignadas puesto que cada uno tiene dos interfaces de red:
-    \begin{itemize}
-      \item \textit{esxi-1}: 172.16.254.10, 172.16.254.11 
-      \item \textit{esxi-2}: 172.16.254.12, 172.16.254.13
-      \item \textit{esxi-3}: 172.16.254.14, 172.16.254.15
-      \item \textit{esxi-4}: 172.16.254.16, 172.16.254.17
-      \item \textit{edge01-mgmt}: 172.27.13.2, 172.27.13.3
-      \item \textit{edge02-mgmt}: 172.27.13.4, 172.27.13.5
-    \end{itemize}
+    En las TZ de tipo VLAN, tráfico de sus \textit{segments} es encapsulado añadiendo un identificador de VLAN definido en una plantilla \textit{Uplink Policy}\footnote{A las TZ de tipo Overlay no se les aplica ninguna \textit{Uplink Policy}.} que se asigna a la TZ. Se aplica la misma VLAN para encapsular el tráfico de todos los \textit{segments} de una misma TZ de tipo VLAN. Estas plantillas permiten establecer como debe el N-VDS de un TN tratar el tráfico de la \textit{transport zone} a la que se asigna. En cada una se especifican varias \textit{Teaming Policy}, la VLAN que debe usar el N-VDS cuando tiene que enviar el tráfico fuera del TN y el MTU de cada interfaz \textit{uplinks}. Una \textit{Teaming Policy} indica como el N-VDS utiliza los \textit{uplinks} a nivel de \textit{segment} para distribuir el tráfico y conseguir conexiones redundantes y balanceo de la carga, se especifica una \textit{Teaming Policy} por defecto más otras adicionales. Se aplica una \textit{Uplink Policy} a la TZ de tipo VLAN  \textit{sfo01-m01-dge-uplink-tz}.
+    %***UPLINKPOLICY**%
+    %  Además, en una \textit{Uplink Policy} se define un mapeo con las interfaces \textit{uplink} establecidas en vSphere Distributed Switch (uplink1 y uplink2) para dirigir el tráfico de cada TZ hacia la red física. 
+    %Los TNs \textit{edge01-mgmt} y \textit{edge02-mgmt} proporcionan acceso a la red externa a los \textit{segments} de VMware NSX-T, por ello requieren estar conctados a los dos tienen sus interfaces conectadas a los \textit{uplinks} están mapeados con las NICs físicas de cada host ESXi a través de  a los que están ancladas ambas VMs, es decir, un \textit{uplink} está mapeado con una NIC física del host ESXi. 
+    %En las TZ de tipo VLAN, se utilizan plantillas .
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=1\textwidth]{imaxes/pruebaconcepto/UplinkPolicy13.png}
+      \caption{Muestra la \textit{Uplink Policy} (\textit{uplink-profile-13}) configurada para la TZ \textit{sfo01-m01-dge-uplink-tz}. Se establece la VLAN 13 como Transport VLAN, utilizado para encapsular el tráfico saliente hacia la red física, y MTU de 8940 Bytes para los uplinks. Hay definidas tres \textit{Teaming Policies}, una por defecto (\textit{Default teaming}) que utiliza \textit{Load Balance Source} para hacer un mapeo uno a uno entre las interfaces de cada VM y uno de los \textit{uplinks} (todo el tráfico correspondiente a esa interfaz se envía y recibe por el mismo \textit{uplink}), y dos adicionales \textit{uplink1-named-teaming-policy} y \textit{uplink2-named-teaming-policy} que utilizan \textit{Failover Order} donde se establece un \textit{uplink} como activo por donde se transmite todo el tráfico y otros de reserva que se usan en caso de que el \textit{uplink} activo falle (en una de las políticas todo el tráfico se reenvía por \textit{uplink1} y en la otra por \textit{uplink2}).}
+      \label{fig:Uplink-Policy-13-NSXT} 
+    \end{figure}
+    \FloatBarrier
+    A los \textit{segments} \textit{VCF-edge-mgmt-cluster-segment-11} y \textit{VCF-edge-mgmt-cluster-segment-12} pertenecientes a la TZ \textit{sfo01-m01-dge-uplink-tz} se les asigna la \textit{Teaming Policy} \textit{uplink1-named-teaming-policy} y \textit{uplink2-named-teaming-policy} respectivamente. De esta forma se consigue que el tráfico que circula por cada uno de ellos solo utilice un único \textit{uplink}. 
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/UplinkDesign.png}
+      \caption{Muestra la topología que forman las instancias de NSX-T Edge para generar la redundancia y alta disponibilidad en las rutas hacia la red externa para las aplicaciones cuya red está gestionada por VMware NSX-T, desde el punto de vista de VMware vSphere. Cada TN Edge posee dos interfaces \textit{uplink} que durante su configuración se mapea cada una con uno de los \textit{trunk port groups} de vSphere Switch. Las interfaces \textit{uplink} que se indican en la \textit{Teaming Policy} se refieren a las de la instancia de NSX-T Edge, no las de vSphere vSwitch, por lo tanto cada uno de los \textit{segments} utiliza solo uno de los \textit{uplinks} que combinado con la configuración de los \textit{port groups} de vSphere vSwitch establecen las rutas que se muestran en la imagen.}
+      \label{fig:Uplink-Design-Edge-NSXT} 
+    \end{figure}
+    \FloatBarrier
+    % Así, como cada TN de NSX-T Edge está anclado a dos \textit{trunk port groups} en vSphere Switch por donde se transmite el tráfico de estos dos \textit{segments} y cada uno de esos \textit{segments} transmite por un único \textit{uplink}, se consigue que estas rutas hacia la red externa sean redundantes y con alta disponibilidad para las aplicaciones cuya red está gestionada por VMware NSX-T.
+    % Para la TZ de tipo VLAN \textit{sfo01-m01-dge-uplink-tz} se especifica la siguiente \textit{Uplink Policy}:
+    % \begin{itemize}
+    %   \item Nombre: \textit{uplink-profile-13}
+    %   \item Transport VLAN: 13
+    %   \item MTU: 8940
+    %   \item Teaming Policy: se especifican tres, una por defecto y dos adicionales:
+    %     \begin{itemize}
+    %       \item \textit{Default teaming}: \textit{Load Balance Source}, hace un mapeo uno a uno entre cada interfaz virtual de cada VM y uno de los \textit{uplinks} del N-VDS, así todo el tráfico correspondiente a esa interfaz se envía y recibe por el mismo \textit{uplink}.
+          
+    %       \item \textit{uplink1-named-teaming-policy}: \textit{Failover Order}, se establece un \textit{uplink}, \textit{uplink1} en este caso, como activo que se utiliza para enviar todo el tráfico, y una lista de \textit{uplinks} ordenados que se utilizan en caso de que el primero no esté disponible, vacía para esta \textit{Teaming policy}.
+    %       \item \textit{uplink2-named-teaming-policy}: \textit{Failover Order}, donde el \textit{uplink} activo es \textit{uplink2} y la lista de \textit{uplinks} de reserva está vacía.
+    %     \end{itemize}
+    % \end{itemize}
+    % A los \textit{segments} de esta TZ, \textit{VCF-edge-mgmt-cluster-segment-11} y \textit{VCF-edge-mgmt-cluster-segment-12} se les asignan las \textit{Teaming Policy} \textit{uplink1-named-teaming-policy} y \textit{uplink2-named-teaming-policy} respectivamente. Con esta configuración el tráfico de cada \textit{segment} circula por una única NIC física del host ESXi. Esto, junto con la configuración \textit{Failover Order} establecida para los \textit{port groups} \textit{sddc-edge-uplink01} y \textit{sddc-edge-uplink02} en el vSphere vDS,se consigue que el tráfico de salida hacia la red física perteneciente a los componentes de VMware NSX-T y todas las aplicaciones cuya red gestiona VMware NSX-T, sea distribuído por dos redes distintas proporcionando redundancia y disponibilidad del servicio en caso de que ocurra una caída de alguna de las conexiones.
+    %*****************%
+
+    Esta encapsulación, tanto VLAN como Overlay, tiene lugar cuando los paquetes salen de la interfaz de una VM y entran en el N-VDS del TN. Para ello, cada TN tiene dispositivo llamado \textit{Tunnel End Point} (TEP) al que se le asigna una dirección IP utilizada para enviar y recibir el tráfico entre VMs que se encuentran en el mismo \textit{segment} pero se alojan en TNs situados en redes L2 diferentes\footnote{En el entorno desplegado todos los TN se encuentran dentro de la misma red física. Esto implica que no se genere tráfico con los TEPs ya que todas las TZs funcionan sobre un único dominio broadcast.}. Los TNs que son hosts ESXi obtienen su dirección TEP de un servidor DHCP\footnote{El servidor DHCP hace que se simplifique el proceso de configuración de un nuevo host ESXi ya que le asigna una dirección IP de forma automática.} mientras que los que son instancias de NSX-T Edge la dirección IP se asigna de forma manual. El TEP de cada TN tiene dos direcciones IP asignadas puesto que cada uno tiene dos interfaces de red, \textit{esxi-1} tiene las direcciones 172.16.254.10 y 172.16.254.11, \textit{esxi-2} tiene las direcciones 172.16.254.12 y 172.16.254.13, \textit{esxi-3} tiene las direcciones 172.16.254.14 y 172.16.254.15, \textit{esxi-4} tiene las direcciones 172.16.254.16 y 172.16.254.17, \textit{edge01-mgmt} tiene las direcciones 172.27.13.2 y 172.27.13.3, y \textit{edge02-mgmt} tiene las direcciones 172.27.13.4 y 172.27.13.5.
     
     Al crear un \textit{segment} dentro de una TZ, se configura un modo de replicación que indica como se retransmite el tráfico Broadcast, Multicast y Unknown Unicast propio del \textit{segment} cuando este tiene que viajar a un TN que está en una ubicación distinta en el medio físico. El modo de replicación que se utiliza en todos los \textit{segments} es \textit{Two-Tier Hierarchical Mode}. 
     \begin{figure}[h]
       \centering
-      \includegraphics[width=1\textwidth]{imaxes/pruebaconcepto/Two-tier-ReplicationMode.png}
-      \caption{Ejemplo de como funciona el modo de replicación \textit{Two-Tier Hierarchical}.  (1) Cuando el TN HV1 envía tráfico BUM a la red primero lo hace a los TNs que están en su mismo dominio, (2) después envía una copia de ese tráfico a un único TN de cada dominio broadcast donde exista el \textit{segment} propietario del tráfico y, finalmente, (3) el TN de cada localización lo retransmite al resto de TNs de su dominio que lo requieran. De este modo se reduce el número de paquetes que el TN origen debe enviar a través de la red física.}
+      \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/Two-tier-ReplicationMode.png}
+      \caption{Ejemplo de como funciona el modo de replicación \textit{Two-Tier Hierarchical}. (1) Cuando el TN HV1 envía tráfico BUM a la red primero lo hace a los TNs que están en su mismo dominio, (2) después envía una copia de ese tráfico a un único TN de cada dominio broadcast donde exista el \textit{segment} propietario del tráfico y, finalmente, (3) el TN de cada localización lo retransmite al resto de TNs de su dominio que lo requieran. De este modo se reduce el número de paquetes que el TN origen debe enviar a través de la red física.}
       \label{fig:Frame-Geneve-Segment-NSXT}
     \end{figure}
     \FloatBarrier
     % Este consiste en que cuando desde un TN se envía algún tipo de tráfico BUM de un \textit{segment} cuyos TNs están distribuídos en distintos puntos de la infraestructura física, el TEP del TN origen detecta que debe retransmitir el tráfico a una red externa, en la red externa se selecciona un TN que recibe el tráfico y lo reenvía al resto de TNs dentro del mismo dominio de red que deben recibir ese tráfico, así se reduce . El tráfico solo se enviará a los TN que contienen VMs que forman parte del \textit{segment} que lo genera. Es el componente NSX-T Controller quien se encarga de actualizar e indicar a los TNs toda la información para que esta comunicación sea correcta.
     
+    El objetivo es crear nuevas subredes, es decir \textit{segments} que se expanden por los distintos TNs adheridos a la \textit{transport zone} correspondiente, y conectarlas a un router virtual para al final formar subredes distribuidas con servicios de red también	distribuidos y virtualizados, todo gestionado desde VMware NSX-T y sin tener que configurar la red física. Para completar esto, VMware NSX-T introduce routers virtuales que se encuentran embebidos y distribuídos dentro del hypervisor ESXi de cada TN y que proporcionan enrutamiento entre \textit{segments} y servicios de red distribuídos. Permiten definir un \textit{gateway} para cada \textit{segment} a través del cual las VMs conectadas pueden acceder a la red externa y los servicios de red. La herramienta VLC despliega para el \textit{management domain} un modelo de enrutamiento de doble capa (\textit{Two Tier Routing}) donde se utilizan dos routers virtuales, \textit{Tier-0} (\textit{mgmt-domain-tier0-gateway}) dedicado a gestionar el acceso a la red externa a través del router VyOS con conexiones redundantes, y \textit{Tier-1} (\textit{mgmt-domain-tier1-gateway})que gestiona el enrutamiento entre \textit{segments} y proporciona servicios de red a las VMs.
 
-    Para enrutar el tráfico de cada \textit{segment} entre las VMs conectadas y hacia la red externa, VMware NSX-T define routers virtuales que se encuentran embebidos y distribuídos dentro del hypervisor de cada host ESXi, permitiendo definir un \textit{gateway} distribuido para cada \textit{segment} pudiendo proporcionar enrutamiento, a parte de otros servicios, sin necesidad de modificar la configuración de la infraestructura de red física. La herramienta VLC despliega para el \textit{management domain} un modelo de enrutamiento de doble capa (\textit{Two Tier Routing}) que utiliza dos routers virtuales lo que permite separar las tareas de administración de la infraestructura lógica de las de gestión de la infraestructura del usuario y asegurar la disponibilidad de las rutas hacia la red externa. Los routers desplegados son un \textit{Tier-0} llamado \textit{mgmt-domain-tier0-gateway} y otro router \textit{Tier-1} llamado \textit{mgmt-domain-tier1-gateway}. 
     \begin{figure}[h]
       \centering
       \includegraphics[width=0.5\textwidth]{imaxes/pruebaconcepto/topologiaTwoTierRouting.png}
-      \caption{Muestra la topología del modelo de dos routers virtuales y \textit{segments} a los que se conecta cada uno. El router de Tier-1 enruta el tráfico entre los \textit{segments} a los que está conectado y hacia el router de Tier-0 que se encarga de transmitir el tráfico hacia la red física.}
+      \caption{Muestra la topología del modelo de dos routers virtuales y los \textit{segments} a los que se conecta cada uno desde el punto de vista de NSX-T. El router de Tier-1 enruta el tráfico entre los \textit{segments} a los que está conectado y hacia el router de Tier-0 que se encarga de transmitir el tráfico hacia la red física.}
       \label{fig:Topology-TwoTier-Routing-NSXT}
     \end{figure}
     \FloatBarrier
     Un router router lógico está formado por dos componentes:
     \begin{itemize}
       
-      \item \textbf{Distributed Router} (DR): que gestiona el enrutamiento y se a subredes a través de sus interfaces lógicas. Estas subredes pueden ser \textit{segments} u otro DR. A cada interfaz se le asigna una dirección MAC y una dirección IP que representa el \textit{gateway} de la subred. Este componente está distribuído en todos los TN, tanto hosts ESXi como instancias de NSX-T Edge manteniendo la misma configuración (interfaces,tablas de enrutamiento, etc.). Su función es redirigir el tráfico que recibe entre las interfaces que tiene disponibles, es decir, enruta el tráfico entre los diferentes \textit{segments} a los que está conectado el router \textit{Tier-0}.  
+      \item \textbf{Distributed Router} (DR): que gestiona el enrutamiento y se a subredes a través de sus interfaces lógicas. Estas subredes pueden ser \textit{segments} u otro DR. A cada interfaz se le asigna una dirección MAC y una dirección IP que representa el \textit{gateway} de la subred. Este componente está distribuído en todos los TN, tanto hosts ESXi como instancias de NSX-T Edge manteniendo la misma configuración (interfaces,tablas de enrutamiento, etc.). Su función es redirigir el tráfico que recibe entre las interfaces que tiene disponibles, es decir, enruta el tráfico entre los diferentes \textit{segments} a los que está conectado el router virtual Tiene una interfaz llamada \textit{Internal transit Link} conectada a la red \textit{Internal Transit Network} que se utiliza para conectar todos los DR y SR de un \text{Tier} distribuídos en los TN.
       
-      \item \textbf{Service Router} (SR): proporciona servicios de red de forma centralizada (NAT, DHCP, Load Balancer, VPN, Gateway Firewall y Bridging L2) y proporciona acceso a la red externa. Este componente no está distribuído entre los diferentes TN, solo se se encuentra en las instancias de NSX-T Edge. Los servicios que proporciona solo se entregan a los recursos cuya red está gestionada por VMware NSX-T.
+      \item \textbf{Service Router} (SR): proporciona servicios de red de forma centralizada (NAT, DHCP, Load Balancer, VPN, Gateway Firewall y Bridging L2) y proporciona acceso a la red externa. Este componente no está distribuído entre los diferentes TN, solo se se encuentra distribuido en las instancias de NSX-T Edge. Los servicios que proporciona solo se entregan a los recursos cuya red está gestionada por VMware NSX-T. Posee la interfaz \text{Internal Transit Link} para comunicarse con el resto de DR y SR pertenecientes al mismo \text{Tier}, dos interfaces \textit{External Interface} que se conectan a los \text{segments} que dan acceso a la red externa \footnote{La \textit{External Interface} solo existe en \textit{Tier-0} ya que es el router que se comunica con el dispositivo físico.}, la interfaz \textit{Router Link}\footnote{Router Link Network utiliza por defecto la subred 100.64.0.0/16.} que conecta el SR de \textit{Tier-0} con el de \textit{Tier-1}, y la interfaz \textit{Internal transit} que se habilita cuando se activa la opción \textit{Inter SR iBGP}\footnote{Inter SR iBGP Network utiliza por defecto la subred 169.254.0.0/24.} y que comunica los SR de las dos instancias de NSX-T Edge.
     \end{itemize}
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.8\textwidth]{imaxes/pruebaconcepto/EstructuraInternaTiers.png}
+      \caption{Muestra los componentes internos de cada router virtual y como estos están distribuidos por todos los TNs. El router \textit{mgmt-domain-tier0-gateway} tiene el componente SR distribuído en dos TN que son las instancias de NSX-T Edge, y el componente DR distribuido en todos los TNs. El SR situado en \textit{edge01-mgmt} está conectado al \textit{segment} \textit{VCF-edge\_mgmt-edge-cluster-segment-11} y usa la dirección IP 172.27.11.2, y otra interfaz conectada al \textit{segment} \textit{VCF-edge\_mgmt-edge-cluster-segment-12} donde usa la IP 172.27.12.2, mientras que el SR de \textit{Tier-0} situado en \textit{edge02-mgmt} se conecta a los mismos \textit{segments} pero usando las direcciones 172.27.11.3 y 172.27.12.3 respectivamente. El router \textit{mgmt-domain-tier1-gateway} tiene el componente SR distribuido en las dos instancias de NSX-T Edge y el componente DR distribuido por en todos los TNs. Ambos SR están conectados con los SR de \textit{Tier-0} para transmitir el tráfico hacia la red física. Los DR de \textit{Tier-1} están conectados a los \textit{segments} \textit{Mgmt-RegionA01-VXLAN} y \textit{Mgmt-xRegion01-VXLAN} para proporcionar enrutamiento y servicios a las VMs situadas en ellos.}
+      \label{fig:estructura-interna-TwoTier-Routing-NSXT}
+    \end{figure}
+    \FloatBarrier
     
-    Las interfaces de cada router lógico son de los siguientes tipos:
+    La razón de tener dos capas de enrutamiento se debe a la configuración del router \textit{mgmt-domain-tier0-gateway}. En este router se utiliza BGP para comunicarse con el router físico a través de las \textit{external interfaces} (se establece 65003 como \textit{autonomous system} local)\footnote{El uso de BGP simplifica la configuración de nuevas rutas cuando se añaden componentes al entorno, y que no se pierda la conectividad en caso de caída de alguna de las interfaces. Este protocolo también se configura en las interfaces del router Vyos}, la opción \textit{Inter SR iBGP} establecer una comunicación mediante BGP entre las instancias distribuídas del componente SR de \textit{Tier-0} para que se pueda seguir transmitiendo el tráfico en caso de que alguna de las interfaces de una instancia de NSX-T Edge esté fuera de servicio, se activa el protocolo ECMP para balancear el tráfico hacia la red física entre los caminos disponibles ya que en conjunto, en el router de \textit{Tier-0} existen cuatro rutas posibles para alcanzar el router VyOS. Un aspecto importante es la configuración de la disponibilidad de un router virtual ya que determina el modo en el que se va a ejecutar. En el router de \textit{Tier-0} se selecciona el modo \textit{active-active} el cual implica que las dos instancias de SR funcionan ambas de forma activa, es decir, el tráfico que reciba cada una será encaminado por una subred diferente proporcionando así mayor ancho de banda, mayor disponibilidad y mayor escalabilidad. Esto esto último no es compatible con servicios de red centralizados, por ello es necesario desplegar al menos un router lógico de \textit{Tier-1} (\textit{mgmt-domain-tier1-gateway}) configurado con el modo \textit{active-stanby} el cual solo se utiliza una de las dos instancias del SR de \textit{Tier-1} por lo tanto el tráfico dirigido a este router siempre será recogido en un único punto. Así, en el router \textit{mgmt-domain-tier1-gateway} es donde se pueden desplegar servicios de red como NAT, Load Blancing, DNS y VPN, para los \textit{segments} que están conectados.
+    % Las interfaces de cada router lógico son de los siguientes tipos:
     
-    \begin{itemize}
-      \item \textit{External Interface}: se refiere a las interfaces que conectan con el dispositivo de la red física, normalmente un router.
-      \item \textit{Internal Transit Link}: está interfaz conecta a todos los DR de \textit{Tier-0} distribuídos en cada TN con los SR formando una única red.
-      \item \textit{RouterLink Interface}: interfaz que conecta un router lógico de \textit{Tier-1} con uno de \textit{Tier-0} a través de una subred generada por defecto (100.64.0.0/16).
-    \end{itemize}
+    % \begin{itemize}
+    %   \item \textit{External Interface}: se refiere a las interfaces que conectan con el dispositivo de la red física, normalmente un router.
+    %   \item \textit{Internal Transit Link}: está interfaz conecta a todos los DR de \textit{Tier-0} distribuídos en cada TN con los SR formando una única red.
+    %   \item \textit{RouterLink Interface}: interfaz que conecta un router lógico de \textit{Tier-1} con uno de \textit{Tier-0} a través de una subred generada por defecto (100.64.0.0/16).
+    % \end{itemize}
     
-    Los routers lógicos creados para el \textit{management domain} en el entorno tienen la siguiente configuración:
+    % Los routers lógicos creados para el \textit{management domain} en el entorno tienen la siguiente configuración:
     
-    \begin{itemize}
-      \item \textbf{mgmt-domain-tier0-gateway}: su función consiste en proporcionar acceso a la red física.
-        \begin{itemize}
-          \item \textit{External Interfaces}\footnote{Estas direcciones corresponden a las interfaces de los TN NSX-T Edge que conectan con las interfaces Uplink sobre dos \textit{segments} de tipo VLAN.}: Dos que se conectan al \textit{segment} \textit{VCF-edge\_mgmt-edge-cluster-segment-11} (172.27.11.2 y 172.27.11.3) y dos que se conectan al \textit{segment} \textit{VCF-edge\_mgmt-edge-cluster-segment-12} (172.27.12.2 y 172.27.12.3).
-          \item \textit{Internal Transit Link}: Usa la subred 169.254.0.0/24.
-          \item \textit{RouterLink Interface}: Tiene la dirección 100.64.192.0/31.
-          \item Configuración: se utiliza BGP para comunicarse con el router físico a través de las \textit{external interfaces} (en la configuración de BGP se establece 65003 como el \textit{autonomous system} local)\footnote{El uso de BGP simplifica la configuración de nuevas rutas cuando se añaden componentes al entorno, y que no se pierda la conectividad en caso de caída de alguna de las interfaces. El protocolo BGP también debe estar configurado en el router físico.}, se activa \textit{Inter SR iBGP} para establecer una comunicación mediante BGP entre las instancias distribuídas del componente SR de \textit{mgmt-domain-tier0-gateway}\footnote{Cada una se encuentra en una instancia de NSX-T Edge respectivamente.} para que se pueda seguir transmitiendo el tráfico en caso de que alguna de las interfaces de una instancia de NSX-T Edge esté fuera de servicio, se activa el protocolo ECMP para balancear el tráfico hacia la red física entre los caminos disponibles (existen cinco rutas posibles para alcanzar el router físico). 
-          \item Configuración HA: determina el modo en el que se va a ejecutar el router de \textit{Tier-0}. En este caso se selecciona el modo \textit{active-active} el cual implica que las instancias de SR (una en cada nodo NSX-T Edge) funcionan ambas de forma activa, el tráfico que reciba cada una será encaminado por una subred diferente. Es por esto que el router lógico de \textit{Tier-0} no puede ofrecer servicios centralizados.
-        \end{itemize}
+    % \begin{itemize}
+    %   \item \textbf{mgmt-domain-tier0-gateway}: su función consiste en proporcionar acceso a la red física.
+    %     \begin{itemize}
+    %       \item \textit{External Interfaces}\footnote{Estas direcciones corresponden a las interfaces de los TN NSX-T Edge que conectan con las interfaces Uplink sobre dos \textit{segments} de tipo VLAN.}: Dos que se conectan al \textit{segment} \textit{VCF-edge\_mgmt-edge-cluster-segment-11} (172.27.11.2 y 172.27.11.3) y dos que se conectan al \textit{segment} \textit{VCF-edge\_mgmt-edge-cluster-segment-12} (172.27.12.2 y 172.27.12.3).
+    %       \item \textit{Internal Transit Link}: Usa la subred 169.254.0.0/24.
+    %       \item \textit{RouterLink Interface}: Tiene la dirección 100.64.192.0/31.
+    %       \item Configuración: se 
+    %       \item Configuración HA: determina el modo en el que se va a ejecutar el router de \textit{Tier-0}. En este caso se selecciona el modo \textit{active-active} el cual implica que las instancias de SR (una en cada nodo NSX-T Edge) funcionan ambas de forma activa, el tráfico que reciba cada una será encaminado por una subred diferente. Es por esto que el router lógico de \textit{Tier-0} no puede ofrecer servicios centralizados.
+    %     \end{itemize}
     
-      \item \textbf{mgmt-domain-tier1-gateway}: router de \textit{Tier-1} dedicado a gestionar el enrutamiento de las VMs de aplcaciones no dedicadas a la administración del SDDC. 
-      \begin{itemize}
-        \item \textit{Internal Transit Link}: Usa la subred 164.254.0.0/24.
-        \item \textit{RouterLink Interface}: Tiene la dirección 100.64.192.1/31.
-        \item \textit{Segment Interfaces}: conectado al \textit{segment} \textit{mgmt-Region01A-VXLAN} con la dirección IP 10.50.0.1, y al \textit{segment} \textit{mgmt-xRegion01-VXLAN} con la dirección IP 10.60.0.1.
-        \item Configuración HA: determina el modo en el que se va a ejecutar el router de \textit{Tier-1}. En este caso se selecciona el modo \textit{active-stanby} el cual solo utiliza una de las dos instancias del SR de \textit{Tier-1} (cada una en un nodo de NSX-T Edge) por lo tanto el tráfico que reciba solo será encaminado por un único punto. Esto permite activar servicios centralizados, por lo tanto será \textit{mgmt-domain-tier1-gateway} y no \textit{mgmt-domain-tier0-gateway} el encargado de proporcionarlos.
-      \end{itemize}
-    \end{itemize}
+    %   \item \textbf{mgmt-domain-tier1-gateway}: router de \textit{Tier-1} dedicado a gestionar el enrutamiento de las VMs de aplcaciones no dedicadas a la administración del SDDC. 
+    %   \begin{itemize}
+    %     \item \textit{Internal Transit Link}: Usa la subred 164.254.0.0/24.
+    %     \item \textit{RouterLink Interface}: Tiene la dirección 100.64.192.1/31.
+    %     \item \textit{Segment Interfaces}: conectado al \textit{segment} \textit{mgmt-Region01A-VXLAN} con la dirección IP 10.50.0.1, y al \textit{segment} \textit{mgmt-xRegion01-VXLAN} con la dirección IP 10.60.0.1.
+    %     \item Configuración HA: determina el modo en el que se va a ejecutar el router de \textit{Tier-1}. En este caso se selecciona el modo \textit{active-stanby} el cual solo utiliza una de las dos instancias del SR de \textit{Tier-1} (cada una en un nodo de NSX-T Edge) por lo tanto el tráfico que reciba solo será encaminado por un único punto. Esto permite activar servicios centralizados, por lo tanto será \textit{mgmt-domain-tier1-gateway} y no \textit{mgmt-domain-tier0-gateway} el encargado de proporcionarlos.
+    %   \end{itemize}
+    % \end{itemize}
     
     % Así como el componente DR de los routers de \textit{Tier-0} y de \textit{Tier-1} están distribuídos por todos los TNs (incluídas las instancias de NSX-T Edge), el componente SR solo se encuentra en las VMs de NSX-T Edge por lo tanto son estas VMs las que proporcionan los servicios centralizados de SR y acceso a la red externa del entorno. Además, para que los componentes lógicos tengan acceso a los \textit{segments} descritos, las instancias de NSX-T Edge están conectadas a dos TZs:
     % \begin{itemize}
@@ -317,37 +356,35 @@ Para no afectar al funcionamiento del servicio proporcionado por el CITIC y para
     %   \item \textit{sfo01-m01-dge-uplink-tz}: esta TZ se utiliza para conectarse a la red física a través de un router físico. Se utiliza el tipo VLAN para encapsular el tráfico saliente hacia al router físico y porque las VLANs usadas en los \textit{segments} dentro de esta TZ se configuran también en la infraestructura física, por lo tanto no hace falta crear una capa física virtual con Overlay.
     % \end{itemize}
     
-    Para gestionar las conexiones de cada TN, tanto para los nodos NSX-T Edge como para los hosts ESXi, VMware NSX-T introduce el componente llamado \textbf{NSX-T Virtual Distributed Switch} (N-VDS). Cada TN del entorno posee un N-VDS, este elemento conecta sus interfaces a los \textit{segments} que se configuran en cada TN y establece un mapeo con las interfaces \textit{uplink} que se utilizan para dirigir el tráfico de cada TZ hacia el exterior del TN. En el caso de las instancias de NSX-T Edge, los dos \textit{uplinks} están mapeados con las NICs físicas de cada host ESXi a través de los dos \textit{distributed port groups} de vSphere vDS (\textit{sddc-edge-uplink01} y \textit{sddc-edge-uplink02}) a los que están ancladas ambas VMs, es decir, un \textit{uplink} está mapeado con una NIC física del host ESXi. 
-    En las TZ de tipo VLAN, se utilizan plantillas \textit{Uplink Policy} para indicar como debe el N-VDS tratar el tráfico de la \textit{transport zone} a la que se asigna. En cada \textit{Uplink Policy} se especifican varias \textit{Teaming Policy}, el identificador VLAN que debe usar el N-VDS cuando tiene que enviar el tráfico fuera del TN y el MTU de los \textit{uplinks}. Una \textit{Teaming Policy} indica como el N-VDS utiliza los \textit{uplinks} para conseguir conexiones redundantes y balanceo de la carga, en una \textit{Uplink Policy} se especifica una \textit{Teaming Policy} por defecto y otras adicionales.
-    Para la TZ de tipo VLAN \textit{sfo01-m01-dge-uplink-tz} se especifica la siguiente \textit{Uplink Policy}:
-    \begin{itemize}
-      \item Nombre: \textit{uplink-profile-13}
-      \item Transport VLAN: 13
-      \item MTU: 8940
-      \item Teaming Policy: se especifican tres, una por defecto y dos adicionales:
-        \begin{itemize}
-          \item \textit{Default teaming}: \textit{Load Balance Source}, hace un mapeo uno a uno entre cada interfaz virtual de cada VM y uno de los \textit{uplinks} del N-VDS, así todo el tráfico correspondiente a esa interfaz se envía y recibe por el mismo \textit{uplink}.
+    % Para gestionar las conexiones de cada TN, tanto para los nodos NSX-T Edge como para los hosts ESXi, VMware NSX-T introduce el componente llamado \textbf{NSX-T Virtual Distributed Switch} (N-VDS). Cada TN del entorno posee un N-VDS, este elemento conecta sus interfaces a los \textit{segments} que se configuran en cada TN y establece un mapeo con las interfaces \textit{uplink} que se utilizan para dirigir el tráfico de cada TZ hacia el exterior del TN. En el caso de las instancias de NSX-T Edge, los dos \textit{uplinks} están mapeados con las NICs físicas de cada host ESXi a través de los dos \textit{distributed port groups} de vSphere vDS (\textit{sddc-edge-uplink01} y \textit{sddc-edge-uplink02}) a los que están ancladas ambas VMs, es decir, un \textit{uplink} está mapeado con una NIC física del host ESXi. 
+    % En las TZ de tipo VLAN, se utilizan plantillas \textit{Uplink Policy} para indicar como debe el N-VDS tratar el tráfico de la \textit{transport zone} a la que se asigna. En cada \textit{Uplink Policy} se especifican varias \textit{Teaming Policy}, el identificador VLAN que debe usar el N-VDS cuando tiene que enviar el tráfico fuera del TN y el MTU de los \textit{uplinks}. Una \textit{Teaming Policy} indica como el N-VDS utiliza los \textit{uplinks} para conseguir conexiones redundantes y balanceo de la carga, en una \textit{Uplink Policy} se especifica una \textit{Teaming Policy} por defecto y otras adicionales.
+    % Para la TZ de tipo VLAN \textit{sfo01-m01-dge-uplink-tz} se especifica la siguiente \textit{Uplink Policy}:
+    % \begin{itemize}
+    %   \item Nombre: \textit{uplink-profile-13}
+    %   \item Transport VLAN: 13
+    %   \item MTU: 8940
+    %   \item Teaming Policy: se especifican tres, una por defecto y dos adicionales:
+    %     \begin{itemize}
+    %       \item \textit{Default teaming}: \textit{Load Balance Source}, hace un mapeo uno a uno entre cada interfaz virtual de cada VM y uno de los \textit{uplinks} del N-VDS, así todo el tráfico correspondiente a esa interfaz se envía y recibe por el mismo \textit{uplink}.
           
-          \item \textit{uplink1-named-teaming-policy}: \textit{Failover Order}, se establece un \textit{uplink}, \textit{uplink1} en este caso, como activo que se utiliza para enviar todo el tráfico, y una lista de \textit{uplinks} ordenados que se utilizan en caso de que el primero no esté disponible, vacía para esta \textit{Teaming policy}.
-          \item \textit{uplink2-named-teaming-policy}: \textit{Failover Order}, donde el \textit{uplink} activo es \textit{uplink2} y la lista de \textit{uplinks} de reserva está vacía.
-        \end{itemize}
-    \end{itemize}
-    A los \textit{segments} de esta TZ, \textit{VCF-edge-mgmt-cluster-segment-11} y \textit{VCF-edge-mgmt-cluster-segment-12} se les asignan las \textit{Teaming Policy} \textit{uplink1-named-teaming-policy} y \textit{uplink2-named-teaming-policy} respectivamente. Con esta configuración el tráfico de cada \textit{segment} circula por una única NIC física del host ESXi. Esto, junto con la configuración \textit{Failover Order} establecida para los \textit{port groups} \textit{sddc-edge-uplink01} y \textit{sddc-edge-uplink02} en el vSphere vDS,se consigue que el tráfico de salida hacia la red física perteneciente a los componentes de VMware NSX-T y todas las aplicaciones cuya red gestiona VMware NSX-T, sea distribuído por dos redes distintas proporcionando redundancia y disponibilidad del servicio en caso de que ocurra una caída de alguna de las conexiones.
+    %       \item \textit{uplink1-named-teaming-policy}: \textit{Failover Order}, se establece un \textit{uplink}, \textit{uplink1} en este caso, como activo que se utiliza para enviar todo el tráfico, y una lista de \textit{uplinks} ordenados que se utilizan en caso de que el primero no esté disponible, vacía para esta \textit{Teaming policy}.
+    %       \item \textit{uplink2-named-teaming-policy}: \textit{Failover Order}, donde el \textit{uplink} activo es \textit{uplink2} y la lista de \textit{uplinks} de reserva está vacía.
+    %     \end{itemize}
+    % \end{itemize}
+    % A los \textit{segments} de esta TZ, \textit{VCF-edge-mgmt-cluster-segment-11} y \textit{VCF-edge-mgmt-cluster-segment-12} se les asignan las \textit{Teaming Policy} \textit{uplink1-named-teaming-policy} y \textit{uplink2-named-teaming-policy} respectivamente. Con esta configuración el tráfico de cada \textit{segment} circula por una única NIC física del host ESXi. Esto, junto con la configuración \textit{Failover Order} establecida para los \textit{port groups} \textit{sddc-edge-uplink01} y \textit{sddc-edge-uplink02} en el vSphere vDS,se consigue que el tráfico de salida hacia la red física perteneciente a los componentes de VMware NSX-T y todas las aplicaciones cuya red gestiona VMware NSX-T, sea distribuído por dos redes distintas proporcionando redundancia y disponibilidad del servicio en caso de que ocurra una caída de alguna de las conexiones.
     
     
     
-    Estas conexiones están gestionadas por un N-VDS dentro de cada instancia. Este switch lógico utiliza tres interfaces que se conectan a las diferentes redes lógicas. Para aquellas redes lógicas que requieren salida al medio físico ya sea para comunicarse con otros TN o para acceder a la red externa, el N-VDS utiliza finalmente el switch VDS de VMware vSphere que conecta con las interfaces físicas del host ESXi donde corre la instancia de NSX-T Edge.
+    % Estas conexiones están gestionadas por un N-VDS dentro de cada instancia. Este switch lógico utiliza tres interfaces que se conectan a las diferentes redes lógicas. Para aquellas redes lógicas que requieren salida al medio físico ya sea para comunicarse con otros TN o para acceder a la red externa, el N-VDS utiliza finalmente el switch VDS de VMware vSphere que conecta con las interfaces físicas del host ESXi donde corre la instancia de NSX-T Edge.
     
-    la utilizan tres interfaces para  Estas interfaces son \textit{eth0} que se dedica a la red \textit{Management}, \textit{fp-eth0} y \textit{fp-eth1} que ambas se dedican a la conexión con cada uno de los \textit{segments} Uplink. 
+    % la utilizan tres interfaces para  Estas interfaces son \textit{eth0} que se dedica a la red \textit{Management}, \textit{fp-eth0} y \textit{fp-eth1} que ambas se dedican a la conexión con cada uno de los \textit{segments} Uplink. 
     
     
-    *********************************************
+    % *********************************************
     
     %%%%%%%%
     % Se recomienda que la red física siga una topología de tipo \textit{Leaf-Spine} donde existen swithces que se conectan a los hosts (\textit{leaf switches}), que a su vez se conectan a otra capa de switches (\textit{spine switches}) que finalmente conecta con la red principal del SDDC. Este tipo de topología permite medir mejor su rendimiento y facilita la escalabilidad de la infraestructura. En caso de existir varias AZ, debe existir una red física entre ellas cuya capa 3 funcione con enrutamiento dinámico para automatizar la resolución de problemas en caso de caída de alguna de las conexiones.
     %%%%%%%%%
-    
-    N
     
     % \iffalse
     % La información sobre VTEP existentes, la relación entre direcciones MAC de máquinas virtuales y dirección IP de VTEP, y relación entre direcciones MAC de máquinas virtuales y su IP, la poseen las instancias de NSX Controller en tres tablas: 

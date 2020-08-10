@@ -380,8 +380,11 @@ INPUT imaxes\pruebaconcepto\distributedSwitchEntornoFinal.png
 INPUT imaxes\pruebaconcepto\OverlayTZSegments.png
 INPUT imaxes\pruebaconcepto\VLANTZSegments.png
 INPUT imaxes\pruebaconcepto\FrameGeneve.png
+INPUT imaxes\pruebaconcepto\UplinkPolicy13.png
+INPUT imaxes\pruebaconcepto\UplinkDesign.png
 INPUT imaxes\pruebaconcepto\Two-tier-ReplicationMode.png
 INPUT imaxes\pruebaconcepto\topologiaTwoTierRouting.png
+INPUT imaxes\pruebaconcepto\EstructuraInternaTiers.png
 OUTPUT bibliografia\glosario.aux
 INPUT bibliografia\glosario.tex
 INPUT bibliografia\glosario.tex
