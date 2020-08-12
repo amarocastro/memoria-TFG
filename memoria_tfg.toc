@@ -46,6 +46,7 @@
 \contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{42}{figure.caption.21}%
 \contentsline {subsection}{\numberline {4.3.3}Operaciones de la Arquitectura}{52}{subsection.4.3.3}%
 \contentsline {subsubsection}{vRealize Suite Lifecycle Manager}{53}{subsection.4.3.3}%
+\contentsline {subsubsection}{Workspace One Access}{53}{subsection.4.3.3}%
 \contentsline {subsubsection}{Gestión del Ciclo de Vida}{53}{subsection.4.3.3}%
 \contentsline {chapter}{Glosario}{57}{appendix*.30}%
 \contentsline {chapter}{Bibliografía}{61}{appendix*.31}%

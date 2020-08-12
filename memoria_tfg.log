@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  10 AUG 2020 21:58
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  12 AUG 2020 20:22
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1906,10 +1906,7 @@ File: imaxes/pruebaconcepto/EstructuraInternaTiers.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[50] [51] (contido/pruebaconcepto_vrealize.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [52
+[50] [51] (contido/pruebaconcepto_vrealize.tex [52
 
 ]))) [53] [54
 
@@ -2037,10 +2034,10 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  30273 strings out of 414071
  584978 string characters out of 2894592
- 882692 words of memory out of 3000000
+ 883692 words of memory out of 3000000
  47426 multiletter control sequences out of 15000+200000
  544805 words of font info for 120 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  73i,12n,111p,2271b,618s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (75 pages, 1192312 bytes).
+Output written on memoria_tfg.xdv (75 pages, 1209608 bytes).
