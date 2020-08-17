@@ -40,12 +40,6 @@ CITC, ``{Centro de Procesado de Datos}.'' [En línea]. Disponible en:
   \url{https://www.citic.udc.es/instalacion/centro-de-despliegue.html}
 \BIBentrySTDinterwordspacing
 
-\bibitem{Esxi}
-\BIBentryALTinterwordspacing
-VMware, ``{VMware ESXi}.'' [En línea]. Disponible en:
-  \url{https://www.vmware.com/latam/products/esxi-and-esx.html}
-\BIBentrySTDinterwordspacing
-
 \bibitem{opestackintegrated}
 \BIBentryALTinterwordspacing
 ``Vmware integrated openstack.'' [En línea]. Disponible en:

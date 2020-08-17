@@ -5,7 +5,7 @@
 \selectlanguage *{spanish}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Elementos de la plataforma VMWare vSphere\cite {fotovSphere}\relax }}{9}{figure.caption.4}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Elementos de la plataforma VMWare vSphere\cite {fotovSphere}\relax }}{8}{figure.caption.4}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Esquema de los recuros software y hardware del entorno\relax }}{9}{figure.caption.5}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Partes virtualizadas en un SDDC.\relax }}{11}{figure.caption.6}%
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Cloud Foundation virtualiza toda la infraestructura.\relax }}{12}{figure.caption.7}%

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  17 AUG 2020 14:49
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  17 AUG 2020 18:43
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1621,32 +1621,8 @@ Capítulo 2.
 Package lettrine.sty Info: Targeted height = 21.55566pt
 (lettrine.sty)             (for loversize=0, accent excluded),
 (lettrine.sty)             Lettrine height = 21.72063pt (C);
-(lettrine.sty)             reported on input line 3.
-
-Underfull \hbox (badness 10000) in paragraph at lines 6--7
-
- []
-
-LaTeX Font Info:    Font shape `TU/LinLibertine(5)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 16.
-Requested font "[LinLibertine_M.otf]/OT:script=latn;language=dflt;" at 10.95pt
- -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_M.otf
-
-Overfull \hbox (31.5439pt too wide) in paragraph at lines 23--24
-\TU/LinLibertine(0)/m/n/10.95 Más información: [][]$[][][][][] [] [] [] [][][] [] [][][][] [] [][][] [] [][] [][] [][] [] [][][][] [] [][][][] [] [][][][][][][][][][] [][]
- []
-
-
-Overfull \hbox (17.76576pt too wide) in paragraph at lines 23--24
-[][][][][][][][][][][][][][] [][] [] [][] [][][][][] [] [][][][][] [][] [][][][][] [][] [][][][][][][][][] [][] [][][][] [][] [][][][][][] [][]
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 25--27
-
- []
-
-[6] [7]
+(lettrine.sty)             reported on input line 4.
+[5] [6] [7]
 File: imaxes/cap2recursos/contentVSphere.png Graphic file (type bmp)
 <imaxes/cap2recursos/contentVSphere.png>
 File: imaxes/cap2recursos/recursosReal.png Graphic file (type bmp)
@@ -1885,17 +1861,17 @@ Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;ma
 
 
 ]
-Underfull \hbox (badness 2753) in paragraph at lines 57--60
+Underfull \hbox (badness 2753) in paragraph at lines 51--54
 []\TU/LinLibertine(0)/m/n/10.95 VmWare, “Cloud foundation components.” [En línea]. Disponible
  []
 
 
-Underfull \hbox (badness 2103) in paragraph at lines 76--79
+Underfull \hbox (badness 2103) in paragraph at lines 70--73
 []\TU/LinLibertine(0)/m/n/10.95 VMware, “vrealize automation architecture.” [En línea]. Disponible
  []
 
 
-Underfull \hbox (badness 6608) in paragraph at lines 88--91
+Underfull \hbox (badness 6608) in paragraph at lines 82--85
 []\TU/LinLibertine(0)/m/n/10.95 VMware, “Managing resource pools.” [En línea]. Disponi-
  []
 
@@ -1984,19 +1960,19 @@ LaTeX Info: Redefining \ttfamily on input line 20.
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 123.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 123.
 Package rerunfilecheck Info: File `memoria_tfg.out' has not changed.
-(rerunfilecheck)             Checksum: EFF0670133AD0E55E82991B4000D5710;2463.
+(rerunfilecheck)             Checksum: 1413283B63BEA7F6D5671BF469CD824B;2688.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 30281 strings out of 414071
- 585324 string characters out of 2894592
- 879488 words of memory out of 3000000
- 47432 multiletter control sequences out of 15000+200000
- 544805 words of font info for 120 fonts, out of 3000000 for 9000
+ 30277 strings out of 414071
+ 585223 string characters out of 2894592
+ 879728 words of memory out of 3000000
+ 47429 multiletter control sequences out of 15000+200000
+ 544797 words of font info for 119 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  73i,11n,111p,2372b,578s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (71 pages, 1167300 bytes).
+Output written on memoria_tfg.xdv (71 pages, 1165596 bytes).

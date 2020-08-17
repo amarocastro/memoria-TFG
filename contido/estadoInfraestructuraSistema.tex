@@ -1,57 +1,73 @@
 \chapter{Estado de los recursos}
 \label{chap:estadoInfraestructuraSistema}
+
 \lettrine{C}{on} el fin de contextualizar los recursos que se utilizarán en este trabajo, en este capítulo se expone la situación actual de toda la infraestructura en lo relacionado al software que está en funcionamiento, a los recursos físicos de los que se compone, y al estado actual de las herramientas que rodean a dichos recursos.
 
-\section{Infraestructura}
-La infraestructura física de este servicio de virtualización, se encuentra localizada en el edificio del CITIC de la UDC, dentro de un rack alojado en su Centro de Proceso de Datos (CPD) \cite{citicUDC}. Está formado por 5 nodos \textit{Lenovo NeXtScale nx360 M5} y 3 nodos \textit{Dell EMC PowerEdge R740}. Ambos componentes dan flexibilidad en cuanto a la escalabilidad y ofrecen gran rendimiento de cómputo.\\
+\begin{section}{Infraestructura}
+La infraestructura física donde se planea desplegar el servicio de virtualización, se encuentra localizada en el edificio del CITIC de la UDC, dentro de un rack alojado en su Centro de Proceso de Datos (CPD) \cite{citicUDC}. 
+\begin{subsection}{Cómputo}
+    La forman 5 nodos \textit{Lenovo NeXtScale nx360 M5} cada uno con dos procesadores Intel Xeon E5-2650, 128 GB de memoria RAM y una tarjeta gráfica Tesla M60,  y 3 nodos \textit{Dell EMC PowerEdge R740} cada uno con dos procesadores Xeon Gold 6146, 384 GB de memoria RAM y una tarjeta gráfica Tesla P40. Todos ellos aportan flexibilidad en cuanto a la escalabilidad de la infraestructura y ofrecen gran rendimiento de cómputo.
+\end{subsection}
+% Especificaciones principales de los nodos:
+% \begin{itemize}
+%     \item Lenovo NeXtScale nx360 M5: 
+%         \begin{itemize}
+%             \item CPU: Dos Intel Xeon E5-2650
+%             \item Memoria: 128 GB
+%             \item Tarjeta  gráfica: Tesla M60
+%         \end{itemize}
+%             Más información: \url{https://lenovopress.com/tips1195-nextscale-nx360-m5-e5-2600-v3}
+%     \item Dell EMC PowerEdge R740:
+%         \begin{itemize}
+%             \item CPU: Dos Xeon Gold 6146
+%             \item Memoria: 384 GB
+%             \item Tarjeta gráfica: Tesla P40
+%         \end{itemize}
+%     Más información: \url{https://www.dell.com/es-es/work/shop/servidores-almacenamiento-y-redes/smart-value-poweredge-r740-server-standard/spd/poweredge-r740/per7400m}
+% \end{itemize}
+\begin{subsection}{Almacenamiento}
+    El almacenamiento está colocado físicamente en la misma ubicación que los hosts pero en su abstracción lógica este es independiente y está separado de cada nodo. Está conformado por 13 discos duros SSD de 3.84 TB de capacidad, obteniendo así una cantidad total de casi 50 TB pero la capacidad útil es de 34 TB ya que se utiliza la configuración de almacenamiento RAID 5[Pal. \ref{itm:raid5}] para aporta mayor  integridad de los datos, mayor tolerancia a fallos y mayor ancho de banda. Los discos duros están colocados en una misma cabina donde forman un \textit{pool} de almacenamiento que se divide en cinco LUNs (\textit{Logical Storage Unit})[Pal. \ref{itm:lun}] de 2 TB cada una, representadas en el software de virtualización como cinco \textit{datastores} y que emplean el sistema de archivos VMFS propio de la compañía VMware y el cual optimiza el almacenamiento de máquinas virtuales.
+    La configuración y gestión de este sistema se tiene que realizar al nivel de la capa física, por lo tanto si se quiere hacer un despliegue en el sistema de virtualización con una configuración de almacenamiento diferente a la existente, como por ejemplo un sistema RAID con diferentes características, sería necesario modificar la configuración del sistema físico pudiendo generar un gran coste de tiempo. Esto no permite ajustar de forma precisa y rápida las configuraciones que se necesitan para realizar despliegues sobre la infraestructura.
+\end{subsection}
 
-Especificaciones principales de los nodos:
-\begin{itemize}
-    \item Lenovo NeXtScale nx360 M5: 
-        \begin{itemize}
-            \item CPU: Dos Intel Xeon E5-2650
-            \item Memoria: 128 GB
-            \item Tarjeta  gráfica: Tesla M60
-        \end{itemize}
-            Más información: \url{https://lenovopress.com/tips1195-nextscale-nx360-m5-e5-2600-v3}
-    \item Dell EMC PowerEdge R740:
-        \begin{itemize}
-            \item CPU: Dos Xeon Gold 6146
-            \item Memoria: 384 GB
-            \item Tarjeta gráfica: Tesla P40
-        \end{itemize}
-    Más información: \url{https://www.dell.com/es-es/work/shop/servidores-almacenamiento-y-redes/smart-value-poweredge-r740-server-standard/spd/poweredge-r740/per7400m}
-\end{itemize}
-El almacenamiento está colocado físicamente en la misma ubicación que los hosts pero en su abstracción lógica este es independiente y está separado de cada nodo. Está conformado por 13 discos duros SSD de 3.84 TB de capacidad, obteniendo así una capacidad total de casi 50 TB, pero que utilizan la configuración de almacenamiento RAID 5[Pal. \ref{itm:raid5}] lo cual permite conseguir mayor  integridad de los datos, tolerancia a fallos y ancho de banda, reduciendo la cantidad de almacenamiento utilizable a 34 TB. Estos discos forman un \textit{pool} de almacenamiento que se divide en cinco LUNs (\textit{Logical Storage Unit})[Pal. \ref{itm:lun}] de 2 TB cada una, representadas en el sistema de virtualización como cinco \textit{datastores} diferentes que utilizan el sistema de archivos VMFS el cual optimiza el almacenamiento de máquinas virtuales.\\
-Los discos duros físicos están colocados en una misma cabina y son accesibles por todos los nodos a través de dos switches para aportar redundancia. Para ello, las cabinas incorporan dos controladores con conexión SFP+[Pal. \ref{itm:sfp}] que se conectan a cada switch mediante dos puertos que aportan conectividad 10 Gb y, además, incorporan otros dos puertos con conectividad 1 Gb para la gestión de los discos. Estas conexiones utilizan los protocolos de red Ethernet y iSCSI, formando así, junto con el resto de componentes descritos, la estructura de una SAN [\ref{fig:esquemaentornoreal}].\\
+\begin{subsection}{Red}
+    El sistema de almacenamiento forma una SAN, para ello las conexiones que se implementan entre los nodos y las cabinas donde se encuentran los discos duros son de tipo 10 Gbit. Para soportar esta conexión, cada cabina incorpora dos controladores SFP+[Pal. \ref{itm:sfp}]. Además, las cabinas de almacenamiento incorporan otros dos puertos de 1 Gbit para la administración de los discos. En esta estructura se utilizan los protocolos de red Ethernet y iSCSI. Finalmente, para mantener la disponibilidad del acceso al sistema de almacenamiento y las comunicaciones entre los nodos, cada uno de ellos se conecta a dos switches \textit{trunk} estableciendo rutas redundantes.
+    Igual que con el sistema de almacenamiento, si se requieren realizar modificaciones sobre la red para adaptarse a los requisitos de un determinado despliegue habría que hacerlas directamente sobre la red física. Esto puede generar problemas en la conectividad del entorno a parte de generar gran coste de tiempo.
+    % Todos los nodos están conectados a dos switches \textit{trunk} a través de los cuales se establecen conexiones redundantes para mantener la comunicación activa entre los nodos y el sistema de almacenamiento en caso de de que alguna falle. Estas conexiones son de tipo 10 GbitPara ello, las cabinas incorporan dos controladores con conexión SFP+[Pal. \ref{itm:sfp}] que se conectan a cada switch mediante dos puertos que aportan conectividad 10 Gb y, además, incorporan otros dos puertos con conectividad 1 Gb para la gestión de los discos. Estas conexiones utilizan los protocolos de red Ethernet y iSCSI, formando así, junto con el resto de componentes descritos, la estructura de una SAN [\ref{fig:esquemaentornoreal}].
+\end{subsection}
 
-La gestión del almacenamiento se realiza en la capa física, el nivel más bajo por lo que la configuración de cada LUN que utilizan las máquinas virtuales desplegadas se tiene que hacer antes de conocer los requisitos necesarios de lo que se vaya a desplegar en la capa software. Esto provoca que si se quiere desplegar una máquina virtual con más capacidad de almacenamiento o con una estructura RAID diferente haya que crear una nueva LUN que se adapte a los requisitos.
-Esta gestión hace que el uso de recursos de almacenamiento no sea el óptimo ya que no permite ajustar de forma precisa y rápida cada configuración a los requisitos necesarios generando así mayor coste.
+% La gestión del almacenamiento se realiza en la capa física, el nivel más bajo por lo que la configuración de cada LUN que utilizan las máquinas virtuales desplegadas se tiene que hacer antes de conocer los requisitos necesarios de lo que se vaya a desplegar en la capa software. Esto provoca que si se quiere desplegar una máquina virtual con más capacidad de almacenamiento o con una estructura RAID diferente haya que crear una nueva LUN que se adapte a los requisitos.
+% Esta gestión hace que el uso de recursos de almacenamiento no sea el óptimo ya que no permite ajustar de forma precisa y rápida cada configuración a los requisitos necesarios generando así mayor coste.
 
-\iffalse
-Los nodos acceden a los discos de almacenamiento a través de dos switches que al mismo tiempo dan conectividad entre los nodos formando una SAN. Los 10TB de capacidad están repartidos entre cinco DataStores, de 2TB cada uno. Una máquina virtual está alojada en un DataStore concreto pero puede tener ficheros alojados en varios almacenes de datos diferentes.
-Las conexiones entre dispositivos son Ethernet 10 Gigabit combinado con el protocolo de transporte ISCSI
-\fi
+% \iffalse
+% Los nodos acceden a los discos de almacenamiento a través de dos switches que al mismo tiempo dan conectividad entre los nodos formando una SAN. Los 10TB de capacidad están repartidos entre cinco DataStores, de 2TB cada uno. Una máquina virtual está alojada en un DataStore concreto pero puede tener ficheros alojados en varios almacenes de datos diferentes.
+% Las conexiones entre dispositivos son Ethernet 10 Gigabit combinado con el protocolo de transporte ISCSI
+% \fi
+\end{section}
 
 \section{Software}
 \label{subsec:softwareinstalado}
-Actualmente el servicio está basado en el software de la empresa VMware, uno de los principales proveedores de software de virtualización, siendo \textbf{VMware vSphere} el software desplegado sobre la infraestructura. Este producto de VMware es el encargado de virtualizar parte de la infraestructura física y de proporcionar las herramientas necesarias para gestionarla. Sus \underline{principales componentes} son los siguientes:
+Actualmente, el software desplegado sobre la infraestructura está formado por los productos de la compañía VMware, uno de los principales proveedores de software de virtualización, siendo VMware vSphere el principal componente ya que se utiliza para virtualizar parte de la infraestructura física y proporcionar las herramientas necesarias para gestionarla, sus principales componentes internos se describen a continuación.
+En cada nodo físico está instalado el hipervisor ESXi. Este es un hipervisor de tipo 1 o \textit{baremetal}, es decir, funciona directamente sobre el hardware sin necesidad de un sistema operativo adicional VMware vSphere utiliza el hipervisor VMware ESXi
+
+
+Sus principales componentes son los siguientes:
 \begin{itemize}
     
-    \item \textbf{ESXi}: Hipervisor propio de VMware, de tipo 1 o \textit{bare metal}[Pal. \ref{itm:baremetal}]. No requiere de sistema operativo para funcionar ya que funciona directamente sobre el hardware físico\cite{Esxi}. Este hipervisor está instalado en cada uno de los ocho nodos que forman la infraestructura.
+    % \item \textbf{ESXi}: Hipervisor propio de VMware, de tipo 1 o \textit{bare metal}[Pal. \ref{itm:baremetal}]. No requiere de sistema operativo para funcionar ya que funciona directamente sobre el hardware físico\cite{Esxi}. Este hipervisor está instalado en cada uno de los ocho nodos que forman la infraestructura.
     
     \item \textbf{VMware vCenter Server}: servicio que actúa como un administrador central para todas las máquinas virtuales y hosts. Normalmente, los servicios descritos en este apartado están disponibles para una instancia de vCenter Server agrupados en un \textit{Platform Services Controller} (PSC) [Pal. \ref{itm:psc}]
     
     \item \textbf{vCenter Single Sign-On}: es un servicio de autenticación. Permite que los usuarios solo se tengan que autenticar una vez cuando acceden al entorno de la infraestructura a través de vSphere Client, en lugar de tener que autenticarse varias veces en cada componente. Cuando el usuario se autentica por primera vez, este recibe un token que le permitirá autenticarse en el resto de componentes sin volver a introducir sus credenciales. También se encarga de la administración perfiles de usuarios y de los dominios de autenticación (esto permite usar directorios de usuarios externos).\label{itm:singlesingonEX}
     
-    \iffalse
-    \item \textbf{vSphere License Server}: permite gestionar e inventariar licencias para aquellos sistemas conectados a un \emph{Platform Services Controller}.
+    % \iffalse
+    % \item \textbf{vSphere License Server}: permite gestionar e inventariar licencias para aquellos sistemas conectados a un \emph{Platform Services Controller}.
     
-    \item \textbf{VMware Certificate Authority}: provee con un certificado a cada nodo. está firmado por esta misma autoridad (VMCA).
-    \fi
-    \iffalse
-    \item \textbf{PostgreSQL}: distribución de la base de datos PostgreSQL para vSphere.
-    \fi
+    % \item \textbf{VMware Certificate Authority}: provee con un certificado a cada nodo. está firmado por esta misma autoridad (VMCA).
+    % \fi
+    % \iffalse
+    % \item \textbf{PostgreSQL}: distribución de la base de datos PostgreSQL para vSphere.
+    % \fi
     \item \textbf{vSphere Web Client} y \textbf{vSphere Client}: interfaz que permite conectarse a una instancia de vCenter Server para gestionar la infraestructura.
     
     
@@ -80,7 +96,7 @@ Actualmente el servicio está basado en el software de la empresa VMware, uno de
     \fi
     \item \textbf{vSphere Distributed Switch (vDS)}: habilita switches virtuales que se encargan de gestionar el tráfico de los hosts ESXi. Se utiliza para administrar la configuración de los puertos de cada host ESXi de forma centralizada, permitiendo crear redes y establecer políticas sobre el tráfico desde un único lugar. Desde aquí se establecen las conexiones de cada tipo de tráfico con las tarjetas de red físicas de cada host ESXi.
     
-    \item \textbf{Virtual Machine File System (VMFS)}: sistema de archivos de alto rendimiento nativo de VMware vSphere. Se utiliza para implementar los almacenes de datos de la infraestructura y está optimizado para el almacenamiento de máquinas virtuales.
+    % \item \textbf{Virtual Machine File System (VMFS)}: sistema de archivos de alto rendimiento nativo de VMware vSphere. Se utiliza para implementar los almacenes de datos de la infraestructura y está optimizado para el almacenamiento de máquinas virtuales.
     
 \end{itemize}
 
@@ -137,11 +153,11 @@ Esta solución virtualiza todas las capas de la infraestructura[Fig. \ref{fig:in
 
 VMware Cloud Foundation permite reducir el tiempo de mantenimiento ya que todo está controlado por el software que integra todos los componentes, automatizando gran parte de las operaciones y el ciclo de vida de todos los elementos desde su creación, como puede ser el control de versiones de cada elemento, los perfiles de usuario y las máquinas virtuales creadas, además de proporcionar una plataforma de acceso para que cada usuario pueda gestionar sus recursos. Además, su arquitectura se divide en entornos aislados administrados bajo demanda desde un entorno principal. Cada uno de esos entornos tiene un conjunto de recursos dedicados cuyas capacidades se pueden ajustar para proporcionar determinadas características, como por ejemplo alta disponibilidad, mayor capacidad de almacenamiento o mayor capacidad de cómputo. 
 
-\iffalse
-*****************************************************\\
-También permite separar las cargas de trabajo mediante Dominios según el tipo de trabajo que se va a realizar, pudiendo acceder a cada uno de ellos de forma separada.\\
-*****************************************************\\
-\fi
+% \iffalse
+% *****************************************************\\
+% También permite separar las cargas de trabajo mediante Dominios según el tipo de trabajo que se va a realizar, pudiendo acceder a cada uno de ellos de forma separada.\\
+% *****************************************************\\
+% \fi
 
 Para poder usar este software es necesaria la adquisición de licencias, estas se organizan por componente y por número de hosts sobre los que se va a instalar el producto. A pesar de tener un coste elevado, teniendo en cuenta los beneficios que aporta en cuanto integración nativa con los componentes ya instalados y a que su mantenimiento es más sencillo, se ha elegido este paquete ya que es más rentable que otras opciones. \\
 Si bien VMware ofrece plugins para conectar sus componentes con otras soluciones, como es el caso de OpenStack \cite{opestackintegrated}, estos no ofrecen el rendimiento que da la integración nativa, además, en caso de recibir actualizaciones, habría que actualizar cada componente de forma individual aumentando el riesgo de incompatibilidades con el resto de elementos del sistema, mientras que Cloud Foundation gestiona todo el ciclo de vida de cada actualización para cada componente, permitiendo comprobar si existe alguna incompatibilidad con el resto de versiones antes de aplicar una actualización. En definitiva, VmWare Cloud Foundation simplifica el proceso de instalación, configuración, gestión, y mantenimiento, tanto para los usuarios como para el administrador del sistema.
