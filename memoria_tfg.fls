@@ -387,6 +387,7 @@ INPUT imaxes\pruebaconcepto\topologiaTwoTierRouting.png
 INPUT imaxes\pruebaconcepto\EstructuraInternaTiers.png
 INPUT contido\pruebaconcepto_vrealize.tex
 INPUT contido\pruebaconcepto_vrealize.tex
+INPUT imaxes\vRealize_pruebaconcepto\usuariosDefinidos.png
 OUTPUT bibliografia\glosario.aux
 INPUT bibliografia\glosario.tex
 INPUT bibliografia\glosario.tex

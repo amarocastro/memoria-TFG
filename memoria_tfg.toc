@@ -38,15 +38,14 @@
 \contentsline {subsubsection}{Host ESXi}{32}{subsection.4.3.1}%
 \contentsline {subsubsection}{Servicios}{32}{subsection.4.3.1}%
 \contentsline {subsubsection}{VMware Lab Constructor}{33}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Diseño y configuración del Management Domain}{36}{subsection.4.3.2}%
-\contentsline {subsubsection}{Diseño de VMware vCenter Server}{36}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.2}Diseño y configuración del Management Domain}{35}{subsection.4.3.2}%
+\contentsline {subsubsection}{Diseño de VMware vCenter Server}{35}{subsection.4.3.2}%
 \contentsline {subsubsection}{Diseño almacenamiento VMware vSAN}{36}{figure.caption.20}%
 \contentsline {subsubsection}{Diseño cluster VMware vSphere}{37}{figure.caption.20}%
-\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{38}{figure.caption.20}%
-\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{42}{figure.caption.21}%
-\contentsline {subsection}{\numberline {4.3.3}Operaciones de la Arquitectura}{52}{subsection.4.3.3}%
-\contentsline {subsubsection}{vRealize Suite Lifecycle Manager}{53}{subsection.4.3.3}%
-\contentsline {subsubsection}{Workspace One Access}{53}{subsection.4.3.3}%
-\contentsline {subsubsection}{Gestión del Ciclo de Vida}{53}{subsection.4.3.3}%
-\contentsline {chapter}{Glosario}{57}{appendix*.30}%
-\contentsline {chapter}{Bibliografía}{61}{appendix*.31}%
+\contentsline {subsubsection}{Diseño de red para el cluster vSphere}{37}{figure.caption.20}%
+\contentsline {subsubsection}{Diseño de la red del SDDC con VMware NSX-T}{41}{figure.caption.21}%
+\contentsline {subsection}{\numberline {4.3.3}Operaciones de la Arquitectura}{51}{subsection.4.3.3}%
+\contentsline {subsubsection}{Workspace One Access}{52}{subsection.4.3.3}%
+\contentsline {subsubsection}{VMware vRealize Automation}{52}{figure.caption.30}%
+\contentsline {chapter}{Glosario}{57}{appendix*.31}%
+\contentsline {chapter}{Bibliografía}{61}{appendix*.32}%

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  12 AUG 2020 20:22
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  17 AUG 2020 14:49
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1542,32 +1542,11 @@ Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;m
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
  [3
 
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [4]
-Overfull \hbox (5.49513pt too wide) in paragraph at lines 29--29
- [][] [][][]\TU/LinLibertine(0)/m/n/10.95 Muestra la\TU/LinLibertine(0)/m/it/10.95 transport zone \TU/LinLibertine(0)/m/n/10.95 con el nombre \TU/LinLibertine(0)/m/it/10.95 sfo01-m01-edge-uplink-tz \TU/LinLibertine(0)/m/n/10.95 de tipo VLAN. 
- []
-
-
-Overfull \hbox (0.11678pt too wide) in paragraph at lines 29--29
- \TU/LinLibertine(0)/m/it/10.95 ments\TU/LinLibertine(0)/m/n/10.95 . Ambos \TU/LinLibertine(0)/m/it/10.95 segments VCF-edge-mgmt-cluster-segment-11 \TU/LinLibertine(0)/m/n/10.95 y \TU/LinLibertine(0)/m/it/10.95 VCF-edge-mgmt- 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [5])
+])
 \tf@lof=\write5
 \openout5 = `memoria_tfg.lof'.
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [6] [7] [8
-
-] (memoria_tfg.lot
+ [4] (memoria_tfg.lot
 LaTeX Info: Redefining \rmfamily on input line 2.
 LaTeX Info: Redefining \sffamily on input line 2.
 LaTeX Info: Redefining \ttfamily on input line 2.
@@ -1581,7 +1560,9 @@ LaTeX Info: Redefining \ttfamily on input line 5.
 \tf@lot=\write6
 \openout6 = `memoria_tfg.lot'.
 
- [9] [10
+ [5
+
+] [6
 
 ]
 \openout2 = `contido/introducion.aux'.
@@ -1831,84 +1812,62 @@ File: imaxes/pruebaconcepto/hostFisico.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/hostFisico.png>
 File: imaxes/pruebaconcepto/vSwitch0HostFisico.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/vSwitch0HostFisico.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[33]
 File: imaxes/pruebaconcepto/RouterFisicoL3.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/RouterFisicoL3.png>
+ [34]
 File: imaxes/pruebaconcepto/RedDesdeDentro.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/RedDesdeDentro.png>
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[33] [34] [35]
 File: imaxes/pruebaconcepto/clusterVCenterServer.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/clusterVCenterServer.png>
- [36
+ [35]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-]
-Underfull \vbox (badness 3000) has occurred while \output is active []
-
- [37] [38] [39]
+ [36] [37] [38] [39]
 File: imaxes/pruebaconcepto/distributedSwitchEntornoFinal.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/distributedSwitchEntornoFinal.png>
- [40]
-Underfull \vbox (badness 1558) has occurred while \output is active []
-
- [41]
+ [40] [41]
 File: imaxes/pruebaconcepto/OverlayTZSegments.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/OverlayTZSegments.png>
- [42]
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[42]
 File: imaxes/pruebaconcepto/VLANTZSegments.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/VLANTZSegments.png>
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[43]
+ [43]
 File: imaxes/pruebaconcepto/FrameGeneve.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/FrameGeneve.png>
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[44]
 File: imaxes/pruebaconcepto/UplinkPolicy13.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/UplinkPolicy13.png>
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[45]
+ [44] [45]
 File: imaxes/pruebaconcepto/UplinkDesign.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/UplinkDesign.png>
 
+Underfull \vbox (badness 4303) has occurred while \output is active []
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[46] [47]
+ [46]
 File: imaxes/pruebaconcepto/Two-tier-ReplicationMode.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/Two-tier-ReplicationMode.png>
+ [47]
 File: imaxes/pruebaconcepto/topologiaTwoTierRouting.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/topologiaTwoTierRouting.png>
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[48] [49]
+ [48]
 File: imaxes/pruebaconcepto/EstructuraInternaTiers.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/EstructuraInternaTiers.png>
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[50] [51] (contido/pruebaconcepto_vrealize.tex [52
-
-]))) [53] [54
+[49] [50] (contido/pruebaconcepto_vrealize.tex [51]
+File: imaxes/vRealize_pruebaconcepto/usuariosDefinidos.png Graphic file (type bmp)
+<imaxes/vRealize_pruebaconcepto/usuariosDefinidos.png>
+ [52]))) [53] [54
 
 
 ]
@@ -2025,19 +1984,19 @@ LaTeX Info: Redefining \ttfamily on input line 20.
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 123.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 123.
 Package rerunfilecheck Info: File `memoria_tfg.out' has not changed.
-(rerunfilecheck)             Checksum: D7757AAF10EC121FAE2664CFC2FA3C92;2463.
+(rerunfilecheck)             Checksum: EFF0670133AD0E55E82991B4000D5710;2463.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 30273 strings out of 414071
- 584978 string characters out of 2894592
- 883692 words of memory out of 3000000
- 47426 multiletter control sequences out of 15000+200000
+ 30281 strings out of 414071
+ 585324 string characters out of 2894592
+ 879488 words of memory out of 3000000
+ 47432 multiletter control sequences out of 15000+200000
  544805 words of font info for 120 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 73i,12n,111p,2271b,618s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 73i,11n,111p,2372b,578s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (75 pages, 1209608 bytes).
+Output written on memoria_tfg.xdv (71 pages, 1167300 bytes).
