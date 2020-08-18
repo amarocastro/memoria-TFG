@@ -45,20 +45,35 @@ La infraestructura física donde se planea desplegar el servicio de virtualizaci
 % \fi
 \end{section}
 
-\section{Software}
+\begin{section}{Software}
 \label{subsec:softwareinstalado}
-Actualmente, el software desplegado sobre la infraestructura está formado por los productos de la compañía VMware, uno de los principales proveedores de software de virtualización, siendo VMware vSphere el principal componente ya que se utiliza para virtualizar parte de la infraestructura física y proporcionar las herramientas necesarias para gestionarla, sus principales componentes internos se describen a continuación.
-En cada nodo físico está instalado el hipervisor ESXi. Este es un hipervisor de tipo 1 o \textit{baremetal}, es decir, funciona directamente sobre el hardware sin necesidad de un sistema operativo adicional VMware vSphere utiliza el hipervisor VMware ESXi
+Actualmente, el software desplegado sobre la infraestructura está formado por los productos de la compañía VMware, uno de los principales proveedores de software de virtualización, siendo \textbf{VMware vSphere}, versión 6.7, el principal componente ya que se utiliza para virtualizar parte de la infraestructura física y proporcionar las herramientas necesarias para gestionarla, sus principales componentes internos se describen a continuación.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{imaxes/cap2recursos/contentVSphere}
+    \caption{Componentes de VMware vSphere\cite{fotovSphere}}
+    \label{fig:vSphere-components}
+  \end{figure}
+En cada nodo físico está instalado el \textbf{hipervisor ESXi}. Este es un hipervisor de tipo 1 o \textit{baremetal}, es decir, funciona directamente sobre el hardware sin necesidad de un sistema operativo adicional. Sobre los nodos corre el servicio \textbf{VMware vCenter Server} que actúa como centro de administración de todas las máquinas virtuales (VMs) y nodos que forman la infraestructura y, además, contiene una instancia embebida de \textbf{Platform Services Controller} (PSC) punto que centraliza el acceso a distintos servicios como APIs de VMware vCenter Server, servidor de licencias o el servicio de autenticación \textbf{vCenter Single Sign-On}, este último se utiliza para gestionar la autenticación de los usuarios registrados en VMware vCenter Server. El acceso e interfaz de VMware vCenter Server se realiza a través de la página \textbf{vSphere Web Client} donde el usuario puede autenticarse y gestionar las VMs y nodos que forman el entorno y el resto de servicios de VMware vSphere. Además, incorpora \textbf{vSphere Update Manager} que permite gestionar las actualizaciones de software de los componentes de VMware vSphere. Para administrar las conexiones de las VMs, vSphere utiliza \textbf{vSphere Distributed Switch} (vDS), un switch virtual que gestiona el tráfico de cada VM permitiendo indicar que interfaces físicas de cada nodo físico, configurar sus puertos, establecer políticas y crear subredes de forma centralizada. Finalmente, existen varios servicios de gran importancia que se encargan de mantener la disponibilidad de las VMs desplegadas sobre la infraestructura:
 
-
-Sus principales componentes son los siguientes:
 \begin{itemize}
+    \item \textbf{vMotion} y \textbf{Storage vMotion}: el primero se encarga de migrar VMs de un nodo a otro de forma transparente y sin detener su ejecución, permitiendo planificar las migraciones. El segundo servicio se encarga de migrar los discos y configuración de una VM de un \textit{datastore} a otro sin interrumpir el servicio.
     
+    \item \textbf{vSphere High Availability} (HA): En caso de que una VM deje de estar activa, este servicio intenta encenderla de forma automática en otro nodo del entorno. A diferencia de vMotion, este solo actúa en caso de que la VM o el nodo donde se encuentra la VM sufra un fallo y esta pase a estar no disponible. 
+    
+    %Proporciona escalabilidad gracias a su modelo Maestro - Esclavo, fiabilidad gracias a que no tiene dependencias con otros servicios y a que se puede comunicar con las máquinas a través de varios caminos, y usabilidad gracias a que tiene una interfaz sencilla.
+    
+    \item \textbf{vSphere Distributed Resource Scheduler} (DRS), \textbf{vSphere Distributed Power Management} (DPM) y \textbf{Sotrage DRS}: vSphere DRS genera recomendaciones sobre donde se debería desplegar una máquina virtual durante su creación, utiliza vMotion para migrar las VMs y así maximizar el rendimiento o para manterner la VM activa durante tareas de mantenimiento en un nodo. vSphere DPM se encarga de gestionar el consumo de energía de cada host según el rendimiento actual. Sotrage DRS se encarga de balancear la carga de almacenamiento y las operaciones de lectura y escritura entre los \textit{datastores} disponibles.
+    % \item \textbf{Storage DRS}: balancea la carga de almacenamiento y las operaciones I/O entre los diferentes datastores disponibles.
+    
+    \item \textbf{vSphere Fault Tolerance}: gestiona una copia de todos los archivos y discos de cada VM sincronizada con los archivos originales. Este servicio usado con vSphere HA y vSphere DRS proporciona recuperación ante fallos automática y disponibilidad continua de las VMs, sin perdida de datos y sin pérdida de las conexiones establecidas. En caso de que una VM deje de estar disponible esta se reinicia en un nodo diferente. Este servicio está orientado a proteger aquellas tareas que requieren un alto rendimiento o que son críticas.
+\end{itemize}
+    % \item \textbf{vSphere Distributed Switch (vDS)}: habilita switches virtuales que se encargan de gestionar el tráfico de los hosts ESXi. Se utiliza para administrar la configuración de los puertos de cada host ESXi de forma centralizada, permitiendo crear redes y establecer políticas sobre el tráfico desde un único lugar. Desde aquí se establecen las conexiones de cada tipo de tráfico con las tarjetas de red físicas de cada host ESXi.
     % \item \textbf{ESXi}: Hipervisor propio de VMware, de tipo 1 o \textit{bare metal}[Pal. \ref{itm:baremetal}]. No requiere de sistema operativo para funcionar ya que funciona directamente sobre el hardware físico\cite{Esxi}. Este hipervisor está instalado en cada uno de los ocho nodos que forman la infraestructura.
     
-    \item \textbf{VMware vCenter Server}: servicio que actúa como un administrador central para todas las máquinas virtuales y hosts. Normalmente, los servicios descritos en este apartado están disponibles para una instancia de vCenter Server agrupados en un \textit{Platform Services Controller} (PSC) [Pal. \ref{itm:psc}]
+    % \item \textbf{VMware vCenter Server}: servicio que actúa como un administrador central para todas las máquinas virtuales y hosts. Normalmente, los servicios descritos en este apartado están disponibles para una instancia de vCenter Server agrupados en un \textit{Platform Services Controller} (PSC) [Pal. \ref{itm:psc}]
     
-    \item \textbf{vCenter Single Sign-On}: es un servicio de autenticación. Permite que los usuarios solo se tengan que autenticar una vez cuando acceden al entorno de la infraestructura a través de vSphere Client, en lugar de tener que autenticarse varias veces en cada componente. Cuando el usuario se autentica por primera vez, este recibe un token que le permitirá autenticarse en el resto de componentes sin volver a introducir sus credenciales. También se encarga de la administración perfiles de usuarios y de los dominios de autenticación (esto permite usar directorios de usuarios externos).\label{itm:singlesingonEX}
+    % \item \textbf{vCenter Single Sign-On}: es un servicio de autenticación. Permite que los usuarios solo se tengan que autenticar una vez cuando acceden al entorno de la infraestructura a través de vSphere Client, en lugar de tener que autenticarse varias veces en cada componente. Cuando el usuario se autentica por primera vez, este recibe un token que le permitirá autenticarse en el resto de componentes sin volver a introducir sus credenciales. También se encarga de la administración perfiles de usuarios y de los dominios de autenticación (esto permite usar directorios de usuarios externos).\label{itm:singlesingonEX}
     
     % \iffalse
     % \item \textbf{vSphere License Server}: permite gestionar e inventariar licencias para aquellos sistemas conectados a un \emph{Platform Services Controller}.
@@ -68,90 +83,84 @@ Sus principales componentes son los siguientes:
     % \iffalse
     % \item \textbf{PostgreSQL}: distribución de la base de datos PostgreSQL para vSphere.
     % \fi
-    \item \textbf{vSphere Web Client} y \textbf{vSphere Client}: interfaz que permite conectarse a una instancia de vCenter Server para gestionar la infraestructura.
+    % \item \textbf{vSphere Web Client} y \textbf{vSphere Client}: interfaz que permite conectarse a una instancia de vCenter Server para gestionar la infraestructura.
     
     
-    \iffalse
-    \item \textbf{vSphere ESXi Dump Collector}: permite configurar un host ESXi para que guarde su memoria en un servidor externo en lugar de en un disco cuando hay algún fallo crítico.
-    \item \textbf{vSphere Syslog Collector}: habilita logs de red. 
-    \fi
-    \item \textbf{vSphere Auto Deploy}: herramienta que permite desplegar gran cantidad de nodos físicos de forma automátizada.
+    % \iffalse
+    % \item \textbf{vSphere ESXi Dump Collector}: permite configurar un host ESXi para que guarde su memoria en un servidor externo en lugar de en un disco cuando hay algún fallo crítico.
+    % \item \textbf{vSphere Syslog Collector}: habilita logs de red. 
+    % \fi
+    % \item \textbf{vSphere Auto Deploy}: herramienta que permite desplegar gran cantidad de nodos físicos de forma automátizada.
     
-    \item \textbf{vSphere Update Manager}: permite gestionar de forma centralizada y automatizada las actualizaciones para hosts ESXi, para el hardware de las máquinas virtuales y para actualizar e instalar software de terceros en los hosts ESXi. Este componente se ejecuta desde VMware vCenter Server como un servicio y requiere conexión a la red externa para obtener las actualizaciones.
+    % \item \textbf{vSphere Update Manager}: permite gestionar de forma centralizada y automatizada las actualizaciones para hosts ESXi, para el hardware de las máquinas virtuales y para actualizar e instalar software de terceros en los hosts ESXi. Este componente se ejecuta desde VMware vCenter Server como un servicio y requiere conexión a la red externa para obtener las actualizaciones.
    
-    \item \textbf{vSphere Web Client}: interfaz web que permite acceder a vCenter Server de forma remota.
+    % \item \textbf{vSphere Web Client}: interfaz web que permite acceder a vCenter Server de forma remota.
     
-    \item \textbf{vMotion}: permite la migración de máquinas virtuales de un host a otro de forma transparente y sin detener su ejecución. Permite planificar las migraciones de máquinas virtuales entre hosts que pueden pertenecer a distintos clusters.
+    % \item \textbf{vMotion}: permite la migración de máquinas virtuales de un host a otro de forma transparente y sin detener su ejecución. Permite planificar las migraciones de máquinas virtuales entre hosts que pueden pertenecer a distintos clusters.
     
-    \item \textbf{Storage vMotion}: permite migrar los discos y configuración de una máquina virtual de un \textit{datastore} a otro sin interrumpir el servicio.
+    % \item \textbf{Storage vMotion}: permite migrar los discos y configuración de una máquina virtual de un \textit{datastore} a otro sin interrumpir el servicio.
     
-    \item \textbf{vSphere High Availability (HA)}: provee alta disponibilidad para las máquinas virtuales. En caso de que una máquina virtual deje de estar activa, este servicio intenta encender la máquina  virtual en otro host dentro del mismo cluster automáticamente. Este solo actúa en caso de fallo de un host, mientras que vMotion solo actúa cuando las migraciones se hacen entre hosts activos. Proporciona escalabilidad gracias a su modelo Maestro - Esclavo, fiabilidad gracias a que no tiene dependencias con otros servicios y a que se puede comunicar con las máquinas a través de varios caminos, y usabilidad gracias a que tiene una interfaz sencilla.
+    % \item \textbf{vSphere High Availability (HA)}: provee alta disponibilidad para las máquinas virtuales. En caso de que una máquina virtual deje de estar activa, este servicio intenta encender la máquina  virtual en otro host dentro del mismo cluster automáticamente. Este solo actúa en caso de fallo de un host, mientras que vMotion solo actúa cuando las migraciones se hacen entre hosts activos. Proporciona escalabilidad gracias a su modelo Maestro - Esclavo, fiabilidad gracias a que no tiene dependencias con otros servicios y a que se puede comunicar con las máquinas a través de varios caminos, y usabilidad gracias a que tiene una interfaz sencilla.
     
-    \item \textbf{vSphere Distributed Resource Scheduler (DRS)} y \textbf{vSphere Distributed Power Management (DPM)}: DRS genera recomendaciones sobre donde se debería desplegar una máquina virtual cuando se está creando, utiliza vMotion para mover las máquinas virtuales a través de los hosts de un cluster para maximizar el rendimiento o durante tareas de mantenimiento en un host. DPM se encarga de gestionar el consumo de energía de cada host según el rendimiento necesario.
-    \item \textbf{Storage DRS}: balancea la carga de almacenamiento y las operaciones I/O entre los diferentes datastores disponibles.
+    % \item \textbf{vSphere Distributed Resource Scheduler (DRS)} y \textbf{vSphere Distributed Power Management (DPM)}: DRS genera recomendaciones sobre donde se debería desplegar una máquina virtual cuando se está creando, utiliza vMotion para mover las máquinas virtuales a través de los hosts de un cluster para maximizar el rendimiento o durante tareas de mantenimiento en un host. DPM se encarga de gestionar el consumo de energía de cada host según el rendimiento necesario.
+    % \item \textbf{Storage DRS}: balancea la carga de almacenamiento y las operaciones I/O entre los diferentes datastores disponibles.
     
-    \item \textbf{vSphere Fault Tolerance}: crea una copia de todos los archivos y discos de cada máquina virtual sincronizados con los originales. Esto junto con vSphere HA y vSphere DRS, proporciona recuperación ante fallos y  disponibilidad continua de las máquinas virtuales de forma automática en caso de que la máquina virtual esté inactiva, sin perdida de datos y sin pérdida de conexiones de que había activas. Este servicio está orientado a proteger aquellas tareas que requieren un alto rendimiento o que son críticas.
-    \iffalse
-    habilitadas creando una copia de cada una  para usarla en caso de que la primera falle.
-    \fi
-    \item \textbf{vSphere Distributed Switch (vDS)}: habilita switches virtuales que se encargan de gestionar el tráfico de los hosts ESXi. Se utiliza para administrar la configuración de los puertos de cada host ESXi de forma centralizada, permitiendo crear redes y establecer políticas sobre el tráfico desde un único lugar. Desde aquí se establecen las conexiones de cada tipo de tráfico con las tarjetas de red físicas de cada host ESXi.
+    % \item \textbf{vSphere Fault Tolerance}: crea una copia de todos los archivos y discos de cada máquina virtual sincronizados con los originales. Esto junto con vSphere HA y vSphere DRS, proporciona recuperación ante fallos y  disponibilidad continua de las máquinas virtuales de forma automática en caso de que la máquina virtual esté inactiva, sin perdida de datos y sin pérdida de conexiones de que había activas. Este servicio está orientado a proteger aquellas tareas que requieren un alto rendimiento o que son críticas.
+    % \iffalse
+    % habilitadas creando una copia de cada una  para usarla en caso de que la primera falle.
+    % \fi
+    % \item \textbf{vSphere Distributed Switch (vDS)}: habilita switches virtuales que se encargan de gestionar el tráfico de los hosts ESXi. Se utiliza para administrar la configuración de los puertos de cada host ESXi de forma centralizada, permitiendo crear redes y establecer políticas sobre el tráfico desde un único lugar. Desde aquí se establecen las conexiones de cada tipo de tráfico con las tarjetas de red físicas de cada host ESXi.
     
     % \item \textbf{Virtual Machine File System (VMFS)}: sistema de archivos de alto rendimiento nativo de VMware vSphere. Se utiliza para implementar los almacenes de datos de la infraestructura y está optimizado para el almacenamiento de máquinas virtuales.
-    
-\end{itemize}
+\end{section}
 
 \begin{figure}[hp]
-  \centering
-  \includegraphics[width=0.75\textwidth]{imaxes/cap2recursos/contentVSphere}
-  \caption{Elementos de la plataforma VMWare vSphere\cite{fotovSphere}}
-  \label{fig:componentesVSphere}
+    \centering
+    \includegraphics[width=0.6\textwidth]{imaxes/cap2recursos/recursosReal.png}
+    \caption{Componentes físicos y software que forman la infraestructura actual.}
+    \label{fig:infrastructure-components-production}
 \end{figure}
-\begin{figure}[hp]
-  \centering
-  \includegraphics[width=1\textwidth]{imaxes/cap2recursos/recursosReal.png}
-  \caption{Esquema de los recuros software y hardware del entorno}
-  \label{fig:esquemaentornoreal}
-\end{figure}
-
 \FloatBarrier
-\subsection{Estado de la tecnología}
 
-En los últimos tiempos los servicios de \textit{Infrastructure as a Service} (IaaS) se han extendido de forma considerable con la aparición de software que permite la gestión de un sistema de Cloud Computing, como pueden ser VMware Cloud Foundation (2011), OpenStack (2010), o Apache CloudStack (2012). Estas herramientas construyen una infraestructura virtual sobre un entorno físico estandarizado que les permite administrar y automatizar la escalabilidad, el sistema de almacenamiento, la disponibilidad del servicio, la red, y la seguridad del servicio, con lo que se consigue reducir el coste y el tiempo de gestión y configuración, mejorando la eficiencia de infraestructura física.
+\begin{section}{Estado de la tecnología}
+Con el desarrollo de las tecnologías web y la comercialización por parte de grandes empresas de su infraestructura los servicios \textit{Infrastructure as a Service} (IaaS) han ganado una popularidad considerable, con ello también se han desarrollado herramientas software dedicadas a la gestión infraestructura para la implementación de sistemas Cloud Computing. Algunas de estos servicios son VMware Cloud Foundation (creado en 2011), OpenStack (creado en 2010) o Apache CloudStack (creado en 2012). Estas herramientas construyen una infraestructura virtual sobre un conjunto de recursos físicos estandarizados que permite separar la administración de la capa física de la capa virtual, para simplificar y automatizar la gestión y escalabilidad de los recursos físicos y virtuales. Esto persigue reducir costes de gestión de la infraestructura y aumentar la disponibilidad del servicio, es decir, aumentar la eficiencia de la infraestructura física.
+%   la disponibilidad del servicio, la red, y la seguridad del servicio, con lo que se consigue reducir el coste y el tiempo de gestión y configuración, mejorando la eficiencia de infraestructura física.
+Si bien en el mercado existen varias alternativas que se pueden desplegar\footnote{OpenStack y Apache CloudStack entre otras.} sobre la infraestructura existente, finalmente, para cumplir los objetivos de este proyecto se ha escogido el producto \textbf{VMware Cloud Foundation} (VCF) ya que se integra perfectamente con los componentes de VMware ya instalados en la infraestructura y, por lo tanto, su mantenimiento a largo plazo es más sencillo. Desplegar un producto de una compañía diferente podría producir problemas de compatibilidad entre versiones a largo plazo, a pesar de que este se pueda integrar con el software VMware vSphere. Utilizando los productos de un mismo proveedor se asegura el soporte de las diferentes versiones del software instalado y la obtención del máximo rendimiento de cada componente.
+Para poder usar este software es necesaria la adquisición de licencias, estas se organizan por componente y por número de hosts sobre los que se va a instalar el producto. Aunque tienen un coste elevado, este producto aporta grandes beneficios en cuanto a la gestión del SDDC.
+% A la hora de alcanzar los objetivos descritos en este proyecto se nos plantea la duda de que solución software desplegar ya que actualmente existen tres principales alternativas en el mercado, VMware Cloud Foundation, OpenStack y Apache CloudStack. Cada una de ellas ofrece diferentes características con diferentes requisitos que se pueden adaptar mejor o peor al entorno de despliegue, pero después de comprobar esos aspectos tenemos claro que la \underline{solución elegida es VMware Cloud Foundation}.
 
-A la hora de alcanzar los objetivos descritos en este proyecto se nos plantea la duda de que solución software desplegar ya que actualmente existen tres principales alternativas en el mercado, VMware Cloud Foundation, OpenStack y Apache CloudStack. Cada una de ellas ofrece diferentes características con diferentes requisitos que se pueden adaptar mejor o peor al entorno de despliegue, pero después de comprobar esos aspectos tenemos claro que la \underline{solución elegida es VMware Cloud Foundation}.
+\begin{subsection}{VMware Cloud Foundation}
 
-\subsubsection{VMware Cloud Foundation}
-Esta solución virtualiza todas las capas de la infraestructura[Fig. \ref{fig:infraCloudFound}] (red, computación y almacenamiento) combinando cuatro componentes principales, vSphere para gestionar el cómputo, vSAN para la gestión del almacenamiento, NSX para la gestión de la red, y vRealize para gestionar todas las operaciones que tienen lugar en el servicio, integrando todos los componentes para que la gestión de la infraestructura sea lo más simple posible. Este cojunto de herramientas convierten el CPD en un \textit{Software Defined Datacenter} (SDDC), un entorno donde todas las partes físicas de la infraestructura pasan a estar controladas a través de software haciendo más flexible, independiente y menos costosa la configuración de estos componentes. Las \underline{principales características} de VMware Cloud Foundation son:
+    Esta solución de VMware virtualiza todas las capas de la infraestructura combinando cuatro de sus productos. Utiliza \textbf{VMware vSphere} para virtualizar y gestionar el cómputo, \textbf{VMware vSAN} para virtualizar y gestionar el almacenamiento, \textbf{VMware NSX-T} para la virtualización y gestión de la red, y \textbf{VMware vRealize} para gestionar las operaciones de la infraestructura virtual como el aprovisionamiento de recursos o la gestión de \textit{logs} centralizada. Todos juntos, estos servicios convierten el CPD en un \textit{Software Defined Datacenter} (SDDC), un entorno donde existe una infraestructura física que se abstrae en una capa virtual para separar la gestión de ambas y poder modificar la infraestructura virtual según las necesidades de los usuarios sin necesidad de modificar la configuración de la infraestructura física. Gracias a esa estructura obtiene las siguientes características:
 \begin{itemize}
     \item \textbf{Servicios software con integración nativa}: ofrece un conjunto de servicios software para el almacenamiento, red, seguridad y gestión de la cloud. Estos servicios se integran de forma nativa con la infraestructura minimizando las tareas de configuración y administración.
-    \item \textbf{Escalabilidad y elasticidad de los recursos}: la capacidad de la infraestructura se puede modificar de forma sencilla gracias a la automatización del ciclo de vida de todos los elementos. 
-    \item \textbf{Supervisión de los recursos}: ofrece supervisión de los recursos con reconocimiento de aplicaciones y solución de problemas, permitiendo conocer todos los eventos que tienen lugar en la infraestructura.
-    \item \textbf{Aprovisionamiento automatizado}: todos los componentes necesarios para formar un SDDC son desplegados automáticamente por VMware Cloud Foundation, incluyendo los recursos informáticos, los componentes de almacenamiento, los de red y los de administración.
-    \item \textbf{Ciclo de vida automatizado}: automatiza las operaciones previas, iniciales y posterios de una plataforma de software para ofrecer una gestión más sencilla. Esto incluye su implementación, el aprovisionamiento de clústeres aislados bajo demanda y la instalación de actualizaciones y parches.
+    \item \textbf{Escalabilidad y elasticidad de los recursos}: la capacidad de la infraestructura se puede modificar de forma sencilla gracias a la automatización del ciclo de vida de todos los elementos y al desacople entre las dos capas (la física y la virtual).
+    \item \textbf{Supervisión de los recursos}: ofrece supervisión de los recursos con reconocimiento de aplicaciones y solución de problemas, permitiendo conocer todos los eventos que tienen lugar en la infraestructura. También permite establecer políticas de seguridad en cuanto al acceso a los recursos y la red.
+    \item \textbf{Aprovisionamiento automatizado}: permite la otención de recursos de forma automática incluyendo servicios de red, almacenamiento y cómputo. Los componentes de la infraestructura virtualizada se encargan de la reserva de los recursos y de todas las operaciones necesarias para llevarla acabo.
+    %todos los componentes necesarios para formar un SDDC son desplegados automáticamente por VMware Cloud Foundation, incluyendo los recursos informáticos, los componentes de almacenamiento, los de red y los de administración.
+    \item \textbf{Ciclo de vida automatizado}: automatiza las operaciones previas, iniciales y posterios de los recursos de la plataforma para simplificar y coordinar su gestión. En estas tareas se incluye desde el despliegue de la plataforma y su implementación, el aprovisionamiento de nuevos recursos físicos y la instalación de actualizaciones para cada componente software.
    
-   \iffalse 
-    \item \textbf{Experiencia de usuario simple}: gracias a la gran cantidad de procesos automatizados.
-    \item \textbf{Escalabilidad modular}: el sistema y la infraestructura se puede escalar de forma sencilla.
-    \item \textbf{Cloud híbrida}: da la posibilidad de conectar una Cloud pública con una Cloud privada y así tratar ambas como una única Cloud.
-    \fi
+%    \iffalse 
+%     \item \textbf{Experiencia de usuario simple}: gracias a la gran cantidad de procesos automatizados.
+%     \item \textbf{Escalabilidad modular}: el sistema y la infraestructura se puede escalar de forma sencilla.
+%     \item \textbf{Cloud híbrida}: da la posibilidad de conectar una Cloud pública con una Cloud privada y así tratar ambas como una única Cloud.
+%     \fi
 \end{itemize}
-
 \begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{imaxes/cap2recursos/SDDCoverview.png}
-  \caption{Partes virtualizadas en un SDDC.}
-  \label{fig:sddcoverview}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{imaxes/cap2recursos/overviewCF.png}
-  \caption{Cloud Foundation virtualiza toda la infraestructura.}
-  \label{fig:infraCloudFound}
-\end{figure}
-\FloatBarrier
-
-VMware Cloud Foundation permite reducir el tiempo de mantenimiento ya que todo está controlado por el software que integra todos los componentes, automatizando gran parte de las operaciones y el ciclo de vida de todos los elementos desde su creación, como puede ser el control de versiones de cada elemento, los perfiles de usuario y las máquinas virtuales creadas, además de proporcionar una plataforma de acceso para que cada usuario pueda gestionar sus recursos. Además, su arquitectura se divide en entornos aislados administrados bajo demanda desde un entorno principal. Cada uno de esos entornos tiene un conjunto de recursos dedicados cuyas capacidades se pueden ajustar para proporcionar determinadas características, como por ejemplo alta disponibilidad, mayor capacidad de almacenamiento o mayor capacidad de cómputo. 
+    \centering
+    \includegraphics[width=0.6\textwidth]{imaxes/cap2recursos/overviewCF.png}
+            \caption{Resumen partes de VMare Cloud Foundation.}
+    \label{fig:Cloud-Foundation-Overview}
+    \end{figure}
+    \FloatBarrier
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{imaxes/cap2recursos/SDDCoverview.png}
+        \caption{Elementos de un SDDC gestionado con VMware Cloud Foundation.}
+        \label{fig:layers-Sddc}
+    \end{figure}
+    \FloatBarrier
+% VMware Cloud Foundation permite reducir el tiempo de mantenimiento ya que todo está controlado por el software que integra todos los componentes, automatizando gran parte de las operaciones y el ciclo de vida de todos los elementos desde su creación, como puede ser el control de versiones de cada elemento, los perfiles de usuario y las máquinas virtuales creadas, además de proporcionar una plataforma de acceso para que cada usuario pueda gestionar sus recursos. Además, su arquitectura se divide en entornos aislados administrados bajo demanda desde un entorno principal. Cada uno de esos entornos tiene un conjunto de recursos dedicados cuyas capacidades se pueden ajustar para proporcionar determinadas características, como por ejemplo alta disponibilidad, mayor capacidad de almacenamiento o mayor capacidad de cómputo. 
 
 % \iffalse
 % *****************************************************\\
@@ -159,56 +168,62 @@ VMware Cloud Foundation permite reducir el tiempo de mantenimiento ya que todo e
 % *****************************************************\\
 % \fi
 
-Para poder usar este software es necesaria la adquisición de licencias, estas se organizan por componente y por número de hosts sobre los que se va a instalar el producto. A pesar de tener un coste elevado, teniendo en cuenta los beneficios que aporta en cuanto integración nativa con los componentes ya instalados y a que su mantenimiento es más sencillo, se ha elegido este paquete ya que es más rentable que otras opciones. \\
-Si bien VMware ofrece plugins para conectar sus componentes con otras soluciones, como es el caso de OpenStack \cite{opestackintegrated}, estos no ofrecen el rendimiento que da la integración nativa, además, en caso de recibir actualizaciones, habría que actualizar cada componente de forma individual aumentando el riesgo de incompatibilidades con el resto de elementos del sistema, mientras que Cloud Foundation gestiona todo el ciclo de vida de cada actualización para cada componente, permitiendo comprobar si existe alguna incompatibilidad con el resto de versiones antes de aplicar una actualización. En definitiva, VmWare Cloud Foundation simplifica el proceso de instalación, configuración, gestión, y mantenimiento, tanto para los usuarios como para el administrador del sistema.
+%  en cuanto integración nativa con los componentes ya instalados y a que su mantenimiento es más sencillo, se ha elegido este paquete ya que es más rentable que otras opciones. \\
+% Si bien VMware ofrece plugins para conectar sus componentes con otras soluciones, como es el caso de OpenStack \cite{opestackintegrated}, estos no ofrecen el rendimiento que da la integración nativa, además, en caso de recibir actualizaciones, habría que actualizar cada componente de forma individual aumentando el riesgo de incompatibilidades con el resto de elementos del sistema, mientras que Cloud Foundation gestiona todo el ciclo de vida de cada actualización para cada componente, permitiendo comprobar si existe alguna incompatibilidad con el resto de versiones antes de aplicar una actualización. En definitiva, VmWare Cloud Foundation simplifica el proceso de instalación, configuración, gestión, y mantenimiento, tanto para los usuarios como para el administrador del sistema.
+\end{subsection}
 
-\subsubsection{Componentes de VMware Cloud Foundation \cite{componentesCloudFound}}
+\begin{subsection}{Componentes de VMware Cloud Foundation \cite{componentesCloudFound}}
 \label{subsubsect:cfcomponents}
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{imaxes/cap2recursos/SDDCoverview.png}
-  \caption{Partes virtualizadas en un SDDC.}
-  \label{fig:sddcoverview}
-\end{figure}
-\FloatBarrier
+% El SDDC de VMware Cloud Foundation está dividido en varias capas y módulos con las cuales se gestiona todas las partes de la infraestructura [Fig. \ref{fig:sddcoverview}]. Cada una de estas capas incluye una serie de productos y servicios, con unas funciones concretas que permiten gestionar un entorno complejo de una forma más sencilla. Las partes de esta infraestructura son las siguientes:
+% \begin{itemize}
+%     \item \textbf{Capa de Infraestructura física}: Es la base de la infraestructura y en ella residen los componentes físicos de almacenamiento, red y cómputo.
+%     \item \textbf{Capa de Infraestructura Virtual}: Se encuentra sobre la capa física y se encarga de realizar las tareas de acceso a los recursos físicos para controlar su aprovisionamiento.
+%     \item \textbf{Capa de Gestión Cloud}: Es la capa superior y se dedica a las tareas de consumo de los recursos, es decir, realiza peticiones a las capas inferiores para la obtención de los recursos.
+%     \item \textbf{Capa de Gestión de Servicios}: Esta capa se centra en el mantenimiento de la arquitectura gestionando el ciclo de vida, la monitorización, logs y alertas de los componentes. 
+%     \item \textbf{Capa de Gestión de Operaciones}: La función de esta capa es la monitorización de la capa de infraestructura física, de la capa de infraestructura virtual y de los flujos de trabajo de los usuarios.
+%     \item \textbf{Capa de Continuidad del Servicio}: Contiene elementos que ayudan a que el servicio se mantenga activo y a evitar la pérdida de información crítica, proveyendo copias de seguridad, restauración y recuperación ante desastres.
+%     \item \textbf{Capa de Seguridad}: Se encarga de que todos los componentes de la infraestructura estén bien delimitados para establecer un nivel de seguridad.
+% \end{itemize}
+Ya se ha visto que VCF está formado por cuatro productos principales de VMware. En este apartado se describirán las características de esos cuatro componentes más el servicio que los coordina\footnote{Las características del componente VMware vSphere son las mismas que las descritas en el punto \ref*{subsec:softwareinstalado}}. Se utilizará la versión 4.0 de VMware Cloud Foundation.
+% En VMware Cloud Foundation existen diversos productos y servicios, algunos son requeridos para construir la instancia mínima de un SDDC y otros ofrecen servicios adicionales que incrementan el rendimiento de la infraestructura. A continuación se describen aquellos componentes necesarios para la instalación mínima de VMware Cloud Foundation y que se usarán en la implementación de este proyecto:
+\begin{subsubsection}{SDDC Manager}
+    SDDC Manager se encarga de gestionar el ciclo de vida de todos los componentes de VCF, esto incluye el despliegue de cada uno, su configuración y la obtención e instalación de actualizaciones. Centraliza la gestión de las licencias y certificados de cada componente y administra el aprovisionamiento de nuevos recursos físicos para el SDDC y los ya existentes.
+\end{subsubsection}
+\begin{subsubsection}{VMware vSAN}
+    VMware vSAN virtualiza el almacenamiento del SDDC. Permite gestionar de forma centralizada desde la interfaz de vSphere Web Client el sistema de almacenamiento sin necesidad de tener que modificar la configuración física, como es el caso de las LUNs de la infraestructura actual. Trata todos los recursos de almacenamiento como un único elmento denominado \textit{datastore} sobre el cual se pueden establecer políticas incluso a nivel de VM lo cual aporta gran flexibilidad. El acceso por parte de cada nodo al \textit{datastore} se realiza con el protocolo IP a través de una subred dedicada al servicio. Con VMware vSAN, el \textit{datastore} esta formado por discos de almacenamiento se organizan en grupos ligados a un nodo (un máximo de cinco grupos por nodo). Los grupos pueden tener configuración \textit{Hybrid} que combinia discos HDD y SDD, o configuración \textit{All-Flash} que solo utiliza SSD y por lo tanto tiene mayor rendimiento. Dentro de cada grupo existe un disco de caché y al menos un disco de capacidad donde se almacenan los datos persistentes\cite{operacionesVSAN}. En el modo \textit{All-Flash}\footnote{Solo se describe el modo \textit{All-Flash} porque es la configuración recomendada por VMware.} la operación de lectura se realiza directamente sobre los discos de capacidad y la operación de escritura se hace sobre el disco caché que posteriormente escribe los datos en el disco de capacidad.
+    \begin{figure}[h!]
+    \centering
+        \includegraphics[width=0.6\textwidth]{imaxes/cap2recursos/rendimientoVSAN.png}
+        \caption{Configuración \textit{All-Flash} y configuración \textit{Hybrid} en vSAN}
+        \label{fig:performance-Hybrid-AllFlash-vSAN}
+    \end{figure}
+    \FloatBarrier
+\end{subsubsection}
 
-El SDDC de VMware Cloud Foundation está dividido en varias capas y módulos con las cuales se gestiona todas las partes de la infraestructura [Fig. \ref{fig:sddcoverview}]. Cada una de estas capas incluye una serie de productos y servicios, con unas funciones concretas que permiten gestionar un entorno complejo de una forma más sencilla. Las partes de esta infraestructura son las siguientes:
 \begin{itemize}
-    \item \textbf{Capa de Infraestructura física}: Es la base de la infraestructura y en ella residen los componentes físicos de almacenamiento, red y cómputo.
-    \item \textbf{Capa de Infraestructura Virtual}: Se encuentra sobre la capa física y se encarga de realizar las tareas de acceso a los recursos físicos para controlar su aprovisionamiento.
-    \item \textbf{Capa de Gestión Cloud}: Es la capa superior y se dedica a las tareas de consumo de los recursos, es decir, realiza peticiones a las capas inferiores para la obtención de los recursos.
-    \item \textbf{Capa de Gestión de Servicios}: Esta capa se centra en el mantenimiento de la arquitectura gestionando el ciclo de vida, la monitorización, logs y alertas de los componentes. 
-    \item \textbf{Capa de Gestión de Operaciones}: La función de esta capa es la monitorización de la capa de infraestructura física, de la capa de infraestructura virtual y de los flujos de trabajo de los usuarios.
-    \item \textbf{Capa de Continuidad del Servicio}: Contiene elementos que ayudan a que el servicio se mantenga activo y a evitar la pérdida de información crítica, proveyendo copias de seguridad, restauración y recuperación ante desastres.
-    \item \textbf{Capa de Seguridad}: Se encarga de que todos los componentes de la infraestructura estén bien delimitados para establecer un nivel de seguridad.
-\end{itemize}
-
-En VMware Cloud Foundation existen diversos productos y servicios, algunos son requeridos para construir la instancia mínima de un SDDC y otros ofrecen servicios adicionales que incrementan el rendimiento de la infraestructura. A continuación se describen aquellos componentes necesarios para la instalación mínima de VMware Cloud Foundation y que se usarán en la implementación de este proyecto:
-
-\begin{itemize}
-    \item \textbf{SDDC Manager}: gestiona el ciclo de vida de todos los componentes del sistema, incluyendo el proceso inicial de despliegue de Cloud Foundation, su configuración y aprovisionamiento, y las actualizaciones. Monitoriza los recursos físicos y lógicos de la infraestructura, facilita su configuración y permite añadir nuevos recursos cuando sea necesario. \iffalse Todo esto lo realiza mediante flujos de trabajo que facilitan la detección de orígenes de errores.\fi
-    \item \textbf{vSphere}: ya está incluído en el servicio actual [\ref{subsec:softwareinstalado}].
-    \item \textbf{VMware vSAN}: componente clave que virtualiza el almacenamiento. Como ya se ha explicado, el almacenamiento del servicio actual está configurado con LUNs que se deben gestionar individualmente en una capa distinta a los componentes software, provocando que su configuración sea más compleja y costosa. El objetivo de VMware vSAN es gestionar de forma automatizada y desde un único lugar el sistema de almacenamiento de la infraestructura, tratando toda la capacidad y recursos de almacenamiento como un único elemento, eliminando así la necesidad de tener que crear LUNs aisladas, consiguiendo abstraer la configuración de almacenamiento de la capa física en la capa de software y permitiendo establecer políticas de almacenamiento desde cada máquina virtual para adecuarlo a las necesidades de cada una, sin tener que editar la configuración real del entorno físico. Así el rendimiento de los recursos de almacenamiento es más eficiente, flexible y su configuración se integra dentro del mismo servicio junto con la gestión del resto de componentes. \\
-    En VMware vSAN, en lugar de tratar el almacenamiento de forma independiente este pasa a estar ligado a cada host, es decir, cada uno de los nodos tiene asignados hasta cinco grupos de discos. Estos grupos de discos pueden ser de tipo \textit{Hybrid}, donde se combinan discos duros SSD y HDD, o \textit{All-Flash}, donde todos los discos son de tipo SSD. Dentro de cada grupo, los discos se dividen en dos tipos con distintas funciones, el disco de caché y el disco de capacidad\cite{operacionesVSAN}:
-        \begin{itemize}
-            \item \textbf{Caché}: Hay uno en cada grupo. Realiza la función de memoria caché y se encarga de escribir los datos persistentes en los discos de capacidad.
-            \item \textbf{Capacidad}: Puede haber hasta siete discos en cada grupo. Almacena los datos persistentes del entorno.
-        \end{itemize}
-    En cada grupo de discos la gestión de la \underline{lectura y escritura} de datos se hace de la siguiente forma:
-        \begin{itemize}
-            \item \textbf{Lectura}: En el caso de la solución \textit{Hybrid}, si el dato que se busca no está en el disco de caché entonces se busca en los discos de capacidad y después se incorpora al disco de caché. Con la solución \textit{All-flash}, los datos se leen siempre directamente de los discos de capacidad sin que estos sean escritos en el disco de caché dejando a este completamente libre para las operaciones de escritura. Gracias a esto, la estructura \textit{All-flash} ofrece mayor rendimiento respecto a la \textit{Hybrid}.
-            \item \textbf{Escritura}: Tanto en la solución \textit{Hybrid} con en la \textit{All-flash}, el host ESXi primero escribe en el disco de caché, este le responde con una confirmación de escritura y más tarde vSAN se encarga de escribir ese dato en los discos de capacidad cuando el disco de caché está casi completo o cuando el dato lleva un tiempo sin ser utilizado.
-        \end{itemize}
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=1\textwidth]{imaxes/cap2recursos/rendimientoVSAN.png}
-            \caption{Almacenamiento All-Flash vs. Híbrido en vSAN}
-            \label{fig:rendimientoVSAN}
-        \end{figure}
-        \FloatBarrier
-    Los hosts acceden al \textit{datastore} de vSAN mediante protocolo IP en una red accesible por todos los nodos. \\ 
-    Este componente permite reducir las tareas de gestión del almacenamiento físico ya que ya no es necesario hacer ajustes en la capa física para cumplir unos requisitos en la capa software.
+    % \item \textbf{SDDC Manager}: gestiona el ciclo de vida de todos los componentes del sistema, incluyendo el proceso inicial de despliegue de Cloud Foundation, su configuración y aprovisionamiento, y las actualizaciones. Monitoriza los recursos físicos y lógicos de la infraestructura, facilita su configuración y permite añadir nuevos recursos cuando sea necesario. \iffalse Todo esto lo realiza mediante flujos de trabajo que facilitan la detección de orígenes de errores.\fi
+    % \item \textbf{vSphere}: ya está incluído en el servicio actual [\ref{subsec:softwareinstalado}].
+    % \item \textbf{VMware vSAN}: componente clave que virtualiza el almacenamiento. Como ya se ha explicado, el almacenamiento del servicio actual está configurado con LUNs que se deben gestionar individualmente en una capa distinta a los componentes software, provocando que su configuración sea más compleja y costosa. El objetivo de VMware vSAN es gestionar de forma automatizada y desde un único lugar el sistema de almacenamiento de la infraestructura, tratando toda la capacidad y recursos de almacenamiento como un único elemento, eliminando así la necesidad de tener que crear LUNs aisladas, consiguiendo abstraer la configuración de almacenamiento de la capa física en la capa de software y permitiendo establecer políticas de almacenamiento desde cada máquina virtual para adecuarlo a las necesidades de cada una, sin tener que editar la configuración real del entorno físico. Así el rendimiento de los recursos de almacenamiento es más eficiente, flexible y su configuración se integra dentro del mismo servicio junto con la gestión del resto de componentes. \\
+    % En VMware vSAN, en lugar de tratar el almacenamiento de forma independiente este pasa a estar ligado a cada host, es decir, cada uno de los nodos tiene asignados hasta cinco grupos de discos. Estos grupos de discos pueden ser de tipo \textit{Hybrid}, donde se combinan discos duros SSD y HDD, o \textit{All-Flash}, donde todos los discos son de tipo SSD. Dentro de cada grupo, los discos se dividen en dos tipos con distintas funciones, el disco de caché y el disco de capacidad\cite{operacionesVSAN}:
+    %     \begin{itemize}
+    %         \item \textbf{Caché}: Hay uno en cada grupo. Realiza la función de memoria caché y se encarga de escribir los datos persistentes en los discos de capacidad.
+    %         \item \textbf{Capacidad}: Puede haber hasta siete discos en cada grupo. Almacena los datos persistentes del entorno.
+    %     \end{itemize}
+    % En cada grupo de discos la gestión de la \underline{lectura y escritura} de datos se hace de la siguiente forma:
+    %     \begin{itemize}
+    %         \item \textbf{Lectura}: En el caso de la solución \textit{Hybrid}, si el dato que se busca no está en el disco de caché entonces se busca en los discos de capacidad y después se incorpora al disco de caché. Con la solución \textit{All-flash}, los datos se leen siempre directamente de los discos de capacidad sin que estos sean escritos en el disco de caché dejando a este completamente libre para las operaciones de escritura. Gracias a esto, la estructura \textit{All-flash} ofrece mayor rendimiento respecto a la \textit{Hybrid}.
+    %         \item \textbf{Escritura}: Tanto en la solución \textit{Hybrid} con en la \textit{All-flash}, el host ESXi primero escribe en el disco de caché, este le responde con una confirmación de escritura y más tarde vSAN se encarga de escribir ese dato en los discos de capacidad cuando el disco de caché está casi completo o cuando el dato lleva un tiempo sin ser utilizado.
+    %     \end{itemize}
+    %     \begin{figure}[h!]
+    %         \centering
+    %         \includegraphics[width=1\textwidth]{imaxes/cap2recursos/rendimientoVSAN.png}
+    %         \caption{Almacenamiento All-Flash vs. Híbrido en vSAN}
+    %         \label{fig:rendimientoVSAN}
+    %     \end{figure}
+    %     \FloatBarrier
+    % Los hosts acceden al \textit{datastore} de vSAN mediante protocolo IP en una red accesible por todos los nodos. \\ 
+    % Este componente permite reducir las tareas de gestión del almacenamiento físico ya que ya no es necesario hacer ajustes en la capa física para cumplir unos requisitos en la capa software.
    
     \item \textbf{VMware NSX-T}: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes de la red para desacoplar la configuración de la red física y la red virtual del SDDC simplificando así las operaciones en la infraestructura física. Con esto, los administradores pueden configurar la red del SDDC sin tener en cuenta el equipamiento físico ya que trabajan con una red virtual independiente de la red física sobre la que funciona.
     \iffalse
@@ -303,11 +318,11 @@ VMware NSX-T inlcuye otros componentes:
 
 
 
-\iffalse
-\subsubsection{OpenStack}
-Es una plataforma constituída por tres proyectos, uno dedicado a la gestión de la red, otro a la gestión del cómputo, y otro a la gestión del almacenamiento. Para poder desplegarlo sobre los componentes de VmWare instalados en nuestra infraestructura son necesarios tres plugins específicos para el software de VmWare. OpenStack aporta una API a través de la cual es posible gestionar los recursos virtuales y el aproivisionamiento.
+% \iffalse
+% \subsubsection{OpenStack}
+% Es una plataforma constituída por tres proyectos, uno dedicado a la gestión de la red, otro a la gestión del cómputo, y otro a la gestión del almacenamiento. Para poder desplegarlo sobre los componentes de VmWare instalados en nuestra infraestructura son necesarios tres plugins específicos para el software de VmWare. OpenStack aporta una API a través de la cual es posible gestionar los recursos virtuales y el aproivisionamiento.
 
-\subsubsection{Apache CloudStack}
-\fi
-
-
+% \subsubsection{Apache CloudStack}
+% \fi
+\end{subsection}
+\end{section}

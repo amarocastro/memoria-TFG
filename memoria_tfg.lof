@@ -5,32 +5,31 @@
 \selectlanguage *{spanish}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Elementos de la plataforma VMWare vSphere\cite {fotovSphere}\relax }}{8}{figure.caption.4}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Esquema de los recuros software y hardware del entorno\relax }}{9}{figure.caption.5}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Partes virtualizadas en un SDDC.\relax }}{11}{figure.caption.6}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Cloud Foundation virtualiza toda la infraestructura.\relax }}{12}{figure.caption.7}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Partes virtualizadas en un SDDC.\relax }}{13}{figure.caption.8}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Almacenamiento All-Flash vs. Híbrido en vSAN\relax }}{15}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Componentes de VMware vSphere\cite {fotovSphere}\relax }}{7}{figure.caption.4}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Componentes físicos y software que forman la infraestructura actual.\relax }}{8}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Resumen partes de VMare Cloud Foundation.\relax }}{10}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Elementos de un SDDC gestionado con VMware Cloud Foundation.\relax }}{10}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Configuración \textit {All-Flash} y configuración \textit {Hybrid} en vSAN\relax }}{12}{figure.caption.8}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagrama de Grantt sobre la planificación del proyecto.\relax }}{22}{figure.caption.10}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Estadísticas sobre la planificación del proyecto.\relax }}{23}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagrama de Grantt sobre la planificación del proyecto.\relax }}{18}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Estadísticas sobre la planificación del proyecto.\relax }}{19}{figure.caption.10}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Esquema del modelo de arquitectura estándar.\relax }}{27}{figure.caption.12}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Estructura de los componentes en una arquitectura estándar.\relax }}{27}{figure.caption.13}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Esquema del modelo de arquitectura consolidado.\relax }}{28}{figure.caption.14}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Estructura de los componentes de una arquitectura consolidado.\relax }}{28}{figure.caption.15}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Muestra la estructura generada por el instalador VLC. Cuatro hosts ESXi embebidos con los componentes de VMware Cloud Foundation cuyo tráfico circula a través del \textit {port group} VM Network.\relax }}{33}{figure.caption.16}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Máquinas virtuales en el host físico.\relax }}{34}{figure.caption.17}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Interfaces del router Vyos.\relax }}{34}{figure.caption.18}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Topología de las redes del entorno desplegado.\relax }}{35}{figure.caption.19}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Dominio y cluster vSphere del \textit {management domain}.\relax }}{36}{figure.caption.20}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Contenido de vSphere Distributed Switch \textit {sddc-vds01}.\relax }}{40}{figure.caption.21}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces \textit {Segments} de la \textit {transport zone} \textit {mgmt-domain-m01-overlay-tz}\relax }}{43}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces \textit {Segments} de la \textit {transport zone} \textit {sfo01-m01-edge-uplink-tz}\relax }}{43}{figure.caption.23}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Cabeceras de un paquete de red encapsulado con Geneve.\relax }}{44}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces \textit {Uplink Policy} configurada para la \textit {transport zone} \textit {sfo01-m01-dge-uplink-tz}.\relax }}{45}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Topología de red de las insterfaces \textit {uplink}.\relax }}{46}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.16}{\ignorespaces Modo de replicación \textit {Two-Tier Hierarchical}.\relax }}{47}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Topología de los routers virtuales de \textit {Tier-1} y \textit {Tier-0}.\relax }}{48}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Estructura interna de los routers virtuales de \textit {Tier-0} y de \textit {Tier-1}.\relax }}{50}{figure.caption.29}%
-\contentsline {figure}{\numberline {4.19}{\ignorespaces Muestra los usuarios definidos en el Active Directory sincronizados en Workspace One Access.\relax }}{52}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Esquema del modelo de arquitectura estándar.\relax }}{23}{figure.caption.11}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Estructura de los componentes en una arquitectura estándar.\relax }}{23}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Esquema del modelo de arquitectura consolidado.\relax }}{24}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Estructura de los componentes de una arquitectura consolidado.\relax }}{24}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Muestra la estructura generada por el instalador VLC. Cuatro hosts ESXi embebidos con los componentes de VMware Cloud Foundation cuyo tráfico circula a través del \textit {port group} VM Network.\relax }}{29}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Máquinas virtuales en el host físico.\relax }}{30}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Interfaces del router Vyos.\relax }}{30}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Topología de las redes del entorno desplegado.\relax }}{31}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Dominio y cluster vSphere del \textit {management domain}.\relax }}{32}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Contenido de vSphere Distributed Switch \textit {sddc-vds01}.\relax }}{36}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces \textit {Segments} de la \textit {transport zone} \textit {mgmt-domain-m01-overlay-tz}\relax }}{39}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces \textit {Segments} de la \textit {transport zone} \textit {sfo01-m01-edge-uplink-tz}\relax }}{39}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Cabeceras de un paquete de red encapsulado con Geneve.\relax }}{40}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces \textit {Uplink Policy} configurada para la \textit {transport zone} \textit {sfo01-m01-dge-uplink-tz}.\relax }}{41}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Topología de red de las insterfaces \textit {uplink}.\relax }}{42}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Modo de replicación \textit {Two-Tier Hierarchical}.\relax }}{43}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Topología de los routers virtuales de \textit {Tier-1} y \textit {Tier-0}.\relax }}{44}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Estructura interna de los routers virtuales de \textit {Tier-0} y de \textit {Tier-1}.\relax }}{46}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Muestra los usuarios definidos en el Active Directory sincronizados en Workspace One Access.\relax }}{48}{figure.caption.29}%
