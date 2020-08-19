@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  18 AUG 2020 18:31
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  19 AUG 2020 11:35
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1239,7 +1239,7 @@ LaTeX Info: Redefining \ttfamily on input line 15.
 LaTeX Info: Redefining \rmfamily on input line 20.
 LaTeX Info: Redefining \sffamily on input line 20.
 LaTeX Info: Redefining \ttfamily on input line 20.
- (portada/resumo.aux) (contido/introducion.aux) (contido/estadoInfraestructuraSistema.aux) (contido/planificacionProyecto.aux) (contido/metodoloxia.aux
+ (portada/resumo.aux) (contido/introducion.aux) (contido/estadoRecursos.aux) (contido/planificacionProyecto.aux) (contido/metodoloxia.aux
 
 LaTeX Warning: Label `fig:Frame-Geneve-Segment-NSXT' multiply defined.
 
@@ -1606,9 +1606,9 @@ Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;ma
 Underfull \vbox (badness 2846) has occurred while \output is active []
 
  [2]) [3]
-\openout2 = `contido/estadoInfraestructuraSistema.aux'.
+\openout2 = `contido/estadoRecursos.aux'.
 
- (contido/estadoInfraestructuraSistema.tex [4
+ (contido/estadoRecursos.tex [4
 
 
 
@@ -1628,12 +1628,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [6] [7]
 File: imaxes/cap2recursos/recursosReal.png Graphic file (type bmp)
 <imaxes/cap2recursos/recursosReal.png>
+ [8]
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 128.
+(Font)              scaled to size 9.0pt on input line 57.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_R.otf
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 128.
+(Font)              scaled to size 5.0pt on input line 57.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 5.0pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_R.otf
 Requested font "cmmi9" at 9.0pt
@@ -1647,7 +1648,7 @@ Requested font "msam5" at 5.0pt
 Requested font "msbm10" at 9.0pt
 Requested font "msbm5" at 5.0pt
 Requested font "cmr9" at 9.0pt
- [8] [9]
+ [9]
 File: imaxes/cap2recursos/overviewCF.png Graphic file (type bmp)
 <imaxes/cap2recursos/overviewCF.png>
 File: imaxes/cap2recursos/SDDCoverview.png Graphic file (type bmp)
@@ -1655,35 +1656,35 @@ File: imaxes/cap2recursos/SDDCoverview.png Graphic file (type bmp)
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\begingroup' on input line 175.
+(hyperref)                removing `\begingroup' on input line 91.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 175.
+(hyperref)                removing `\<let>-command' on input line 91.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\NAT@ctype' on input line 175.
+(hyperref)                removing `\NAT@ctype' on input line 91.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 175.
+(hyperref)                removing `\z@' on input line 91.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 175.
+(hyperref)                removing `\let' on input line 91.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\let' on input line 175.
+(hyperref)                removing `\let' on input line 91.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\new@ifnextchar' on input line 175.
+(hyperref)                removing `\new@ifnextchar' on input line 91.
 
 [10]
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/it' will be
-(Font)              scaled to size 9.0pt on input line 194.
+(Font)              scaled to size 9.0pt on input line 101.
 Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 9.0pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
 File: imaxes/cap2recursos/rendimientoVSAN.png Graphic file (type bmp)
@@ -1692,7 +1693,7 @@ File: imaxes/cap2recursos/rendimientoVSAN.png Graphic file (type bmp)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[11] [12] [13]) [14]
+[11]) [12]
 \openout2 = `contido/planificacionProyecto.aux'.
 
  (contido/planificacionProyecto.tex
@@ -1716,7 +1717,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 13--15
 
  []
 
-[15
+[13
 
 
 
@@ -1743,7 +1744,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 28--30
 
 Underfull \vbox (badness 1571) has occurred while \output is active []
 
- [16]
+ [14]
 Underfull \hbox (badness 10000) in paragraph at lines 31--32
 
  []
@@ -1758,7 +1759,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--36
 
  []
 
-[17]
+[15]
 File: imaxes/extras/diagramaGranttt.png Graphic file (type bmp)
 <imaxes/extras/diagramaGranttt.png>
 
@@ -1766,24 +1767,24 @@ Overfull \hbox (1.42265pt too wide) in paragraph at lines 43--44
  [][] 
  []
 
-[18
+[16
 
 ]
 File: imaxes/extras/estadisticasProyecto.png Graphic file (type bmp)
 <imaxes/extras/estadisticasProyecto.png>
- [19
+ [17
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 68--69
 
  []
 
-) [20]
+) [18]
 \openout2 = `contido/metodoloxia.aux'.
 
  (contido/metodoloxia.tex
 Capítulo 4.
-(contido/conceptosPrevios.tex [21
+(contido/conceptosPrevios.tex [19
 
 
 
@@ -1799,7 +1800,7 @@ File: imaxes/conceptosPrevios/standardArch.png Graphic file (type bmp)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[22] [23]
+[20] [21]
 File: imaxes/conceptosPrevios/modelConsolidated.png Graphic file (type bmp)
 <imaxes/conceptosPrevios/modelConsolidated.png>
 File: imaxes/conceptosPrevios/consolidatedArch.png Graphic file (type bmp)
@@ -1807,7 +1808,7 @@ File: imaxes/conceptosPrevios/consolidatedArch.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [24] [25]) (contido/requisitos.tex [26]) (contido/pruebaconcepto.tex [27] [28]
+ [22] [23]) (contido/requisitos.tex [24]) (contido/pruebaconcepto.tex [25] [26]
 File: imaxes/pruebaconcepto/hostFisico.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/hostFisico.png>
 File: imaxes/pruebaconcepto/vSwitch0HostFisico.png Graphic file (type bmp)
@@ -1816,58 +1817,58 @@ File: imaxes/pruebaconcepto/vSwitch0HostFisico.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[29]
+[27]
 File: imaxes/pruebaconcepto/RouterFisicoL3.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/RouterFisicoL3.png>
- [30]
+ [28]
 File: imaxes/pruebaconcepto/RedDesdeDentro.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/RedDesdeDentro.png>
 File: imaxes/pruebaconcepto/clusterVCenterServer.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/clusterVCenterServer.png>
- [31]
+ [29]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [32] [33] [34] [35]
+ [30] [31] [32] [33]
 File: imaxes/pruebaconcepto/distributedSwitchEntornoFinal.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/distributedSwitchEntornoFinal.png>
- [36] [37]
+ [34] [35]
 File: imaxes/pruebaconcepto/OverlayTZSegments.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/OverlayTZSegments.png>
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[38]
+[36]
 File: imaxes/pruebaconcepto/VLANTZSegments.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/VLANTZSegments.png>
- [39]
+ [37]
 File: imaxes/pruebaconcepto/FrameGeneve.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/FrameGeneve.png>
 File: imaxes/pruebaconcepto/UplinkPolicy13.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/UplinkPolicy13.png>
- [40] [41]
+ [38] [39]
 File: imaxes/pruebaconcepto/UplinkDesign.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/UplinkDesign.png>
 
 Underfull \vbox (badness 4303) has occurred while \output is active []
 
- [42]
+ [40]
 File: imaxes/pruebaconcepto/Two-tier-ReplicationMode.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/Two-tier-ReplicationMode.png>
- [43]
+ [41]
 File: imaxes/pruebaconcepto/topologiaTwoTierRouting.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/topologiaTwoTierRouting.png>
- [44]
+ [42]
 File: imaxes/pruebaconcepto/EstructuraInternaTiers.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/EstructuraInternaTiers.png>
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[45] [46] (contido/pruebaconcepto_vrealize.tex [47]
+[43] [44] (contido/pruebaconcepto_vrealize.tex [45]
 File: imaxes/vRealize_pruebaconcepto/usuariosDefinidos.png Graphic file (type bmp)
 <imaxes/vRealize_pruebaconcepto/usuariosDefinidos.png>
- [48]))) [49] [50
+ [46]))) [47] [48
 
 
 ]
@@ -1875,13 +1876,13 @@ LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
 (Font)              scaled to size 24.88pt on input line 111.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 24.88pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_R.otf
- [51] [52]
+ [49] [50]
 \openout2 = `bibliografia/glosario.aux'.
 
- (bibliografia/glosario.tex [53
+ (bibliografia/glosario.tex [51
 
 
-] [54]) [55] (memoria_tfg.bbl [56
+] [52]) [53] (memoria_tfg.bbl [54
 
 
 ]
@@ -1890,26 +1891,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--29
  []
 
 
-Underfull \hbox (badness 2478) in paragraph at lines 64--67
-[]\TU/LinLibertine(0)/m/n/10.95 VMware, “vrealize automation architecture.” [En línea]. Disponible
- []
-
-
-Underfull \hbox (badness 1147) in paragraph at lines 64--67
-\TU/LinLibertine(0)/m/n/10.95 en: [][]$[][][][][] [] [] [] [][][][] [] [][][][][][] [] [][][] [] [][] [] [][][][][][] [][] [][][][][][][][][] [][] [][][][][][] [] [] [] [] [] [][][] [] [][][][][][] [] [][][] []
- []
-
-
-Underfull \hbox (badness 1122) in paragraph at lines 70--73
+Underfull \hbox (badness 1122) in paragraph at lines 58--61
 []\TU/LinLibertine(0)/m/n/10.95 V. C. Foundation, “Vmware software licenses.” [En línea]. Disponi-
  []
 
 
-Underfull \hbox (badness 7397) in paragraph at lines 76--79
+Underfull \hbox (badness 7397) in paragraph at lines 64--67
 []\TU/LinLibertine(0)/m/n/10.95 VMware, “Managing resource pools.” [En línea]. Disponi-
  []
 
-) [57] [58
+) [55] [56
 
 ]
 The property list \polyglossia@langsetup contains the pairs (without outer
@@ -1992,7 +1983,7 @@ LaTeX Info: Redefining \ttfamily on input line 15.
 LaTeX Info: Redefining \rmfamily on input line 20.
 LaTeX Info: Redefining \sffamily on input line 20.
 LaTeX Info: Redefining \ttfamily on input line 20.
- (portada/resumo.aux) (contido/introducion.aux) (contido/estadoInfraestructuraSistema.aux) (contido/planificacionProyecto.aux) (contido/metodoloxia.aux) (bibliografia/glosario.aux))
+ (portada/resumo.aux) (contido/introducion.aux) (contido/estadoRecursos.aux) (contido/planificacionProyecto.aux) (contido/metodoloxia.aux) (bibliografia/glosario.aux))
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 123.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 123.
 Package rerunfilecheck Info: File `memoria_tfg.out' has not changed.
@@ -2003,12 +1994,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 30275 strings out of 414071
- 585194 string characters out of 2894592
- 879936 words of memory out of 3000000
- 47427 multiletter control sequences out of 15000+200000
+ 30269 strings out of 414071
+ 584896 string characters out of 2894592
+ 879906 words of memory out of 3000000
+ 47421 multiletter control sequences out of 15000+200000
  544797 words of font info for 119 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 73i,11n,111p,2372b,648s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 73i,11n,111p,2372b,563s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (67 pages, 1108972 bytes).
+Output written on memoria_tfg.xdv (65 pages, 1073144 bytes).

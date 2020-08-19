@@ -185,7 +185,7 @@ Para poder usar este software es necesaria la adquisición de licencias, estas s
 %     \item \textbf{Capa de Continuidad del Servicio}: Contiene elementos que ayudan a que el servicio se mantenga activo y a evitar la pérdida de información crítica, proveyendo copias de seguridad, restauración y recuperación ante desastres.
 %     \item \textbf{Capa de Seguridad}: Se encarga de que todos los componentes de la infraestructura estén bien delimitados para establecer un nivel de seguridad.
 % \end{itemize}
-Ya se ha visto que VCF está formado por cuatro productos principales de VMware. En este apartado se describirán las características de esos cuatro componentes más el servicio que los coordina\footnote{Las características del componente VMware vSphere son las mismas que las descritas en el punto \ref*{subsec:softwareinstalado}}. Se utilizará la versión 4.0 de VMware Cloud Foundation.
+Ya se ha visto que VCF está formado por cuatro productos principales de VMware. En este apartado se describirán las características de esos cuatro componentes más el servicio que los coordina\footnote{Las características del componente VMware vSphere son las mismas que las descritas en el punto \ref*{subsec:softwareinstalado}}. Se utilizará la versión 4.0 de VMware Cloud Foundation lo cual implica que se implementarán las versiones 4.0 de SDDC Manager, 7.0.0 de VMware vSphere, 7.0.0 de VMware vSAN, 3.0 de VMware NSX-T y 8.1 de VMware vRealize Suite.
 % En VMware Cloud Foundation existen diversos productos y servicios, algunos son requeridos para construir la instancia mínima de un SDDC y otros ofrecen servicios adicionales que incrementan el rendimiento de la infraestructura. A continuación se describen aquellos componentes necesarios para la instalación mínima de VMware Cloud Foundation y que se usarán en la implementación de este proyecto:
 \begin{subsubsection}{SDDC Manager}
     SDDC Manager se encarga de gestionar el ciclo de vida de todos los componentes de VCF, esto incluye el despliegue de cada uno, su configuración y la obtención e instalación de actualizaciones. Centraliza la gestión de las licencias y certificados de cada componente y administra el aprovisionamiento de nuevos recursos físicos para el SDDC y los ya existentes.
@@ -201,7 +201,13 @@ Ya se ha visto que VCF está formado por cuatro productos principales de VMware.
     \FloatBarrier
 \end{subsubsection}
 
-\begin{itemize}
+\begin{subsubsection}{VMware NSX-T}
+    VMware NSX-T virtualiza la red del SDDC. Abstrae los componentes físicos de la red para generar una red virtual desacoplada de la infraestructura física que se puede configurar sin modificar la red física, para ello aporta servicios de red virtualizados y la posibilidad de crear y extender subredes. Internamente está formado por varias instancias de \textbf{NSX-T Manager Appliance} que a su vez se compone de \textit{NSX-T Manager} y \textbf{NSX-T Controller}. El primero es el punto de acceso a la configuración de VMware NSX-T y el que almacena y transmite la configuración establecida, el segundo controla las redes y servicios virtuales aportando la información y configuración necesarias para que gestionen el tráfico correctamente y obteniendo estadísticas sobre este. El control del tráfico y la monitorización de las conexiones se hace desde el componente \textbf{Transport Node} (TN) con la información que recibe de las instancias de NSX-T Controller. Existen dos tipos de TNs, \textbf{Hypervisor Transport Node} que son nodos con ESXi instalado y que están configurados para correr los servicios de VMware NSX-T, y \textbf{NSX-T Edge Node} que se trata de una \textit{appliance} instalada en una VM o sobre un nodo físico para proveer un conjunto de servicios de red centralizados para las redes virtuales de VMware NSX-T.
+\end{subsubsection}
+\begin{subsubsection}{VMware vRealize Suite}
+    VMware vRealize Suite agrupa un conjunto de productos que si bien no son obligatorios para desplegar VCF, aportan funcionalidades extra que completan la formación del SDDC. Los productos que se utilizarán en este proyecto son \textbf{vRealize Suite Lifecycle Manager} dedicado a gestionar el desliegue, actualizaciones, certificados y licencias de los productos que forman VMware vRealize, \textbf{Workspace One Access} dedicado a gestionar los usuarios y ser el punto de acceso centralizado de las aplicaciones de VMware vRealize y, finalmente, \textbf{vRealize Automation} el cual permite a los usuarios del SDDC diseñar y aprovisionar un conjunto de recursos de la infraestructura según sus necesidades y de forma automatizada mientras el administrador puede limitar la cantidad de recursos que se consumen.
+\end{subsubsection}
+% \begin{itemize}
     % \item \textbf{SDDC Manager}: gestiona el ciclo de vida de todos los componentes del sistema, incluyendo el proceso inicial de despliegue de Cloud Foundation, su configuración y aprovisionamiento, y las actualizaciones. Monitoriza los recursos físicos y lógicos de la infraestructura, facilita su configuración y permite añadir nuevos recursos cuando sea necesario. \iffalse Todo esto lo realiza mediante flujos de trabajo que facilitan la detección de orígenes de errores.\fi
     % \item \textbf{vSphere}: ya está incluído en el servicio actual [\ref{subsec:softwareinstalado}].
     % \item \textbf{VMware vSAN}: componente clave que virtualiza el almacenamiento. Como ya se ha explicado, el almacenamiento del servicio actual está configurado con LUNs que se deben gestionar individualmente en una capa distinta a los componentes software, provocando que su configuración sea más compleja y costosa. El objetivo de VMware vSAN es gestionar de forma automatizada y desde un único lugar el sistema de almacenamiento de la infraestructura, tratando toda la capacidad y recursos de almacenamiento como un único elemento, eliminando así la necesidad de tener que crear LUNs aisladas, consiguiendo abstraer la configuración de almacenamiento de la capa física en la capa de software y permitiendo establecer políticas de almacenamiento desde cada máquina virtual para adecuarlo a las necesidades de cada una, sin tener que editar la configuración real del entorno físico. Así el rendimiento de los recursos de almacenamiento es más eficiente, flexible y su configuración se integra dentro del mismo servicio junto con la gestión del resto de componentes. \\
@@ -225,43 +231,43 @@ Ya se ha visto que VCF está formado por cuatro productos principales de VMware.
     % Los hosts acceden al \textit{datastore} de vSAN mediante protocolo IP en una red accesible por todos los nodos. \\ 
     % Este componente permite reducir las tareas de gestión del almacenamiento físico ya que ya no es necesario hacer ajustes en la capa física para cumplir unos requisitos en la capa software.
    
-    \item \textbf{VMware NSX-T}: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes de la red para desacoplar la configuración de la red física y la red virtual del SDDC simplificando así las operaciones en la infraestructura física. Con esto, los administradores pueden configurar la red del SDDC sin tener en cuenta el equipamiento físico ya que trabajan con una red virtual independiente de la red física sobre la que funciona.
-    \iffalse
-    Incluye servicios de red como firewall, elimina el tráfico  DNS, DHCP, VPN, NAT, enrutamiento, balanceo de carga, o switching, que permiten reducir la cantidad de dispositivos físicos de red.\\
-    \fi
-    Los componentes de VMware NSX-T se agrupan en tres capas/planos\cite{componentesNSX}:
-    \begin{itemize}
-        \item \textbf{Management Plane}: desde este punto se gestiona la conectividad, seguridad y operaciones de los componentes del sistema a través de un inventario de objetos, proporciona una interfaz y una API para acceder acceder a los componentes de VMware NSX-T, almacena y transmite la configuración del sistema al \textit{Control Plane} y obtiene información del sistema como estadísticas de uso. Estas funciones son implementadas por el componente \textbf{NSX-T Manager}.
+%     \item \textbf{VMware NSX-T}: otro de los componentes clave. Tiene un papel similar a vSAN, pero en este caso se encarga de virtualización de los componentes físicos de la red de la infraestructura, es decir, abstrae los componentes de la red para desacoplar la configuración de la red física y la red virtual del SDDC simplificando así las operaciones en la infraestructura física. Con esto, los administradores pueden configurar la red del SDDC sin tener en cuenta el equipamiento físico ya que trabajan con una red virtual independiente de la red física sobre la que funciona.
+%     % \iffalse
+%     % Incluye servicios de red como firewall, elimina el tráfico  DNS, DHCP, VPN, NAT, enrutamiento, balanceo de carga, o switching, que permiten reducir la cantidad de dispositivos físicos de red.\\
+%     % \fi
+%     Los componentes de VMware NSX-T se agrupan en tres capas/planos\cite{componentesNSX}:
+%     \begin{itemize}
+%         \item \textbf{Management Plane}: desde este punto se gestiona la conectividad, seguridad y operaciones de los componentes del sistema a través de un inventario de objetos, proporciona una interfaz y una API para acceder acceder a los componentes de VMware NSX-T, almacena y transmite la configuración del sistema al \textit{Control Plane} y obtiene información del sistema como estadísticas de uso. Estas funciones son implementadas por el componente \textbf{NSX-T Manager}.
             
-            % \begin{itemize}
-            %     \item \textbf{NSX-T Manager}: es el punto desde donde se administran todos los componentes de NSX. Existe una instancia de NSX Manager por cada instancia de vCenter Server. Contiene los archivos necesarios para desplegar el resto de componentes de NSX (NSX Edge Services Gateway y NSX Controller), y, cuando es creado, se encarga de habilitar las funcionalidades VXLAN sobre capa 2, Distributed Router y \textit{User World Agent} (UWA) en todos los hosts ESXi. Genera certificados para cada instancia de NSX Controller y host ESXi que utiliza para asegurar las comunicaciones en el \textit{Control Plane}.
-            % \end{itemize}
-        \item \textbf{Control Plane}: este plano comunica al cada componente la configuración establecida desde \textit{Management Plane}. Además, se encarga de obtener información sobre la topología de la red desde el \textit{Data Plane}. Este plano se divide en dos partes:
-            \begin{itemize}
-                \item \textit{Central Control Plane} (CCP): implementado por un cluster de varias VM donde cada una contiene el componente \textbf{NSX-T Controller}, el cual es el encargado de controlar las redes virtuales existentes y de proveer de configuración a otros componentes como \textit{logical switches}, \textit{logical routers} y \textit{edge nodes}. El componente \textbf{NSX-T Controller} está integrado, junto con el componente \textbf{NSX-T Manager}, en una única \textit{appliance} denominada \textbf{NSX-T Manager Appliance}
-                \item \textit{Local Control Plane} (LCP): este plano lo implementan los \textbf{transport nodes} y es responsable de monitorizar los enlaces locales y de reenviar entradas de configuración a los componentes del \textit{Data Plane}.
-            \end{itemize}
-            % \begin{itemize}
-            %     \item \textbf{NSX Controller}: se encarga de almacenar y transmitir información sobre la red a cada hosts ESXi. Provee la información sobre los segmentos VXLAN existentes, la información sobre el enrutamiento en la red virtual, almacena las tablas ARP, MAC y VTEP. Esto permite que se pueda eliminar el tráfico Broadcast de las redes VXLAN, ya que este tipo de tráfico es generado por las máquinas virtuales y capturado por el host ESXi que lo reenvía a la instancia de NSX Controller para obtener la información requerida. También elimina la necesidad de configurar los protocolos Multicast Routing y \textit{Protocol Independent Multicast} (PIM) para implementar redes VXLAN. Se despliegan tres instancias de NSX Controller para proveer alta disponibilidad.
-            %     \iffalse
-            %     \item \textit{User World Agent} (UWA): proceso que usa una instancia de NSX Controller para comunicarse con cada host ESXi a través de su dirección IP en la red
-            %     \fi
-            %     \item \textbf{Logical Router Control}: se trata de una máquina virtual que se genera cada vez que se crea el componente Distributed Logical Router. Busca routers adyacentes, tanto físcos como virtuales, para formar tablas de enrutamiento que se envían a NSX Manager que las comunica al resto de dispostivos.
-            % \end{itemize}
-        \item \textbf{Data Plane}: este plano es responsable de retransmitir el tráfico por la red basándose en lass tablas  y reglas generadas por el \textit{Control Plane}. También informa al \textit{Control Plane} sobre la topología de la red, recopila estadísticas a nivel de paquete y controla el estado de los enlaces para resolver posibles fallos. En definitiva, el \textit{Data Plane} se centra en como gestionar los paquetes que circulan por la red. Está implementado por dos tipos de \textbf{transport nodes} (TN):
-        \begin{itemize}
-            \item \textit{Hypervisor Transpor Node}: son los hosts con el hipervisor ESXi y que utilizan VMware NSX-T para proveer servicios de red a las VM que funcionan sobre sobre el host.
-            \item \textit{VMware NSX-T Edge Node}: también llamado \textit{Edge Node}, se trata de una \textit{appliance} instalado sobre un servidor físico o en forma de VM, que provee al entorno de una serie de servicios de red centralizados.
-        \end{itemize}
-VMware NSX-T inlcuye otros componentes:
-    \begin{itemize}
-        \item \textbf{NSX-T Virtual Distributed Switch} (N-VDS): funciona sobre el hipervisor ESXi de cada host y es el encargado de retransmitir el tráfico entre las VM que se encuentran dentro de un mismo \textit{transport node} y desde una VM a la red física de la infraestructura.
-        \item \textbf{Logical Router}: Integra dos componentes, \textbf{Distributed Router} (DR) proporciona conectividad entre las redes virtuales que se crean dentro del SDDC funciona de forma distribuída en los \textit{transport nodes}), y \textbf{Service Router} (SR) da conectividad hacia redes redes externas al SSDC y ofrece una serie de servicios centralizados, NAT y DHCP entre otros.
-        \item \textbf{Logical Firewall}: NSX-T permite establecer reglas para gestionar el tráfico de entrada y de salida del SDDC. Estas reglas se pueden establecer a nivel de \textit{Layer 2} o \textit{Layer 3} de la red.
-        \item \textbf{Logical Load Balancer}: se encarga de distribuir el tráfico que recibe a los componentes correspondientes, permitiendo desacoplar el acceso a un servicio de su implementación. Esto permite que un servicio se pueda escalar y ofrecer alta disponibilidad.
-    \end{itemize}
+%             % \begin{itemize}
+%             %     \item \textbf{NSX-T Manager}: es el punto desde donde se administran todos los componentes de NSX. Existe una instancia de NSX Manager por cada instancia de vCenter Server. Contiene los archivos necesarios para desplegar el resto de componentes de NSX (NSX Edge Services Gateway y NSX Controller), y, cuando es creado, se encarga de habilitar las funcionalidades VXLAN sobre capa 2, Distributed Router y \textit{User World Agent} (UWA) en todos los hosts ESXi. Genera certificados para cada instancia de NSX Controller y host ESXi que utiliza para asegurar las comunicaciones en el \textit{Control Plane}.
+%             % \end{itemize}
+%         \item \textbf{Control Plane}: este plano comunica al cada componente la configuración establecida desde \textit{Management Plane}. Además, se encarga de obtener información sobre la topología de la red desde el \textit{Data Plane}. Este plano se divide en dos partes:
+%             \begin{itemize}
+%                 \item \textit{Central Control Plane} (CCP): implementado por un cluster de varias VM donde cada una contiene el componente \textbf{NSX-T Controller}, el cual es el encargado de controlar las redes virtuales existentes y de proveer de configuración a otros componentes como \textit{logical switches}, \textit{logical routers} y \textit{edge nodes}. El componente \textbf{NSX-T Controller} está integrado, junto con el componente \textbf{NSX-T Manager}, en una única \textit{appliance} denominada \textbf{NSX-T Manager Appliance}
+%                 \item \textit{Local Control Plane} (LCP): este plano lo implementan los \textbf{transport nodes} y es responsable de monitorizar los enlaces locales y de reenviar entradas de configuración a los componentes del \textit{Data Plane}.
+%             \end{itemize}
+%             % \begin{itemize}
+%             %     \item \textbf{NSX Controller}: se encarga de almacenar y transmitir información sobre la red a cada hosts ESXi. Provee la información sobre los segmentos VXLAN existentes, la información sobre el enrutamiento en la red virtual, almacena las tablas ARP, MAC y VTEP. Esto permite que se pueda eliminar el tráfico Broadcast de las redes VXLAN, ya que este tipo de tráfico es generado por las máquinas virtuales y capturado por el host ESXi que lo reenvía a la instancia de NSX Controller para obtener la información requerida. También elimina la necesidad de configurar los protocolos Multicast Routing y \textit{Protocol Independent Multicast} (PIM) para implementar redes VXLAN. Se despliegan tres instancias de NSX Controller para proveer alta disponibilidad.
+%             %     \iffalse
+%             %     \item \textit{User World Agent} (UWA): proceso que usa una instancia de NSX Controller para comunicarse con cada host ESXi a través de su dirección IP en la red
+%             %     \fi
+%             %     \item \textbf{Logical Router Control}: se trata de una máquina virtual que se genera cada vez que se crea el componente Distributed Logical Router. Busca routers adyacentes, tanto físcos como virtuales, para formar tablas de enrutamiento que se envían a NSX Manager que las comunica al resto de dispostivos.
+%             % \end{itemize}
+%         \item \textbf{Data Plane}: este plano es responsable de retransmitir el tráfico por la red basándose en lass tablas  y reglas generadas por el \textit{Control Plane}. También informa al \textit{Control Plane} sobre la topología de la red, recopila estadísticas a nivel de paquete y controla el estado de los enlaces para resolver posibles fallos. En definitiva, el \textit{Data Plane} se centra en como gestionar los paquetes que circulan por la red. Está implementado por dos tipos de \textbf{transport nodes} (TN):
+%         \begin{itemize}
+%             \item \textit{Hypervisor Transpor Node}: son los hosts con el hipervisor ESXi y que utilizan VMware NSX-T para proveer servicios de red a las VM que funcionan sobre sobre el host.
+%             \item \textit{VMware NSX-T Edge Node}: también llamado \textit{Edge Node}, se trata de una \textit{appliance} instalado sobre un servidor físico o en forma de VM, que provee al entorno de una serie de servicios de red centralizados.
+%         \end{itemize}
+% VMware NSX-T inlcuye otros componentes:
+%     \begin{itemize}
+%         \item \textbf{NSX-T Virtual Distributed Switch} (N-VDS): funciona sobre el hipervisor ESXi de cada host y es el encargado de retransmitir el tráfico entre las VM que se encuentran dentro de un mismo \textit{transport node} y desde una VM a la red física de la infraestructura.
+%         \item \textbf{Logical Router}: Integra dos componentes, \textbf{Distributed Router} (DR) proporciona conectividad entre las redes virtuales que se crean dentro del SDDC funciona de forma distribuída en los \textit{transport nodes}), y \textbf{Service Router} (SR) da conectividad hacia redes redes externas al SSDC y ofrece una serie de servicios centralizados, NAT y DHCP entre otros.
+%         \item \textbf{Logical Firewall}: NSX-T permite establecer reglas para gestionar el tráfico de entrada y de salida del SDDC. Estas reglas se pueden establecer a nivel de \textit{Layer 2} o \textit{Layer 3} de la red.
+%         \item \textbf{Logical Load Balancer}: se encarga de distribuir el tráfico que recibe a los componentes correspondientes, permitiendo desacoplar el acceso a un servicio de su implementación. Esto permite que un servicio se pueda escalar y ofrecer alta disponibilidad.
+%     \end{itemize}
         
-\FloatBarrier
+% \FloatBarrier
         % \item \textbf{Data Plane}: está controlado por NSX Virtual Switch el cual extiende las funcionalidades de vSphere Distributed Router, clave para la virtualización de la red. Estas características son:
         %     \begin{itemize}
         %         \item \textbf{Distributed Firewall}: filtra el tráfico con un servicio de Firewall, permitiendo segmentar las máquinas virtuales estableciendo políticas según sus características. Está distribuído en todos los hosts ESXi.
@@ -270,7 +276,7 @@ VMware NSX-T inlcuye otros componentes:
         %         \item \textbf{Logical Switch}: se definen dentro del componente vSphere Distributed Switch sobre un \textit{portgroup}. Crea segmentos de red ya que tiene una VXLAN asignada, es decir, un segmento/red VXLAN está delimitada por un Logical Switch. Está distribuido en cada host ESXi\footnote{El Logical Switch se extiende en toda la \textit{transport zone} de la VXLAN a la que pertenece, esta define el alcance de un segmento VXLAN que puede extenderse en varios clusters pertenecientes a una instancia de vCenter Server.}.
         %         \item \textbf{Edge Services Gateway} (ESG): es una máquina virtual que se encarga de enrutar el tráfico hacia redes externas al SDDC, por lo tanto está conectado con el DLR y con el dispositivo físico de enrutamiento de capa 3. Provee servicios perimetrales como SSL, NAT, DHCP, VPN y Load Balancing.
         %     \end{itemize}
-    \end{itemize}
+    %\end{itemize}
     
         % \begin{figure}[h!]
         %     \centering
@@ -296,16 +302,14 @@ VMware NSX-T inlcuye otros componentes:
     %     \item \textbf{Load Balancer}: simplifica la configuración de la alta disponibilidad cuando hay nodos worker desplegados. Se encarga de recibir las peticiones de los clientes, de entregarlas a los nodos worker y de enviar la respueste. También gestiona el balanceo del tráfico entrante entre todos los nodos y de escoger el nodo \textit{master}. Se ejecuta en uno de los nodos de VMware vRealize Log Insight.
     % \end{itemize}
     
-    \item \textbf{VMware vRealize Automation}: se trata de un componente opcional que permite automatizar el despliegue de máquinas virtuales, procesos y aplicaciones reduciendo la complejidad y eliminando tareas manuales. Esto acelera la entrega del servicio gracias a que las tareas de aprovisionamiento y entrega de recursos y aplicaciones son más rápidas permitiendo establecer políticas de seguridad y control. Internamente, este servicio \underline{cuenta con los siguientes componentes \cite{vRealizeAutomation}} para cumplir con sus funciones:
-    \begin{itemize}
-        \item \textbf{vRealize Automation Appliance}: contiene un portal donde los usuarios pueden acceder y gestionar y aprovisionar servicios cloud bajo demanda, un servicio de autenticación y una interfaz para gestionar este componente. 
-        \item \textbf{IaaS Web Server}: realiza las tareas de administración de la infraestructura que se requieren desde el portal de vRealize Automation Appliance.
-        \item \textbf{Microsoft SQL Server}: se utiliza para almacenar información sobre los elementos de IaaS y sobre las máquinas virtuales controladas por vRealize Automation Appliance.
-    \end{itemize}
-\end{itemize}
+%     \item \textbf{VMware vRealize Automation}: se trata de un componente opcional que permite automatizar el despliegue de máquinas virtuales, procesos y aplicaciones reduciendo la complejidad y eliminando tareas manuales. Esto acelera la entrega del servicio gracias a que las tareas de aprovisionamiento y entrega de recursos y aplicaciones son más rápidas permitiendo establecer políticas de seguridad y control. Internamente, este servicio \underline{cuenta con los siguientes componentes \cite{vRealizeAutomation}} para cumplir con sus funciones:
+%     \begin{itemize}
+%         \item \textbf{vRealize Automation Appliance}: contiene un portal donde los usuarios pueden acceder y gestionar y aprovisionar servicios cloud bajo demanda, un servicio de autenticación y una interfaz para gestionar este componente. 
+%         \item \textbf{IaaS Web Server}: realiza las tareas de administración de la infraestructura que se requieren desde el portal de vRealize Automation Appliance.
+%         \item \textbf{Microsoft SQL Server}: se utiliza para almacenar información sobre los elementos de IaaS y sobre las máquinas virtuales controladas por vRealize Automation Appliance.
+%     \end{itemize}
+% \end{itemize}
 
-**Decir como se puede implementar un sistema de facturación.*******\\
-**Como se puede conectar los usuarios de la UDC.********
 
 
 

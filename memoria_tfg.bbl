@@ -53,18 +53,6 @@ V.~vSAN, ``vsan disk groups and data storage architecture: Hybrid or
   \url{https://youtu.be/PDcLgV37FP4?list=PLjwkgfjHppDux1XhPB8pW3vS43Aglfq2c}
 \BIBentrySTDinterwordspacing
 
-\bibitem{componentesNSX}
-\BIBentryALTinterwordspacing
-P.~Cerda, ``Nsx: Arquitectura y componentes.'' [En línea]. Disponible en:
-  \url{https://patriciocerda.com/nsx-arquitectura-y-componentes/}
-\BIBentrySTDinterwordspacing
-
-\bibitem{vRealizeAutomation}
-\BIBentryALTinterwordspacing
-VMware, ``vrealize automation architecture.'' [En línea]. Disponible en:
-  \url{https://docs.vmware.com/en/VMware-Validated-Design/4.3/com.vmware.vvd.sddc-design.doc/GUID-73A3C12D-5F2E-4CE1-82D0-136218771065.html}
-\BIBentrySTDinterwordspacing
-
 \bibitem{licenses}
 \BIBentryALTinterwordspacing
 V.~C. Foundation, ``Vmware software licenses.'' [En línea]. Disponible en:
