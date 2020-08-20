@@ -352,6 +352,7 @@ INPUT C:\Users\amaro\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
 INPUT imaxes\cap2recursos\overviewCF.png
 INPUT imaxes\cap2recursos\SDDCoverview.png
 INPUT imaxes\cap2recursos\rendimientoVSAN.png
+INPUT imaxes\VCF-componentes\nsx-t-layers.png
 OUTPUT contido\planificacionProyecto.aux
 INPUT contido\planificacionProyecto.tex
 INPUT contido\planificacionProyecto.tex

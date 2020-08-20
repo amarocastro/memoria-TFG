@@ -88,11 +88,17 @@ Para poder usar este software es necesaria la adquisición de licencias, estas s
     \FloatBarrier
 \end{subsection}
 
-\begin{subsection}{Componentes de VMware Cloud Foundation \cite{componentesCloudFound}}
+\begin{subsection}{Componentes de VMware Cloud Foundation}
 \label{subsubsect:cfcomponents}
 
-Ya se ha visto que VCF está formado por cuatro productos principales de VMware. En este apartado se describirán las características de esos cuatro componentes más el servicio que los coordina\footnote{Las características del componente VMware vSphere son las mismas que las descritas en el punto \ref*{subsec:softwareinstalado}}. Se utilizará la versión 4.0 de VMware Cloud Foundation lo cual implica que se implementarán las versiones 4.0 de SDDC Manager, 7.0.0 de VMware vSphere, 7.0.0 de VMware vSAN, 3.0 de VMware NSX-T y 8.1 de VMware vRealize Suite.
-
+Ya se ha visto que VCF está formado por cuatro productos principales de VMware. En este apartado se describirán las características de esos cuatro componentes más el servicio que los coordina\footnote{Las características del componente VMware vSphere son las mismas que las descritas en el punto \ref*{subsec:softwareinstalado}}. Se utilizará la versión 4.0 de VMware Cloud Foundation lo cual implica que se implementarán las versiones\cite{componentesCloudFound} 4.0 de SDDC Manager, 7.0.0 de VMware vSphere, 7.0.0 de VMware vSAN, 3.0 de VMware NSX-T y 8.1 de VMware vRealize Suite.
+\begin{figure}[h]
+    \centering
+        \includegraphics[width=0.6\textwidth]{imaxes/VCF-componentes/ComponentesVCF.png}
+        \caption{Partes de un SDDC y componentes de VCF que las implementan.}
+        \label{fig:componentes-funciones-VCF}
+    \end{figure}
+    \FloatBarrier
 \begin{subsubsection}{SDDC Manager}
     SDDC Manager se encarga de gestionar el ciclo de vida de todos los componentes de VCF, esto incluye el despliegue de cada uno, su configuración y la obtención e instalación de actualizaciones. Centraliza la gestión de las licencias y certificados de cada componente y administra el aprovisionamiento de nuevos recursos físicos para el SDDC y los ya existentes.
 \end{subsubsection}
@@ -100,7 +106,7 @@ Ya se ha visto que VCF está formado por cuatro productos principales de VMware.
 \begin{subsubsection}{VMware vSAN}
     VMware vSAN virtualiza el almacenamiento del SDDC. Permite gestionar de forma centralizada desde la interfaz de vSphere Web Client el sistema de almacenamiento sin necesidad de tener que modificar la configuración física, como es el caso de las LUNs de la infraestructura actual. Trata todos los recursos de almacenamiento como un único elmento denominado \textit{datastore} sobre el cual se pueden establecer políticas incluso a nivel de VM lo cual aporta gran flexibilidad. El acceso por parte de cada nodo al \textit{datastore} se realiza con el protocolo IP a través de una subred dedicada al servicio. Con VMware vSAN, el \textit{datastore} esta formado por discos de almacenamiento se organizan en grupos ligados a un nodo (un máximo de cinco grupos por nodo). Los grupos pueden tener configuración \textit{Hybrid} que combinia discos HDD y SDD, o configuración \textit{All-Flash} que solo utiliza SSD y por lo tanto tiene mayor rendimiento. Dentro de cada grupo existe un disco de caché y al menos un disco de capacidad donde se almacenan los datos persistentes\cite{operacionesVSAN}. En el modo \textit{All-Flash}\footnote{Solo se describe el modo \textit{All-Flash} porque es la configuración recomendada por VMware.} la operación de lectura se realiza directamente sobre los discos de capacidad y la operación de escritura se hace sobre el disco caché que posteriormente escribe los datos en el disco de capacidad.
     
-    \begin{figure}[h!]
+    \begin{figure}[h]
     \centering
         \includegraphics[width=0.6\textwidth]{imaxes/cap2recursos/rendimientoVSAN.png}
         \caption{Configuración \textit{All-Flash} y configuración \textit{Hybrid} en vSAN}
@@ -111,6 +117,13 @@ Ya se ha visto que VCF está formado por cuatro productos principales de VMware.
 
 \begin{subsubsection}{VMware NSX-T}
     VMware NSX-T virtualiza la red del SDDC. Abstrae los componentes físicos de la red para generar una red virtual desacoplada de la infraestructura física que se puede configurar sin modificar la red física, para ello aporta servicios de red virtualizados y la posibilidad de crear y extender subredes. Internamente está formado por varias instancias de \textbf{NSX-T Manager Appliance} que a su vez se compone de \textit{NSX-T Manager} y \textbf{NSX-T Controller}. El primero es el punto de acceso a la configuración de VMware NSX-T y el que almacena y transmite la configuración establecida, el segundo controla las redes y servicios virtuales aportando la información y configuración necesarias para que gestionen el tráfico correctamente y obteniendo estadísticas sobre este. El control del tráfico y la monitorización de las conexiones se hace desde el componente \textbf{Transport Node} (TN) con la información que recibe de las instancias de NSX-T Controller. Existen dos tipos de TNs, \textbf{Hypervisor Transport Node} que son nodos con ESXi instalado y que están configurados para correr los servicios de VMware NSX-T, y \textbf{NSX-T Edge Node} que se trata de una \textit{appliance} instalada en una VM o sobre un nodo físico para proveer un conjunto de servicios de red centralizados para las redes virtuales de VMware NSX-T.
+    \begin{figure}[h!]
+        \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/VCF-componentes/nsx-t-layers.png}
+            \caption{Componentes de VMware NSX-T y capas en las que se dividen}
+            \label{fig:nsx-t-components}
+        \end{figure}
+        \FloatBarrier
 \end{subsubsection}
 
 \begin{subsubsection}{VMware vRealize Suite}

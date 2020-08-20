@@ -21,12 +21,6 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{componentesCloudFound}
-\BIBentryALTinterwordspacing
-VmWare, ``Cloud foundation components.'' [Online]. Available:
-  \url{https://docs.vmware.com/en/VMware-Cloud-Foundation/3.0/com.vmware.vcf.ovdeploy.doc_30/GUID-07411CF9-AD3F-43EA-A348-A89940C2D4A2.html}
-\BIBentrySTDinterwordspacing
-
 \bibitem{fotovSphere}
 \BIBentryALTinterwordspacing
 ``Vmware vsphere entreprise edition datasheet.'' [Online]. Available:
@@ -44,6 +38,12 @@ T.~G. Peter~Mell, ``{The NIST Definition of Cloud Computing}.'' [En línea].
 \BIBentryALTinterwordspacing
 CITC, ``{Centro de Procesado de Datos}.'' [En línea]. Disponible en:
   \url{https://www.citic.udc.es/instalacion/centro-de-despliegue.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{componentesCloudFound}
+\BIBentryALTinterwordspacing
+VmWare, ``Cloud foundation components.'' [En línea]. Disponible en:
+  \url{https://docs.vmware.com/en/VMware-Cloud-Foundation/4.0/rn/VMware-Cloud-Foundation-40-Release-Notes.html#swversions}
 \BIBentrySTDinterwordspacing
 
 \bibitem{operacionesVSAN}
