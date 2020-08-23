@@ -1,4 +1,4 @@
-\chapter{Introducción}
+\begin{chapter}{Introducción}
 \label{chap:introducion}
 \lettrine{S}{egún} \textit{National Institute of Standards and Technology} (NIST), el Cloud Computing es un \textquote{modelo de recursos configurables y compartidos, accesibles através de la red bajo demanda y desde cualquier lugar en cualquier momento}\cite{DefCloudComputing}. Las principales características de este modelo son\label{nist}:
 \begin{itemize}
@@ -9,10 +9,10 @@
     \item \emph{Servicio medido}: El sistema Cloud es capaz de aportar información sobre los recursos que el cliente tiene aprovisionados, que pueden ser almacenamiento, ancho de banda, procesamiento, y usuarios activos.
 \end{itemize}
  
- El Centro de Investigación en Tecnoloxías da Información e as Comunicacións (CITIC) de la Universidade da Coruña tiene en sus instalaciones una infraestructura construida para ofrecer un servicio Cloud al personal que trabaja allí y que así tengan acceso a hardware que no está disponible en dispositivos convencionales. Actualmente, esta infraestructura ya tiene instalado un software de la empresa VMware específico para crear y gestionar entornos virtuales, por lo que el servicio ya está activo pero no cuenta con las herramientas suficientes para ofrecerlo de forma abierta a todos los usuarios. Este permite aprovisionar recursos de un servidor en forma de máquinas virtuales con unas especificaciones determinas por el usuario para realizar tareas que precisan gran capacidad de cómputo, de almacenamiento, o de red.\\
+ El Centro de Investigación en Tecnoloxías da Información e as Comunicacións (CITIC) de la Universidade da Coruña tiene en sus instalaciones una infraestructura construida para ofrecer un servicio Cloud al personal que trabaja allí y que así tengan acceso a hardware que no está disponible en dispositivos convencionales. Actualmente, esta infraestructura ya tiene instalado un software de la empresa VMware específico para crear y gestionar entornos virtuales, por lo que el servicio ya está activo pero no cuenta con las herramientas suficientes para ofrecerlo de forma abierta a todos los usuarios. Este permite aprovisionar recursos de un servidor en forma de máquinas virtuales con unas especificaciones determinas por el usuario para realizar tareas que precisan gran capacidad de cómputo, de almacenamiento, o de red.
  
 Inicialmente, el sistema cuenta con una plataforma, a la que los usuarios no tienen acceso debido a la falta de perfiles de usuario, para obtener recursos de la infraestructura física bajo demanda. Esto tiene que ser realizado por el personal encargado de recibir sus peticiones y de activar máquinas virtuales solicitadas, un proceso no automático y lento.
-Aunque actualmente si que es posible la creación de un perfil para cada usuario, esto no es viable ya que tampoco dispondrían de un espacio propio dentro del servicio si no que tendrían visibilidad y acceso, dependiendo de sus permisos, a los recursos de otros usuarios, a parte de que la interfaz es compleja y poco intuitiva, difícil de manejar para un usuario que no sea administrador del servicio.\\
+Aunque actualmente si que es posible la creación de un perfil para cada usuario, esto no es viable ya que tampoco dispondrían de un espacio propio dentro del servicio si no que tendrían visibilidad y acceso, dependiendo de sus permisos, a los recursos de otros usuarios, a parte de que la interfaz es compleja y poco intuitiva, difícil de manejar para un usuario que no sea administrador del servicio.
 Por esto, el servicio no cumple con las características que define el NIST[\ref{nist}] para un servicio de Cloud Computing, especialmente en lo que se refiere al \emph{Autoservicio bajo demanda}, \emph{Elasticidad}, y \emph{Servicio medido}, así que, usando como base esta definición, es necesario desplegar un portal donde los usuarios puedan acceder, usando sus perfiles de la UDC para facilitar la administración. En este portal el usuario puede aprovisionar recursos en forma de máquinas virtuales, modificarlos como necesite, y monitorizarlos. Esto implica que los usuarios podrían aprovisionar gran cantidad de recursos que luego podrían ser infrautilizados no pudiendo ser aprovechados por otros usuarios, por esto también es necesario implementar un sistema que permita a los administradores medir, valorar y limitar de alguna forma la cantidad de recursos aprovisionados por un mismo usuario.\\
 
 Estas mejoras consiguen optimizar el uso de la infraestructura y aumentar su eficiencia debido a la automatización de gran parte de las operaciones que se repiten constantemente como el aprovisionamiento, gestión de usuarios, y creación de máquinas virtuales. Así se consigue un servicio más dinámico, útil y fácil de administrar y gestionar.
@@ -23,11 +23,11 @@ Estas mejoras consiguen optimizar el uso de la infraestructura y aumentar su efi
 %internas (sección \ref{sec:mostra}, páxina \pageref{sec:mostra}).
 
 
-\section{Motivación}
+\begin{section}{Motivación}
 La motivación para realizar este proyecto se basa en mejorar el servicio Cloud del CITIC para que aquellos usuarios que necesiten equipos de grandes prestaciones para sus tareas puedan conseguirlos de una forma sencilla y ágil al mismo tiempo que se mejora la gestión interna del servicio, y así reducir sus costes e incidencias a largo plazo. En definitiva, hacer que esta herramienta sea eficiente, útil y capaz de dar servicio a todos sus usuarios.
+\end{section}
 
-
-\section{Objetivos}
+\begin{section}{Objetivos}
 El objetivo general de este proyecto es crear un servicio piloto desplegando una herramienta sobre el sistema actual para hacerlo más eficiente y sacar el máximo potencial de toda la infraestructura y recursos administrativos que se encuentran disponibles tanto en el CITIC como en la UDC. Este servicio debe ser útil, ágil y accesible.
 Los objetivos concretos se pueden resumir en los siguientes:
 \begin{itemize}
@@ -36,4 +36,10 @@ Los objetivos concretos se pueden resumir en los siguientes:
     \item Implementar un sistema de valoración del servicio que permita limitar y controlar la cantidad de recursos que un usuario puede aprovisionar, y así evitar tener recursos ociosos.
     \item Documentar las soluciones desplegadas en el sistema para facilitar la transmisión de conocimiento a largo plazo.
 \end{itemize}
+\end{section}
 
+\begin{section}{Organización}
+    La documentación de este proyecto se divide en cinco capítulos. El primero es \ref{chap:estado-recursos-CITIC-VCF}.\nameref{chap:estado-recursos-CITIC-VCF} y en él se describe el hardware y el software que forman la infraestructura situada en el CITIC, la situación actual de la tecnología que se quiere implementar, las alternativas encontradas en el mercado y la descripción y componentes de la solución elegida. Posteriormente, en capítulo \ref{chap:planificacionProyecto}.\nameref{chap:planificacionProyecto} se describen las tareas y los costes de la realización del proyecto en base a la solución elegida en el capítulo anterior. Una vez expuestas las tareas del proyecto, en el capítulo \ref{chap:Metodologia}.\nameref{chap:Metodologia} se describen conceptos referidos a la infraestructura y arquitectura propios de la solución que se va a implementar, los requisitos físicos y servicios que la infraestructura debe proveer antes de realizar la implementación y, finalmente, la instalación y funcionalidades de los componentes de la solución dentro de un entorno de pruebas necesarios para cumplir los objetivos del proyecto.
+\end{section}
+
+\end{chapter}
