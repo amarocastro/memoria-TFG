@@ -256,6 +256,10 @@ INPUT contido\planificacionProyecto.aux
 INPUT contido\planificacionProyecto.aux
 INPUT contido\metodoloxia.aux
 INPUT contido\metodoloxia.aux
+INPUT anexos\notas.aux
+INPUT anexos\notas.aux
+INPUT bibliografia\acronimos.aux
+INPUT bibliografia\acronimos.aux
 INPUT bibliografia\glosario.aux
 INPUT bibliografia\glosario.aux
 OUTPUT memoria_tfg.aux
@@ -387,6 +391,13 @@ INPUT imaxes\pruebaconcepto\EstructuraInternaTiers.png
 INPUT contido\pruebaconcepto_vrealize.tex
 INPUT contido\pruebaconcepto_vrealize.tex
 INPUT imaxes\vRealize_pruebaconcepto\usuariosDefinidos.png
+INPUT imaxes\vRealize_pruebaconcepto\ComponentesVRA.png
+OUTPUT anexos\notas.aux
+INPUT anexos\notas.tex
+INPUT anexos\notas.tex
+OUTPUT bibliografia\acronimos.aux
+INPUT bibliografia\acronimos.tex
+INPUT bibliografia\acronimos.tex
 OUTPUT bibliografia\glosario.aux
 INPUT bibliografia\glosario.tex
 INPUT bibliografia\glosario.tex
@@ -405,6 +416,10 @@ INPUT contido\planificacionProyecto.aux
 INPUT contido\planificacionProyecto.aux
 INPUT contido\metodoloxia.aux
 INPUT contido\metodoloxia.aux
+INPUT anexos\notas.aux
+INPUT anexos\notas.aux
+INPUT bibliografia\acronimos.aux
+INPUT bibliografia\acronimos.aux
 INPUT bibliografia\glosario.aux
 INPUT bibliografia\glosario.aux
 INPUT .\memoria_tfg.out

@@ -8,58 +8,69 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{description}
- \item [Tenencia múltiple]: principio de la arquitectura de software donde una aplicación se sirve a varios clientes desde una misma instancia.
- \label{itm:tenenciamultiple}
- \item [SDDC]: \textit{Software Defined DataCenter} es un modelo de infraestructura donde se virtualiza la abstracción, gestión y automatización de todos los recursos y servicios de un centro de datos.
- \item [Hipervisor baremetal]: software instalado sobre el hardware de un servidor que permite instalar aplicaciones que funcionan sobre entornos virtuales directamente sobre el hardware.
+   % \item [Active Directory]: servicio de directorio de usuarios propio de Microsoft.
+   % \label{itm:active-directory}
+   \item [Appliance]: archivo que contiene una máquina virtual con un sistema operativo con el propósito de entregar una única aplicación preconfigurada.
+   \label{itm:appliance}
+   \item [BGP]\cite{bgp}: protocolo de enrutamiento que se utiliza para el intercambio de rutas entre Autonomous Systems (AS) de forma dinámica y así evitar configurarlas manualmente.
+   \label{itm:bgp}
+   \item [BUM]: se refiere al tráfico de red Broadcast, Unknown unicast y Multicast. El primero es tráfico que se transmite a todos los dispositivos disponibles en la red, Unknown Unicast es tráfico enviado a un único destinatario para el que no se conoce su dirección MAC dentro de una misma VLAN y Multicast es tráfico que se envía a los dispositivos que pertenecen a un grupo dentro de una red.
+   \label{itm:bum}
+   \item [Cluster]\cite{cluster-vmware}: agrupación de recursos de múltiples hosts que se gestionan como una única colección.
+   \label{itm:cluster}
+   \item [Controlador SFP+]: interfaz modular que permite conectar cables de fibra óptica a un dispositivo.
+   \label{itm:sfp}   
+  \item [CPD]: luegar donde se sitúan un conjunto recursos con gran capacidad de cómputo necesarios para procesar información, normalmente en grandes cantidades.
+  \label{itm:cpd}
+  \item [Datastore]: dentro de VMware vSphere, un datastore es un contenedor lógico que abstrae los componentes físicos de almacenamiento y provee un modelo uniforme para almacenar máquinas virtuales, plantillas o imágenes ISO.
+  \label{itm:datastore}
+  \item [Hipervisor baremetal]: software instalado sobre el hardware de un servidor que permite instalar aplicaciones que funcionan sobre entornos virtuales directamente sobre el hardware.
   \label{itm:baremetal}
- \item [Máquina virtual]: software que emula un conjunto de recursos físicos para ejecutar otro software de forma aislada.
+  \item [Host]: servidor físico en el que se ejecuta el hipervisor.
+  \label{itm:host}
+  \item [IaaS]\cite{computing}: servicio Cloud en el que se provee capacidad de aprovisionamiento de recursos de cómputo, almacenamiento y red, sobre los cuales se puede desplegar software.
+  \label{itm:iaas}
+  \item [iSCSI]: estándar que implementa el protocolo de transporte SCSI para transmitir datos entre dispositivos.
+  \label{iscsi}
+  \item [Jumbo Frame]\cite{jumbo-frames}: paquetes de red cuyo MTU es mayor que el valor definido en el estándar Ethernet, 1500.
+  \label{itm:jumboframe}
+  \item [LUN]: identifica una colección de dispositivos de almacenamiento que se presentan como un único volumen.
+  \label{itm:lun}
+  \item [Máquina virtual]: máquina que se ejecuta en un entorno virtualizado con hardware virtual detro de un hipervisor.
   \label{itm:vm}
- \item [Datastore]: contenedores que VMware vSphere utiliza para el almacenamiento archivos en un único lugar o a través de una red. Suelen utilizarse para almacenar ficheros de máquinas virtuales y puedent tener el formato VMFS, NFS o NAS.
- \label{itm:datastore}
- \item [Modelo multi-tenant]: es un modelo de desarrollo donde una misma aplicación se entrega a distintos usuarios sin hacer un desarrollo específico para cada uno de ellos.
- \label{itm:multitenant}
- \item [RAID 5]: Es un conjunto de discos duros que funciona como una única unidad de almacenamiento para aumentar el rendimiento y la eficiencia. RAID 5 necesita como mínimo tres discos duros, y distribuye la información de paridad en todos los discos (esta información permite recuperar datos corruptos a partir del resto de información no perdida).
- \label{itm:raid5}
- \item [Almacén de datos]
- \label{itm:almacendatos}
- \item [LUN]: \textit{Logical Unit Number} es un identificador que agrupa un agrupa un conjunto o subconjunto de almacenamiento físico o virtual. Puede asignarse a un disco completo o solo a una parte.
- \label{itm:lun}
- \item [Controlador SFP+]: módulo transceptor óptico que se utiliza en las telecomunicaciones y aplicaciones de transmisión de datos. Soportan Sonet, canal de Fibra y Gigabit Ethernet.
- \label{itm:sfp}
- \item [SAN]: \textit{Storage Area Network} es una red dedicada al almacenamiento, de alta velocidad con canal de Fibra o iSCSI, con equipos de conexión dedicados (p.e. switches) y con dispositivos de almacenamiento (discos duros). 
- \label{itm:san}
- \item [VMFS]: sistema de archivos de alto rendimiento nativo de VMware vSphere. Se utiliza para implementar los almacenes de datos y está optimizado para el almacenamiento de máquinas virtuales.
- \label{itm:vmfs}
- \item [Platform Services Controller (PSC)]: componente de la infraestructura que agrupa los servicios de infraestructura de un entorno vSphere. Estos servicios son la concesión de licencias, administración de certificados y la autenticación con vCenter Single Sign-On.
- \label{itm:psc}
- \item [Cluster]: Conjunto de dos o más Hosts para aprovisionar recursos.
- \label{itm:cluster}
- \item [Servicio LBT]: servicio que se encarga de balancear el tráfico que entra en cada interfaz de un switch.
- \item [vCPU]
- \label{itm:vcpu}
- \item [Jumbo Frame]: son los paquetes que se transmiten por una red y cuyo MTU es mayor a 1500.
- \label{itm:jumboframe}
- \item [VTEP]: \textit{VXLAN Tunnel End Point} es un componente del protocolo VXLAN cuya función es encapsular y desencapsular las tramas correspondientes a una VXLAN. Este componente se encuentra al principio y al final del camino que sigue una trama.
- \label{itm:vtep}
- \item [NIC]: \textit{Network Interface Controller} es un componente físico que conecta el host con una red.
+%  \item [Multi-tenant]\cite{multi-tenant}: principio de la arquitectura de software donde la misma instancia de una aplicación se comparte con diferentes usuarios pero que se comporta como si cada usuario obtuviera su propia instancia.
+%  \label{itm:tenenciamultiple}
+ \item [NIC]: componente físico que conecta un dispositivo a una red y permite compartir sus recursos.
  \label{itm:nic}
- \item [Log]: registro que muestra información sobre un evento que afecta a un proceso en particular.
- \label{itm:log}
-  \item [CPD]: Centro de Procesamiento de Datos es un espacio donde se encuentran los recursos necesarios para procesar información.
- \label{itm:cpd}
- \item [Pool de recursos]: representa una partición de recursos disponibles que no se crean ni se eliminan bajo demanda.
- \label{itm:poolResources}
-  \item [CoS]: \textit{Class of Service} es un campo de la cabecera de un paquete Ethernet que determina su prioridad cuando se utiliza etiquetado VLAN. Es un protocolo QoS de capa 2.
- \label{itm:cos}
-  \item [DSCP]: \textit{Differentiated Services Code Point} es campo de la cabecera IP que forma parte del protocolo QoS de capa 3 \textit{DiffServ}, y que sirve para clasificar el tráfico según servicios.
- \label{itm:dscp}
-  \item [VLAN trunk]: enlace que permite comunicar distintas VLANs.
- \label{itm:trunk}
-  \item [ARP]: protocolo responsable de obtener la dirección MAC que corresponde a una dirección IP.
- \label{itm:arp}
-  \item [Rack]: armario metálico destinado a alojar servidores físicos.
+ \item [Pool de almacenamiento]: agrupación de volúmenes de almacenamiento que se administran de forma conjunta.
+ \label{itm:pool-almacenamiento}
+ \item [Port Group]: puertos que se añaden en el componente vSphere Distributed Switch y que agrupan las conexiones de múltiples máquinas virtuales sobre las cuales se pueden establecer una configuración determinada.
+ \item [QoS]: medida de rendimiento que se asigna a un servicio en la red. Los componentes de VMware utilizan el campo Differentiated Services Code Point (DSCP) en la cabecera de capa 3, y el campo Class of Service (CoS) en la cabecera de capa 2 para indicar la prioridad del tráfico.
+ \label{itm:qos}
+ \item [Rack]: armario metálico destinado a alojar servidores físicos.
  \label{itm:rack}
-  \item [DHCP helper address]: elemento que permite retransmitir el tráfico broadcast de un servidor DHCP por múltiples redes.
- \label{itm:dhcpHelper}
+ \item [RAID 5]: conjunto de discos duros que funciona como una única unidad de almacenamiento para aumentar el rendimiento y la eficiencia. RAID 5 necesita como mínimo tres discos duros, y distribuye de paridad en todos los discos para poder recuperar datos corruptos.
+ \label{itm:raid5}
+ \item [Red Overlay]\cite{overlay}: abstracción de una red sobre una red física implementada por un conjunto de nodos situados en diferentes localizaciones y conectados entre si.
+ \label{itm:overlay}
+ \item [SAN]: red dedicada a proveer acceso a los dispositivos de almacenamiento.
+ \label{itm:san}
+ \item [SDDC]\cite{sddc}: Software-Defined Datacenter es un modelo de  arquitectura de infraestructura para virtualizar los recursos de cómputo, almacenamiento y red.
+ \label{itm:sddc}
+ \item [UDP]: protocolo de red de la capa de transporte que permite enviar paquetes sin establecer previamente una conexión.
+ \label{itm:udp}
+ \item [VLAN]: método para aislar múltiples dominios de broadcast sobre una misma red física.
+ \label{itm:vlan}
+ \item [VLAN trunk]: enlace que permite la circulación del tráfico de diferentes redes VLAN.
+ \label{itm:trunk}
+
+%   \item [CoS]: \textit{Class of Service} es un campo de la cabecera de un paquete Ethernet que determina su prioridad cuando se utiliza etiquetado VLAN. Es un protocolo QoS de capa 2.
+%  \label{itm:cos}
+%   \item [DSCP]: \textit{Differentiated Services Code Point} es campo de la cabecera IP que forma parte del protocolo QoS de capa 3 \textit{DiffServ}, y que sirve para clasificar el tráfico según servicios.
+%  \label{itm:dscp}
+
+
+
+%   \item [DHCP helper address]: elemento que permite retransmitir el tráfico broadcast de un servidor DHCP por múltiples redes.
+%  \label{itm:dhcpHelper}
 \end{description}
