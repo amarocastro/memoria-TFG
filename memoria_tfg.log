@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  26 AUG 2020 18:23
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.6.29) (preloaded format=xelatex 2020.7.8)  31 AUG 2020 10:44
 entering extended mode
 **"c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
 ("c:/Users/amaro/OneDrive - Universidade da Coruña/TFG/memoria/memoria_tfg.tex"
@@ -1239,7 +1239,7 @@ LaTeX Info: Redefining \ttfamily on input line 15.
 LaTeX Info: Redefining \rmfamily on input line 20.
 LaTeX Info: Redefining \sffamily on input line 20.
 LaTeX Info: Redefining \ttfamily on input line 20.
- (portada/resumo.aux) (contido/introducion.aux) (contido/estadoRecursos.aux) (contido/planificacionProyecto.aux) (contido/metodoloxia.aux
+ (portada/resumo.aux) (contido/introducion.aux) (contido/estadoRecursos.aux) (contido/planificacionProyecto.aux) (contido/metodoloxia/metodoloxia.aux
 
 LaTeX Warning: Label `fig:Frame-Geneve-Segment-NSXT' multiply defined.
 
@@ -1481,18 +1481,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
  []
 
-[1
+) [1
 
 
-])
+]
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 14.
+(Font)              scaled to size 10.0pt on input line 13.
 Requested font "[LinLibertine_R.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.0pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_R.otf
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/sl' in size <10> not available
-(Font)              Font shape `TU/LinLibertine(0)/m/it' tried instead on input line 14.
+(Font)              Font shape `TU/LinLibertine(0)/m/it' tried instead on input line 13.
 LaTeX Font Info:    Font shape `TU/LinLibertine(0)/m/it' will be
-(Font)              scaled to size 10.0pt on input line 14.
+(Font)              scaled to size 10.0pt on input line 13.
 Requested font "[LinLibertine_RI.otf]/OT:script=latn;language=dflt;+tnum;+lnum;mapping=tex-text;" at 10.0pt
  -> C:/Users/amaro/AppData/Local/Programs/MiKTeX/fonts/opentype/public/libertine/LinLibertine_RI.otf
  [2]) [3
@@ -1748,11 +1748,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--69
  []
 
 ) [20]
-\openout2 = `contido/metodoloxia.aux'.
+\openout2 = `contido/metodoloxia/metodoloxia.aux'.
 
- (contido/metodoloxia.tex
+ (contido/metodoloxia/metodoloxia.tex
 Capítulo 4.
-(contido/conceptosPrevios.tex [21
+(contido/metodoloxia/conceptosPrevios.tex [21
 
 
 
@@ -1768,7 +1768,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [23]
 Underfull \vbox (badness 2050) has occurred while \output is active []
 
- [24]) (contido/requisitos.tex [25] [26]) (contido/pruebaconcepto.tex [27]
+ [24]) (contido/metodoloxia/requisitos.tex [25] [26]) (contido/metodoloxia/pruebaconcepto.tex [27]
 File: imaxes/pruebaconcepto/hostFisico.png Graphic file (type bmp)
 <imaxes/pruebaconcepto/hostFisico.png>
 
@@ -1969,7 +1969,7 @@ LaTeX Info: Redefining \ttfamily on input line 15.
 LaTeX Info: Redefining \rmfamily on input line 20.
 LaTeX Info: Redefining \sffamily on input line 20.
 LaTeX Info: Redefining \ttfamily on input line 20.
- (portada/resumo.aux) (contido/introducion.aux) (contido/estadoRecursos.aux) (contido/planificacionProyecto.aux) (contido/metodoloxia.aux) (anexos/notas.aux) (bibliografia/acronimos.aux) (bibliografia/glosario.aux))
+ (portada/resumo.aux) (contido/introducion.aux) (contido/estadoRecursos.aux) (contido/planificacionProyecto.aux) (contido/metodoloxia/metodoloxia.aux) (anexos/notas.aux) (bibliografia/acronimos.aux) (bibliografia/glosario.aux))
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 125.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 125.
 Package rerunfilecheck Info: File `memoria_tfg.out' has not changed.
@@ -1980,12 +1980,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 30316 strings out of 414071
- 585839 string characters out of 2894592
+ 30317 strings out of 414071
+ 586087 string characters out of 2894592
  879101 words of memory out of 3000000
  47451 multiletter control sequences out of 15000+200000
  544797 words of font info for 119 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 73i,11n,111p,2271b,619s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 73i,11n,111p,2295b,619s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on memoria_tfg.xdv (70 pages, 1130800 bytes).
+Output written on memoria_tfg.xdv (70 pages, 1130316 bytes).
