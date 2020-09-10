@@ -12,22 +12,21 @@ En este apartado se describen algunos conceptos que se deben tener claros para e
 %% Workload Ddomains %&%&%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{subsection}{Workload Domain}
-Un \textit{workload domain} (WD) representa un bloque de recursos dentro del SDDC, que son componentes de la infraestructura física, de la infraestructura virtual, y de seguridad. Los componentes virtuales controlan el acceso y la reserva de los recursos físicos, mientras que la capa de seguridad permite establecer organizar la entrada al WD. Cada WD contiene sus propias instancias de VMware ESXi, VMware vCenter Server, VMware NSX-T y VMware vSAN, pudiendo así gestionar los recursos de cada WD de forma independiente.
+Un \textit{workload domain} (WD) representa un bloque de recursos dentro del SDDC, formado por componentes de la infraestructura física, de la infraestructura virtual, y de seguridad. Los componentes virtuales controlan el acceso y la reserva de los recursos físicos, mientras que la capa de seguridad permite establecer y organizar el acceso al WD. Cada WD contiene sus propias instancias de VMware ESXi, VMware vCenter Server, VMware NSX-T y VMware vSAN, pudiendo así gestionar los recursos de cada WD de forma independiente.
 % Un \textit{workload domain} consiste en una instancia lógica de un SDDC que abarca todos o parte de los recursos de uno o más clusters, cuya función es aislar el flujo de trabajo de un usuario, aplicación o un determinado tipo de tareas. Cada \textit{workload domain} se extiende sobre varios hosts con el hipervisor ESXi, y contiene sus propias instancias de VMware vCenter Server, VMware vSAN y VMware NSX-T. Así, esta arquitectura permite establecer políticas de control específicas para un \textit{workload domain} y otras comunes para todos o varios \textit{workload domains} y específicas para cada uno de ellos a la vez que se simplifica la complejidad de la infraestructura. Existen \underline{tres tipos} de \textit{workload domains} que permiten aislar las tareas de gestión de la infraestructura del resto de flujos de trabajo. 
 
 %% MANAGEMENT DOMAIN
 \begin{subsubsection}{Management Domain}
 \label{subsubsec:domainManagement}
 % Este \textit{workload domain} se crea y configura automáticamente durante el proceso de despliegue de una instancia de VMware Cloud Foundation.
-El \textit{management domain} es el primer WD que se crea dentro del SDDC, y su función es la gestión de todos los componentes de VMware Cloud Foundation, tanto del propio \textit{management domain} como del resto de \textit{workload domains} existentes.
-En este \textit{workload domain} se genera un cluster de VMware vSphere donde se despliegan las instancias de los siguientes componentes:
+El Management Domain es el primer WD que se crea dentro del SDDC, y su función es la gestión de todos los componentes de VMware Cloud Foundation, tanto del propio Management Domain como del resto de WD existentes. En este \textit{workload domain} se genera un cluster de VMware vSphere donde se despliegan instancias de los siguientes componentes:
 \begin{itemize}
   \item Una VM de SDDC Manager.
   \item Una VM de VMware vCenter Server.
   \item Tres VMs de VMware NSX-T Manager Appliance.
   \item Dos VMs de VMware NSX-T Edge.
 \end{itemize}
-El administrador gestiona los recursos del \textit{management domain} desde VMware vSphere Client, VMware NSX-T Manager (para gestionar sus redes virtuales) y VMware SDDC Manager para administrar los aspectos que afectan a todo el SDDC como puede ser la instalación de otras aplicaciones de VMware o la creación de nuevos \textit{workload domains}. 
+El administrador gestiona los recursos del management Domain desde VMware vSphere Client, VMware NSX-T Manager controla sus redes virtuales, y VMware SDDC Manager permite administrar los aspectos que afectan a todo el SDDC como la instalación de otras aplicaciones de VMware, la creación de nuevos \textit{workload domains} o la instalación de actualizaciones. 
 % Incluye las siguientes instancias: SDDC Manager, vCenter Server, una instancia de NSX Manager, tres instancias de NSX Controller, dos instancias de Platform Services Controller y tres instancias de vRealize Log Insight \cite{sddcComponents} [Fig. \ref{fig:componentsMNGDomain}].\\
 % Cuando se \underline{despliega \textit{management domain} se crean y configuran} de forma automatizada por SDDC Manager las siguientes máquinas virtuales (VM) de cada componente de Cloud Foundation\footnote{Las características de cada máquina virtual se refieren a los requisitos mínimos}:
 % \begin{itemize}
@@ -59,13 +58,13 @@ El administrador gestiona los recursos del \textit{management domain} desde VMwa
 %% VIRTUAL INF. DOMAIN
 \begin{subsubsection}{Virtual Infrastructure Domain (VI)}
 \label{subsubsec:domainVI}
-Este tipo de \textit{workload domain} se crea manualmente y bajo demanda desde \textit{management domain} para habilitar entornos con una finalidad diferente. Su configuración de hardware y lógica se especifican durante su proceso de creación, permitiendo indicar la cantidad de hosts, cantidad de almacenamiento, configuración de la red y políticas de rendimiento y disponibilidad, todo para satisfacer las necesidades del tipo de tareas para las que se crea. Con cada \textit{workload domain} se genera un nuevo cluster de VMware vSphere que agrupa los nuevos recursos pero parte de sus componentes que se despliegan se controlan desde el \textit{management domain}:
+Este tipo de WD se crea manualmente y bajo demanda desde Management Domain para habilitar entornos cuyos recursos puedan ser usados por los usuarios. Su configuración de hardware y lógica se especifican durante su proceso de creación, permitiendo indicar la cantidad de hosts, cantidad de almacenamiento, configuración de la red y políticas de rendimiento y disponibilidad, todo para satisfacer las necesidades del tipo de tareas que se van a realizar en el. Con cada WD se genera un nuevo cluster de VMware vSphere que agrupa los nuevos recursos, aunque parte de sus componentes que se despliegan se controlan desde el Management Domain:
 \begin{itemize}
-  \item Una VM de VMware vCenter Server.
-  \item Tres VMs de VMware NSX-T Manager Appliance situadas en el \textit{management domain}.
+  \item Una VM de VMware vCenter Server que se sitúa en el Management Domain.
+  \item Tres VMs de VMware NSX-T Manager Appliance situadas en el Management Domain.
   \item Dos VMs de VMware NSX-T Edge.
 \end{itemize}
-El administrador gestiona los recursos del \textit{VI domain} desde VMware vSphere Client y la instancia de SDDC Manager situada en el \textit{management domain}, y gestiona las redes virtuales del \textit{workload domain} desde VMware NSX-T Manager situado también en el \textit{management domain}.
+El administrador gestiona los recursos del VI Domain desde VMware vSphere Client y la instancia de SDDC Manager situada en el Management Domain, y gestiona las redes virtuales del WD desde VMware NSX-T Manager situado también en el Management Domain. Los usuarios despliegan sus aplicaciones sobre los recursos de este WD, de esta forma, las tareas administrativas y las de consumo se ejecutan desde entornos separados.
 % La diferencia entre un \textit{virtual infrastructure domain} y \textit{virtual desktop infrastructure domain} es que el segundo incorpora el producto VMware Horizon View que, resumiendo, permite desplegar escritorios virtuales. 
 % Con cada nuevo \textit{virtual infrastructure domain} se crea un nuevo cluster vSphere en la infraestructura que agrupa todos los recursos que tiene asignados.\\
 % Cuando se \underline{despliega un \textit{virtual infrastructure domain} se crean y configuran} de forma automatizada por el componente SDDC Manager las siguientes máquinas virtuales (VM) de cada componente de VMware Cloud Foundation\footnote{Las características de cada máquina virtual se refieren a los requisitos mínimos} 
@@ -106,7 +105,7 @@ La arquitectura de VMware Cloud Foundation tiene dos posibles modelos de desplie
 %%%%%%%%%%%%%%%%%%%%%%%%
 %% ESTANDAR
 \begin{subsubsection}{Modelo estándar}
-Este modelo está pensado para desplegar VMware Cloud Foundation en entornos de tamaño medio/grande con un mínimo de siete hosts. Está formado por un \textit{management domain} que se despliega en cuatro de los hosts y contiene todos los componentes de gestión de toda la infraestructura, desde este \textit{workload domain} se administra la infraestructura del SDDC y cada \textit{virtual infrastructure domain} existente. Además, este modelo contiene al menos un \textit{virtual infrastructure domain}, creado bajo demanda y con capacidades establecidas según su finalidad que posteriormente se pueden pueden modificar, se despliega sobre al menos tres hosts. Un \textit{management domain} puede gestionar un máximo de de catorce \textit{virtual infrastructure domains}.
+Este modelo está pensado para desplegar VMware Cloud Foundation en entornos de tamaño medio/grande, con un mínimo de siete hosts. Está formado por un Management Domain que se despliega en cuatro de los hosts, y que contiene todos los componentes de gestión de toda la infraestructura, y al menos un VI Domain. Desde el Management Domain se administra toda la infraestructura del SDDC y cada VI Domain existente, los cuales son creados bajo demanda desde el Management Domain y sus recursos se establecen según su finalidad. Un Management Domain puede gestionar hasta un máximo de de catorce VI Domain. 
 %Cada \textit{virtual infrastructure domain} requiere tres hosts adicionales, es decir, un host solo puede pertenecer a un único \textit{workload domain}. 
 
 \begin{figure}[h!]
@@ -127,7 +126,10 @@ Este modelo está pensado para desplegar VMware Cloud Foundation en entornos de 
 %%  CONSOLIDADO
 \end{subsubsection}
 \begin{subsubsection}{Modelo consolidado}
-Este modelo está pensado para desplegar VMware Cloud Foundation en entornos de tamaño pequeño, normalmente cuando hay menos de siete hosts, aunque se puede también se puede utilizar sobre entornos más grandes de hasta 64 hosts. En este modelo los flujos de trabajo que corresponden al \textit{virtual infrastructure domain} y al \textit{management domain} en el despliegue estándar, están colocados dentro de un mismo \textit{workload domain} en un único cluster pero aislados gracias a que cada uno se coloca dentro de un \textit{resource pool} diferente, es decir, existe un cluster con varios \textit{resource pool}. El modelo consolidado se convierte en un modelo estándar cuando se añade un \textit{workload domain} al SDDC.[Fig. \ref{fig:modeloconsolidated}].
+Este modelo está orientado a entornos de tamaño pequeño con menos de siete hosts. Se compone de un único WD que cumple las funciones de un Management Domain y de un VI Domain, es decir, en él se alojarán las instancias de los componentes dedicados a la gestión del SDDC\footnote{Se despliega la misma cantidad de instancias que en el Management Domain.} junto con las aplicaciones desplegadas por los usuarios. Así, a diferencia del modelo estándar, las tareas de administración, de aprovisionamiento de recursos y las realizadas por los usuarios, se ejecutan dentro de un mismo entorno. 
+Dentro del cluster de VMware vSphere que se crea, las instancias pertenecientes a los componentes de administración del SDDC y las pertenecientes al trabajo de los usuarios, se colocan en \textit{resource pools} separados. Un \textit{resource pool} es un elemento de VMware vSphere que permite establecer unos límites de consumo de recursos sobre las instancias que se sitúan en su interior.
+
+% Este modelo está pensado para desplegar VMware Cloud Foundation en entornos de tamaño pequeño, normalmente cuando hay menos de siete hosts, aunque también se puede utilizar en entornos más grandes con hasta 64 hosts. En este modelo los flujos de trabajo que corresponden al \textit{virtual infrastructure domain} y al \textit{management domain} en el despliegue estándar, están colocados dentro de un mismo \textit{workload domain} en un único cluster pero aislados gracias a que cada uno se coloca dentro de un \textit{resource pool} diferente, es decir, existe un cluster con varios \textit{resource pool}. El modelo consolidado se convierte en un modelo estándar cuando se añade un \textit{workload domain} al SDDC.[Fig. \ref{fig:modeloconsolidated}].
 
 \begin{figure}[h!]
   \centering
