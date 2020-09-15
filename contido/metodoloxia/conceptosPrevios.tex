@@ -127,7 +127,7 @@ Este modelo está pensado para desplegar VMware Cloud Foundation en entornos de 
 \end{subsubsection}
 \begin{subsubsection}{Modelo consolidado}
 Este modelo está orientado a entornos de tamaño pequeño con menos de siete hosts. Se compone de un único WD que cumple las funciones de un Management Domain y de un VI Domain, es decir, en él se alojarán las instancias de los componentes dedicados a la gestión del SDDC\footnote{Se despliega la misma cantidad de instancias que en el Management Domain.} junto con las aplicaciones desplegadas por los usuarios. Así, a diferencia del modelo estándar, las tareas de administración, de aprovisionamiento de recursos y las realizadas por los usuarios, se ejecutan dentro de un mismo entorno. 
-Dentro del cluster de VMware vSphere que se crea, las instancias pertenecientes a los componentes de administración del SDDC y las pertenecientes al trabajo de los usuarios, se colocan en \textit{resource pools} separados. Un \textit{resource pool} es un elemento de VMware vSphere que permite establecer unos límites de consumo de recursos sobre las instancias que se sitúan en su interior.
+Dentro del cluster de VMware vSphere que se crea, las instancias pertenecientes a los componentes de administración del SDDC y las pertenecientes al trabajo de los usuarios, se colocan en \textit{resource pools} separados. Un \textit{resource pool} es un elemento de VMware vSphere que permite establecer unos límites de consumo de recursos sobre las instancias que se sitúan en su interior\cite{resourcePool}.
 
 % Este modelo está pensado para desplegar VMware Cloud Foundation en entornos de tamaño pequeño, normalmente cuando hay menos de siete hosts, aunque también se puede utilizar en entornos más grandes con hasta 64 hosts. En este modelo los flujos de trabajo que corresponden al \textit{virtual infrastructure domain} y al \textit{management domain} en el despliegue estándar, están colocados dentro de un mismo \textit{workload domain} en un único cluster pero aislados gracias a que cada uno se coloca dentro de un \textit{resource pool} diferente, es decir, existe un cluster con varios \textit{resource pool}. El modelo consolidado se convierte en un modelo estándar cuando se añade un \textit{workload domain} al SDDC.[Fig. \ref{fig:modeloconsolidated}].
 
@@ -150,25 +150,40 @@ Dentro del cluster de VMware vSphere que se crea, las instancias pertenecientes 
 \end{subsection}
 
 \begin{subsection}{Clusters, zonas y distribución de un SDDC}
-\begin{subsubsection}{AZ y Region}
-Los recursos de un SDDC pueden estar distribuídos en diferentes localizaciones para proporcionar alta disponibilidad y posibilidad de recuperación ante fallos. Los recursos de una o varias ubicaciones se agrupan para formar una estructura que permite usar y gestionar los recursos disponibles de forma conjunta y dinámica. Los componentes de esta estructura son:
-\begin{itemize}
-  \item Availability Zone (AZ): conjunto de recursos físicos que forman una infraestructura independiente para evitar la propagación de fallos hacia otras AZs. Cuando existen varias AZ estas se pueden usar de forma que cuando ocurre un fallo en una de ellas la carga de trabajo se mueve a una segunda AZ para minimizar el tiempo de caída del servicio.
-  
-  \item Region: conjunto de AZs gestionadas que representa una instancia del SDDC. Las AZs que la forman deben tener una latencia de 5 ms como máximo mientras que la latencia entre Regions debe ser de al menos 100 ms. Esta estructura permite acercar el servicio a ubicaciones separadas por grandes distancias. La arquitectura del modelo consolidado solo soporta una Region con una AZ, mientras que el modelo estandar permite desplegar múltiples Regions con múltiples AZs.
-\end{itemize} 
-\end{subsubsection}
-\begin{subsubsection}{Cluster y Resource Pool}
-Dentro de un \textit{workload domain} pueden existir varios clusters. Un cluster es una agrupación de hosts a cuyos recursos se les puede aplicar una una configuración de disponibilidad determinada con los componentes VMware vSphere High Availability y VMware vSphere Distributed Resource Scheduler para establecer como se restablece el servicio en caso de fallos en alguno de los hosts. Un cluster puede estar extendido en más de una AZ para que si una de las AZs falla, las aplicaciones que corrían en ella pueden ser migradas a otra AZ mejorando la disponibilidad del servicio. En un WD se despliegan dos clusters:
-\begin{itemize}
-  \item Management cluster: es el cluster que se crea al desplegar VMware Cloud Foundation. Contiene los componentes para administrar los recursos del WD.
-  \item Shared Edge and Workload Cluster: después del management cluster, este es el primero que se crea. Su finalidad es alojar las aplicaciones y cargas de trabajo de los usuarios dentro de un WD. Además contiene instancias de Vmware NSX-T para proporcionar sevicios de red.
-\end{itemize}
 
-Dentro de un cluster se pueden crear resource pools. Un \textit{resource pool} es una característica de VMware vSphere que permite abstraer un conjunto de recursos de un cluster estableciendo unos límites de capacidad que puede usar \cite{resourcePool}. Usar resource pools permite agrupar las VMs con una finalidad similar y controlar la cantidad de recursos del WD que esas VMs pueden consumir.
+  Los recursos de un SDDC pueden estar distribuídos en diferentes localizaciones para proporcionar mayor disponibilidad y recuperación ante fallos. Estos recursos, se agrupan para formar una estructura que permite usar y gestionar los recursos disponibles de forma conjunta y dinámica.
+
+\begin{subsubsection}{Availability Zone, Region y Cluster}
+\begin{itemize}
+  \item Availability Zone (AZ): se le llama AZ a un conjunto de recursos físicos que forman una infraestructura independiente, es decir, cada una tiene una fuente de energía, un sistema de refrigeración, un sistema de seguridad y una red propias, no compartidas con otra AZ, para evitar la propagación de fallos hacia otras AZs. Cuando existen varias AZs estas se pueden usar de forma que cuando ocurre un fallo en una de ellas la carga de trabajo se distribuye a una segunda AZ para minimizar el tiempo de caída del servicio. Dentro de una AZ se alojan uno o más \textit{workload domains}.
+  
+  \item Region: se le llama Region a un conjunto de AZs situadas en una misma ubicación, es decir, las AZs de una Region son independientes del resto pero se sitúan próximas entre si. Estas AZs deben tener al menos una latencia de 5 ms entre ellas. Una Region contiene al menos una AZ. Dentro de un SDDC puede existir varias Regions pero estas se sitúan en ubicaciones más distantes, la latencia debe ser de al menos 150 ms. Esta estructura permite ofrecer los servicios de un SDDC en diferentes ubicaciones a la vez que se aumenta su disponibilidad y recuperación ante fallos.
+  
+  \item Cluster: un cluster de VMware vSphere es una agrupación de hosts. A las instancias que están desplegadas sobre ellos se les aplica una configuración de disponibilidad determinada con los componentes Vmware vSphere High Availability y VMware vSphere Distributed Resource Scheduler. Estos servicios permiten determinar como se restablecen las instancias situadas en un cluster cuando falla alguno de los hosts que lo forman. Un cluster está colocado dentro de un WD, por lo tanto sus recursos estarán limitados por el alcance del WD donde esté situado. 
+  %  Esta estructura permite acercar el servicio a ubicaciones separadas por grandes distancias. La arquitectura del modelo consolidado solo soporta una Region con una AZ, mientras que el modelo estándar permite desplegar múltiples Regions con múltiples AZs.
+\end{itemize} 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.8\textwidth]{imaxes/conceptosPrevios/AZRegionCluster.png}
+  \caption{Ejemplo de un SDDC con dos Regions y una AZ en cada uno.}
+  \label{fig:az-region-cluster}
+\end{figure}
+En la figura anterior se describe el esquema de un SDDC compuesto de dos Regions situadas en dos ubicaciones diferentes. Dentro de cada Region existe una AZ, AZ1 y AZ2. Cada una de las AZ contiene dos WD, un Management Domain desde donde se administra el SDDC, y un VI Domain donde se realizan las operaciones del SDDC. Como se mencionaba anteriormente, las instancias situadas en una AZ pueden migrarse de una ubicación a otra en caso de fallo de los recursos físicos. Para ello, el WD donde se encuentran esas instancias debe estar extendido en las dos AZ. En la imagen, el Management Domain está formado por ocho hosts situados en dos AZs distintas, estos hosts están agrupados dentro del mismo cluster de VMware vSphere, por lo tanto, los componentes cuyas instancias estén situadas en este cluster, se podrán migrar entre los 8 hosts dependiendo de la configuración que se establezca en los servicios de disponibilidad de VMware vSphere y VMware vSAN. Así, cuando los hosts de AZ1 sufren una caída, la AZ2 seguiría activa por lo que los componentes podrían seguir funcionando en esta segunda AZ. Lo mismo sucedería con el VI Domain\footnote{Se puede encontrar una descripción más detallada de esta estructura en el siguiente enlace \url{https://docs.vmware.com/en/VMware-Validated-Design/6.0/introducing-vmware-validated-design/GUID-661B1CE3-1F74-4E00-80F3-0F5EA39528CD.html}}.
+
+
+\end{subsubsection}
+% \begin{subsubsection}{Cluster y Resource Pool}
+% Dentro de un \textit{workload domain} pueden existir varios clusters. Un cluster es una agrupación de hosts a cuyos recursos se les puede aplicar una una configuración de disponibilidad determinada con los componentes VMware vSphere High Availability y VMware vSphere Distributed Resource Scheduler para establecer como se restablece el servicio en caso de fallos en alguno de los hosts. Un cluster puede estar extendido en más de una AZ para que si una de las AZs falla, las aplicaciones que corrían en ella pueden ser migradas a otra AZ mejorando la disponibilidad del servicio. En un WD se despliegan dos clusters:
+% \begin{itemize}
+%   \item Management cluster: es el cluster que se crea al desplegar VMware Cloud Foundation. Contiene los componentes para administrar los recursos del WD.
+%   \item Shared Edge and Workload Cluster: después del management cluster, este es el primero que se crea. Su finalidad es alojar las aplicaciones y cargas de trabajo de los usuarios dentro de un WD. Además contiene instancias de Vmware NSX-T para proporcionar sevicios de red.
+% \end{itemize}
+
+% Dentro de un cluster se pueden crear resource pools. Un \textit{resource pool} es una característica de VMware vSphere que permite abstraer un conjunto de recursos de un cluster estableciendo unos límites de capacidad que puede usar \cite{resourcePool}. Usar resource pools permite agrupar las VMs con una finalidad similar y controlar la cantidad de recursos del WD que esas VMs pueden consumir.
 
 % Un SDDC puede estar distribuído en una o más \textit{Availability Zone} (AZ). Estas son zonas aisladas con infraestructuras independientes que evitan la propagación de fallos de hosts individuales a través de toda la infraestructura, cuantas más \textit{AZ} existan mayor disponibilidad tendrá el servicio. La latencia entre dos \textit{AZ} debe ser de 5 ms como máximo y la conexión de al menos 10 Gbit. Una \textit{Region} agrupa una o más \textit{AZ}s, con esto se da solución a la recuperación del servicio ante desastres. La latencia entre dos \textit{Region}s debe ser de 100 ms como máximo. El \underline{modelo consolidado} solo da soporte a una \textit{Region} con una \textit{AZ}, mientras que el \underline{modelo estándar} puede soportar múltiples \textit{Region} con múltiples \textit{AZ}.
-\end{subsubsection}
+% \end{subsubsection}
 \end{subsection}
 
 \end{section}
