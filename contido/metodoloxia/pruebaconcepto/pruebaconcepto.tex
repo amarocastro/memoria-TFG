@@ -1,0 +1,11 @@
+\begin{section}{Prueba de concepto}
+Para no afectar al funcionamiento del servicio proporcionado por el CITIC y para mostrar y probar las capacidades de VMware Cloud Foundation, en lugar de utilizar un entorno real el proyecto se lleva a cabo en un entorno aislado de prestaciones reducidas. Siguiendo la metodología Scrum, primero se deplegará VMware Cloud Foundation con la herramienta VMware Lab Constructor (VLC)\footnote{Se utiliza la versión 4.0.1 del instalador.}, que genera de forma automatizada una infraestructura física embebida basada en el diseño propuesto por VMware y sobre la cual posteriormente despliega los componentes base de VCF. Después se añadirá el componente que permite la gestión de usuarios y finalmente el servicio de aprovisionamiento. Una vez desplegados todos los elementos se realizará una demostración del servicio.
+
+\input{contido/metodoloxia/pruebaconcepto/preparacion}
+
+\begin{subsection}{Diseño y configuración del Management Domain}
+\input{contido/metodoloxia/pruebaconcepto/diseñovSphere}
+\input{contido/metodoloxia/pruebaconcepto/diseñoNSX-T}
+\end{subsection}
+\input{contido/pruebaconcepto_vrealize}
+\end{section}
