@@ -55,7 +55,7 @@
         \centering
         \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/topologiaTwoTierRouting-Final.png}
         \caption{Topología virtual de VMware NSX-T}
-        \label{fig:Uplink-Design-Edge-NSXT} 
+        \label{fig:two-tier-topology} 
     \end{figure}
     \FloatBarrier
     En la imagen anterior se muestra la topología que forman VMware NSX-T para proporcionar acceso a la red externa y para entregar otros servicios a los componentes situados en los dos Segments existentes. En esta topología hay tres routers, \textit{mgmt-domain-tier0-gateway}, \textit{mgmt-domain-tier1-gateway} y \textit{mgmt-domain-lb01-tier1-gateway}, de los cuales, el primero se encarga de gestionar la comunicación con los dispositivos de red físicos, y los dos restantes se encargan de enrutar el tráfico entre Segments y hacia el router de Tier 0, y de entregar distintos servicios a los componentes que residen en los Segments. Los servicios de red que se pueden habilitar en los dos routers de Tier 1 son NAT, Load Balancing, DNS y VPN.
