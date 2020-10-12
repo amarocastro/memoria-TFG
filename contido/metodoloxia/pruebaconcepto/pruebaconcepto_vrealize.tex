@@ -91,20 +91,58 @@
     \end{subsubsection}
 
     \begin{subsubsection}{VMware vRealize Automation}
-        VMware vRealize Automation es el componente de VMware vRealize Suite que automatiza el aprovisionamiento de recursos del SDDC. Con esta plataforma los usuarios podrán elaborar diseños de los recursos que necesitan para posteriormente implementarlos y llevar a cabo sus trabajos. El proceso de implementación es automático y transparente para el usuario que puede modificar los requisitos de sus recursos según sea necesario. Al mismo tiempo, el administrador establece los límites de las diseño/implementación y debe proveer los medios que se usarán como base para los diseños.
-        
-
-
-        El punto a través del cual los usuarios pueden aprovisionar sus recursos es vRealize Automation. Este producto provee el servicio cloud. 
+        VMware vRealize Automation es el componente de VMware vRealize Suite que automatiza el aprovisionamiento de recursos del SDDC. Con esta plataforma los usuarios podrán elaborar diseños de los recursos que necesitan para posteriormente implementarlos y llevar a cabo sus trabajos. El proceso de implementación es automático y transparente para el usuario que puede modificar los requisitos de sus recursos según sea necesario. Al mismo tiempo, el administrador establece los límites del diseño/implementación y debe proveer en la infraestructura los medios que se usarán como base para los diseños.
+        En vRA el aprovisionamiento de recursos se realiza a partir de diseños realizados por el usuario. Estos diseños, llamados Blueprints, son archivos con formato .yaml en los que se especifican los recursos que el usuario quiere obtener, estos recursos son VMs, redes y almacenamiento, y para cada recurso definido el usuario puede especificar sus características como el tamaño de una VM y su configuración interna (sistema operativo, instalación de librerías o servicios, redes a las que se conecta). Las blueprints se definen dentro de proyectos en los cuales existen jefes de proyecto y usuarios que utilizan o aprovisionan los recursos definidos en cada blueprint, de esta forma, tanto el administrador como el jefe de proyecto controlan qué usuarios acceden a los recursos de un proyecto. Además, el administrador será el encargado de limitar la cantidad de recursos disponibles para cada proyecto, y de establecer los recursos disponibles para el proyecto, es decir, qué sistemas operativos están disponibles, en qué redes se podrán realizar los despliegues y que datastore utilizarán para el almacenamiento.
         \begin{figure}[h]
             \centering
-            \includegraphics[width=0.8\textwidth]{imaxes/vRealize_pruebaconcepto/ComponentesVRA.png}
-            \caption{Componentes de VMware vRealize Automation y tareas que realiza cada rol de usuario.}
+            \includegraphics[width=0.7\textwidth]{imaxes/vRealize_pruebaconcepto/ComponentesVRA.png}
+            \caption{Uso y componentes de VMware vRealize Automation.}
             \label{fig:vra-components}
         \end{figure}
         \FloatBarrier
-        Internamente vRA se divide en varios servicios que permiten gestionar los diferentes aspectos de la cloud. Para centrarse en los objetivos de este proyecto solo se hace referencia a dos de esos servicios, el primero es Cloud Assembly el cual permite administrar la infraestructura disponible controlar el uso que se hace de esos recursos, y el segundo es Service Broker, utilizado por los usuarios para aprovisionar los recursos desde un catálogo de plantillas. La obtención de los recursos por parte del usuario se hace desplegando una serie de plantillas llamadas Blueprints diseñadas previamente, en donde se define un conjunto de VMs y recursos de red y de almacenamiento incluyendo otros aspectos como la configuración de cada uno de los recursos, como redes de la infraestructura que se utilizan, cantidad de almacenamiento, o la ubicación del despliegue en la infraestructura. Son ficheros de código con extensión \textit{.yaml} donde se indican etiquetas, aunque también se pueden diseñar con un editor gráfico. Estas plantillas están relacionadas con proyectos, una plantilla pertenece a uno o varios proyectos donde existe un coordinador de proyecto que se encarga de diseñar Blueprints y de administrar los usuarios miembros de ese proyecto. Los proyectos de vRA permiten limitar los recursos para que un conjunto de usuarios pueda desplegar los componentes definidos en las Blueprints disponibles, como la cantidad de memoria RAM, cantidad de instancias que se pueden desplegar y cantidad de almacenamiento, también aquellas redes que se pueden utilizar. Desde el punto de vista de vRA, la infraestructura se divide en Cloud Zones, las cuales son conjuntos de recursos situados en distintos proveedores Cloud que pueden ser públicos como AWS o Azure, o privados que solo pueden ser clusters vSphere. En el caso del entorno desplegado solo se tendrá una única Cloud Zone de tipo vSphere. En cada Cloud Zone se define como se deben distribuir los recursos aprovisionados sobre la infraestructura. 
-        Finalmente será el administrador de la infraestructura el que se encargue de proveer los recursos, administrar los proyectos disponibles, gestionar los coordinadores de cada proyecto y controlar y limitar el uso de los recursos.
+        Como se muestra en la figura anterior, en vRA existen tres componentes principales que son Service Borker, a través del cual los usuarios tienen acceso al catálogo de diseños disponibles en su proyecto para implementarlos, Cloud Assembly, desde donde se elaboran los diseños, automatiza el aprovisionamiento ordenado desde Service Broker y administra la infraestructura disponible, y Cloud Zone, punto desde donde vRA accede a la infraestructura para obtener los recursos, situada en este caso en el cluster vSphere del Management Domain.
+
+        Para ordenar el aprovisionamiento de los recursos, antes de realizar cualquier implementación, es necesario configurar la infraestructura que se va a poner a disposición de los usuarios. 
+        En VMware vCenter Server, dentro del cluster vSphere se define un \textit{resource pool} y una carpeta que se utilizarán para colocar las VMs que se desplieguen desde vRA. 
+        La red que utilizarán las VMs generadas estará controlada por VMware NSX-T para aprovechar las ventajas de sus redes definidas por software y así automatizar su configuración y hacer uso de los servicios que ofrece. Para ello se añade un Segment al router virtual de Tier-1 que se muestra en la figura \ref{fig:two-tier-topology}, VMware NSX-T informa de la nueva ruta al router físico mediante BGP proporcionando así acceso a redes externas.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/vrealize/topology-for-vRA-NSXT.png}
+            \caption{Nuevo Segment \textit{vra-deployments} en el router virtual Tier-1.}
+            \label{fig:topology-nsx-t-vra}
+        \end{figure}
+        \FloatBarrier
+        Las VMs que los usuarios generan están basadas en plantillas que son creadas previamente por el administrador. Antes de generar la plantilla el administrador debe crear una VM en VMware vCenter Server y proveerla con una configuración mínima para que el usuario pueda aplicar su propia configuración durante el despliegue, para este entorno se crea una VM con el sistema operativo Ubuntu Server 20.04.1. Una vez se termina el proceso de instalación y actualización del sistema operativo, se configura el servicio \textbf{cloud-init}\footnote{Se puede encontrar más información sobre cloud-init en el enlace: \url{https://cloudinit.readthedocs.io/en/latest/}} el cual permite inicializar la VM con la configuración indicada en la blueprint, como se verá más adelante. También se pueden preinstalar servicios como bases de datos para que el usuario solo tenga que configurarlo. Cuando la configuración de la VM está lista, se limpia limpian el hostname, archivos de logs, claves SSH y caché del servicio cloud-init ejecutando el siguiente script, para que en cada implementación se genere una VM distinta a partir de la misma plantilla. Finalmente, la VM se convierte a una plantilla que se almacena en VMware vCenter Server.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/vrealize/install-cloud-init.png}
+            \caption{Configuración del servicio cloud-init en Ubuntu Server 20.}
+            \label{fig:cloud-init-config}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/vrealize/config-istance-vridm.png}
+            \caption{Creación de una plantilla a partir de la VM de Ubuntu Server 20.}
+            \label{fig:template-ubuntu}
+        \end{figure}
+        \FloatBarrier
+
+        Una vez se tienen los recursos que serán usados por los usuarios es necesario añadirlos a vRA. Para poder esos recursos, durante su configuración vRA se asigna un tag a cada uno con la forma \textit{key:value}. En una blueprint estos tags permitirán indicar a que recurso se está refiriendo. 
+        Lo primero es configurar una Cloud Zone que proporcionará acceso a todos los recursos situados en el cluster vSphere. El tag utilizado para esta será \textit{cloud:private}. Posteriormente se definen los tamaños de VMs que se habilitan, también llamado Flavour Mapping. Se configuran cuatro tamaños, X-small (1 CPU y 512 MB de RAM), Small (2 CPU y 8 GB de RAM), Medium (8 CPU y 4 GB de RAM) y Large (8 CPU y 16 GB de RAM). Las redes disponibles se añaden mediante la creación de perfiles donde se definen los tags con los que se identifica la red, su gateway, su servidor DNS, el rango de IPs para asignar una IP a cada VM conectada a esa red. 
+        % Internamente vRA se divide en tres componentes, Cloud Assembly, Service Broker y Cloud Zone.
+
+
+        % El punto a través del cual los usuarios pueden aprovisionar sus recursos es vRealize Automation. Este producto provee el servicio cloud. 
+        % \begin{figure}[h]
+        %     \centering
+        %     \includegraphics[width=0.8\textwidth]{imaxes/vRealize_pruebaconcepto/ComponentesVRA.png}
+        %     \caption{Componentes de VMware vRealize Automation y tareas que realiza cada rol de usuario.}
+        %     \label{fig:vra-components}
+        % \end{figure}
+        % \FloatBarrier
+        % Internamente vRA se divide en varios servicios que permiten gestionar los diferentes aspectos de la cloud. Para centrarse en los objetivos de este proyecto solo se hace referencia a dos de esos servicios, el primero es Cloud Assembly el cual permite administrar la infraestructura disponible controlar el uso que se hace de esos recursos, y el segundo es Service Broker, utilizado por los usuarios para aprovisionar los recursos desde un catálogo de plantillas. La obtención de los recursos por parte del usuario se hace desplegando una serie de plantillas llamadas Blueprints diseñadas previamente, en donde se define un conjunto de VMs y recursos de red y de almacenamiento incluyendo otros aspectos como la configuración de cada uno de los recursos, como redes de la infraestructura que se utilizan, cantidad de almacenamiento, o la ubicación del despliegue en la infraestructura. Son ficheros de código con extensión \textit{.yaml} donde se indican etiquetas, aunque también se pueden diseñar con un editor gráfico. Estas plantillas están relacionadas con proyectos, una plantilla pertenece a uno o varios proyectos donde existe un coordinador de proyecto que se encarga de diseñar Blueprints y de administrar los usuarios miembros de ese proyecto. Los proyectos de vRA permiten limitar los recursos para que un conjunto de usuarios pueda desplegar los componentes definidos en las Blueprints disponibles, como la cantidad de memoria RAM, cantidad de instancias que se pueden desplegar y cantidad de almacenamiento, también aquellas redes que se pueden utilizar. Desde el punto de vista de vRA, la infraestructura se divide en Cloud Zones, las cuales son conjuntos de recursos situados en distintos proveedores Cloud que pueden ser públicos como AWS o Azure, o privados que solo pueden ser clusters vSphere. En el caso del entorno desplegado solo se tendrá una única Cloud Zone de tipo vSphere. En cada Cloud Zone se define como se deben distribuir los recursos aprovisionados sobre la infraestructura. 
+        % Finalmente será el administrador de la infraestructura el que se encargue de proveer los recursos, administrar los proyectos disponibles, gestionar los coordinadores de cada proyecto y controlar y limitar el uso de los recursos.
         % Finalmente, vRA permite configurar tarjetas donde se puede definir el coste del aprovisionamiento de CPU, almacenamiento y memoria RAM, además del coste de uso de otros elementos como sistemas operativos, el uso de una determinada red o el uso de una determinada Cloud Zone. Estas tarjetas se asignan por proyecto para determinar el coste que tendrá el consumo de recursos por mes.
 
 
