@@ -1,0 +1,94 @@
+formatVersion: 1
+inputs:
+ usernameDB:
+  type: string
+  minLength: 4
+  maxLength: 20
+  pattern: '[a-z]+'
+  default: user01
+  title: Database Username
+  description: Database Username
+ passwordDB:
+  type: string
+  pattern: '[a-z0-9A-Z@#$]+'
+  default: password
+  encrypted: true
+  title: Database Password
+  description: Database Password
+ usernameVM:
+  type: string
+  default: user01
+  title: Username VM
+  description: Username VM
+ passwordVM:
+  type: string
+  default: $1$SaltSalt$/pvPOTpWHH5W17XHzuNoj/
+  title: Hash password VM
+  description: Hash password VM
+resources:
+  Cloud_Machine_1:
+    type: Cloud.Machine
+    properties:
+      image: CentOS 8
+      name: centos-test
+      flavor: small
+      constraints:
+        - tag: 'resource:rpprivate'
+        - tag: 'region:management'
+        - tag: 'cloud:private'
+      networks:
+        - network: '${resource.Cloud_Network_1.id}'
+          assignment: dynamic
+      cloudConfig: |
+        preserve_hostname: false
+        hostname: centOS-server
+        ssh_pwauth: yes
+        users:
+         - default
+         - name: server-User
+           passwd: $1$SaltSalt$/pvPOTpWHH5W17XHzuNoj/
+           lock_passwd: false
+           sudo: ['ALL=(ALL) NOPASSWD:ALL']
+           groups: [wheel, sudo, admin]
+           shell: '/bin/bash'
+        runcmd:
+         - sudo yum install -y mysql-server
+         - sudo yum install -y wget
+         - sudo yum install -y httpd
+         - sudo yum install -y php
+         - sudo yum install -y php-mysqlnd
+         - sudo yum -y install php-gd php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-snmp php-soap curl
+         - sudo yum install -y epel-release
+         - sudo yum install -y libmcrypt-devel
+         - sudo yum install -y php-mcrypt
+         - sudo yum install -y php-pecl-json
+         - sudo systemctl stop firewalld
+         - sed -e '/bind-address/ s/^#*/#/' -i /etc/my.cnf
+         - sudo service mysqld restart
+         - mysql -e "CREATE USER '${input.usernameDB}'@'%' IDENTIFIED BY '${input.passwordDB}'"
+         - mysql -e "GRANT ALL PRIVILEGES ON *.* TO '${input.usernameDB}'@'%'"
+         - mysql -e "FLUSH PRIVILEGES;"
+         - sudo mkdir -p /var/www/html/mywordpresssite && cd /var/www/html && wget https://wordpress.org/latest.tar.gz && tar -xzf /var/www/html/latest.tar.gz -C /var/www/html/mywordpresssite --strip-components 1
+         - sed -e '/bind-address/ s/^#*/#/' -i /etc/my.cnf
+         - i=0; while [ $i -le 5 ]; do mysql --connect-timeout=3 -h localhost -u ${input.usernameDB} -p${input.passwordDB} -e "SHOW STATUS;" && break || sleep 15; i=$((i+1)); done
+         - mysql -u ${input.usernameDB} -p${input.passwordDB} -h localhost -e "create database wordpress_blog;"
+         - sudo cp /var/www/html/mywordpresssite/wp-config.php /var/www/html/mywordpresssite/wp-config-sample.php
+         - sed -i -e s/"define( 'DB_NAME', 'database_name_here' );"/"define( 'DB_NAME', 'wordpress_blog' );"/ /var/www/html/mywordpresssite/wp-config.php && sed -i -e s/"define( 'DB_USER', 'username_here' );"/"define( 'DB_USER', '${input.usernameDB}' );"/ /var/www/html/mywordpresssite/wp-config.php && sed -i -e s/"define( 'DB_PASSWORD', 'password_here' );"/"define( 'DB_PASSWORD', '${input.passwordDB}' );"/ /var/www/html/mywordpresssite/wp-config.php && sed -i -e s/"define( 'DB_HOST', 'localhost' );"/"define( 'DB_HOST', 'localhost' );"/ /var/www/html/mywordpresssite/wp-config.php
+         - sudo chown -R apache:apache /var/www/html/mywordpresssite/
+         - sudo chmod -R g+w /var/www/html/mywordpresssite/
+         - sudo semanage fcontext -a -t httpd_sys_rw_content_t "/var/www/html/mywordpresssite(/.*)?"
+         - sudo restorecon -R /var/www/html/mywordpresssite/
+         - systemctl enable httpd
+         - service httpd restart
+      attachedDisks:
+        - source: '${resource.Cloud_Volume_1.id}'
+  Cloud_Network_1:
+    type: Cloud.Network
+    properties:
+      networkType: existing
+      constraints:
+        - tag: 'subnet-cidr:10.50.0.0/24'
+  Cloud_Volume_1:
+    type: Cloud.Volume
+    properties:
+      capacityGb: 3

@@ -1,0 +1,71 @@
+formatVersion: 1
+inputs:
+  usernameCentOS:
+    type: string
+    title: CentOS username
+    description: CentOS username
+    default: userCent
+  passwordCentOS:
+    type: string
+    title: CentOS Password (hash)
+    description: Hash de la contraseña CentOS
+  usernameWindows:
+    type: string
+    title: Windows username
+    description: Windows username
+    default: userCent
+  passwordWindows:
+    type: string
+    title: Windows Password
+    default: VMware123!
+    encrypted: true
+    description: Windows Password
+resources:
+  WindowsServer-Tier:
+    type: Cloud.Machine
+    properties:
+      image: Windows Server 2016
+      flavor: medium
+      remoteAccess:
+        authentication: usernamePassword
+        username: '${input.usernameWindows}'
+        password: '${input.passwordWindows}'
+      constraints:
+        - tag: 'cloud:private'
+        - tag: 'region:management'
+        - tag: 'resource:rpprivate'
+      networks:
+        - network: '${resource.Network.id}'
+          assignment: dynamic
+  CentOS-Tier:
+    type: Cloud.Machine
+    properties:
+      image: CentOS 8
+      name: centos-test
+      flavor: small
+      constraints:
+        - tag: 'resource:rpprivate'
+        - tag: 'region:management'
+        - tag: 'cloud:private'
+      networks:
+        - network: '${resource.Network.id}'
+          assignment: dynamic
+      cloudConfig: |
+        preserve_hostname: false
+        hostname: centOS-server
+        ssh_pwauth: unchanged
+        users:
+         - default
+         - name: ${input.usernameCentOS}
+           passwd: ${input.passwordCentOS}
+           lock_passwd: false
+           sudo: ['ALL=(ALL) NOPASSWD:ALL']
+           groups: [wheel, sudo, admin]
+           shell: '/bin/bash'
+  Network:
+    type: Cloud.Network
+    properties:
+      networkType: existing
+      constraints:
+        - tag: 'subnet-cidr:10.50.0.0/24'
+        - tag: 'cloud:private'
