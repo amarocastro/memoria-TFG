@@ -1,0 +1,73 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{formatVersion}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{1}
+\PYG{n+nt}{inputs}\PYG{p}{:}
+  \PYG{n+nt}{usernameCentOS}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{string}
+    \PYG{n+nt}{title}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{CentOS username}
+    \PYG{n+nt}{description}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{CentOS username}
+    \PYG{n+nt}{default}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{userCent}
+  \PYG{n+nt}{passwordCentOS}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{string}
+    \PYG{n+nt}{title}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{CentOS Password (hash)}
+    \PYG{n+nt}{description}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Hash de la contraseña CentOS}
+  \PYG{n+nt}{usernameWindows}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{string}
+    \PYG{n+nt}{title}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Windows username}
+    \PYG{n+nt}{description}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Windows username}
+    \PYG{n+nt}{default}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{userCent}
+  \PYG{n+nt}{passwordWindows}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{string}
+    \PYG{n+nt}{title}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Windows Password}
+    \PYG{n+nt}{default}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{VMware123!}
+    \PYG{n+nt}{encrypted}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{true}
+    \PYG{n+nt}{description}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Windows Password}
+\PYG{n+nt}{resources}\PYG{p}{:}
+  \PYG{n+nt}{WindowsServer\PYGZhy{}Tier}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Cloud.Machine}
+    \PYG{n+nt}{properties}\PYG{p}{:}
+      \PYG{n+nt}{image}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Windows Server 2016}
+      \PYG{n+nt}{flavor}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{medium}
+      \PYG{n+nt}{remoteAccess}\PYG{p}{:}
+        \PYG{n+nt}{authentication}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{usernamePassword}
+        \PYG{n+nt}{username}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}\PYGZdl{}\PYGZob{}input.usernameWindows\PYGZcb{}\PYGZsq{}}
+        \PYG{n+nt}{password}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}\PYGZdl{}\PYGZob{}input.passwordWindows\PYGZcb{}\PYGZsq{}}
+      \PYG{n+nt}{constraints}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}cloud:private\PYGZsq{}}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}region:management\PYGZsq{}}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}resource:rpprivate\PYGZsq{}}
+      \PYG{n+nt}{networks}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{network}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}\PYGZdl{}\PYGZob{}resource.Network.id\PYGZcb{}\PYGZsq{}}
+          \PYG{n+nt}{assignment}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{dynamic}
+  \PYG{n+nt}{CentOS\PYGZhy{}Tier}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Cloud.Machine}
+    \PYG{n+nt}{properties}\PYG{p}{:}
+      \PYG{n+nt}{image}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{CentOS 8}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{centos\PYGZhy{}test}
+      \PYG{n+nt}{flavor}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{small}
+      \PYG{n+nt}{constraints}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}resource:rpprivate\PYGZsq{}}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}region:management\PYGZsq{}}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}cloud:private\PYGZsq{}}
+      \PYG{n+nt}{networks}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{network}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}\PYGZdl{}\PYGZob{}resource.Network.id\PYGZcb{}\PYGZsq{}}
+          \PYG{n+nt}{assignment}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{dynamic}
+      \PYG{n+nt}{cloudConfig}\PYG{p}{:} \PYG{p+pIndicator}{|}
+        \PYG{n+no}{preserve\PYGZus{}hostname: false}
+        \PYG{n+no}{hostname: centOS\PYGZhy{}server}
+        \PYG{n+no}{ssh\PYGZus{}pwauth: unchanged}
+        \PYG{n+no}{users:}
+         \PYG{n+no}{\PYGZhy{} default}
+         \PYG{n+no}{\PYGZhy{} name: \PYGZdl{}\PYGZob{}input.usernameCentOS\PYGZcb{}}
+           \PYG{n+no}{passwd: \PYGZdl{}\PYGZob{}input.passwordCentOS\PYGZcb{}}
+           \PYG{n+no}{lock\PYGZus{}passwd: false}
+           \PYG{n+no}{sudo: [\PYGZsq{}ALL=(ALL) NOPASSWD:ALL\PYGZsq{}]}
+           \PYG{n+no}{groups: [wheel, sudo, admin]}
+           \PYG{n+no}{shell: \PYGZsq{}/bin/bash\PYGZsq{}}
+  \PYG{n+nt}{Network}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Cloud.Network}
+    \PYG{n+nt}{properties}\PYG{p}{:}
+      \PYG{n+nt}{networkType}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{existing}
+      \PYG{n+nt}{constraints}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}subnet\PYGZhy{}cidr:10.50.0.0/24\PYGZsq{}}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}cloud:private\PYGZsq{}}
+\end{Verbatim}

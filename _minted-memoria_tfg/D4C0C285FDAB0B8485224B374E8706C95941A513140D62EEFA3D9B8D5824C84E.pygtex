@@ -1,0 +1,96 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{formatVersion}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{1}
+\PYG{n+nt}{inputs}\PYG{p}{:}
+ \PYG{n+nt}{usernameDB}\PYG{p}{:}
+  \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{string}
+  \PYG{n+nt}{minLength}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{4}
+  \PYG{n+nt}{maxLength}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{20}
+  \PYG{n+nt}{pattern}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}[a\PYGZhy{}z]+\PYGZsq{}}
+  \PYG{n+nt}{default}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{user01}
+  \PYG{n+nt}{title}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Database Username}
+  \PYG{n+nt}{description}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Database Username}
+ \PYG{n+nt}{passwordDB}\PYG{p}{:}
+  \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{string}
+  \PYG{n+nt}{pattern}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}[a\PYGZhy{}z0\PYGZhy{}9A\PYGZhy{}Z@\PYGZsh{}\PYGZdl{}]+\PYGZsq{}}
+  \PYG{n+nt}{default}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{password}
+  \PYG{n+nt}{encrypted}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{true}
+  \PYG{n+nt}{title}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Database Password}
+  \PYG{n+nt}{description}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Database Password}
+ \PYG{n+nt}{usernameVM}\PYG{p}{:}
+  \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{string}
+  \PYG{n+nt}{default}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{user01}
+  \PYG{n+nt}{title}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Username VM}
+  \PYG{n+nt}{description}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Username VM}
+ \PYG{n+nt}{passwordVM}\PYG{p}{:}
+  \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{string}
+  \PYG{n+nt}{default}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{\PYGZdl{}1\PYGZdl{}SaltSalt\PYGZdl{}/pvPOTpWHH5W17XHzuNoj/}
+  \PYG{n+nt}{title}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Hash password VM}
+  \PYG{n+nt}{description}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Hash password VM}
+\PYG{n+nt}{resources}\PYG{p}{:}
+  \PYG{n+nt}{Cloud\PYGZus{}Machine\PYGZus{}1}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Cloud.Machine}
+    \PYG{n+nt}{properties}\PYG{p}{:}
+      \PYG{n+nt}{image}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{CentOS 8}
+      \PYG{n+nt}{name}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{centos\PYGZhy{}test}
+      \PYG{n+nt}{flavor}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{small}
+      \PYG{n+nt}{constraints}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}resource:rpprivate\PYGZsq{}}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}region:management\PYGZsq{}}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}cloud:private\PYGZsq{}}
+      \PYG{n+nt}{networks}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{network}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}\PYGZdl{}\PYGZob{}resource.Cloud\PYGZus{}Network\PYGZus{}1.id\PYGZcb{}\PYGZsq{}}
+          \PYG{n+nt}{assignment}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{dynamic}
+      \PYG{n+nt}{cloudConfig}\PYG{p}{:} \PYG{p+pIndicator}{|}
+        \PYG{n+no}{preserve\PYGZus{}hostname: false}
+        \PYG{n+no}{hostname: centOS\PYGZhy{}server}
+        \PYG{n+no}{ssh\PYGZus{}pwauth: yes}
+        \PYG{n+no}{users:}
+         \PYG{n+no}{\PYGZhy{} default}
+         \PYG{n+no}{\PYGZhy{} name: server\PYGZhy{}User}
+           \PYG{n+no}{passwd: \PYGZdl{}1\PYGZdl{}SaltSalt\PYGZdl{}/pvPOTpWHH5W17XHzuNoj/}
+           \PYG{n+no}{lock\PYGZus{}passwd: false}
+           \PYG{n+no}{sudo: [\PYGZsq{}ALL=(ALL) NOPASSWD:ALL\PYGZsq{}]}
+           \PYG{n+no}{groups: [wheel, sudo, admin]}
+           \PYG{n+no}{shell: \PYGZsq{}/bin/bash\PYGZsq{}}
+        \PYG{n+no}{runcmd:}
+         \PYG{n+no}{\PYGZhy{} sudo yum install \PYGZhy{}y mysql\PYGZhy{}server}
+         \PYG{n+no}{\PYGZhy{} sudo yum install \PYGZhy{}y wget}
+         \PYG{n+no}{\PYGZhy{} sudo yum install \PYGZhy{}y httpd}
+         \PYG{n+no}{\PYGZhy{} sudo yum install \PYGZhy{}y php}
+         \PYG{n+no}{\PYGZhy{} sudo yum install \PYGZhy{}y php\PYGZhy{}mysqlnd}
+         \PYG{n+no}{\PYGZhy{} sudo yum \PYGZhy{}y install php\PYGZhy{}gd php\PYGZhy{}ldap php\PYGZhy{}odbc php\PYGZhy{}pear php\PYGZhy{}xml php\PYGZhy{}xmlrpc php\PYGZhy{}mbstring php\PYGZhy{}snmp php\PYGZhy{}soap curl}
+         \PYG{n+no}{\PYGZhy{} sudo yum install \PYGZhy{}y epel\PYGZhy{}release}
+         \PYG{n+no}{\PYGZhy{} sudo yum install \PYGZhy{}y libmcrypt\PYGZhy{}devel}
+         \PYG{n+no}{\PYGZhy{} sudo yum install \PYGZhy{}y php\PYGZhy{}mcrypt}
+         \PYG{n+no}{\PYGZhy{} sudo yum install \PYGZhy{}y php\PYGZhy{}pecl\PYGZhy{}json}
+         \PYG{n+no}{\PYGZhy{} sudo systemctl stop firewalld}
+         \PYG{n+no}{\PYGZhy{} sed \PYGZhy{}e \PYGZsq{}/bind\PYGZhy{}address/ s/\PYGZca{}\PYGZsh{}*/\PYGZsh{}/\PYGZsq{} \PYGZhy{}i /etc/my.cnf}
+         \PYG{n+no}{\PYGZhy{} sudo service mysqld restart}
+         \PYG{n+no}{\PYGZhy{} mysql \PYGZhy{}e \PYGZdq{}CREATE USER \PYGZsq{}\PYGZdl{}\PYGZob{}input.usernameDB\PYGZcb{}\PYGZsq{}@\PYGZsq{}\PYGZpc{}\PYGZsq{} IDENTIFIED BY \PYGZsq{}\PYGZdl{}\PYGZob{}input.passwordDB\PYGZcb{}\PYGZsq{}\PYGZdq{}}
+         \PYG{n+no}{\PYGZhy{} mysql \PYGZhy{}e \PYGZdq{}GRANT ALL PRIVILEGES ON *.* TO \PYGZsq{}\PYGZdl{}\PYGZob{}input.usernameDB\PYGZcb{}\PYGZsq{}@\PYGZsq{}\PYGZpc{}\PYGZsq{}\PYGZdq{}}
+         \PYG{n+no}{\PYGZhy{} mysql \PYGZhy{}e \PYGZdq{}FLUSH PRIVILEGES;\PYGZdq{}}
+         \PYG{n+no}{\PYGZhy{} sudo mkdir \PYGZhy{}p /var/www/html/mywordpresssite \PYGZam{}\PYGZam{} cd /var/www/html \PYGZam{}\PYGZam{} wget https://wordpress.org/latest.tar.gz \PYGZam{}\PYGZam{} tar \PYGZhy{}xzf /var/www/html/latest.tar.gz \PYGZhy{}C /var/www/html/mywordpresssite \PYGZhy{}\PYGZhy{}strip\PYGZhy{}components 1}
+         \PYG{n+no}{\PYGZhy{} sed \PYGZhy{}e \PYGZsq{}/bind\PYGZhy{}address/ s/\PYGZca{}\PYGZsh{}*/\PYGZsh{}/\PYGZsq{} \PYGZhy{}i /etc/my.cnf}
+         \PYG{n+no}{\PYGZhy{} i=0; while [ \PYGZdl{}i \PYGZhy{}le 5 ]; do mysql \PYGZhy{}\PYGZhy{}connect\PYGZhy{}timeout=3 \PYGZhy{}h localhost \PYGZhy{}u \PYGZdl{}\PYGZob{}input.usernameDB\PYGZcb{} \PYGZhy{}p\PYGZdl{}\PYGZob{}input.passwordDB\PYGZcb{} \PYGZhy{}e \PYGZdq{}SHOW STATUS;\PYGZdq{} \PYGZam{}\PYGZam{} break || sleep 15; i=\PYGZdl{}((i+1)); done}
+         \PYG{n+no}{\PYGZhy{} mysql \PYGZhy{}u \PYGZdl{}\PYGZob{}input.usernameDB\PYGZcb{} \PYGZhy{}p\PYGZdl{}\PYGZob{}input.passwordDB\PYGZcb{} \PYGZhy{}h localhost \PYGZhy{}e \PYGZdq{}create database wordpress\PYGZus{}blog;\PYGZdq{}}
+         \PYG{n+no}{\PYGZhy{} sudo cp /var/www/html/mywordpresssite/wp\PYGZhy{}config.php /var/www/html/mywordpresssite/wp\PYGZhy{}config\PYGZhy{}sample.php}
+         \PYG{n+no}{\PYGZhy{} sed \PYGZhy{}i \PYGZhy{}e s/\PYGZdq{}define( \PYGZsq{}DB\PYGZus{}NAME\PYGZsq{}, \PYGZsq{}database\PYGZus{}name\PYGZus{}here\PYGZsq{} );\PYGZdq{}/\PYGZdq{}define( \PYGZsq{}DB\PYGZus{}NAME\PYGZsq{}, \PYGZsq{}wordpress\PYGZus{}blog\PYGZsq{} );\PYGZdq{}/ /var/www/html/mywordpresssite/wp\PYGZhy{}config.php \PYGZam{}\PYGZam{} sed \PYGZhy{}i \PYGZhy{}e s/\PYGZdq{}define( \PYGZsq{}DB\PYGZus{}USER\PYGZsq{}, \PYGZsq{}username\PYGZus{}here\PYGZsq{} );\PYGZdq{}/\PYGZdq{}define( \PYGZsq{}DB\PYGZus{}USER\PYGZsq{}, \PYGZsq{}\PYGZdl{}\PYGZob{}input.usernameDB\PYGZcb{}\PYGZsq{} );\PYGZdq{}/ /var/www/html/mywordpresssite/wp\PYGZhy{}config.php \PYGZam{}\PYGZam{} sed \PYGZhy{}i \PYGZhy{}e s/\PYGZdq{}define( \PYGZsq{}DB\PYGZus{}PASSWORD\PYGZsq{}, \PYGZsq{}password\PYGZus{}here\PYGZsq{} );\PYGZdq{}/\PYGZdq{}define( \PYGZsq{}DB\PYGZus{}PASSWORD\PYGZsq{}, \PYGZsq{}\PYGZdl{}\PYGZob{}input.passwordDB\PYGZcb{}\PYGZsq{} );\PYGZdq{}/ /var/www/html/mywordpresssite/wp\PYGZhy{}config.php \PYGZam{}\PYGZam{} sed \PYGZhy{}i \PYGZhy{}e s/\PYGZdq{}define( \PYGZsq{}DB\PYGZus{}HOST\PYGZsq{}, \PYGZsq{}localhost\PYGZsq{} );\PYGZdq{}/\PYGZdq{}define( \PYGZsq{}DB\PYGZus{}HOST\PYGZsq{}, \PYGZsq{}localhost\PYGZsq{} );\PYGZdq{}/ /var/www/html/mywordpresssite/wp\PYGZhy{}config.php}
+         \PYG{n+no}{\PYGZhy{} sudo chown \PYGZhy{}R apache:apache /var/www/html/mywordpresssite/}
+         \PYG{n+no}{\PYGZhy{} sudo chmod \PYGZhy{}R g+w /var/www/html/mywordpresssite/}
+         \PYG{n+no}{\PYGZhy{} sudo semanage fcontext \PYGZhy{}a \PYGZhy{}t httpd\PYGZus{}sys\PYGZus{}rw\PYGZus{}content\PYGZus{}t \PYGZdq{}/var/www/html/mywordpresssite(/.*)?\PYGZdq{}}
+         \PYG{n+no}{\PYGZhy{} sudo restorecon \PYGZhy{}R /var/www/html/mywordpresssite/}
+         \PYG{n+no}{\PYGZhy{} systemctl enable httpd}
+         \PYG{n+no}{\PYGZhy{} service httpd restart}
+      \PYG{n+nt}{attachedDisks}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{source}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}\PYGZdl{}\PYGZob{}resource.Cloud\PYGZus{}Volume\PYGZus{}1.id\PYGZcb{}\PYGZsq{}}
+  \PYG{n+nt}{Cloud\PYGZus{}Network\PYGZus{}1}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Cloud.Network}
+    \PYG{n+nt}{properties}\PYG{p}{:}
+      \PYG{n+nt}{networkType}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{existing}
+      \PYG{n+nt}{constraints}\PYG{p}{:}
+        \PYG{p+pIndicator}{\PYGZhy{}} \PYG{n+nt}{tag}\PYG{p}{:} \PYG{l+s}{\PYGZsq{}subnet\PYGZhy{}cidr:10.50.0.0/24\PYGZsq{}}
+  \PYG{n+nt}{Cloud\PYGZus{}Volume\PYGZus{}1}\PYG{p}{:}
+    \PYG{n+nt}{type}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{Cloud.Volume}
+    \PYG{n+nt}{properties}\PYG{p}{:}
+      \PYG{n+nt}{capacityGb}\PYG{p}{:} \PYG{l+lScalar+lScalarPlain}{3}
+\end{Verbatim}

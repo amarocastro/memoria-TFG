@@ -2,7 +2,7 @@
     A lo largo de esta sección se mostrará la configuración establecida en vRA y cómo los usuarios del entorno de pruebas utilizan la plataforma Cloud. Primero se habilitarán los recursos necesarios para que luego los usuarios los aprovisionen mediante la creación de dos proyectos. 
 
     \begin{subsubsection}{Preparación de los recursos}
-    El aprovisionamiento de recursos con vRA se traduce en la creación de VMs a partir de plantillas creadas previamente por el administrador, y al uso de las subredes y almacenamiento que se encuentran disponibles en el entorno. Con el objetivo de organizar las VMs creadas por los usuarios, en el cluster vSphere situado en la instancia de VMware vCenter Server descrita anteriormente, se crean una carpeta y un \textit{resource pool} donde se desplegarán las nuevas VMs como se muestra en la siguiente figura.
+    El aprovisionamiento de recursos con vRA se traduce en la creación de VMs a partir de plantillas creadas previamente por el administrador, y al uso de las subredes y almacenamiento que se encuentran disponibles en la infraestructura. Con el objetivo de organizar las VMs creadas por los usuarios, en el cluster vSphere del entorno de pruebas se crean una carpeta y un \textit{resource pool} donde se colocarán las nuevas VMs que desplieguen los usuarios.
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/vrealize/rp-vra.png}
@@ -11,10 +11,10 @@
     \end{figure}
     \FloatBarrier
     % Para que las VMs creadas por los usuarios tengan acceso a la red, se crea un nuevo Segment en el router virtual Tier-1 de VMware NSX-T (Figura \ref{fig:two-tier-topology}) donde se alojará una subred dedicada exclusivamente a ser consumida por los usuarios. Al generar el Segment los componentes de VMware NSX-T comunican al router VyOS la nueva ruta mediante el protocolo de enrutamiento BGP, por lo tanto no es necesario aplicar ninguna configuración adicional en los recursos de red físicos.
-    Para que las VMs creadas por los usuarios tengan acceso a la red, se utilizará el Segment \textit{mgmt-Region01A-VXLAN} disponible en VMware NSX-T (Figura \ref{fig:two-tier-topology}). Se configura además un servidor DHCP dentro de VMware NSX-T y así poder establecer la configuración IP de forma automática a cada nueva VM que se conecte a la subred contenida en el Segment. 
+    Para que las VMs creadas por los usuarios tengan acceso a la red, se utilizará el Segment \textit{Mgmt-Region01A-VXLAN} disponible en VMware NSX-T (Figura \ref{fig:two-tier-topology}), el cual cuenta con un servidor DHCP\footnote{Como se observa en la figura \ref{fig:topology-segment-mgmt}, el servidor DHCP está gestionado por VMware NSX-T ya que forma parte de sus servicios de red.} y así poder establecer la configuración IP de forma automática de cada nueva VM que se conecte a este Segment. 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/vrealize/segment-MGMT.png}
+        \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/segment-MGMT.png}
         \caption{Segment utilizado para el despliegue de VMs con vRA (arriba) y la configuración del servidor DHCP definida en VMware NSX-T (abajo)}
         \label{fig:topology-segment-mgmt}
     \end{figure}
@@ -25,70 +25,81 @@
     %     \caption{Nueva ruta configurada en el router VyOS mediante BGP.}
     %     \label{fig:bgp-router-vyos}
     % \end{figure}
-    % \FloatBarrier    
-    Las plantillas empleadas por los usuarios para generar VMs son generadas por el administrador del SDDC. Para crear una plantilla el administrador debe antes crear una VM, instalar en ella el sistema operativo deseado y establecer una configuración inicial. En el entorno de pruebas, dentro del cluster vSphere, se crea una VM con el sistema operativo Ubuntu Server 18.04, para inicializarla se instalan las actualizaciones correspondientes y se configura el servicio \textbf{cloud-init}, el cual permitirá al usuario especificar comandos en el diseño para inicializar automaticamente una VM con los requisitos que desee (instalación de paquetes, creación de usuarios, generación de claves SSH, configuración de red y mucho más\footnote{En el siguiente enlace se pueden encontrar más información sobre cloud-init y ejemplos sobre sus usos: \url{https://cloudinit.readthedocs.io/en/latest/topics/examples.html}}). Una vez configurada se procede a ejecutar un script\footnote{El script se puede encontrar en el anexo .} para limpiar la VM para que cada vez que se utilice la plantilla se genere una VM distinta. Finalmente la VM se convierte a una plantilla que se almacena en VMware vCenter Server. 
+    % \FloatBarrier   
+    Para que los usuarios tengan plantillas a partir de las cuales generar sus propias VMs, el administrador del SDDC debe crearlas antes. Este proceso consiste en crear una VM, inicializarla con la instalación de un sistema operativo y establecer una configuración base para finalmente generar una plantilla. En el entorno de pruebas se crean dos plantillas de dos sistemas operativos distintos, una con Windows Server 2016 y otra con CentOS 8. Una vez instalados ambos sistemas se habilita al menos un método de acceso, SSH en el caso de CentOS y RDP en Windows Server, y se instala el servicio \textbf{cloud-init}\footnote{Ejemplos de uso y su documentación se pueden encontrar en el siguiente enlace: \url{https://cloudinit.readthedocs.io/en/latest/topics/examples.html}.} el cual permitirá a los usuarios finales ejecutar comandos de configuración durante el despliegue de una VM para adaptarla a sus requisitos. En sistemas operativos Windows este servicio se llama \textbf{cloudbase-init}\footnote{Su documentación se puede encontrar en el siguiente enlace:\url{https://cloudbase.it/cloudbase-init/}.}. Una vez se ha completada la configuración se deben ejecutar una serie de comandos, que en el caso de Windows Server son ejecutados directamente por el instalador de cloudbase-init a través del servicio \textbf{sysprep}, para limpiar el sistema y así generar una VM única cada vez que el usuario final utiliza la plantilla. Esto incluye el borrado de paquetes obsoletos y limpieza de logs, claves SSH e identificadores del sistema como direcciones MAC.
+    % Las plantillas empleadas por los usuarios para generar VMs son generadas por el administrador del SDDC. Para crear una plantilla el administrador debe antes crear una VM, instalar en ella el sistema operativo deseado y establecer una configuración inicial. En el entorno de pruebas, dentro del cluster vSphere, se crea una VM con el sistema operativo Ubuntu Server 18.04, para inicializarla se instalan las actualizaciones correspondientes y se configura el servicio \textbf{cloud-init}, el cual permitirá al usuario especificar comandos en el diseño para inicializar automaticamente una VM con los requisitos que desee (instalación de paquetes, creación de usuarios, generación de claves SSH, configuración de red y mucho más\footnote{En el siguiente enlace se pueden encontrar más información sobre cloud-init y ejemplos sobre sus usos: \url{https://cloudinit.readthedocs.io/en/latest/topics/examples.html}}). Una vez configurada se procede a ejecutar un script\footnote{El script se puede encontrar en el anexo .} para limpiar la VM para que cada vez que se utilice la plantilla se genere una VM distinta. Finalmente la VM se convierte a una plantilla que se almacena en VMware vCenter Server. 
     % Siguiendo un procedimiento similar se crea una plantilla a partir de una VM con Windows Server 2016 y otra plantilla con CentOS 8.
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/install-cloud-init.png}
-        \caption{Configuración del servicio cloud-init en Ubuntu Server 20.04.}
-        \label{fig:cloud-init-config}
+        \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/instalador-windows.png}
+        \caption{Instalación y preparación de la VM con Windows Server 2016 para la creación de una plantilla}
+        \label{fig:windows-server-installing}
     \end{figure}
     \FloatBarrier
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/convert-to-template-Ubuntu.png}
-        \caption{Creación de una plantilla a partir de la VM de Ubuntu Server 18.04.}
-        \label{fig:template-ubuntu}
+        \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/centos-installation.png}
+        \caption{Instalación CentOS y comandos ejecutados para preparar la plantilla.}
+        \label{fig:centos-installing}
     \end{figure}
     \FloatBarrier
-    Se crea otra VM con el sistema operativo Windows Server 2016. En este caso, en lugar de cloud-init se utiliza el servicio \textit{cloudbase-init}\footnote{La documentación de cloudbase-init se puede encontrar aquí: \url{https://cloudbase.it/cloudbase-init/}} que cumple la misma función que el anterior. Una vez completada la instalación y configuración de Windows Server 2016, desde VMware vCenter Server se convierte la VM en una plantilla.
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/instalación-cloudbase-windows.png.png}
-        \caption{instalación de cloudbase-init en Windows Server 2016.}
-        \label{fig:cloudbase-init}
+        \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/plantillas-creadas-vcenter.png}
+        \caption{Plantillas de CentOS 8 y Windows Server 2016 creadas a partir de sus VMs correspondientes.}
+        \label{fig:templates}
     \end{figure}
-    \FloatBarrier 
+    \FloatBarrier
+    % Se crea otra VM con el sistema operativo Windows Server 2016. En este caso, en lugar de cloud-init se utiliza el servicio \textit{cloudbase-init}\footnote{La documentación de cloudbase-init se puede encontrar aquí: \url{https://cloudbase.it/cloudbase-init/}} que cumple la misma función que el anterior. Una vez completada la instalación y configuración de Windows Server 2016, desde VMware vCenter Server se convierte la VM en una plantilla.
+    % \begin{figure}[h]
+    %     \centering
+    %     \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/instalación-cloudbase-windows.png}
+    %     \caption{instalación de cloudbase-init en Windows Server 2016.}
+    %     \label{fig:cloudbase-init}
+    % \end{figure}
+    % \FloatBarrier 
 
     \end{subsubsection}
 
     \begin{subsubsection}{Configuración de VMware vRealize Automation}
-        Una vez creados los recursos es necesario integrarlos en vRA. A medida que se configuran se asignan los tags necesarios para identificar cada recurso posteriormente.
-        En la siguiente imagen se muestran las plantillas creadas anteriormente configuradas en vRA para que los usuarios puedan acceder a ellas.
+        Para que los recursos de cómputo, red y almacenamiento de la infraestructura sean consumidos por los usuarios, es necesario habilitarlos en la plataforma de vRA. A medida que se integra cada recursos se le asigna uno o más tags para poder identificarlo y que el usuario lo pueda incluir en sus diseños. 
+        En la siguiente figura se muestran las plantillas creadas anteriormente en VMware vCenter Server. Cada vez que un usuario quiera crear una VM deberá indicar a partir de qué plantilla quiere generarla.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/image-mappings.png}
-            \caption{Plantillas configuradas en vRA.}
+            \caption{Plantillas de CentOS 8 y Windows Server 2016 disponibles en vRA.}
             \label{fig:image-mapping}
         \end{figure}
         \FloatBarrier
-        El Segment configurado en VMware NSX-T se añade como un perfil de red en vRA. Este Segment contiene un servidor DHCP configurado, pero existe la posibilidad de crear un rango de direcciones IP para asignar una IP estática a cada VM que utiliza este perfil. A la subred se le han asignado los tags \textit{subnet-cidr:10.50.0.0/24}, \textit{function:pro} y \textit{env:pro}.
+        Para habilitar el Segment \textit{Mgmt-Region01A-VXLAN}, en vRA se crea un nuevo perfil de red y dentro de este se añade la subred deseada. A esta se le asignan los tags \textit{subnet-cidr:10.50.0.0/24}, \textit{function:pro} y \textit{env:pro}.
+        % El Segment configurado en VMware NSX-T se añade como un perfil de red en vRA. Este Segment contiene un servidor DHCP configurado, pero existe la posibilidad de crear un rango de direcciones IP para asignar una IP estática a cada VM que utiliza este perfil. A la subred se le han asignado los tags .
         % , pero en este caso se utiEn este perfil se ha creado un rango de direcciones IP para que vRA asigne una dirección estática a cada VM que lo utilice, y se le han asignado los tags \textit{function: pro} y \textit{env: pro}.
         \begin{figure}[h]
             \centering
-            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/net-profile.png}
-            \caption{Perfil de red creado en vRA con el Segment generado en VMware NSX-T.}
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/net-profile-net-profile-MGMT.png}
+            \caption{Subred habilitada en vRA que se corresponde con el Segment \textit{Mgmt-Region01A-VXLAN} configurado en VMware NSX-T.}
             \label{fig:net-profile}
         \end{figure}
         \FloatBarrier
-        Los recursos de cómputo se habilitan a través de la Cloud Zone que se muestra en la siguiente imagen. Esta utiliza los recursos del cluster vSphere mencionado, establece la política a seguir para elegir el host donde se debe desplegar cada VM (la opción DEFAULT escoge un host aleatoriamente) y la carpeta de VMware vCenter Server donde se deben colocar las VMs. A esta Cloud Zone se le han asignado los tags \textit{cloud: private} y \textit{region: management}. Además, se le asigna el tag \textit{resource: rpprivate} al resource pool configurado previamente para poder colocar en él las VMs creadas
+        Los recursos de cómputo se habilitan configurando una Cloud Zone que se muestra en la figura \ref{fig:cloud-zone}. Esta integra en vRA los recursos del cluster vSphere situado en la instancia de VMware vCenter Server y permite establecer la política a seguir para escoger el host donde se debe desplegar cada VM (la opción DEFAULT escoge un host aleatoriamente) y la carpeta y resource pool donde se deben colocar. A esta Cloud Zone se le han asignado los tags \textit{cloud: private} y \textit{region: management}, y al resource pool el tag \textit{resource:rpprivate}.
        \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/cloud-zone.png}
-            \caption{Cloud Zone (izquierda) y resource pool (derecha) configuradas para desplegar VMs a través de vRA.}
+            \caption{Cloud Zone (izquierda) y resource pool (derecha) configurados para utilizar los recursos de cómputo y colocar las VMs desplegadas.}
             \label{fig:cloud-zone}
         \end{figure}
         \FloatBarrier
-        Para el almacenamiento, se crea un perfil que se muestra en la siguiente imagen. Este perfil tiene como recurso de almacenamiento el datastore configurado para el Management Domain, y se establece como el perfil por defecto para el aprovisionamiento de recursos de almacenamiento. Se la han asignado los tags \textit{cloud: private} y \textit{function: pro}. 
+        Igual que con los recursos de red, para habilitar los recursos de almacenamiento se debe crear un perfil de almacenamiento como se muestra en la figura \ref{fig:storage-policy}. Este perfil integra al datastore vSAN utilizado por el cluster vSphere del entorno y se establece como el perfil por defecto para aprovisionar recursos de almacenamiento desde vRA. Al perfil se le asignan los tags \textit{cloud: private} y \textit{function: pro}.
+        % Para el almacenamiento, se crea un perfil que se muestra en la siguiente imagen. Este perfil tiene como recurso de almacenamiento el datastore configurado para el Management Domain, y se establece como el perfil por defecto para el aprovisionamiento de recursos de almacenamiento. Se la han asignado los tags \textit{cloud: private} y \textit{function: pro}. 
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/datastore-policy.png}
-            \caption{Perfil de almacenamiento configurado donde indica el datastore que deben utilizar las VMs.}
+            \caption{Perfil de almacenamiento configurado donde indica el datastore utilizado para aprovisionar recursos de almacenamiento.}
             \label{fig:storage-policy}
         \end{figure}
         \FloatBarrier
-        Finalmente se configuran los perfiles donde se predefinen los tamaños que la VM creada por un usuario puede tomar. En cada perfil se establece la cantidad de CPU y memoria RAM que se asigna a una VM. Estos tamaños van desde \textit{x-small} con 1 CPU y 512 MB de memoria RAM, hasta \textit{large} con 8 CPUs y 16 GB de memoria RAM.
+        Finalmente se definen varios perfiles de tamaños para que los usuarios determinen el tamaño de sus VMs. En estos perfiles se define una cantidad de CPU, memoria RAM y almacenamiento 
+        Con estos perfiles se intenta estandarizar la cantidad de recursos que se puede asignar a una VM  donde se predefinen los tamaños que la VM creada por un usuario puede tomar. En cada perfil se establece la cantidad de CPU y memoria RAM que se asigna a una VM. Estos tamaños van desde \textit{x-small} con 1 CPU y 512 MB de memoria RAM, hasta \textit{large} con 8 CPUs y 16 GB de memoria RAM.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/falvor-mapping.png}
@@ -122,7 +133,7 @@
         
         Para valorar el consumo de recursos de cada proyecto vRA permite establecer un precio al uso de CPU, memoria y almacenamiento.
 
-        Una vez configurados los dos proyectos los usuarios administradores de cada uno pueden acceder y empezar a crear los diseños de los recursos que quieran aprovisionar. El coordinador del proyecto Server-Desktop, \textit{Manager Two}, a través de Cloud Assembly crea el diseño que se muestra en la siguiente imagen\footnote{En el anexo \ref{appendix:wd-server-blueprint} se encuentra el contenido del archivo .yaml donde se establece la configuración del diseño.}.
+        Una vez configurados los dos proyectos los usuarios administradores de cada uno pueden acceder y empezar a crear los diseños de los recursos que quieran aprovisionar. El coordinador del proyecto Server-Desktop, \textit{Manager Two}, a través de Cloud Assembly crea el diseño con el nombre WD-Server que se muestra en la siguiente imagen\footnote{En el anexo \ref{appendix:wd-server-blueprint} se encuentra el contenido del archivo .yaml donde se establece la configuración del diseño.}.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/windows-centos-blueprint.png}
@@ -147,9 +158,69 @@
             \label{fig:web-WD-blueprint}
         \end{figure}
         \FloatBarrier
-        En este diseño se define una VM con el sistema operativo CentOS 8, la cual se conecta a una red y se le añade un disco de almacenamiento. Durante el despliegue del diseño, en la VM se instala y configura el gestor de base de datos MySQL y el framework web Wordpress. Para ello, se hace uso de la propiedad \textbf{cloudConfig} la cual invoca al servicio \textbf{cloud-init} para la ejecución de los comandos definidos en el diseño, que en este caso se utilizan para descargar los paquetes de MySQL, Wordpress y sus dependencias, y posteriormente crear una base datos, configurar Wordpress para conectarse a ella y habilitar un servidor Apache para acceder al sitio web. 
+        En este diseño se define una VM con el sistema operativo CentOS 8, la cual se conecta a una red y se le añade un disco de almacenamiento. Durante el despliegue del diseño, en la VM se instala y configura el gestor de base de datos MySQL y el framework web Wordpress. Para ello, se hace uso de la propiedad \textbf{cloudConfig} la cual invoca al servicio \textbf{cloud-init} para la ejecución de los comandos definidos en el diseño, que en este caso se utilizan para descargar los paquetes de MySQL, Wordpress y sus dependencias, y posteriormente crear una base datos, configurar Wordpress para conectarse a ella y habilitar un servidor Apache para acceder al sitio web. Además, también incluye la definición de un usuario para inciar sesión en la VM mediante SSH y de las credenciales usadas para conectarse a la base de datos. Los tags utilizados son los mismos que en el proyecto anterior por lo tanto este diseño se desplegará en la misma ubicación. Finalmente, \textit{Manager One} publica el diseño en el catálogo.
         
-       
+        Una vez completada la fase de diseño y publicación, los usuarios ya pueden acceder a la plataforma Cloud y comenzar a utilizar los recursos en base a los diseños disponibles. A continuación se mostrará como los usuarios de cada proyecto acceden al servicio y utilizan los recursos. 
+        El usuario \textit{User Three} perteneciente al proyecto Server-Desktop accede a la plataforma utilizando sus credenciales\footnote{En el caso del entorno real utilizaría sus credenciales de la UDC.}, una vez inicia sesión accede al componente Service Broker de vRA donde se le muestra el catálogo de diseños disponibles en el proyecto al que pertenece. Para realizar el despliegue del diseño WD-Server deberá pulsar en el botón "Request" y a continuación se le mostrará un formulario donde debe introducir los datos de las credenciales de cada VM\footnote{Para la VM con CentOS es necesario indicar el hash de la contraseña ya que el SO lo interpreta de esta forma, generado en este caso con el comando \textit{openssl passwd -1 -salt SaltSalt VMware123!} desde el powershell de Windows siendo "VMware123!" la contraseña en texto plano.} y el nombre del despliegue. Una vez listo presiona el botón "Submit" y el despliegue de los componentes del diseño comienza permitiendo monitorizar el proceso. En este punto vRA se encarga de crear, configurar y reservar los recursos en VMware vCenter Server sin que el usuario tenga que realizar ninguna operación adicional. A continuación se muestran las imágenes donde se lleva a cabo este proceso.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/login-user-3-credentials.png}
+            \caption{Inicio de sesión del usuario \textit{User Three} (izquierda) y catálogo de diseños disponibles en el proyecto Server-Desktop (derecha).}
+            \label{fig:login-user-3-catalog}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/deployment-user-3-Windows.png}
+            \caption{Formulario para configurar el nuevo despliegue iniciado por el usuario \textit{User Three}.}
+            \label{fig:login-user-3-form-deployment}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/deployment-start-user-3-Windows.png}
+            \caption{Tarjeta del despliegue iniciado por el usuario \textit{User Three} (arriba) y la monitorización de todas las tareas llevadas a cabo por vRA durante el despliegue (abajo).}
+            \label{fig:deployment-process-user-3}
+        \end{figure}
+        \FloatBarrier
+        Cuando la creación y configuración de todos los recursos se ha completado estos están listos para su uso sin que el usuario tenga que aplicar ninguna configuración adicional. En la tarjeta del despliegue se muestra toda la información de los recursos como las direcciones IP de las VMs, discos de almacenamiento disponibles en cada una, la configuración aplicada durante el despliegue o las credenciales indicadas por el usuario. Además, desde este punto es donde el usuario puede gestionar estos recursos pudiendo encenderlos o apagarlos, añadir discos de almacenamiento, modificar el tamaño de la VM, crear copias de seguridad y añadir tags para cambiar los recursos de la infraestructura que se utilizan. Para acceder a las VMs creadas, \textit{User Three} simplemente tiene que comprobar la direcciones IP que se han asignado y conectarse a la VMs mediante SSH o a través de un cliente de escritorio remoto en el caso de la VM con Windows Server 2016.
+
+        En el proyecto Web-WD, el usuario \textit{User Two} accede a la plataforma de vRA y en el catálogo tiene disponibles dos diseños, WD-Server y Wordpress-MySQL-Embedded, ya que es miembro de los dos proyectos, Server-Desktop y Web-WD. El objetivo de este usuario es montar un sitio web por lo tanto inicia el despliegue del diseño Wordpress-MySQL-Embedded. En el formulario de configuración \textit{User Two} introduce las credenciales que se deben configurar en la VM para acceder a ella y para acceder a la base de datos. Una vez se genera la VM con CentOS el servicio cloud-init se inicia y ejecuta los comandos descritos en el diseño, en este caso instala todos los paquetes necesarios y configura el framework Wordpress y la base de datos en MySQL. Cuando este proceso se ha completado el usuario ya puede acceder a Wordpress a través del navegador, realizar la configuración inicial de su sitio web y comenzar a editar artículos. Las imágenes que vienen a continuación muestran los pasos seguidos por \textit{User Two} para obtener los recursos necesarios para su sitio web.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/user-two-catalog.png}
+            \caption{Diseños disponibles para \textit{User Two} (izquierda). Formulario de configuración de un nuevo despliegue del diseño Wordpress-MySQL-Embedded (derecha).}
+            \label{fig:catalog-user-2}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/user-2-card-deploy.png}
+            \caption{Despliegues a los que \textit{User Two} tiene acceso (arriba). Despliegue iniciado por \textit{User Two} finalizado junto con la información sobre la VM generada (derecha).}
+            \label{fig:deployment-user-2}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/cloud-init-commands-wordpress.png}
+            \caption{Fragmento de la ejecución de cloud-init donde se instala el paquete php-json y se descargan los archivos para la instalación de Wordpress.}
+            \label{fig:cloud-init-user-2}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/cloud-init-commands-wordpress.png}
+            \caption{Fragmento de la ejecución de cloud-init donde se instala el paquete php-json y se descargan los archivos para la instalación de Wordpress.}
+            \label{fig:cloud-init-user-2}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/wordpress-installation.png}
+            \caption{Página de instalación de Worpress cuando \textit{User Three} accede por primera vez (izquierda). Primer artículo escrito por \textit{User Two} en su nuevo sitio web.}
+            \label{fig:wordpress-user-2}
+        \end{figure}
+        \FloatBarrier
         % Desde el componente Cloud Assembly de vRA, el administrador crea los dos proyectos y asigna respectivamente el rol Administrador de Poryecto a los usuarios \textit{Manager One} y \textit{Manager Two}, mientras que el resto de usuarios reciben el rol Miembro de Proyecto. Con esta asignación cada usuario solo podrá acceder a los proyectos donde se le haya asignado un rol, lo cual podrán hacer a través del componente Service Broker de vRA.
         % El administrador de cada proyecto se encargará del diseño de blueprints, de habilitar las blueprints en el catálogo del proyecto y de controlar los usuarios que son miembros del proyecto. Los miembros del proyecto podrán realizar despliegues a partir de las blueprints habilitadas por el administrador del proyecto. 
         
