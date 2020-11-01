@@ -76,7 +76,7 @@
         % , pero en este caso se utiEn este perfil se ha creado un rango de direcciones IP para que vRA asigne una dirección estática a cada VM que lo utilice, y se le han asignado los tags \textit{function: pro} y \textit{env: pro}.
         \begin{figure}[h]
             \centering
-            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/net-profile-net-profile-MGMT.png}
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/net-profile-MGMT.png}
             \caption{Subred habilitada en vRA que se corresponde con el Segment \textit{Mgmt-Region01A-VXLAN} configurado en VMware NSX-T.}
             \label{fig:net-profile}
         \end{figure}
@@ -98,21 +98,29 @@
             \label{fig:storage-policy}
         \end{figure}
         \FloatBarrier
-        Finalmente se definen varios perfiles de tamaños para que los usuarios determinen el tamaño de sus VMs. En estos perfiles se define una cantidad de CPU, memoria RAM y almacenamiento 
-        Con estos perfiles se intenta estandarizar la cantidad de recursos que se puede asignar a una VM  donde se predefinen los tamaños que la VM creada por un usuario puede tomar. En cada perfil se establece la cantidad de CPU y memoria RAM que se asigna a una VM. Estos tamaños van desde \textit{x-small} con 1 CPU y 512 MB de memoria RAM, hasta \textit{large} con 8 CPUs y 16 GB de memoria RAM.
+        Se definen varios perfiles de tamaños para que los usuarios determinen el tamaño de sus VMs. En estos perfiles se define una cantidad de CPU y memoria RAM con el fin de estandarizar la cantidad de recursos que un usuario puede asignar a una VM. En el entorno de pruebas, estos tamaños van desde \textit{x-small} con 1 CPU y 512 MB de memoria RAM, hasta \textit{large} con 8 CPUs y 16 GB de memoria RAM.
         \begin{figure}[h]
             \centering
-            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/falvor-mapping.png}
-            \caption{Tamaños preestablecidos para determinar la cantidad de recursos de cada VM.}
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/flavor-mapping.png}
+            \caption{Perfiles donde se preestablecen la cantidad de recursos que puede tomar una VM.}
             \label{fig:falvor-mapping}
+        \end{figure}
+        \FloatBarrier
+        Con el objetivo de establecer una valoración de los recursos que utilizan los usuarios, se hace uso de las tarjetas de cobro. Se define una única tarjeta que se aplicará a todos los proyectos que se creen en la plataforma, y a medida que se vayan desplegando VMs se generará un cálculo total en base al precio asignado a cada recurso y a la cantidad de recursos utilizada por el usuario. Tanto el administrador como el usuario tendrán visibilidad de estadísticas sobre el gasto que se está realizando y de la cantidad total de recursos utilizados. La valoración establecida para el consumo de recursos es de 1 €/hora por cada CPU cuando la VM está encendida, 2 €/hora por cada GB de memoria RAM cuando la VM está encendida y 0,5 €/hora por GB de almacenamiento desde que se realiza el despliegue. 
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/pricing-card.png}
+            \caption{Tarjeta de cobro para valorar los recursos consumidos por los usuarios.}
+            \label{fig:pricing-card}
         \end{figure}
         \FloatBarrier
 
     \end{subsubsection}
 
     \begin{subsubsection}{Uso de la plataforma}
-        La plataforma ya está lista para ser utilizada por los usuarios. Los usuarios del CITIC que utilizarán esta plataforma Cloud están organizados en proyectos, donde existe al menos un coordinador o jefe de proyecto. Cuando un grupo de usuarios quiere utilizar el servicio Cloud primero debe comunicarlo al administrador, el cual crea el proyecto correspondiente y habilita el acceso a cada usuario con sus correspondientes permisos. 
-        Como ya se ha visto en la sección \refname{subsubsec:WSA}, en el entorno de pruebas se han configurado cinco usuarios que están divididos en dos proyectos, uno llamado Web-DB con el objetivo de construir una página web con una base de datos y otro llamado Server-Desktop con la idea de crear una VM con Windows Server y otra con CentOS para futuros trabajos. Tomando los usuarios que se muestran en la figura \ref{fig:users-defined-WSA}, el proyecto Web-DB lo forman el usuario \textit{User One}, \textit{User Two} y \textit{Manager One}, el cual es el coordinador del grupo, y el proyecto Desktop-Server está formado por \textit{User Two}, \textit{User Three} y \textit{Manager Two}, el cual será el coordinador de este segundo grupo. Entonces, a los usuarios \textit{Manager One} y \textit{Manager Two} se les asigna el rol Administrador de Proyecto, y al resto de usuarios el rol Miembro de Proyecto, los primeros podrán controlar las blueprints disponibles en el catálogo del proyecto y los usuarios que tienen acceso, mientras que los miembros del proyecto podrán desplegar los diseños habilitados.
+        La plataforma Cloud de vRA ya está lista para ser utilizada por los usuarios. Los usuarios del CITIC que la utilizarán se organizan en proyectos, donde existe al menos un coordinador o jefe de proyecto. Cuando un grupo de usuarios quiere utilizar el servicio Cloud primero debe comunicarlo al administrador el cual crea el proyecto correspondiente y habilita el acceso a cada usuario con sus correspondientes permisos.
+
+        Como ya se ha visto en la sección \refname{subsubsec:WSA}, en el entorno de pruebas se han configurado cinco usuarios que se dividen en dos proyectos, uno llamado Web-DB con el objetivo de que los usuarios pertenecientes puedan construir un sitio web bajo demanda y otro llamado Server-Desktop donde sus integrantes pueden desplegar dos VMs para realizar cierto trabajo de investigación. Tomando los usuarios que se muestran en la figura \ref{fig:users-defined-WSA}, el proyecto Web-DB lo forman el usuario \textit{User One}, \textit{User Two} y \textit{Manager One}, el cual es el coordinador del grupo, y el proyecto Desktop-Server está formado por \textit{User Two}, \textit{User Three} y \textit{Manager Two}, el cual será el coordinador de este segundo grupo. Entonces, a los usuarios \textit{Manager One} y \textit{Manager Two} se les asigna el rol Administrador de Proyecto, y al resto de usuarios el rol Miembro de Proyecto, los primeros podrán controlar los diseños disponibles en el catálogo del proyecto, qué usuarios tienen acceso y los despliegues que estos realicen, mientras que los miembros del proyecto podrán desplegar los diseños habilitados.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/projects-vRA.png}
@@ -120,20 +128,17 @@
             \label{fig:projects-vra}
         \end{figure}
         \FloatBarrier
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/users-DB.png}
-            \caption{Usuarios del proyecto Server-Desktop (izquierda) y usuarios del proyecto Web-DB (derecha).}
-            \label{fig:project-users}
-        \end{figure}
-        \FloatBarrier
-        En cada uno de los proyectos el administrador establece la cantidad máxima de CPU, memoria RAM y almacenamiento que pueden consumir en total los usuarios del proyecto. Como se trata de un entorno de pruebas en el proyecto Server-Desktop se establece un límite de 2 VMs, 10 GB de memoria RAM y 6 CPUs, y en el proyecto Web-DB un límite de 2 VMs, 10 GB de memoria RAM y 6 CPUs, de esta forma los usuarios del proyecto no podrán superar ninguno de los límites establecidos.
+        % \begin{figure}[h]
+        %     \centering
+        %     \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/users-DB.png}
+        %     \caption{Usuarios del proyecto Server-Desktop (izquierda) y usuarios del proyecto Web-DB (derecha).}
+        %     \label{fig:project-users}
+        % \end{figure}
+        % \FloatBarrier
+        Durante la creación de los proyectos el administrador establece la cantidad máxima de CPU, memoria RAM y almacenamiento que pueden consumir en total los usuarios del proyecto. Como se trata de un entorno de pruebas en el proyecto Server-Desktop se establece un límite de 2 VMs, 10 GB de memoria RAM y 6 CPUs, y en el proyecto Web-DB un límite de 3 VMs, 10 GB de memoria RAM y 6 CPUs, de esta forma los usuarios del proyecto no podrán superar ninguno de los límites establecidos. Para obtener una valoración del consumo se asigna a cada proyecto la tarjeta de cobro creada anteriormente.
         % Cuando el administrador crea un proyecto establece la cantidad máxima de CPU, memoria RAM y almacenamiento que puede consumir en total. También se pueden establecer mediante el uso de tags, los recursos que los despliegues del proyecto deben utilizar por defecto.
-        [Foto consumo total]
         
-        Para valorar el consumo de recursos de cada proyecto vRA permite establecer un precio al uso de CPU, memoria y almacenamiento.
-
-        Una vez configurados los dos proyectos los usuarios administradores de cada uno pueden acceder y empezar a crear los diseños de los recursos que quieran aprovisionar. El coordinador del proyecto Server-Desktop, \textit{Manager Two}, a través de Cloud Assembly crea el diseño con el nombre WD-Server que se muestra en la siguiente imagen\footnote{En el anexo \ref{appendix:wd-server-blueprint} se encuentra el contenido del archivo .yaml donde se establece la configuración del diseño.}.
+        Una vez configurados ambos proyectos los administradores de cada uno pueden acceder y empezar a crear los diseños de los recursos que requieran sus usuarios a través del componente Cloud Assembly de vRA. El administrador del proyecto Server-Desktop, \textit{Manager Two}, crea el diseño con el nombre WD-Server que se muestra en la siguiente figura\footnote{En el anexo \ref{appendix:wd-server-blueprint} se encuentra el contenido del archivo .yaml donde se establece la configuración del diseño.}.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/windows-centos-blueprint.png}
@@ -141,7 +146,7 @@
             \label{fig:server-desktop-blueprint}
         \end{figure}
         \FloatBarrier
-        En este diseño se define una VM con el sistema operativo Windows Server 2016 y otra con CentOS 8, ambas VMs se conectan a una red que también se define en el diseño. Se establecen además unas credenciales para cada VM, cuyos datos son introducidos por el usuario cuando se despliega el diseño y así poder iniciar sesión en ellas mediante SSH. Los tags que se utilizan en la definición de las VMs son \textit{cloud:private}, \textit{region:management} y \textit{resource:rpprivate}, y el tag \textit{subnet-cidr:10.50.0.0/24} en la definición de la red, por lo tanto ambas VMs utilizarán los recursos del cluster vSphere y el Segment definido en VMware NSX-T. En cuanto a la configuración de las interfaces de red, se puede establecer una configuración de forma estática pero como en la subred utilizada existe un servidor DHCP, entonces se aplicará de forma dinámica. Una vez completado el diseño, \textit{Manager Two} publica el diseño en el catálogo del proyecto para que los usuarios puedan acceder a él. Durante la publicación se especifica la versión del diseño ya que este puede ser actualizado.
+        En este diseño se define una VM con el sistema operativo Windows Server 2016 y otra con CentOS 8, y una red a la que ambas se conectan. Se establecen además unas credenciales para cada VM, cuyos datos son introducidos por el usuario cuando se despliega el diseño y así poder iniciar sesión en ellas mediante SSH o RDP en el caso de Windows. Los tags que se utilizan en la definición de las VMs son \textit{cloud:private}, \textit{region:management} y \textit{resource:rpprivate}, y el tag \textit{subnet-cidr:10.50.0.0/24} en la definición de la red, por lo tanto ambas VMs utilizarán los recursos del cluster vSphere y el Segment definido en VMware NSX-T. En cuanto a la configuración de las interfaces de red, se puede establecer una configuración de forma estática pero como en la subred utilizada existe un servidor DHCP, entonces se aplicará de forma dinámica. Una vez completado el diseño, \textit{Manager Two} publica el diseño en el catálogo del proyecto para que los usuarios puedan acceder a él. Durante la publicación se especifica la versión del diseño ya que este puede ser actualizado.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/create-version-blueprint.png}
@@ -149,8 +154,7 @@
             \label{fig:publication-version}
         \end{figure}
         \FloatBarrier
-
-        De la misma forma que para el proyecto Server-Desktop, el coordinador del proyecto Web-WD, \textit{Manager One}, crea el diseño de los recursos necesarios para que los usuarios del proyecto puedan generar un sitio web basado en Wordpress, con el objetivo de que una vez desplegados los recursos el usuario pueda trabajar inmediatamente en su página web sin ocuparse de la configuración el entorno. En la siguiente imagen se muestra el diseño creado para el proyecto Web-WD\footnote{En el anexo \ref{appendix:worpress-mysql-blueprint} se encuentra el contenido del archivo .yaml donde se establece la configuración del diseño.}.
+        De la misma forma que para el proyecto Server-Desktop, el administrador del proyecto Web-WD, \textit{Manager One}, crea el diseño de los recursos necesarios para que los usuarios del proyecto puedan generar un sitio web basado en Wordpress automatizando la configuración del entorno, con la idea de que una vez desplegados los recursos el usuario pueda trabajar inmediatamente y exclusivamente en su sitio web. En la siguiente figura se muestra el diseño creado para el proyecto Web-WD\footnote{En el anexo \ref{appendix:worpress-mysql-blueprint} se encuentra el contenido del archivo .yaml donde se establece la configuración del diseño.}.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/wordpress-mysql-blueprint.png}
@@ -158,10 +162,11 @@
             \label{fig:web-WD-blueprint}
         \end{figure}
         \FloatBarrier
-        En este diseño se define una VM con el sistema operativo CentOS 8, la cual se conecta a una red y se le añade un disco de almacenamiento. Durante el despliegue del diseño, en la VM se instala y configura el gestor de base de datos MySQL y el framework web Wordpress. Para ello, se hace uso de la propiedad \textbf{cloudConfig} la cual invoca al servicio \textbf{cloud-init} para la ejecución de los comandos definidos en el diseño, que en este caso se utilizan para descargar los paquetes de MySQL, Wordpress y sus dependencias, y posteriormente crear una base datos, configurar Wordpress para conectarse a ella y habilitar un servidor Apache para acceder al sitio web. Además, también incluye la definición de un usuario para inciar sesión en la VM mediante SSH y de las credenciales usadas para conectarse a la base de datos. Los tags utilizados son los mismos que en el proyecto anterior por lo tanto este diseño se desplegará en la misma ubicación. Finalmente, \textit{Manager One} publica el diseño en el catálogo.
+        En este diseño se define una VM con el sistema operativo CentOS 8, una red a la cual se conecta y un disco de almacenamiento conectado a la VM. En la sección \textbf{cloudConfig} del diseño se definen una serie de comandos que se ejecutan durante la inicialización de la VM cuando se despliega. Estos comandos son ejecutados por el servicio \textbf{cloud-init} y con ellos primero se instalan los paquetes necesarios para ejecutar MySQL y el framework Wordpress en un servidor Apache, luego se crea una base de datos y se configura Wordpress. De esta forma una vez se complete un despliegue el sitio web estará listo para ser usado. Además también se incluyen en esa sección del diseño los atributos que permiten a cloud-init crear las credenciales para acceder a la VM mediante SSH. Este diseño utiliza los mismos tags que el proyecto Server-Desktop por lo tanto utilizará los mismos recursos de cómputo, red y almacenamiento. Finalmente, \textit{Manager One} publica el diseño en el catálogo.        
+        % Durante el despliegue del diseño, en la VM se instala y configura el gestor de base de datos MySQL y el framework web Wordpress. Para ello, se hace uso de la propiedad \textbf{cloudConfig} la cual invoca al servicio \textbf{cloud-init} para la ejecución de los comandos definidos en el diseño, que en este caso se utilizan para descargar los paquetes de MySQL, Wordpress y sus dependencias, y posteriormente crear una base datos, configurar Wordpress para conectarse a ella y habilitar un servidor Apache para acceder al sitio web. Además, también incluye la definición de un usuario para inciar sesión en la VM mediante SSH y de las credenciales usadas para conectarse a la base de datos. Los tags utilizados son los mismos que en el proyecto anterior por lo tanto este diseño se desplegará en la misma ubicación. Finalmente, \textit{Manager One} publica el diseño en el catálogo.        
         
-        Una vez completada la fase de diseño y publicación, los usuarios ya pueden acceder a la plataforma Cloud y comenzar a utilizar los recursos en base a los diseños disponibles. A continuación se mostrará como los usuarios de cada proyecto acceden al servicio y utilizan los recursos. 
-        El usuario \textit{User Three} perteneciente al proyecto Server-Desktop accede a la plataforma utilizando sus credenciales\footnote{En el caso del entorno real utilizaría sus credenciales de la UDC.}, una vez inicia sesión accede al componente Service Broker de vRA donde se le muestra el catálogo de diseños disponibles en el proyecto al que pertenece. Para realizar el despliegue del diseño WD-Server deberá pulsar en el botón "Request" y a continuación se le mostrará un formulario donde debe introducir los datos de las credenciales de cada VM\footnote{Para la VM con CentOS es necesario indicar el hash de la contraseña ya que el SO lo interpreta de esta forma, generado en este caso con el comando \textit{openssl passwd -1 -salt SaltSalt VMware123!} desde el powershell de Windows siendo "VMware123!" la contraseña en texto plano.} y el nombre del despliegue. Una vez listo presiona el botón "Submit" y el despliegue de los componentes del diseño comienza permitiendo monitorizar el proceso. En este punto vRA se encarga de crear, configurar y reservar los recursos en VMware vCenter Server sin que el usuario tenga que realizar ninguna operación adicional. A continuación se muestran las imágenes donde se lleva a cabo este proceso.
+        Una vez completada la fase de diseño y publicación, los usuarios ya pueden acceder a la plataforma Cloud y comenzar a utilizar los recursos en base a los diseños disponibles. A continuación se muestra cómo los usuarios de cada proyecto acceden a la plataforma Cloud y utilizan los recursos. 
+        El usuario \textit{User Three} perteneciente al proyecto Server-Desktop accede a la plataforma utilizando sus credenciales\footnote{En el caso del entorno real utilizaría sus credenciales de la UDC.}, una vez inicia sesión accede al componente Service Broker de vRA donde se le muestra el catálogo de diseños disponibles en el proyecto al que pertenece. Cuando inicia el despliegue del diseño WD-Server, se muestra un formulario donde introduce los datos de las credenciales de cada VM\footnote{Para la VM con CentOS es necesario indicar el hash de la contraseña ya que el SO lo interpreta de esta forma, generado en este caso con el comando \textit{openssl passwd -1 -salt SaltSalt VMware123!} desde el powershell de Windows siendo "VMware123!" la contraseña en texto plano.} que se va a crear y el nombre del despliegue. A continuación comienza el proceso de despliegue. En este punto vRA se encarga de crear, configurar y reservar los recursos descritos en el diseño en VMware vCenter Server sin que el usuario tenga que realizar ninguna operación adicional. A continuación se muestran las figuras donde se lleva a cabo el proceso descrito.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/login-user-3-credentials.png}
@@ -183,9 +188,15 @@
             \label{fig:deployment-process-user-3}
         \end{figure}
         \FloatBarrier
-        Cuando la creación y configuración de todos los recursos se ha completado estos están listos para su uso sin que el usuario tenga que aplicar ninguna configuración adicional. En la tarjeta del despliegue se muestra toda la información de los recursos como las direcciones IP de las VMs, discos de almacenamiento disponibles en cada una, la configuración aplicada durante el despliegue o las credenciales indicadas por el usuario. Además, desde este punto es donde el usuario puede gestionar estos recursos pudiendo encenderlos o apagarlos, añadir discos de almacenamiento, modificar el tamaño de la VM, crear copias de seguridad y añadir tags para cambiar los recursos de la infraestructura que se utilizan. Para acceder a las VMs creadas, \textit{User Three} simplemente tiene que comprobar la direcciones IP que se han asignado y conectarse a la VMs mediante SSH o a través de un cliente de escritorio remoto en el caso de la VM con Windows Server 2016.
-
-        En el proyecto Web-WD, el usuario \textit{User Two} accede a la plataforma de vRA y en el catálogo tiene disponibles dos diseños, WD-Server y Wordpress-MySQL-Embedded, ya que es miembro de los dos proyectos, Server-Desktop y Web-WD. El objetivo de este usuario es montar un sitio web por lo tanto inicia el despliegue del diseño Wordpress-MySQL-Embedded. En el formulario de configuración \textit{User Two} introduce las credenciales que se deben configurar en la VM para acceder a ella y para acceder a la base de datos. Una vez se genera la VM con CentOS el servicio cloud-init se inicia y ejecuta los comandos descritos en el diseño, en este caso instala todos los paquetes necesarios y configura el framework Wordpress y la base de datos en MySQL. Cuando este proceso se ha completado el usuario ya puede acceder a Wordpress a través del navegador, realizar la configuración inicial de su sitio web y comenzar a editar artículos. Las imágenes que vienen a continuación muestran los pasos seguidos por \textit{User Two} para obtener los recursos necesarios para su sitio web.
+        Cuando la creación y configuración de los recursos se ha completado estos ya están listos para su uso. En la tarjeta del despliegue se muestra toda la información como direcciones IP de las VMs, discos de almacenamiento disponibles en cada una, la configuración aplicada durante el despliegue o las credenciales indicadas por el usuario. Además, desde este punto es donde el usuario puede gestionar estos recursos pudiendo encenderlos o apagarlos, añadir discos de almacenamiento, modificar el tamaño de la VM, crear copias de seguridad y añadir tags para cambiar la ubicación de los recursos. Para acceder a las VMs creadas, \textit{User Three} simplemente tiene que comprobar las direcciones IP que se han asignado y conectarse a la VMs mediante SSH o a través de un cliente de escritorio remoto en el caso de Windows Server 2016.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/Windows-RDP.png}
+            \caption{Conexión de \textit{User Three} mediante RDP a la VM con Windows Server 2016 (arriba) y mediante SSH a la VM con CentOS (abajo).}
+            \label{fig:vm-cent-win-connection}
+        \end{figure}
+        \FloatBarrier
+        En el proyecto Web-WD, el usuario \textit{User Two} accede a la plataforma de vRA y en el catálogo tiene disponibles dos diseños, WD-Server y Wordpress-MySQL-Embedded, ya que es miembro de los dos proyectos Server-Desktop y Web-WD. El objetivo de este usuario es montar un sitio web por lo tanto inicia el despliegue del diseño Wordpress-MySQL-Embedded. En el formulario de configuración \textit{User Two} introduce las credenciales que se deben configurar en la VM para acceder a ella y para configurar a la base de datos. Una vez generada la VM con CentOS el servicio cloud-init se inicia y ejecuta los comandos descritos en el diseño. Cuando este proceso se ha completado el usuario ya puede acceder a Wordpress a través del navegador, realizar la configuración inicial de su sitio web y comenzar a editar artículos. Las figuras que vienen a continuación muestran los pasos seguidos por \textit{User Two} para obtener su sitio web.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/user-two-catalog.png}
@@ -209,21 +220,25 @@
         \FloatBarrier
         \begin{figure}[h]
             \centering
-            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/cloud-init-commands-wordpress.png}
-            \caption{Fragmento de la ejecución de cloud-init donde se instala el paquete php-json y se descargan los archivos para la instalación de Wordpress.}
-            \label{fig:cloud-init-user-2}
-        \end{figure}
-        \FloatBarrier
-        \begin{figure}[h]
-            \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/wordpress-installation.png}
             \caption{Página de instalación de Worpress cuando \textit{User Three} accede por primera vez (izquierda). Primer artículo escrito por \textit{User Two} en su nuevo sitio web.}
             \label{fig:wordpress-user-2}
         \end{figure}
         \FloatBarrier
         % Desde el componente Cloud Assembly de vRA, el administrador crea los dos proyectos y asigna respectivamente el rol Administrador de Poryecto a los usuarios \textit{Manager One} y \textit{Manager Two}, mientras que el resto de usuarios reciben el rol Miembro de Proyecto. Con esta asignación cada usuario solo podrá acceder a los proyectos donde se le haya asignado un rol, lo cual podrán hacer a través del componente Service Broker de vRA.
-        % El administrador de cada proyecto se encargará del diseño de blueprints, de habilitar las blueprints en el catálogo del proyecto y de controlar los usuarios que son miembros del proyecto. Los miembros del proyecto podrán realizar despliegues a partir de las blueprints habilitadas por el administrador del proyecto. 
+        % El administrador de cada proyecto se encargará del diseño de blueprints, de habilitar las blueprints en el catálogo del proyecto y de controlar los usuarios que son miembros del proyecto. Los miembros del proyecto podrán realizar despliegues a partir de las blueprints habilitadas por el administrador del proyecto.
+        A medida que se despliegan los diseños las VMs creadas comienzan a consumir recursos. El administrador del SDDC y los usuarios pueden monitorizar el consumo desde el panel de control de cada despliegue, donde pueden acceder a estadísticas diarias, semanales y mensuales sobre el uso de CPU, memoria RAM, almacenamiento y red.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/statistics-service-broker.png}
+            \caption{Panel de control del despliegue User2-Wordpress-Blog con la vista de monitorización de la VM Web-DB-CentOS-test-303.}
+            \label{fig:statistics-user-2}
+        \end{figure}
+        \FloatBarrier
+        Las estadísticas en cuanto a la valoración de los recursos en base a la tarjeta de cobro establecida también es accedida desde el panel de control del despliegue bajo la pestaña "Price". En ella los usuarios pueden ver la valoración total diaria, semanal y mensual de los recursos consumidos en el despliegue, y también de forma detallada donde se desglosa la valoración total en la valoración del cómputo, almacenamiento y otros cargos adicionales que se puedan aplicar. Además, el administrador del SDDC también tiene acceso a estadísticas sobre la valoración total sobre el consumo de recursos de un proyecto. 
         
+        De esta forma el administrador del SDDC puede asignar a cada proyecto o usuario una cuenta con una cantidad de dinero ficticio del la cual se vaya extrayendo de forma mensual o semanal la valoración del consumo de recursos realizada por la plataforma. Cuando la cuenta esté vacía o no tenga suficiente saldo para consumir más recursos el administrador del SDDC puede bloquear nuevos despliegues dentro del proyecto o del usuario correspondiente hasta que su cuenta vuelva a tener saldo, para así conseguir que haya recursos disponibles para todos los usuarios y evitar que se mantengan despliegues activos cuyas VMs no están siendo usadas.
+
     \end{subsubsection}
 
     % Para ordenar el aprovisionamiento de los recursos, antes de realizar cualquier implementación, es necesario configurar la infraestructura que se va a poner a disposición de los usuarios. 
