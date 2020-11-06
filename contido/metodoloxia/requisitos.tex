@@ -1,26 +1,27 @@
 \begin{section}{Requisitos}
-En este apartado se describe aquello que debe cumplir la infraestructura física para que los componentes de VMware Cloud Foundation funcionen de forma adecuada y que la configuración y mantenimiento de los componentes físicos sea simple a la hora de expandir el entorno.
+En este apartado se describe aquello que debe cumplir la infraestructura física para que los componentes de VMware Cloud Foundation funcionen de forma adecuada y que la configuración y mantenimiento de los componentes físicos sea sencilla a la hora de expandir el entorno.
 
 % Teniendo en cuenta las capacidades físicas de la infraestructura, se ha elegido el modelo consolidado para el despliegue de VMware Cloud Foundation sobre la infraestructura.     La principal razón por las que se escoge este modelo es por el número de hosts ESXi.
 % En los siguientes apartados se describen la arquitectura que se genera y la infraestructura requerida en cada capa.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{subsection}{Cómputo}
 \begin{subsubsection}{Hosts ESXi}
-    Para realizar el despliegue del primer WD (el Management Domain) se requieren al menos cuatro\footnote{Se reserva la cuarta parte de los recursos para que el \textit{management domain} permanezca activo en caso de caída de alguno de los hosts.} hosts ESXi con al menos un 128 GB de memoria RAM y un disco de arranque de 32 GB cada uno\footnote{Según la configuración establecida para el producto vSAN ReadyNode \cite{host-requirements}}. Para cada WD adicional solo se requiere un mínimo de tres hosts y la cantidad de memoria RAM depende de la finalidad del WD, por lo tanto para implementar el modelo de arquitectura estándar se requieren al menos siete hosts ESXi. Cada uno de los hosts debe tener al menos dos interfaces de red físicas (NIC) que soporten al menos 10 Gbit/seg de velocidad.
+    Para realizar el despliegue del primer WD (el Management Domain) se requieren al menos cuatro hosts ESXi con al menos 128 GB de memoria RAM y un disco de arranque de 32 GB cada uno\footnote{Según la configuración establecida para el producto vSAN ReadyNode \cite{host-requirements}}. Para cada WD adicional solo se requiere un mínimo de tres hosts cuya cantidad de memoria RAM depende de la finalidad del WD. Cada uno de los hosts debe tener al menos dos interfaces de red físicas (NIC) que soporten al menos 10 Gbit/seg de velocidad.
     
 \end{subsubsection}
 \end{subsection}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{subsection}{Almacenamiento}
     En el Management Domain es obligatorio el uso de un \textit{datastore} de VMware vSAN, este necesita al menos tres hosts con recursos de almacenamiento para funcionar\footnote{VMware vSAN requiere un mínimo de tres hosts mientras que el Management Domain requiere un mínimo de cuatro hosts.}. Se debe aplicar la configuración All-Flash con discos SSD. Basándose en los perfiles que VMware establece para su producto vSAN Ready Node\cite{host-requirements}, cada host debe tener al menos un grupo de dos discos donde la cantidad de almacenamiento para la capa de capacidad debe ser de 4 TB y para la capa de caché de 200 GB. VMware vSAN soporta discos con adaptadores SAS, SATA o SCSI y estos pueden estar configurados en modo \textit{pass-through} o RAID 0. En cuanto a esto, es preferible que los discos se configuren en modo \textit{pass-through} ya que permite que estos se puedan gestionar de forma independiente, sin tener que apagar los hosts cuando sea necesario retirar o añadir discos.
-    Para WD adicionales se puede utilizar almacenamiento NFS en lugar de un \textit{datastore} de VMware vSAN, aunque la solución de VMware aporta mayor rendimiento y simplifica la administración de esta parte de la infraestructura física.
+    Para WDs adicionales se puede utilizar almacenamiento NFS en lugar de un datastore de VMware vSAN, aunque la solución de VMware aporta mayor rendimiento y simplifica la administración de esta parte de la infraestructura física.
     % los discos de caché debe ser al menos un 10\% del tamaño total de los discos de capacidad,  y  \footnote{La capacidad de los discos descrita es la necesaria para desplegar el \textit{management domain} y un \textit{workload domain} adicional.}
 \end{subsection}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{subsection}{Red}
  \begin{subsubsection}{Switch Top Of Rack}
-     Los hosts están colocados en racks, en un rack puede haber hosts pertenecientes a distintos WD. Para favorecer la alta disponibilidad y tolerancia a fallos de la infraestructura física, un rack debe tener dos switches Top Of Rack (TOR) y cada host debe tener una interfaz conectada a cada uno de ellos, una capa superior de switches conecta los switches TOR entre sí. Todas las conexiones de la red física deben soportar \textit{Jumbo frames} (MTU hasta 9000 Bytes), etiquetado \textit{Quality of Service} (QoS) de tráfico y el etiquetado VLAN, todo para dar soporte a las subredes del SDDC\footnote{Para el Management Domain, las subredes cuya VLAN debe ser configurada en la red física son la subred Management para tareas de administración, la subred dedicada a VMware vSAN, la subred dedicada a overlay y la subred dedicada a VMware vSphere vMotion.}. Todas las conexiones físicas deben tener, al menos, 10 Gbit/seg de velocidad.
+     Los hosts están colocados en racks, en un rack puede haber hosts pertenecientes a distintos WD. Para favorecer la alta disponibilidad y tolerancia a fallos de la infraestructura física, un rack debe tener dos switches Top Of Rack (TOR) y cada host debe tener una interfaz conectada a cada uno de ellos, una capa superior de switches conecta los switches TOR entre sí. Todas las conexiones de la red física deben soportar \textit{Jumbo frames} (MTU hasta 9000 Bytes), etiquetado \textit{Quality of Service} (QoS) de tráfico y el etiquetado VLAN, todo para dar soporte a las subredes del SDDC. Todas las conexiones físicas deben tener, al menos, 10 Gbit/seg de velocidad.
     % Todos los switches TOR deben tener al menos dos interfaces 10 Gbit Ethernet como mínimo. 
+    % \footnote{Para el Management Domain, las subredes cuya VLAN debe ser configurada en la red física son la subred Management para tareas de administración, la subred dedicada a VMware vSAN, la subred dedicada a overlay y la subred dedicada a VMware vSphere vMotion.}
  \end{subsubsection}
  \begin{subsubsection}{Servicios}
      En el SDDC se deben habilitar varios servicios requeridos por los componentes de VMware Cloud Foundation para su correcto funcionamiento.
@@ -29,7 +30,7 @@ En este apartado se describe aquello que debe cumplir la infraestructura física
          \item DHCP: servidor para asignar de forma automática una dirección IP a los hosts que forman el SDDC.
          \item NTP: servidor de tiempo para sincronizar la hora de todos los componentes del SDDC.
          \item Router: se requiere para enrutar el tráfico que emiten todas las instancias del SDDC y para dar acceso a redes externas. Debe soportar enrutamiento dinámico BGP y debe tener configuradas las subredes y VLANS que se vayan a utilizar en la infraestructura.
-         \item SMTP: servidor de correo utilizado por el componente VMware vRealize Automation.
+         \item SMTP: servidor de correo utilizado para el envío de alertas y comunicación de los usuarios con el administrador del SDDC.
          \item Active Directory: servidor de usuarios y grupos de usuarios que el SDDC utiliza como fuente para configurar el acceso a cada parte de la infraestructura virtual.
          \item Certificate Authority: se debe configurar una autoridad certificadora que genere certificados firmados para cada uno de los componentes de VMware Cloud Foundation. Permite establecer conexiones seguras cuando se accede a los componentes.
      \end{itemize}

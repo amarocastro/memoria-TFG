@@ -8,7 +8,7 @@
     La infraestructura física donde se encuentra el servicio de virtualización, se encuentra en el edificio del CITIC de la UDC, dentro de un rack alojado en su Centro de Proceso de Datos (CPD)\cite{citicUDC}.
 % La infraestructura física donde se planea desplegar el servicio de virtualización, se encuentra localizada en el edificio del CITIC de la UDC, dentro de un rack alojado en su Centro de Proceso de Datos (CPD)\cite{citicUDC}. 
 \begin{subsection}{Cómputo}
-    Está formada por 5 hosts Lenovo NeXtScale nx360 M5, cada uno con dos procesadores Intel Xeon E5-2650, 128 GB de memoria RAM y una tarjeta gráfica Tesla M60,  y 3 hosts Dell EMC PowerEdge R740 cada uno con dos procesadores Xeon Gold 6146, 384 GB de memoria RAM y una tarjeta gráfica Tesla P40. Todos ellos aportan flexibilidad en cuanto a que permiten escalar la infraestructura y ofrecen gran rendimiento de cómputo.
+    Está formada por 5 hosts Lenovo NeXtScale nx360 M5, cada uno con dos procesadores Intel Xeon E5-2650, 128 GB de memoria RAM y una tarjeta gráfica Tesla M60,  y 3 hosts Dell EMC PowerEdge R740 cada uno con dos procesadores Xeon Gold 6146, 384 GB de memoria RAM y una tarjeta gráfica Tesla P40. Todos ellos aportan gran rendimiento de cómputo y flexibilidad en cuanto a que permiten escalar la infraestructura.
 \end{subsection}
 \begin{subsection}{Almacenamiento}
     El sistema de almacenamiento está colocado físicamente en la misma ubicación que los hosts pero en su abstracción lógica este es independiente y está separado de cada host. Está conformado por 13 discos duros SSD de 3.84 TB de capacidad, obteniendo así una cantidad total de casi 50 TB, pero su capacidad útil es de 34 TB ya que se utiliza la configuración de almacenamiento RAID 5 para aporta mayor integridad de los datos, mayor tolerancia a fallos y mayor ancho de banda. Los discos duros están colocados en una misma cabina formando un \textit{pool} de almacenamiento que se divide en cinco LUNs (Logical Storage Unit) de 2 TB cada una, representadas en el software de virtualización como cinco datastores, y que emplean el sistema de archivos VMFS propio de la compañía VMware, el cual optimiza el almacenamiento de máquinas virtuales.
@@ -16,16 +16,15 @@
 \end{subsection}
 
 \begin{subsection}{Red}
-    El sistema de almacenamiento forma una Storage Area Network (SAN), para ello se utilizan conexiones de tipo 10 Gbit entre los hosts y las cabinas donde se encuentran los discos duros. Para soportar este tipo de conexiones, cada cabina incorpora dos controladores con conectores de tipo SFP+. Además, las cabinas de almacenamiento incorporan otros dos puertos de 1 Gbit para llevar a cabo la administración de los discos. En esta estructura se utilizan los protocolos de red Ethernet y iSCSI. Para mantener la disponibilidad del acceso al sistema de almacenamiento y aumentar la disponibilidad de de las conexiones entre hosts, cada host de ellos se conecta a dos switches \textit{trunk} para establecer rutas redundantes.
-    Igual que con el sistema de almacenamiento, si se requieren realizar modificaciones sobre la red para adaptarse a los requisitos de un determinado despliegue, habría que hacerlas directamente sobre la red física. Esto puede generar problemas en la conectividad del entorno a parte de generar gran coste de tiempo.
-
+    El sistema de almacenamiento forma una Storage Area Network (SAN), para ello se utilizan conexiones de tipo 10 Gbit entre los hosts y las cabinas donde se encuentran los discos duros. Para soportar este tipo de conexiones, cada cabina incorpora dos controladores con conectores de tipo SFP+. Además, las cabinas de almacenamiento incorporan otros dos puertos de 1 Gbit para llevar a cabo la administración de los discos. En esta estructura se utilizan los protocolos de red Ethernet y iSCSI. Para mantener la disponibilidad del acceso al sistema de almacenamiento y de las conexiones entre hosts, cada host se conecta a dos switches \textit{trunk} estableciendo rutas redundantes.
+    En caso de que fuera necesario modificar la estructura de la red para adaptarse a los requisitos de un determinado despliegue, habría que hacerlo directamente sobre la red física. Esto puede generar problemas en la conectividad del entorno a parte de tener un gran coste de tiempo.
 \end{subsection}
 
 \end{section}
 
 \begin{section}{Software}
     \label{subsec:softwareinstalado}
-    Actualmente, el software desplegado sobre la infraestructura está formado por los productos de la compañía VMware, uno de los principales proveedores de software de virtualización. Todos los componentes instalados se engloban dentro del producto \textbf{VMware vSphere}, en su versión 6.7, el cual contiene lo necesario para virtualizar la infraestructura junto con las herramientas para entregar el servicio y gestionar la infraestructura virtual. A continuación	se describen los principales componentes que tiene VMware vSphere y que están instalados en la infraestructura.
+    Actualmente, el software desplegado sobre la infraestructura está formado por los productos de la compañía VMware, uno de los principales proveedores de software de virtualización. Todos los componentes instalados se engloban dentro del producto \textbf{VMware vSphere}, en su versión 6.7, el cual contiene lo necesario para virtualizar parte de la infraestructura junto con las herramientas para entregar el servicio y gestionar la infraestructura virtual. A continuación	se describen los principales componentes que tiene VMware vSphere y que están instalados en la infraestructura.
     % principal componente ya que se utiliza para virtualizar parte de la infraestructura física y proporcionar las herramientas necesarias para gestionarla, sus principales componentes internos se describen a continuación.
     \begin{figure}[h]
         \centering
@@ -34,8 +33,8 @@
         \label{fig:vSphere-components}
     \end{figure}
     \FloatBarrier
-    En cada host está instalado el hipervisor ESXi de tipo baremetal, este se encarga de habilitar la virtualización de los recursos. Sobre los hosts se ecuentra una VM que alberga el servicio VMware vCenter Server, el cual actúa como centro de administración de todas las máquinas virtuales (VMs) y hosts que forman la infraestructura. Además, esta instancia de VMware vCenter Server contiene una instancia embebida de Platform Services Controller (PSC), punto que centraliza la autenticación en las APIs de VMware vCenter Server, actúa como servidor de licencias y contiene servicio de autenticación de usuarios llamado vCenter Single Sign-On, este último se utiliza para gestionar la autenticación de los usuarios registrados en VMware vCenter Server. El acceso e interfaz de VMware vCenter Server la proporciona el componente vSphere Web Client, una página web donde el usuario puede autenticarse y gestionar las VMs y hosts que forman el entorno y el resto de servicios de VMware vSphere. Además, incorpora vSphere Update Manager desde el cual se gestionan las actualizaciones de los componentes de VMware vSphere. Para administrar las conexiones de las VMs desplegadas en el entorno, se utiliza el componente vSphere Distributed Switch (vDS), un switch virtual donde se establecen puertos para que las VMs tengan acceso a la red y a través de los cuales se configuran las propiedades del tráfico. Finalmente, se utilizan varios servicios de gran importancia para mantener la disponibilidad de las VMs desplegadas en la infraestructura:
-    
+    En cada host está instalado el hipervisor ESXi de tipo baremetal, el cual se encarga de habilitar la virtualización de los recursos. Sobre los hosts se ecuentra una VM que alberga el servicio VMware vCenter Server, el cual actúa como centro de administración de todas las máquinas virtuales (VMs) y hosts que forman la infraestructura. Además, esta instancia de VMware vCenter Server contiene una instancia embebida de Platform Services Controller (PSC), punto que centraliza la autenticación en las APIs de VMware vCenter Server, actúa como servidor de licencias y contiene servicio de autenticación de usuarios llamado vCenter Single Sign-On, este último se utiliza para gestionar la autenticación de los usuarios registrados en VMware vCenter Server. El acceso e interfaz de VMware vCenter Server la proporciona el componente vSphere Web Client, una página web donde el usuario puede autenticarse y gestionar las VMs y hosts que forman el entorno y el resto de servicios de VMware vSphere. Para administrar las conexiones de las VMs desplegadas en el entorno, se utiliza el componente vSphere Distributed Switch (vDS), un switch virtual donde se establecen puertos para que las VMs tengan acceso a la red y a través de los cuales se configuran las propiedades del tráfico. Finalmente, se utilizan varios servicios de gran importancia para mantener la disponibilidad de las VMs desplegadas en la infraestructura:
+    % Además, incorpora vSphere Update Manager desde el cual se gestionan las actualizaciones de los componentes de VMware vSphere.
     \begin{itemize}
         \item vMotion: encargado de migrar VMs de un host a otro de forma transparente y sin detener su ejecución ni el servicio.
         
@@ -53,7 +52,7 @@
 \begin{figure}[hp]
     \centering
     \includegraphics[width=0.6\textwidth]{imaxes/cap2recursos/recursosReal.png}
-    \caption{Componentes físicos y software que forman la infraestructura actual.}
+    \caption{Componentes físicos y software que forman la infraestructura actual del CITIC.}
     \label{fig:infrastructure-components-production}
 \end{figure}
 \FloatBarrier
