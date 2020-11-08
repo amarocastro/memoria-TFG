@@ -8,12 +8,13 @@ inputs:
   passwordCentOS:
     type: string
     title: CentOS Password (hash)
+    default: $1$SaltSalt$/pvPOTpWHH5W17XHzuNoj/
     description: Hash de la contraseña CentOS
   usernameWindows:
     type: string
     title: Windows username
     description: Windows username
-    default: userCent
+    default: Administrator
   passwordWindows:
     type: string
     title: Windows Password

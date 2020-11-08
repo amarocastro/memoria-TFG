@@ -10,15 +10,15 @@
 \begin{description}
    % \item [Active Directory]: servicio de directorio de usuarios propio de Microsoft.
    % \label{itm:active-directory}
-   \item [Appliance]: archivo que contiene una máquina virtual con un sistema operativo con el propósito de entregar una única aplicación preconfigurada.
-   \label{itm:appliance}
-   \item [BGP]\cite{bgp}: protocolo de enrutamiento que se utiliza para el intercambio de rutas entre Autonomous Systems (AS) de forma dinámica y así evitar configurarlas manualmente.
-   \label{itm:bgp}
-   \item [BUM]: se refiere al tráfico de red Broadcast, Unknown unicast y Multicast. El primero es tráfico que se transmite a todos los dispositivos disponibles en la red, Unknown Unicast es tráfico enviado a un único destinatario para el que no se conoce su dirección MAC dentro de una misma VLAN y Multicast es tráfico que se envía a los dispositivos que pertenecen a un grupo dentro de una red.
-   \label{itm:bum}
-   \item [Cluster]\cite{cluster-vmware}: agrupación de recursos de múltiples hosts que se gestionan como una única colección.
-   \label{itm:cluster}
-   \item [Controlador SFP+]: interfaz modular que permite conectar cables de fibra óptica a un dispositivo.
+  %  \item [Appliance]: archivo que contiene una máquina virtual con un sistema operativo con el propósito de entregar una única aplicación preconfigurada.
+  %  \label{itm:appliance}
+  %  \item [BGP]\cite{bgp}: protocolo de enrutamiento que se utiliza para el intercambio de rutas entre Autonomous Systems (AS) de forma dinámica y así evitar configurarlas manualmente.
+  %  \label{itm:bgp}
+  %  \item [BUM]: se refiere al tráfico de red Broadcast, Unknown unicast y Multicast. El primero es tráfico que se transmite a todos los dispositivos disponibles en la red, Unknown Unicast es tráfico enviado a un único destinatario para el que no se conoce su dirección MAC dentro de una misma VLAN y Multicast es tráfico que se envía a los dispositivos que pertenecen a un grupo dentro de una red.
+  %  \label{itm:bum}
+  %  \item [Cluster]\cite{cluster-vmware}: agrupación de recursos de múltiples hosts que se gestionan como una única colección.
+  %  \label{itm:cluster}
+   \item [Conector SFP+]: interfaz modular que permite conectar cables de fibra óptica a un dispositivo.
    \label{itm:sfp} 
   \item [CPD]: luegar donde se sitúan un conjunto recursos con gran capacidad de cómputo necesarios para procesar información, normalmente en grandes cantidades.
   \label{itm:cpd}
@@ -26,43 +26,45 @@
   \label{itm:datastore}
   \item [Hipervisor baremetal]: software instalado sobre el hardware de un servidor que permite instalar aplicaciones que funcionan sobre entornos virtuales directamente sobre el hardware.
   \label{itm:baremetal}
-  \item [Host]: servidor físico en el que se ejecuta el hipervisor.
+  \item [Host]: servidor físico en el que se ejecuta un hipervisor.
   \label{itm:host}
-  \item [IaaS]\cite{computing}: servicio Cloud en el que se provee capacidad de aprovisionamiento de recursos de cómputo, almacenamiento y red, sobre los cuales se puede desplegar software.
+  \item [IaaS]: servicio Cloud en el que se provee capacidad de aprovisionamiento de recursos de cómputo, almacenamiento y red, sobre los cuales se puede desplegar software \cite{computing}.
   \label{itm:iaas}
   \item [iSCSI]: estándar que implementa el protocolo de transporte SCSI para transmitir datos entre dispositivos.
   \label{iscsi}
-  \item [Jumbo Frame]\cite{jumbo-frames}: paquetes de red cuyo MTU es mayor que el valor definido en el estándar Ethernet, 1500.
-  \label{itm:jumboframe}
+  % \item [Jumbo Frame]\cite{jumbo-frames}: paquetes de red cuyo MTU es mayor que el valor definido en el estándar Ethernet, 1500.
+  % \label{itm:jumboframe}
   \item [LUN]: identifica una colección de dispositivos de almacenamiento que se presentan como un único volumen.
   \label{itm:lun}
-  \item [Máquina virtual]: máquina que se ejecuta en un entorno virtualizado con hardware virtual detro de un hipervisor.
-  \label{itm:vm}
+  \item [Multi-tenant]: "Multi-tenancy is a relatively new software architecture principle in the realm of the Software as a Service (SaaS)" \cite{multi-tenant}.
+
 %  \item [Multi-tenant]\cite{multi-tenant}: principio de la arquitectura de software donde la misma instancia de una aplicación se comparte con diferentes usuarios pero que se comporta como si cada usuario obtuviera su propia instancia.
 %  \label{itm:tenenciamultiple}
- \item [NIC]: componente físico que conecta un dispositivo a una red y permite compartir sus recursos.
- \label{itm:nic}
+%  \item [NIC]: componente físico que conecta un dispositivo a una red y permite compartir sus recursos.
+%  \label{itm:nic}
  \item [Pool de almacenamiento]: agrupación de volúmenes de almacenamiento que se administran de forma conjunta.
  \label{itm:pool-almacenamiento}
- \item [Port Group]: puertos que se añaden en el componente vSphere Distributed Switch y que agrupan las conexiones de múltiples máquinas virtuales sobre las cuales se pueden establecer una configuración determinada.
- \item [QoS]: medida de rendimiento que se asigna a un servicio en la red. Los componentes de VMware utilizan el campo Differentiated Services Code Point (DSCP) en la cabecera de capa 3, y el campo Class of Service (CoS) en la cabecera de capa 2 para indicar la prioridad del tráfico.
+%  \item [Port Group]: puertos que se añaden en el componente vSphere Distributed Switch y que agrupan las conexiones de múltiples máquinas virtuales sobre las cuales se pueden establecer una configuración determinada.
+%  \item [QoS]: medida de rendimiento que se asigna a un servicio en la red. Utiliza el campo Differentiated Services Code Point (DSCP) en la cabecera de capa 3, y el campo Class of Service (CoS) en la cabecera de capa 2 para indicar la prioridad del tráfico.
  \label{itm:qos}
  \item [Rack]: armario metálico destinado a alojar servidores físicos.
  \label{itm:rack}
  \item [RAID 5]: conjunto de discos duros que funciona como una única unidad de almacenamiento para aumentar el rendimiento y la eficiencia. RAID 5 necesita como mínimo tres discos duros, y distribuye de paridad en todos los discos para poder recuperar datos corruptos.
  \label{itm:raid5}
- \item [Red Overlay]\cite{overlay}: abstracción de una red sobre una red física implementada por un conjunto de nodos situados en diferentes localizaciones y conectados entre si.
- \label{itm:overlay}
+%  \item [Red Overlay]\cite{overlay}: abstracción de una red sobre una red física implementada por un conjunto de nodos situados en diferentes localizaciones y conectados entre si.
+%  \label{itm:overlay}
  \item [SAN]: red dedicada a proveer acceso a los dispositivos de almacenamiento.
  \label{itm:san}
- \item [SDDC]\cite{sddc}: Software-Defined Datacenter es un modelo de  arquitectura de infraestructura para virtualizar los recursos de cómputo, almacenamiento y red.
- \label{itm:sddc}
- \item [UDP]: protocolo de red de la capa de transporte que permite enviar paquetes sin establecer previamente una conexión.
- \label{itm:udp}
+%  \item [SDDC]\cite{sddc}: Software-Defined Datacenter es un modelo de  arquitectura de infraestructura para virtualizar los recursos de cómputo, almacenamiento y red.
+%  \label{itm:sddc}
+%  \item [UDP]: protocolo de red de la capa de transporte que permite enviar paquetes sin establecer previamente una conexión.
+%  \label{itm:udp}
+\item [Virtual Machine]: máquina que se ejecuta en un entorno virtualizado con hardware virtual dentro de un hipervisor.
+\label{itm:vm}
  \item [VLAN]: método para aislar múltiples dominios de broadcast sobre una misma red física.
  \label{itm:vlan}
- \item [VLAN trunk]: enlace que permite la circulación del tráfico de diferentes redes VLAN.
- \label{itm:trunk}
+%  \item [VLAN trunk]: enlace que permite la circulación del tráfico de diferentes redes VLAN.
+%  \label{itm:trunk}
 
 %   \item [CoS]: \textit{Class of Service} es un campo de la cabecera de un paquete Ethernet que determina su prioridad cuando se utiliza etiquetado VLAN. Es un protocolo QoS de capa 2.
 %  \label{itm:cos}

@@ -1,43 +1,43 @@
 formatVersion: 1
 inputs:
- usernameDB:
-  type: string
-  minLength: 4
-  maxLength: 20
-  pattern: '[a-z]+'
-  default: user01
-  title: Database Username
-  description: Database Username
- passwordDB:
-  type: string
-  pattern: '[a-z0-9A-Z@#$]+'
-  default: password
-  encrypted: true
-  title: Database Password
-  description: Database Password
- usernameVM:
-  type: string
-  default: user01
-  title: Username VM
-  description: Username VM
- passwordVM:
-  type: string
-  default: $1$SaltSalt$/pvPOTpWHH5W17XHzuNoj/
-  title: Hash password VM
-  description: Hash password VM
+  usernameDB:
+    type: string
+    minLength: 4
+    maxLength: 20
+    pattern: '[a-z]+'
+    default: user01
+    title: Database Username
+    description: Database Username
+  passwordDB:
+    type: string
+    pattern: '[a-z0-9A-Z@#$]+'
+    default: password
+    encrypted: true
+    title: Database Password
+    description: Database Password
+  usernameVM:
+    type: string
+    default: user01
+    title: Username VM
+    description: Username VM
+  passwordVM:
+    type: string
+    default: $1$SaltSalt$/pvPOTpWHH5W17XHzuNoj/
+    title: Hash password VM
+    description: Hash password VM
 resources:
-  Cloud_Machine_1:
+  CentOS-WP-DB:
     type: Cloud.Machine
     properties:
       image: CentOS 8
-      name: centos-test
+      name: wordpress-mysql
       flavor: small
       constraints:
         - tag: 'resource:rpprivate'
         - tag: 'region:management'
         - tag: 'cloud:private'
       networks:
-        - network: '${resource.Cloud_Network_1.id}'
+        - network: '${resource.Network.id}'
           assignment: dynamic
       cloudConfig: |
         preserve_hostname: false
@@ -45,8 +45,8 @@ resources:
         ssh_pwauth: yes
         users:
          - default
-         - name: server-User
-           passwd: $1$SaltSalt$/pvPOTpWHH5W17XHzuNoj/
+         - name: ${input.usernameVM}
+           passwd: ${input.passwordVM}
            lock_passwd: false
            sudo: ['ALL=(ALL) NOPASSWD:ALL']
            groups: [wheel, sudo, admin]
@@ -81,14 +81,14 @@ resources:
          - systemctl enable httpd
          - service httpd restart
       attachedDisks:
-        - source: '${resource.Cloud_Volume_1.id}'
-  Cloud_Network_1:
+        - source: '${resource.Disk.id}'
+  Network:
     type: Cloud.Network
     properties:
       networkType: existing
       constraints:
         - tag: 'subnet-cidr:10.50.0.0/24'
-  Cloud_Volume_1:
+  Disk:
     type: Cloud.Volume
     properties:
       capacityGb: 3

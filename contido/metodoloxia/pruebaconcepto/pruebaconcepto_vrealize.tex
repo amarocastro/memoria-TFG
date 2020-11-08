@@ -1,39 +1,48 @@
 \begin{subsection}{Operaciones de la Arquitectura}
-    En este punto ya se ha formado el SDDC, la configuración de la infraestructura física y de todos sus componentes está lista para desplegar los componentes que habiliten el servicio Cloud de aprovisionamiento de recursos. Este último paso se completará con los productos agrupados bajo VMware vRealize Suite. Se utilizarán tres des estos productos, vRealize Suite Lifecycle Manager (vRSLCM), Workspace One Access (WSA) y vRealize Automation (vRA).
+    En este punto ya se ha formado el SDDC, la configuración de la infraestructura física y de todos sus componentes está lista para desplegar los componentes que habiliten el servicio Cloud de aprovisionamiento de recursos. Este último paso se completará con los productos agrupados bajo VMware vRealize Suite. Se utilizarán tres des estos productos, vRealize Operations Manager(vROps), Workspace One Access (WSA) y vRealize Automation (vRA).
+    % En este punto ya se ha formado el SDDC, la configuración de la infraestructura física y de todos sus componentes está lista para desplegar los componentes que habiliten el servicio Cloud de aprovisionamiento de recursos. Este último paso se completará con los productos agrupados bajo VMware vRealize Suite. Se utilizarán tres des estos productos, vRealize Suite Lifecycle Manager (vRSLCM), Workspace One Access (WSA) y vRealize Automation (vRA).
     %  y, para aprovechar las ventajas de VMware NSX-T y las redes virtuales existentes, utilizarán como red de acceso el Segment \textit{mgmt-xRegion01-VXLAN}.
     % estos proporcionarán un servicio de autenticación centralizado para los usuarios y servicio de aprovisionamiento de recursos
     % El entorno ya está configurado para funcionar como un SDDC, a partir de este punto ya no es necesario realizar ninguna modificación en la infraestructura física ya que todas las tareas que se deben realizar están dentro del alcance de los componentes de VMware Cloud Foundation. Para finalizar la construcción del SDDC y habilitar un servicio donde los usuarios puedan aprovisionar recursos bajo demanda, se instalarán sobre el entorno desplegado las aplicaciones Workspace ONE Access \footnote{VMware vRealize Identity Manager} (WSA) y VMware vRealize Automation (vRA). La primera permite al administrador conectar con el servidor de usuarios Active Directory y gestionarlos para proveer un servicio de autenticación centralizado a múltiples aplicaciones como VMware vRealize Automation. La segunda aplicación permite a los usuarios aprovisionar recursos de forma automatizada desde un catálogo de recursos. VMware vRealize Suite Licfecycle Manager (vRSLCM) es el componente que permite administrar vRA y WSA, su instalación y actualizaciones, las contraseñas de administrador y sus certificados, para ello necesita comunicarse con VMware vCenter Server. Se desplegará una instancia de cada componente en el \textit{management domain} creado anteriormente y estarán conectadas al \textit{segment}/subred \textit{Mgmt-xRegion01-VXLAN}.
-    
-    \begin{subsubsection}{vRealize Suite Lifecycle Manager}
-        vRSLCM es el primer componente que se instala ya que es el encargado de gestionar el ciclo de vida de los productos de VMware vRealize Suite, incluyendo su despliegue, actualizaciones y gestión de las credenciales de administración, certificados y licencias, por lo tanto permite al administrador del SDDC controlar de forma centralizada la configuración y seguridad de los servicios dedicados a las operaciones del SDDC. Para llevar a cabo sus funciones, vRSLCM debe comunicarse con la instancia de VMware vCenter Server desplegada en el Management Domain.
+    % \begin{subsubsection}{vRealize Operations Manager}
+    %     vROps se instala en el entorno para establecer un sistema de valoración de los recursos. Gracias a este componente, el administrador del SDDC será capaz de establecer una valoración de los recursos consumidos por los usuarios con el fin de establecer un límite de consumo total para cada usuario. Además, también permitirá al administrador del SDDC acceder a estadísticas y eventos donde vROps analiza información obtenida de la infraestructura para detectar problemas, proponer soluciones y monitorizar el uso de recursos. vROps monitoriza y obtiene métricas de los recursos disponibles en VMware vCenter Server, VMware NSX-T y VMware vSAN para recopilar los eventos e información de cada uno de ellos con el objetivo de predecir posibles problemas y automatizar la aplicación de soluciones. Además, se integra con vRealize Automation para mostrar al usuario en su portal de acceso información sobre los recursos que utiliza.
+    %     \\
+    %     \begin{figure}[h]
+    %         \centering
+    %         \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/vrealize/estructura-vrops.png}
+    %         \caption{Componentes con los que se comunica vROps.}
+    %         \label{fig:vrops-components}
+    %     \end{figure}
+    %     \FloatBarrier
+    %     El sistema de valoración que se puede habilitar con vROps consiste en que se establecen una serie precios en una divisa determinada. Por el uso de CPU, memoria RAM y almacenamiento se establece un precio y a medida que los usuarios utilicen el servicio Cloud, vROps se encargará de calcular el precio total de los recursos que ha consumido cada usuario durante un periodo e tiempo. De esta forma el administrador puede obtener una métrica de cuantos ha consumido un usuario y, en caso de que supere un límite establecido poder actuar en consecuencia reduciendo la cantidad de recursos disponibles para el usuario o no permitirle su uso temporalmente.
+        % vRSLCM es el primer componente que se instala ya que es el encargado de gestionar el ciclo de vida de los productos de VMware vRealize Suite, incluyendo su despliegue, actualizaciones y gestión de las credenciales de administración, certificados y licencias, por lo tanto permite al administrador del SDDC controlar de forma centralizada la configuración y seguridad de los servicios dedicados a las operaciones del SDDC. Para llevar a cabo sus funciones, vRSLCM debe comunicarse con la instancia de VMware vCenter Server desplegada en el Management Domain.
+        % vRSLCM es el primer componente que se instala ya que es el encargado de gestionar el ciclo de vida de los productos de VMware vRealize Suite, incluyendo su despliegue, actualizaciones y gestión de las credenciales de administración, certificados y licencias, por lo tanto permite al administrador del SDDC controlar de forma centralizada la configuración y seguridad de los servicios dedicados a las operaciones del SDDC. Para llevar a cabo sus funciones, vRSLCM debe comunicarse con la instancia de VMware vCenter Server desplegada en el Management Domain.
         % este componente está dedicado a mantener su seguridad y configuración, y a controlar que servicios se encuentran en el entorno, todo para simplificar y facilitar las tareas del administrador. Para llevar a cabo sus funciones, vRSLCM debe mantener una comunicación con la instancia de VMware vCenter Server desplegada en el Management Domain.
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/vrealize/diseno-vrlscm.png}
-            \caption{Componentes con los que se comunica vRSLCM.}
-            \label{fig:vrealize-components}
-        \end{figure}
-        \FloatBarrier        
-        Durante el despliegue de WSA y vRA, desde vRSLCM se establece su configuración, indicando la licencia, credenciales del administrador, direcciones IP, configuración DNS y NTP, y certificados\footnote{El certificado de cada aplicación es generado manualmente desde la CA y luego subido a vRSLCM, que en este caso es la VM con Windows Server 2016.} para habilitar el acceso seguro desde el navegador web. Las instancias de cada componente desplegado se colocan dentro del cluster vSphere\footnote{\nameref{subsubsec:diseno-vsphere}} creado anteriormente, y utilizarán uno de los Segments creados en VMware NSX-T para conectarse a la red\footnote{Figura \ref{fig:two-tier-topology}}.
+        % \begin{figure}[h]
+        %     \centering
+        %     \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/vrealize/diseno-vrlscm.png}
+        %     \caption{Componentes con los que se comunica vRSLCM.}
+        %     \label{fig:vrealize-components}
+        % \end{figure}
+        % \FloatBarrier        
+        % Durante el despliegue de WSA y vRA, desde vRSLCM se establece su configuración, indicando la licencia, credenciales del administrador, direcciones IP, configuración DNS y NTP, y certificados\footnote{El certificado de cada aplicación es generado manualmente desde la CA y luego subido a vRSLCM, que en este caso es la VM con Windows Server 2016.} para habilitar el acceso seguro desde el navegador web. Las instancias de cada componente desplegado se colocan dentro del cluster vSphere\footnote{\nameref{subsubsec:diseno-vsphere}} creado anteriormente, y utilizarán uno de los Segments creados en VMware NSX-T para conectarse a la red\footnote{Figura \ref{fig:two-tier-topology}}.
 % Además, se debe elegir la ubicación donde se van a desplegar las VMs de estos servicios, es decir, el dominio de VMware vCenter Server, el cluster vSphere, la red y el datastore para el almacenamiento.
         
         % En el entorno de pruebas, de cada servicio se crea una instancia en el Management Domain. Cada una se coloca en el cluster vSphere (\nameref{subsubsec:diseno-vsphere}), utilizan el datastore de VMware vSAN (\nameref{subsubsec:diseno-vsan}) y están controladas por la instancia de VMware vCenter Server (\nameref{subsubsec:diseno-vcenter}). Como ya se ha mencionado, las instancias se conectan a un Segment controlado por VMware NSX-T (como se muestra en la figura \ref{fig:two-tier-topology}) para poder hacer uso de sus servicios de red.
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/config-istance-vridm.png}
-            \caption{Apartado donde se muestra la configuración de la instancia de WSA en vRSLCM.}
-            \label{fig:config-WSA}
-        \end{figure}
-        \FloatBarrier
+        % \begin{figure}[h]
+        %     \centering
+        %     \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/config-istance-vridm.png}
+        %     \caption{Apartado donde se muestra la configuración de la instancia de WSA en vRSLCM.}
+        %     \label{fig:config-WSA}
+        % \end{figure}
+        % \FloatBarrier
         
         % Dentro de vRSLCM, los despliegues son organizados por entornos pudiendo crearse un entorno por cada servicio o un entorno con todos los servicios. Existen dos modos de despliegue, uno donde se crean tres instancias del servicio para balancear la carga\footnote{El balanceo de la carga se realiza con el servicio de Load Balancing de VMware NSX-T.}, y otro donde solo se crea una instancia.
 
         % En el entorno, se despliega una instancia de cada servicio. Estas están colocadas bajo el dominio de la instancia de VMware vCenter en el cluster vSphere
 
         % Este se instala desde SDDC Manager, pero una vez instalado es utilizado para desplegar cualquier servicio de VMware vRealize Suite.
-        
-    \end{subsubsection}
-
+    % \end{subsubsection}
     \begin{subsubsection}{Workspace One Access}
         \label{subsubsec:WSA}
         WSA permite integrar un directorio de usuarios para proporcionarles acceso al servicio Cloud. Así, en el entorno real del CITIC, WSA estaría integrado con el directorio de usuarios de la UDC para que estos pudieran acceder al servicio de aprovisionamiento utilizando las credenciales de la UDC.\\
@@ -113,15 +122,10 @@
         \FloatBarrier
         Como se muestra en la figura anterior, en vRA existen tres componentes principales que son Service Broker, a través del cual los usuarios tienen acceso a los diseños e implementaciones de sus proyectos, Cloud Assembly, donde el administrador del SDDC establece los recursos disponibles y donde los administradores de cada proyecto se elaboran de forma automatizada los diseños, y Cloud Zone, punto desde donde vRA accede a la infraestructura para obtener los recursos.
         \\
-        vRA soluciona las principales carencias de la infraestructura del CITIC y su servicio de virtualización, que son la falta de automatización en el aprovisionamiento y la falta de control sobre el uso y el acceso a los recursos. Con vRA se proporciona un servicio Cloud de tipo IaaS para la obtención de recursos de forma medida y bajo demanda, mientras el administrador del SDDC puede controlar a qué recursos accede cada usuario y cuantos recursos pueden utilizar mediante un servicio de valoración.
-        \\
-        En la siguiente sección se detallará como se han configurado los recursos de la infraestructura del entorno de pruebas en vRA y cómo son utilizados por los usuarios, ya que esta será la plataforma que complete el servicio Cloud propuesto para la infraestructura del CITIC.
-
-
-        
+        vRA soluciona las principales carencias de la infraestructura del CITIC y su servicio de virtualización, que son la falta de automatización en el aprovisionamiento y la falta de control sobre el uso y el acceso a los recursos. Con vRA se proporciona un servicio Cloud de tipo IaaS para la obtención de recursos de forma medida y bajo demanda, mientras el administrador del SDDC puede controlar a qué recursos accede cada usuario y cuantos recursos pueden utilizar mediante el uso del servicio de valoración proporcionado por vROps.
+        % \\
+        % En la siguiente sección se detallará como se han configurado los recursos de la infraestructura del entorno de pruebas en vRA y cómo son utilizados por los usuarios, ya que esta será la plataforma que complete el servicio Cloud propuesto para la infraestructura del CITIC.
         % Internamente vRA se divide en tres componentes, Cloud Assembly, Service Broker y Cloud Zone.
-
-
         % El punto a través del cual los usuarios pueden aprovisionar sus recursos es vRealize Automation. Este producto provee el servicio cloud. 
         % \begin{figure}[h]
         %     \centering
@@ -133,8 +137,20 @@
         % Internamente vRA se divide en varios servicios que permiten gestionar los diferentes aspectos de la cloud. Para centrarse en los objetivos de este proyecto solo se hace referencia a dos de esos servicios, el primero es Cloud Assembly el cual permite administrar la infraestructura disponible controlar el uso que se hace de esos recursos, y el segundo es Service Broker, utilizado por los usuarios para aprovisionar los recursos desde un catálogo de plantillas. La obtención de los recursos por parte del usuario se hace desplegando una serie de plantillas llamadas Blueprints diseñadas previamente, en donde se define un conjunto de VMs y recursos de red y de almacenamiento incluyendo otros aspectos como la configuración de cada uno de los recursos, como redes de la infraestructura que se utilizan, cantidad de almacenamiento, o la ubicación del despliegue en la infraestructura. Son ficheros de código con extensión \textit{.yaml} donde se indican etiquetas, aunque también se pueden diseñar con un editor gráfico. Estas plantillas están relacionadas con proyectos, una plantilla pertenece a uno o varios proyectos donde existe un coordinador de proyecto que se encarga de diseñar Blueprints y de administrar los usuarios miembros de ese proyecto. Los proyectos de vRA permiten limitar los recursos para que un conjunto de usuarios pueda desplegar los componentes definidos en las Blueprints disponibles, como la cantidad de memoria RAM, cantidad de instancias que se pueden desplegar y cantidad de almacenamiento, también aquellas redes que se pueden utilizar. Desde el punto de vista de vRA, la infraestructura se divide en Cloud Zones, las cuales son conjuntos de recursos situados en distintos proveedores Cloud que pueden ser públicos como AWS o Azure, o privados que solo pueden ser clusters vSphere. En el caso del entorno desplegado solo se tendrá una única Cloud Zone de tipo vSphere. En cada Cloud Zone se define como se deben distribuir los recursos aprovisionados sobre la infraestructura. 
         % Finalmente será el administrador de la infraestructura el que se encargue de proveer los recursos, administrar los proyectos disponibles, gestionar los coordinadores de cada proyecto y controlar y limitar el uso de los recursos.
         % Finalmente, vRA permite configurar tarjetas donde se puede definir el coste del aprovisionamiento de CPU, almacenamiento y memoria RAM, además del coste de uso de otros elementos como sistemas operativos, el uso de una determinada red o el uso de una determinada Cloud Zone. Estas tarjetas se asignan por proyecto para determinar el coste que tendrá el consumo de recursos por mes.
-
-
+    \end{subsubsection}
+    \begin{subsubsection}{vRealize Operations Manager}
+        vROps se instala en el entorno para establecer un sistema de valoración de los recursos. Gracias a este componente, el administrador del SDDC será capaz de establecer una valoración de los recursos consumidos por los usuarios con el fin de establecer un límite de consumo total para cada usuario. Además, también permitirá al administrador del SDDC acceder a estadísticas y eventos donde vROps analiza información obtenida de la infraestructura para detectar problemas, proponer soluciones y monitorizar el uso de recursos. vROps monitoriza y obtiene métricas de los recursos disponibles en VMware vCenter Server, VMware NSX-T y VMware vSAN para recopilar los eventos e información de cada uno de ellos con el objetivo de predecir posibles problemas y automatizar la aplicación de soluciones. Además, se integra con vRealize Automation para mostrar al usuario en su portal de acceso información sobre los recursos que utiliza.
+        \\
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.4\textwidth]{imaxes/pruebaconcepto/vrealize/estructura-vrops.png}
+            \caption{Componentes con los que se comunica vROps.}
+            \label{fig:vrops-components}
+        \end{figure}
+        \FloatBarrier
+        El sistema de valoración que se puede habilitar con vROps consiste en que se establecen una serie precios en una divisa determinada. Por el uso de CPU, memoria RAM y almacenamiento se establece un precio y a medida que los usuarios utilicen el servicio Cloud, vROps se encargará de calcular el precio total de los recursos que ha consumido cada usuario durante un periodo e tiempo. De esta forma el administrador puede obtener una métrica de cuantos ha consumido un usuario y, en caso de que supere un límite establecido poder actuar en consecuencia reduciendo la cantidad de recursos disponibles para el usuario o no permitirle su uso temporalmente. Esta información sobre cuantos recursos ha consumido un usuario es accesible por el administrador del SDDC y por el propio usuario desde el portal de vRealize Automation.
+        \\
+        Con este componente se completa el servicio Cloud al añadir un sistema de control sobre el uso de recursos, hasta ahora inexistente en el servicio del CITIC. El objetivo de este sistema consiste en optimizar al máximo rendimiento de la infraestructura evitando que los usuarios tengan recursos reservados y que en realidad no están siendo usados. De esta forma se pueden liberar esos recursos ociosos y ponerlos a disposición del resto de usuarios.
     \end{subsubsection}
 
     

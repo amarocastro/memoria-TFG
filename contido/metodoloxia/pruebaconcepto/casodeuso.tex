@@ -262,12 +262,76 @@
             \label{fig:statistics-user-2}
         \end{figure}
         \FloatBarrier
-        Las estadísticas en cuanto a la valoración de los recursos en base a la tarjeta de cobro establecida también es accedida desde el panel de control del despliegue bajo la pestaña "Price". En ella los usuarios pueden ver la valoración total diaria, semanal y mensual de los recursos consumidos en el despliegue, y también de forma detallada donde se desglosa la valoración total en la valoración del cómputo, almacenamiento y otros cargos adicionales que se puedan aplicar. Además, el administrador del SDDC también tiene acceso a estadísticas sobre la valoración total sobre el consumo de recursos de un proyecto. 
-        
-        De esta forma el administrador del SDDC puede asignar a cada proyecto o usuario una cuenta con una cantidad de dinero ficticio del la cual se vaya extrayendo de forma mensual o semanal la valoración del consumo de recursos realizada por la plataforma. Cuando la cuenta esté vacía o no tenga suficiente saldo para consumir más recursos el administrador del SDDC puede bloquear nuevos despliegues dentro del proyecto o del usuario correspondiente hasta que su cuenta vuelva a tener saldo, para así conseguir que haya recursos disponibles para todos los usuarios y evitar que se mantengan despliegues activos cuyas VMs no están siendo usadas.
-
+        Una vez el despliegue ha estado cierto tiempo activo, alrededor de un día, en el panel de control del despliegue se empiezan a mostrar estadísticas sobre el coste que tiene el consumo de recursos realizado. El cálculo es realizado por el componente vROps en base a la tarjeta de cobro establecida previamente, la cantidad de recursos utilizada y al tiempo de actividad del despliegue. Posteriormente, vROps comunica esta información a vRA que muestra al usuario todos los detalles.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/price-user3-work.png}
+            \caption{Estadística del coste diario de los recursos consumidos en el despliegue User3-Work por parte del usuario \textit{User Three}.}
+            \label{fig:user3-daily-price}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/user3-price-details.png}
+            \caption{Estadística del coste detallado de los recursos consumidos en el despliegue User3-Work por parte del usuario \textit{User Three}.}
+            \label{fig:user3-detail-price}
+        \end{figure}
+        \FloatBarrier
+        Como se muestra en la figura \ref{fig:user3-daily-price}, el usuario \textit{User Three} accede a las estadísticas de coste de su despliegue a través de la pestaña "Price" en el panel de control. Aquí obtiene el coste diario, semanal, mensual y total de los recursos que ha consumido. En la figura \ref{fig:user3-detail-price} se muestra el desglose del coste total para que el usuario pueda conocer el coste de cada elemento desplegado.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/price-user3-work.png}
+            \caption{Estadística del coste diario de los recursos consumidos en el despliegue User2-Wordpress-Blog por parte del usuario \textit{User Two}.}
+            \label{fig:user2-daily-price}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/user3-price-details.png}
+            \caption{Estadística del coste detallado de los recursos consumidos en el despliegue User2-Wordpress-Blog por parte del usuario \textit{User Two}.}
+            \label{fig:user2-detail-price}
+        \end{figure}
+        \FloatBarrier
+        El administrador del SDDC aparte de tener acceso a todos los despliegues realizados en el vRA, desde vROps también puede obtener las estadísticas sobre el coste de los recursos consumidos pero de forma algo más detallada. Desde este componente el administrador del SDDC puede ver el coste total y detallado de cada proyecto y cada despliegue realizado dentro de cada proyecto (figuras \ref{fig:vrops-cost-projects}, \ref{fig:vrops-cost-user3} y \ref{fig:vrops-cost-user2}). Además, también tiene acceso a gráficos donde se muestra el coste realizado en cada proyecto y despliegue a lo largo del tiempo, y una predicción del coste en los siguientes cinco días según el estado de cada despliegue (figuras \ref{fig:vrops-graf-user3} y \ref{fig:vrops-graf-user2}).
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/vrops-projects-price.png}
+            \caption{Información sobre el coste de los proyectos Server-Desktop y Web-DB ofrecida por vROps.}
+            \label{fig:vrops-cost-projects}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/vrops-user3-price.png}
+            \caption{Información sobre el coste del despliegue User3-Work del usuario \textit{User Three} ofrecida por vROps.}
+            \label{fig:vrops-cost-user3}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/vrops-user2-price.png}
+            \caption{Información sobre el coste del despliegue User2-Wordpress-Blog del usuario \textit{User Two} ofrecida por vROps.}
+            \label{fig:vrops-cost-user2}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/vrops-graf-user2.png}
+            \caption{Gráfico de coste del proyecto Web-DB y del despliegue User2-Wordpress-Blog del usuario \textit{User Two} ofrecido por vROps.}
+            \label{fig:vrops-graf-user2}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/vrops-graf-user3.png}
+            \caption{Gráfico de coste del proyecto Server-Desktop y del despliegue User3-Work del usuario \textit{User Three} ofrecido por vROps.}
+            \label{fig:vrops-graf-user3}
+        \end{figure}
+        \FloatBarrier
+        De esta forma el administrador del SDDC puede asignar a cada proyecto o usuario una cuenta con una cantidad de dinero ficticio de la cual se va extrayendo de forma mensual o semanal el coste del consumo realizado. Cuando la cuenta esté vacía o no tenga suficiente saldo para consumir más recursos el administrador del SDDC puede bloquear nuevos despliegues para un proyecto o usuario de forma temporal  hasta que su cuenta vuelva a tener saldo. Con este método se persigue que el servicio tenga recursos suficientes para todos los usuarios y para ejecutar los flujos de trabajo de forma correcta, y evitar que existan usuarios con despliegues activos pero que no están siendo realmente usados.
+        % Las estadísticas en cuanto a la valoración de los recursos en base a la tarjeta de cobro establecida también es accedida desde el panel de control del despliegue bajo la pestaña "Price". En ella los usuarios pueden ver la valoración total diaria, semanal y mensual de los recursos consumidos en el despliegue, y también de forma detallada donde se desglosa la valoración total en la valoración del cómputo, almacenamiento y otros cargos adicionales que se puedan aplicar. Además, el administrador del SDDC también tiene acceso a estadísticas sobre la valoración total sobre el consumo de recursos de un proyecto.
     \end{subsubsection}
-
+    
     % Para ordenar el aprovisionamiento de los recursos, antes de realizar cualquier implementación, es necesario configurar la infraestructura que se va a poner a disposición de los usuarios. 
     %     En VMware vCenter Server, dentro del cluster vSphere se define un \textit{resource pool} y una carpeta que se utilizarán para colocar las VMs que se desplieguen desde vRA. 
     %     La red que utilizarán las VMs generadas estará controlada por VMware NSX-T para aprovechar las ventajas de sus redes definidas por software y así automatizar su configuración y hacer uso de los servicios que ofrece. Para ello se añade un Segment al router virtual de Tier-1 que se muestra en la figura \ref{fig:two-tier-topology}, VMware NSX-T informa de la nueva ruta al router físico mediante BGP proporcionando así acceso a redes externas.
