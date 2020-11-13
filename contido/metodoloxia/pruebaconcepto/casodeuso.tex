@@ -1,7 +1,7 @@
 \begin{subsection}{Servicio Cloud}
 \label{subsec:plataforma-cloud}
     
-    A lo largo de esta sección se describe la configuración y el funcionamiento de VMware vRealize Automation y VMware vRealize Operations, con el fin de mostrar las sus características y las mejoras que implica su implementación. Primero se habilitarán los recursos necesarios dentro del servicio para que luego los usuarios hagan uso de ellos mediante la creación de dos proyectos e implementación de diseños. 
+    A lo largo de esta sección se describe la configuración y el funcionamiento de VMware vRealize Automation y VMware vRealize Operations, con el fin de mostrar sus características y las mejoras que implica su implementación. Primero se habilitarán los recursos necesarios dentro del servicio para que luego los usuarios hagan uso de ellos mediante la creación de dos proyectos e implementación de diseños. 
 
     \begin{subsubsection}{Preparación de los recursos}
     El aprovisionamiento de recursos con vRA se traduce en la creación de VMs a partir de plantillas creadas previamente por el administrador del SDDC a las que se les aplica una configuración determinada, y al uso de las subredes y almacenamiento disponibles en la infraestructura. 
@@ -15,7 +15,7 @@
     \end{figure}
     \FloatBarrier
     % Para que las VMs creadas por los usuarios tengan acceso a la red, se crea un nuevo Segment en el router virtual Tier-1 de VMware NSX-T (Figura \ref{fig:two-tier-topology}) donde se alojará una subred dedicada exclusivamente a ser consumida por los usuarios. Al generar el Segment los componentes de VMware NSX-T comunican al router VyOS la nueva ruta mediante el protocolo de enrutamiento BGP, por lo tanto no es necesario aplicar ninguna configuración adicional en los recursos de red físicos.
-    La red utilizada para dar acceso a las VMs creadas por los usuarios es el Segment \textit{Mgmt-Region01A-VXLAN} disponible en VMware NSX-T\footnote{Figura \ref{fig:two-tier-topology}}, el cual cuenta con un servidor DHCP\footnote{Como se observa en la figura \ref{fig:topology-segment-mgmt}, el servidor DHCP está gestionado por VMware NSX-T ya que forma parte de sus servicios de red.} y así poder establecer la configuración IP de forma automática de cada nueva VM que se conecte a este Segment. 
+    La red utilizada para dar acceso a las VMs creadas por los usuarios es el Segment \textit{Mgmt-Region01A-VXLAN} disponible en VMware NSX-T\footnote{Figura \ref{fig:two-tier-topology}}, el cual cuenta con un servidor DHCP\footnote{Como se observa en la figura \ref{fig:topology-segment-mgmt}, el servidor DHCP está gestionado por VMware NSX-T ya que forma parte de sus servicios de red.} y así poder establecer la configuración IP de forma automática de cada nueva VM que se conecte a este Segment. Si fuera necesario, el administrador del SDDC podría generar un Segment diferente en VMware NSX-T por cada proyecto que se cree en vRA, y así separar la red de las VMs de un proyecto del resto de proyectos. Para ello, el administrador crearía un Segment en VMware NSX-T y lo añadiría a vRA. Posteriormente, durante la elaboración de los diseños en vRA se debería hacer referencia al Segment creado específicamente para ese proyecto.
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vrealize/segment-MGMT.png}
@@ -103,7 +103,7 @@
             \label{fig:storage-policy}
         \end{figure}
         \FloatBarrier
-        Además, se definen varios perfiles de tamaños para que los usuarios determinen el tamaño de sus VMs. En estos perfiles se define una cantidad de CPU y memoria RAM con el fin de estandarizar la cantidad de recursos que un usuario puede asignar a una VM. En el entorno de pruebas, estos tamaños van desde \textit{x-small} con 1 CPU y 512 MB de memoria RAM, hasta \textit{large} con 8 CPUs y 16 GB de memoria RAM, mostrados en la siguiente figura.
+        Además, el administrador del SDDC define varios perfiles de tamaños para que los usuarios determinen el tamaño de sus VMs. En estos perfiles se define una cantidad de CPU y memoria RAM con el fin de estandarizar la cantidad de recursos que un usuario puede asignar a una VM. En el entorno de pruebas, estos tamaños van desde \textit{x-small} con 1 CPU y 512 MB de memoria RAM, hasta \textit{large} con 8 CPUs y 16 GB de memoria RAM, mostrados en la siguiente figura.
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/flavor-mapping.png}
@@ -125,11 +125,11 @@
     \begin{subsubsection}{Uso del servicio Cloud}
         La plataforma de vRA ya está lista para ser utilizada por los usuarios. Los usuarios del CITIC que la utilizarán se organizan en proyectos, donde existe al menos un coordinador o administrador de proyecto. Cuando un grupo de usuarios quiere utilizar el servicio Cloud primero debe comunicarlo al administrador del SDDC, el cual crea el proyecto correspondiente y habilita el acceso a cada usuario con sus correspondientes permisos.
 
-        Como ya se ha visto en la sección \nameref{subsubsec:WSA}, en el entorno de pruebas se han configurado cinco usuarios que se dividen en dos proyectos, uno llamado Web-DB con el objetivo de que los usuarios pertenecientes puedan construir un sitio web bajo demanda, y otro llamado Server-Desktop donde sus integrantes puedan desplegar dos VMs para realizar cierto trabajo de investigación (figura \ref{fig:projects-vra}). El proyecto Web-DB lo forman el usuario \textit{User One}, \textit{User Two} y \textit{Manager One}, el cual es el coordinador del grupo, y el proyecto Server-Desktop está formado por \textit{User Two}, \textit{User Three} y \textit{Manager Two}, el cual será el coordinador de este segundo grupo. Entonces, a los usuarios \textit{Manager One} y \textit{Manager Two} se les asigna el rol Administrador de Proyecto, y al resto de usuarios el rol Miembro de Proyecto, los primeros podrán controlar los diseños disponibles en el catálogo del proyecto, qué usuarios tienen acceso y los despliegues que estos realicen, mientras que los miembros del proyecto podrán desplegar los diseños habilitados (figura \ref{fig:project-users}).
+        Como ya se ha visto en la sección \nameref{subsubsec:WSA}, en el entorno de pruebas el administrador ha configurado dos proyectos con sus respectivos usuarios, uno llamado Web-DB con el objetivo de que los usuarios pertenecientes puedan construir un sitio web bajo demanda, y otro llamado Server-Desktop donde sus integrantes puedan desplegar dos VMs para realizar cierto trabajo de investigación (figura \ref{fig:projects-vra}). El proyecto Web-DB lo forman el usuario \textit{User One}, \textit{User Two} y \textit{Manager One}, el cual es el coordinador del grupo, y el proyecto Server-Desktop está formado por \textit{User Two}, \textit{User Three} y \textit{Manager Two}, el cual será el coordinador de este segundo grupo. Entonces, a los usuarios \textit{Manager One} y \textit{Manager Two} se les asigna el rol Administrador de Proyecto, y al resto de usuarios el rol Miembro de Proyecto, los primeros podrán controlar los diseños disponibles en el catálogo del proyecto, qué usuarios tienen acceso y los despliegues que estos realicen, mientras que los miembros del proyecto podrán desplegar los diseños habilitados (figura \ref{fig:project-users}).
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/projects-vRA.png}
-            \caption{Proyectos creados para dar acceso a los usuarios a vRA.}
+            \caption{Proyectos creados por el administrador del SDDC para dar acceso a los usuarios a vRA.}
             \label{fig:projects-vra}
         \end{figure}
         \FloatBarrier
@@ -197,7 +197,7 @@
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.8\textwidth]{imaxes/pruebaconcepto/vrealize/user3-info-centos.png}
-            \caption{Panel de control de la VM CentOS creada por \textit{User Three} (izquierda) y panle de control de la VM Windows creada por \textit{User Three} (derecha).}
+            \caption{Panel de control de la VM CentOS creada por \textit{User Three} (izquierda) y panel de control de la VM Windows creada por \textit{User Three} (derecha).}
             \label{fig:user3-panel-control}
         \end{figure}
         \FloatBarrier
@@ -329,6 +329,24 @@
         \end{figure}
         \FloatBarrier
         De esta forma el administrador del SDDC puede asignar a cada proyecto o usuario una cuenta con una cantidad de dinero ficticio de la cual se va extrayendo de forma mensual o semanal el coste del consumo realizado. Cuando la cuenta esté vacía o no tenga suficiente saldo para consumir más recursos el administrador del SDDC puede bloquear nuevos despliegues para un proyecto o usuario de forma temporal  hasta que su cuenta vuelva a tener saldo. Con este método se persigue que el servicio tenga recursos suficientes para todos los usuarios y para ejecutar los flujos de trabajo de forma correcta, y evitar que existan usuarios con despliegues activos pero que no están siendo realmente usados.
+
+        Además, desde vROps el administrador también tiene visibilidad sobre los eventos que suceden en la infraestructura y estadísticas sobre los recursos, como se muestra en las dos siguientes figuras.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/vrops-alerts.png}
+            \caption{Alertas ocurridas en la infraestructura con información sobre su gravedad.}
+            \label{fig:vrops-alerts}
+        \end{figure}
+        \FloatBarrier
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{imaxes/pruebaconcepto/vrealize/vrops-statistics.png}
+            \caption{Estadísticas sobre la cantidad de recursos utilizados en cada host del entorno a lo largo del tiempo.}
+            \label{fig:vrops-statistics}
+        \end{figure}
+        \FloatBarrier
+
+        Habiendo cumplido todos los objetivos de este proyecto se concluye la formación de un servicio Cloud para la infraestructura del CITIC, usable por sus usuarios y capaz de optimizar el uso de los recursos.
         % Las estadísticas en cuanto a la valoración de los recursos en base a la tarjeta de cobro establecida también es accedida desde el panel de control del despliegue bajo la pestaña "Price". En ella los usuarios pueden ver la valoración total diaria, semanal y mensual de los recursos consumidos en el despliegue, y también de forma detallada donde se desglosa la valoración total en la valoración del cómputo, almacenamiento y otros cargos adicionales que se puedan aplicar. Además, el administrador del SDDC también tiene acceso a estadísticas sobre la valoración total sobre el consumo de recursos de un proyecto.
     \end{subsubsection}
     

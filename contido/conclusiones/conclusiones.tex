@@ -1,0 +1,26 @@
+\begin{chapter}{Conclusiones y trabajos futuros}
+    \lettrine{E}{n} este capítulo se expondrán las conclusiones obtenidas durante la realización del proyecto junto con posibles trabajos que se pueden realizar en el futuro sobre la solución propuesta.
+    
+    \begin{section}{Conclusiones}
+        Con la finalización de este proyecto se ha construído a pequeña escala un servicio Cloud que proporciona una solución a las carencias que presenta la infraestructura del CITIC. En caso de implementarse VMware Cloud Foundation, el CITIC podría entregar el servicio para el cual se ha construído su infraestructura y así proporcionar gran cantidad de recursos a sus usuarios de una forma sencilla. Los usuarios podrían autenticarse con sus credenciales de la UDC y gestionar y obtener recursos bajo demanda, y los administradores verían simplificadas las tareas de gestión de la infraestructura, a la vez que obtienen una mayor visibilidad y control de los recursos.
+
+        Con esta solución, las tareas se realizan sobre una infraestructura virtual que automatiza su ejecución, se aportan herramientas para automatizar la resolución de problemas y para controlar el uso que los usuarios hacen de los recursos, se separa la configuración del acceso al servicio de la gestión de credenciales y se limita el control y visibilidad de cada usuario a los recursos que él tiene aprovisionados. Por esto, si bien puede mejorar en algún aspecto, la solución propuesta supone un ahorro en costes de gestión y un incremento en la velocidad de ejecución de las operaciones y en la seguridad del entorno.
+
+        Cabe destacar que con VMware Cloud Foundation la infraestructura del CITIC contaría con una de las plataformas Cloud más completas de la actualidad, con múltiples funcionalidades más allá de las descritas en este proyecto, y que permitiría obtener el máximo rendimiento de los recursos.
+    \end{section}
+    \begin{section}{Trabajos futuros}
+        A partir de este proyecto y conociendo las funcionalidades de la solución propuesta, el siguiente trabajo sería la implementación de VMware Cloud Foundation en la infraestructura del CITIC y así habilitar definitivamente el servicio Cloud para sus usuarios.
+        \\
+        Una mejora sobre el servicio propuesto sería automatizar el proceso de determinación sobre si un usuario ha superado el límite de uso de recursos establecido, ya que sino este proceso tiene que ser realizado por el administrador de forma manual. Una solución podría ser una aplicación externa que se conectara a los componentes de VMware Cloud Foundation a través de su API para obtener cuantos recursos ha consumido un usuario, y luego comprobar si tiene saldo suficiente para seguir utilizando el servicio.
+
+        % A continuación se resume aquello a tener en cuenta para implementar VMware Cloud Foundation sobre la infraestructura del CITIC y qué mejora se podría aplicar a la solución propuesta.
+
+        % El primer paso sería comprobar si la infraestructura cumple con los requisitos mínimos del producto y establecer la arquitectura que se va a implementar para determinar cómo se distribuirán los recursos.
+
+        % Otro aspecto a tener en cuenta son las cargas de trabajo activas en el servicio actual del CITIC. Antes de desplegar el producto es necesario establecer un plan sobre cómo se va a realizar sin afectar a su funcionamiento. Lo ideal sería reservar una parte de los recursos para la instalación de VMware Cloud Foundation, posteriormente migrar los trabajos activos al nuevo entorno y finalmente extender VMware Cloud Foundation sobre el resto de la infraestructura.
+
+        % Una vez desplegado y habilitado el servicio Cloud, se deberían realizar formaciones a los usuarios sobre cómo utilizar el servicio y cómo realizar los diseños que les permitan aprovisionar los recursos que necesiten, y así liberar al administrador de esas tareas.
+
+        % Como punto a mejorar, el servicio carece de automatización a la hora de determinar si un usuario a superado el límite de uso de recursos establecido. Por ello, sería conveniente implementar una aplicación que limitara o bloqueara el uso de recursos cuando un usuario ha superado este límite. Esto podría realizarse con una aplicación externa que se conectara a los componentes de VMware Cloud Foundation a través de su API para determinar cuánto ha consumido un usuario y cuánto más puede consumir.
+    \end{section}
+\end{chapter}
