@@ -1,6 +1,6 @@
 En esta sección se describen las funciones y configuración establecida de los componentes de VCF, tanto los desplegados con la herramienta VLC como los instalados manualmente para completar las funcionalidades de la solución.
 
-Se implementará el modelo de arquitectura consolidado debido a que solo se utilizan cuatro hosts. El entorno estará formado por una Region con una Availability Zone y un Workload Domain con un único cluster vSphere en su interior. El Workload Domain generado se denomina Management Domain a pesar de que contendrá tanto las operaciones de administración como la de los usuarios.
+Se implementará el modelo de arquitectura consolidado debido a que solo se utilizan cuatro hosts. El entorno estará formado por una Region con una Availability Zone y un Workload Domain con un único cluster vSphere en su interior. El Workload Domain generado se denomina Management Domain a pesar de que contendrá tanto las operaciones de administración como las de los usuarios.
 
 \begin{subsubsection}{Diseño de VMware vCenter Server}
   \label{subsubsec:diseno-vcenter}
@@ -69,19 +69,19 @@ Combinando estas dos funcionalidades, las tareas de mantenimiento se reducen ya 
   % En un cluster vSphere se pueden definir múltiples políticas con diferentes configuraciones de disponibilidad del almacenamiento ya que estas se aplican a nivel de VM, es decir, cada VM del entorno puede tener un FTT diferente según sea necesario.
   \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{imaxes/pruebaconcepto/vSANconfig.png}
-    \caption{Ejemplo de como se almacena un archivo con VMware vSAN y FTT igual a uno}
-    \label{fig:vSAN-config-FTT}
-  \end{figure}
-  \FloatBarrier
-  \begin{figure}[h]
-    \centering
     \includegraphics[width=0.7\textwidth]{imaxes/pruebaconcepto/vsan-policies.png}
     \caption{Política de almacenamiento vSAN con FTT igual a dos.}
     \label{fig:vSAN-policies}
   \end{figure}
   \FloatBarrier
-  Utilizar el sistema de almacenamiento de VMware vSAN supone una gran mejora respecto al sistema de almacenamiento basado en LUNs, utilizado actualmente en el CPD del CITIC. VMware vSAN monitoriza los dispositivos de almacenamiento y configura la redundancia de los archivos de forma dinámica y sencilla, permitiendo establecer una configuración específica según sea necesario, sin modificar los dispositivos físicos de almacenamiento. Con el sistema basado en LUNs es obligatorio modificar la estructura y configuración de los dispositivos físicos cada vez que se quiera establecer una configuración de redundancia diferente en el sistema de almacenamiento, lo cual supone un gran coste para el administrador y un aumento de los riesgos. Si tomamos el ejemplo de la figura anterior, la redundancia el sistema gestionado por VMware vSAN, con FTT igual a 1, podría ser aumentada estableciendo la opción de configuración FTT igual a 2. Así, se crearía una nueva copia del archivo en un tercer host/grupo de discos mientras la configuración física se mantiene igual.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imaxes/pruebaconcepto/vSANconfig.png}
+    \caption{Ejemplo de como se almacena un archivo con VMware vSAN y FTT igual a uno}
+    \label{fig:vSAN-config-FTT}
+  \end{figure}
+  \FloatBarrier
+  Utilizar el sistema de almacenamiento de VMware vSAN supone una gran mejora respecto al sistema de almacenamiento basado en LUNs, utilizado actualmente en el CPD del CITIC. VMware vSAN monitoriza los dispositivos de almacenamiento y configura la redundancia de los archivos de forma dinámica y sencilla, permitiendo establecer una configuración específica según sea necesario, sin modificar los dispositivos físicos de almacenamiento. Con el sistema basado en LUNs es obligatorio modificar la estructura y configuración de los dispositivos físicos cada vez que se quiera establecer una configuración de redundancia diferente en el sistema de almacenamiento, lo cual supone un gran coste para el administrador y un aumento de los riesgos. Si tomamos el ejemplo de la figura \ref{fig:vSAN-config-FTT}, la redundancia el sistema gestionado por VMware vSAN, con FTT igual a 1, podría ser aumentada estableciendo la opción de configuración FTT igual a 2. Así, se crearía una nueva copia del archivo en un tercer host/grupo de discos mientras la configuración física se mantiene igual.
   % sts participantes, soporta el fallo de un host lo cual permite dejar hosts fuera de servicio para tareas de mantenimiento. Esto es posible gracias a que con FTT (\textit{Failures-To-Tolerate}) igual a 1 se mantiene la redundancia de los datos almacenados en el \textit{datasotore}, en uno de los hosts. Cada grupo de discos cuenta con cuatro discos uno de ellos para caché, 16 discos en total. Para hacer disponible este servicio de almacenamiento, todos los hosts deben estar conectados a la subred generada para VMware vSAN y utilizar una VLAN para separar su tráfico.
 
 \end{subsubsection}
